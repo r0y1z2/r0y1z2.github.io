@@ -1,0 +1,1262 @@
+<!DOCTYPE html><html lang="zh" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>04 用户和权限管理 | XBCID's BLOG</title><meta name="keywords" content="Linux,openEuler,Huawei,HCIA"><meta name="author" content="XBCID"><meta name="copyright" content="XBCID"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="04 用户和权限管理"><meta name="application-name" content="04 用户和权限管理"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="04 用户和权限管理"><meta property="og:url" content="http://example.com/2025/02/14/openEuler/%E7%AC%94%E8%AE%B0/IA/04%20%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/index.html"><meta property="og:site_name" content="XBCID's BLOG"><meta property="og:description" content="#Huawei #Linux   本章节主要讲述openEuler中用户和权限管理的相关内容。通过本章节的学习，您将能够了解openEuler中用户和组的基础概念，并且熟悉文件及目录的创建、删除、修改等命令行的使用方法。在了解了openEuler中用户所涉及的相关知识点之后，会结合文件权限管理的相关"><meta property="og:locale" content="zh"><meta property="og:image" content="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg"><meta property="article:author" content="XBCID"><meta property="article:tag"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg"><meta name="description" content="#Huawei #Linux   本章节主要讲述openEuler中用户和权限管理的相关内容。通过本章节的学习，您将能够了解openEuler中用户和组的基础概念，并且熟悉文件及目录的创建、删除、修改等命令行的使用方法。在了解了openEuler中用户所涉及的相关知识点之后，会结合文件权限管理的相关"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="http://example.com/2025/02/14/openEuler/%E7%AC%94%E8%AE%B0/IA/04%20%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/"><link rel="preconnect" href="//cdn.cbd.int"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: {"enable":true,"img":"https://upload-bbs.miyoushe.com/upload/2024/07/27/125766904/ba62475f396df9de3316a08ed9e65d86_5680958632268053399..png"},
+  postHeadAiDescription: {"enable":true,"gptName":"AnZhiYu","mode":"local","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"xxxx","Referer":"https://xx.xx/"},
+  diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
+  LA51: undefined,
+  greetingBox: undefined,
+  twikooEnvId: '',
+  commentBarrageConfig:undefined,
+  music_page_default: "nav_music",
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: undefined,
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: XBCID","link":"链接: ","source":"来源: XBCID's BLOG","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: 'XBCID's BLOG',
+  title: '04 用户和权限管理',
+  postAI: '',
+  pageFillDescription: '0x01 管理用户和组, 1.1 用户的基础概念, 1.1.1 用户UID, 1.1.2 区分用户类别, 1.2 用户相关管理命令, 1.2.1 管理用户, 1.2.2 创建用户 - useradd, 1.2.3 修改用户 - usermod, 1.2.4 删除用户 - userdel, 1.2.5 修改用户密码 - passwd, 1.3 用户组的基础概念, 1.3.1 用户组GID, 1.3.2 用户组分类, 1.3.3 用户和用户组的关系, 1.4 用户组相关管理命令, 1.4.1 创建组 - groupadd, 1.4.2 修改组 - groupmod, 1.4.3 删除组 - Groupdel, 1.4.4 关联用户和组 - gpasswd, 1.4.5 用户和组的关联文件, 1.4.5.1 用户关联文件–x2Fetcx2Fpasswd, 1.4.5.2 用户关联文件–x2Fetcx2Fshadow, 1.4.5.3 用户组关联的文件, 1.4.5.4 用户组文件–x2Fetcx2Fgroup文件, 1.4.5.5 x2Fetcx2Fgshadow文件, 0x02 用户权限管理, 2.1 文件权限的基本概念, 2.1.1 权限概述, 2.1.2 权限示例, 2.1.2.1 文件类型, 2.1.2.2 权限位说明, 2.2 文件权限的操作命令, 2.2.1 常用权限设置命令, 2.2.2 修改文件权限 - chmod, 2.2.3 修改文件权限 - chown, 2.2.4 修改文件权限 - chgrp, 2.2.5 预设权限掩码 - umask, 2.3 访问控制列表 - ACL, 2.3.1 ACL - 相关命令, chacl：更改文件或目录的ACL  - 与chmod相似但是更为强大精细通过chmod可以控制文件被何人调用但若是某一用户的文件只想给特定的用户看时则需要chacl出场完成用户的需求, 2.3.2 获取文件ACL - getfacl, 2.3.3 设置文件ACL - setfacl, 2.3.4 更改文件或目录ACL - chacl, 0x03 其他权限管理, 3.1 命令 - sux2Fsu -, 3.2 命令 - sudo本章节主要讲述中用户和权限管理的相关内容通过本章节的学习您将能够了解中用户和组的基础概念并且熟悉文件及目录的创建删除修改等命令行的使用方法在了解了中用户所涉及的相关知识点之后会结合文件权限管理的相关知识使得您能够了解文件权限的相关配置以及具体的操作命令学完本课程后您将能够掌握用户和组的基础概念掌握文件和目录的相关命令行操作掌握文件权限的相关配置及操作命令掌握文件访问的特殊控制方法管理用户和组用户的基础概念是一个多用户的操作系统所有要使用系统资源的用户需要先向系统管理员申请一个账号之后以此账号进入系统可以在系统上建立多个用户而多个用户可以在同一时间内登录至同一系统执行不同的任务并不会相互影响用户用户是能够获取系统资源的权限的集合每个用户都会分配一个特有的号用户组是具有相同特征用户的逻辑集合有时我们需要让多个用户具有相同的权限比如查看修改某一个文件的权限一种方法是分别对多个用户进行文件访问授权如果有个用户的话就需要授权次显然这种方法不太合理另一种方法是建立一个组让这个组具有查看修改此文件的权限然后将所有需要访问此文件的用户放入这个组中那么所有用户就具有了和组一样的权限这就是用户组将用户分组是系统中对用户进行管理及控制访问权限的一种手段通过定义用户组在很大程度上简化了管理工作用户指的是用户的一个用户标示一个给定用户是用户的唯一标示符通过可以区分不同用户的类别用户在登录系统时是通过来区分用户而不是通过用户名来区分超级用户也称为用户它的为超级用户拥有系统的完全控制权可以进行修改删除文件等操作也可以运行各种命令所以在使用用户时要十分谨慎普通用户也称为一般用户它的为之间普通用户可以对自己目录下的文件进行访问和修改也可以对经过授权的文件进行访问虚拟用户也称为系统用户它的为之间虚拟用户最大的特点是不提供密码登录系统它们的存在主要是为了方便系统的管理通常普通用户的大于因为在添加普通用户时系统默认用户从开始编号根用户也就是用户它的是也被称为超级用户账户拥有对系统的完全控制权可以修改删除任何文件运行任何命令所以用户也是系统里面最具危险性的用户用户甚至可以在系统正常运行时删除所有文件系统造成无法挽回的灾难所以一般情况下使用用户登录系统时需要十分小心可以超越任何用户和用户组来对文件或目录进行读取修改或删除在系统正常的许可范围内对可执行程序的执行终止对硬件设备的添加创建和移除等也可以对文件和目录进行属主和权限进行修改以适合系统管理的需要因为是系统中权限最高的特权用户区分用户类别通过查看不同用户来区分用户的类别为超级用户普通用户或是虚拟用户查看命令相关参数只输出有效对于输出名字而不是数值对于输出真实而不是有效为时标识的是超级用户即用户为之间标识的是普通用户为之间标识的是虚拟用户即系统用户用户组的分类管理员具有使用系统所有权限的用户其为普通用户即一般用户其使用系统的权限受限其为之间此处书上给出时但结合来看应该是系统用户保障系统运行的用户一般不提供密码登录系统其为之间用户组分类普通用户组可以加入多个用户系统组一般加入一些系统用户私有组也称基本组当创建用户时如果没有为其指明所属组则就为其定义一个私有的用户组起名称与用户名同名注私有组可以变成普通用户组当把其他用户加入到该组中则其就变成了普通组将用户分组是系统中对用户进行管理及控制访问权限的一种手段通过定义用户组很多程序上简化了对用户的管理工作用户相关管理命令管理用户在系统中每个普通用户都有一个账号包括用户名密码和主目录等信息除此之外还有一些系统本身创建的特殊用户具有特殊的存在意义其中最重要的用户就是管理员账户默认的用户名为也就是超级用户通过操作命令行能够对用户文件进行创建修改删除更改密码等操作创建用户命令可用来创建用户账号并保存在文件中语法其中的命令选项说明如下指定用户配合属性允许重复指明用户所属基本组既可为用户组名也可为该组必须已存在指定用户的目录并自动创建用户目录指明用户的默认程序显示或更改默认配置常用用法显示创建用户所使用的默认值修改创建用户所使用的默认值创建名为的用户创建时给用户创建家目录创建时不创建用户的家目录指定新用户的家目录为根目录指定新用户的指定新用户的该组必须先存在把用户加到三个附加组里允许重复使用指定的程序配置文件也影响着创建新用户的各项参数修改用户可用来修改用户账号的各类信息语法其中的命令选项说明如下修改用户修改用户所属用户组修改用户账号名称修改用户目录修改用户默认程序用户基本信息保存在数据库中其记录由用冒号分隔的个字段组成命令可以修改其中的个字段其他参数说明备注修改用户帐号的备注文字登入目录修改用户登入时的目录有效期限修改帐号的有效期限缓冲天数修改在密码过期后多少天即关闭该帐号群组修改用户所属的群组群组修改用户所属的附加群组帐号名称修改用户帐号名称锁定用户密码使密码无效修改用户登入后所使用的修改用户解除密码锁定修改用户示例修改一个用户查看修改前用户修改为通过查看发现已更改删除用户用于删除指定的用户以及与该用户相关的文件语法其中得命令选项说明如下强制删除用户账号即使用户当前处于登录状态删除用户同时删除与用户相关的所有文件显示命令的帮助信息命令用于删除指定的用户以及用户相关的文件实际上是对系统的用户账号文件进行了修改如果想同时删除该用户的主目录以及其中所有内容要使用参数递归删除不建议直接删除已经进入系统的用户如果需要强制删除请使用命令若输入删除操作命令时没有加入参数选项则仅仅会删除用户账号而不删除相关文件删除用户示例删除一个测试用户查看删除前用户通过删除用户通过命令再次查看发现用户已删除修改用户密码用来修改用户的密码语法其中的命令选项说明如下设置修改密码最短天数设置修改密码最长天数设置用户在密码过期前多少天收到警告信息设置密码过期多少天后禁用账号删除用户密码显示用户密码信息用户可以修改任何用户的密码普通用户只能修改自身的密码注意命令行操作需在权限下进行其他参数选项强制执行保留即将过期的用户在期满后仍能使用修改群组密码使密码过期锁定用户密码被锁定的用户不能登录接触用户密码的锁定状态修改用户密码示例修改一个测试用户的密码通过查看修改前密码显示为通过修改用户密码再次通过查看密码是否修改成功通过查看发现密码修改成功用户组的基础概念用户组具有相同特性用户的逻辑集合通过组的形式使得具有相同特性的多个用户能够拥有相同的权限便于管理每一个用户都拥有自己的私有组同一组内的所有用户可以共享该组下的文件每一个用户组都会被分配一个特有的号用户组是具有相同特征用户的逻辑集合有时我们需要让多个用户具有相同的权限比如查看修改某一个文件的权限一种方法是分别对多个用户进行文件访问授权如果有个用户的话就需要授权次显然这种方法不太合理另一种方法是建立一个组让这个组具有查看修改此文件的权限然后所有需要访问此文件的用户放入这个组中那么所有用户就具有了和组一样的权限这就是用户组将用户分组是系统中对用户进行管理及控制访问权限的一种手段通过定义用户组在很大程度上简化了管理工作用户组用户组简称和用户类似作为唯一标识符来标示系统中的一个用户组在添加账户时默认情况下会同时建立一个与用户同名且和相同的组与都会将赋予给超级用户或者具有超级用户的用户组也就是用户组系统会预留一些较前的给虚拟用户也称为系统用户可以通过输入命令行查看用户组以及每个用户组下拥有的用户数量每个系统预留的都有所不同比如预留了个在创建目录和文件时会使用默认的用户组用户组分类用户组分类普通用户组可以加入多个用户系统组一般加入的用户为系统用户私有组也称为基本组在创建用户时如果没有为其指明所属用户组则会为该用户定义一个私有用户组且该用户组名称与用户名同名用户组的分类管理员具有使用系统所有权限的用户其为普通用户即一般用户其使用系统的权限受限其为之间系统用户保障系统运行的用户一般不提供密码登录系统其为之间注私有组可以变成普通用户组当把其他用户加入到该组中则其就变成了普通将用户分组是系统中对用户进行管理及控制访问权限的一种手段通过定义用户组很多程序上简化了对用户的管理工作用户和用户组的关系一对一一个用户可以存在一个用户组中成为组中的唯一成员一对多一个用户可以存在多个用户组中该用户具有多个组的共同权限多对一多个用户可以存在一个用户组中这些用户具有和组相同的权限多对多多个用户可以存在多个用户组中其实就是以上三种关系的扩展用户组相关管理命令随着用户的不断增多用户权限的把控变得复杂繁重对系统的安全管理产生负面影响用户组的加入使得每一个用户至少属于一个用户组从而便利了权限管理用户和用户组管理是系统安全管理的重要组成部分通过操作命令行能够对用户组文件进行创建修改删除以及关联用户等操作创建组可用来创建一个新的用户组并将新用户信息添加到系统文件中语法其中的命令选项说明如下如果组已存在则成功退出为新用户组所使用的显示此帮助信息并退出允许创建有重复的组为新用户组使用此加密过的密码创建一个系统账户到的目录不使用中的默认值创建组示例通过创建一个新的测试用户组通过命令查看用户组是否创建成功查看后发现新的测试组创建成功修改组可用来更改群组识别码或者名称语法其中的命令选项说明如下修改为要使用的显示此帮助信息并退出修改为要使用的组名称允许使用重复的更改密码加密过的修改组示例修改一个测试用户组查看测试用户原通过修改测试用户组为再次查看发现已修改成功需要注意的是这是对用户组进行的修改所以不可以重复或者选项删除组可用来删除用户组但若是用户组中包含一些用户需先删除掉用户后再删除用户组语法其中的命令选项说明如下即便是用户的主组也继续删除显示此帮助信息并退出命令用于从系统中删除组需要注意的是若是在组中仍然包括某些用户此时需要先删除这些用户后才能删除组功能说明用于删除指定的用户组此命令不能删除用户归属的主用户组关联用户和组可以用来添加或删除用户到组中语法其中的命令选项说明如下向组中添加用户从组中添加或删除用户设置组的成员列表设置组的管理员列表移除组的密码向其成员限制访问组要进的目录添加用户到某一个组可以使用这个命令可以添加一个用户到指定的组但是以前添加的组就会清空掉所以想要添加一个用户到一个组同时保留以前添加的组时请使用这个命令来添加操作用户即更改目录在系统中系统默认的目录结构都是以即是以根开始的而在使用之后系统的目录结构将以指定的位置作为位置的好处增加了系统的安全性限制了用户的权力建立一个与原系统隔离的系统目录结构方便用户的开发切换系统的根目录位置引导系统启动以及急救系统等关联用户和组示例关联一个测试用户和测试组将用户添加到用户组中通过命令查看到已将用户加入到组中用户和组的关联文件下涉及到管理用户信息的文件一般有以下两种用户账户文件在这个文件中保存着系统中所有用户的主要信息每一行代表着一个记录每一行用户记录中定义了用户各个方面的相关属性用户账号信息加密文件又称为影子文件用于存储系统中用户的密码信息由于文件允许所有用户读取容易导致密码泄露因此将密码信息从该文件中分离出来单独放置在文件中用户关联文件文件每一行由七个字段的数据组成且字段之间用隔开中的是指一个面向用户的命令接口表现形式为一个可以由用户登陆的界面的有很多种等是建立在内核的基础上且面向与于用户的一种表现形式文件相关参数由分割成个字段每个字段的具体含义是用户名如第一行中的就是用户名用户名字符可以是大小写字母数字减号不能出现在首位点以及下划线其他字符不合法虽然用户名中可以出现点但不建议使用尤其是首位为点时另外减号也不建议使用因为容易造成混淆存放该用户的密码早期的系统口令确实是存放在这里但是基于对安全因素的考虑之后就将密码存放到中了此处的对应的就是文件中的密码这个数字代表用户标识号也叫做系统就是通过这个数字来对用户进行识别就是我们可以修改用户的为此时系统就会认为和为同一个账户通常的取值范围是但实际上已经可以支持到是超级用户的标识号为系统用户保留普通用户的标识号从开始如果我们自定义建立一个普通用户你会看到该账户的标识号是大于或等于的代表用户组标识也叫做这个字段对应着中的一条记录其实和基本上是类似的备注信息该字段没有实际意义主要记录该用户的一些属性例如姓名电话地址等等用户的目录当用户登录时就处在这个目录下的目录是普通用户的家目录是这个字段是可以自定义的比如你建立一个普通用户要想让的家目录在目录下只要修改文件中那行中的该字段为即可用户登录后要启动一个进程用来将用户下达的指令传给内核这就是的有很多种等而的就是查看文件该字段中除了外还有比较多它表示不允许该账号登录如果你想建立一个账号不让登录那么就可以把该字段改成默认是用户关联文件文件只有超级用户用户具有读权限其他用户均没有权限从而保证了用户密码的安全性密码在经由保护后在文件的用户记录中只会以的形式呈现与文件相似每一行记录代表一个用户且以隔开不同之处在于书上有误中每行记录被分为九个字段在安装系统时默认会自动开启保护若是发现未启用保护可以通过来启用当然也可以通过来取消保护这里说到的操作仅允许用户执行文件相关参数注由命令根据中的数据自动产生我们常常会因为某些原因忘记自己的账号密码这个时候该怎么办难道我们就不能再次使用这个账户了吗其实是有解决办法的可以通过账户来解决这个问题它可以在不知道密码的情况下重新为你配置好指定账户的密码这步是利用了的身份使用命令但是若是账户的密码忘记了我们就需要重新启动进入单用户模式系统会提供对应的接口那么此时呢我们就可以利用命令来修改账户密码也可以通过挂载根目录的形式来修改从而将账户的密码清空这个方式可以使得账户不需要密码就可以登录这里建议登陆后来使用命令配置对应的密码加密的密码这里可以看到类分别是字符串和其中字符串就是加密过的密码文件星号代表帐号被锁定双叹号表示这个密码已经过期了字符串是以开头的表明是用加密的表明是用加密的是用加密的是用加密的用户组关联的文件下涉及到管理用户组信息的文件一般有以下两种组信息文件在这个文件中保存着用户组的所有信息每一行记录代表一个用户组将用户分组是对用户进行管理及控制访问权限的一种手段每个用户都属于一个用户组一个组中可以有多个用户一个用户也可以属于不同的组组信息加密文件在这个文件中会保存用户组加密信息比如说用户组管理密码就保存在此与文件相似与文件互补对于大型服务器来说拥有很多用户和组此时会针对这些用户和组来生成一些复杂的权限模型此时设置并管理密码就显得尤为重要用户组文件文件文件每一行由四个字段的数据组成且字段之间用隔开这里我们以用户为例根据用户的文件记录来了解文件用户组记录中相关字段的意义文件相关参数组名也就是是用户组的名称有字母或数字构成同中的用户名一样组名也不能重复组密码和文件一样这里的仅仅是密码标识真正加密后的组密码默认保存在文件中用户组密码主要是用来指定组管理员的由于系统中的账号可能会非常多用户可能没有时间进行用户的组调整这时可以给用户组指定组管理员如果有用户需要加入或退出某用户组可以由该组的组管理员替代进行管理但是这项功能目前很少使用我们也很少设置组密码如果需要赋予某用户调整某个用户组的权限则可以使用命令代替组就是群组的号系统就是通过来区分用户组的同用户名一样组名也只是为了便于管理员记忆这里的组与文件中第个字段的相对应实际上文件中使用对应的群组名就是通过此文件对应得到的组中的用户列表此字段列出每个群组包含的所有用户需要注意的是如果该用户组是这个用户的初始组则该用户不会写入这个字段可以这么理解该字段显示的用户都是这个用户组的附加用户文件文件每一行由四个字段的数据组成且字段之间用隔开这里我们以用户为例根据用户的文件记录来了解文件中相关字段的意义文件相关参数组名同文件中的组名相对应组密码对于大多数用户来说通常不设置组密码因此该字段常为空但有时为指的是该群组没有组密码也不设有群组管理员组管理员从系统管理员的角度来说该文件最大的功能就是创建群组管理员考虑到系统中账号太多而超级管理员可能比较忙碌因此当有加入某群组时或许不能及时作出回应这种情况下如果有群组管理员那么他就能将用户加入自己管理的群组中也就免去麻烦了由于目前有之类的工具因此群组管理员的这个功能已经很少使用了组中的附加用户该字段显示这个用户组中有哪些附加用户和文件中附加组显示内容相同用户权限管理文件权限的基本概念权限概述权限是操作系统用来限制对资源访问的一种机制权限一般分为读写执行在系统中不同的用户所处的地位也不尽相同不同地位的用户拥有不同的权限等级为了保证系统的安全性系统针对不同用户的权限制定了不同的规则在系统中每个文件或目录都具有特定的访问权限所属用户及所属组通过这些规则可以限制什么用户什么组可以对特定的文件执行什么样的操作通过权限的设定可以划分出以下三种访问方式来限制用户的访问权限只允许自己访问允许一个指定的用户组中的用户访问允许系统中的任意用户访问权限示例示例通过命令可将文件权限的详细信息呈现出来以用户文件信息为引文件类型示例中每一行第一位代表的是文件类型在中有七种文件类型文件类型解释说明普通文件除去其他六种类型文件目录块设备文件可随机存取装置字符设备文件键盘鼠标等一次性读取装置符号链接文件指向另一文件命名管道文件套接字文件权限位说明文件或目录的权限位是由个权限位来控制的每三位为一组都是三个参数的组合其中代表的是读权限代表的是写权限代表的是执行权限且三个权限位的位置在文件或目录中是不变的若是没有权限则用表示读权限对应数字写权限对应数字执行权限对应数字没有任何权限对应数字每个文件的属性由从左到右依次为字符组成在文件信息中显示为允许读取文件内容或目录下全部内容允许写文件或在目录下创建删除文件允许执行文件或进入目录无任何权限显示方式在的位置处显示为以文件为例位置权限代号对应二进制对应十进制权限详情第位文件属主可读可写可执行第位同组用户可读不可写可执行第位其他用户可读不可写可执行读权限针对于文件具有读取文件实际内容的权限针对于目录具有读取目录结构列表的权限写权限针对于文件具有编辑增加或修改文件内容的权限针对于目录具有修改删除或移动目录内文件的权限执行权限针对于文件具有执行文件的权限针对于目录具有进入目录的权限文件权限的操作命令常用权限设置命令命令修改文件权限的文件调用权限分为三级文件所有者群组及其他通过命令可以控制文件被何人调用使用权限文件所有者命令修改文件属主属组只允许管理员做为多用户多任务系统所有文件都有其所有者通过可以将特定文件的所有者更改为指定用户或组使用权限管理员用户命令修改文件属组通过命令可以对文件或目录的所属群组进行更改使用权限管理员用户命令遮罩码通过命令可以指定在建立文件时进行权限掩码的预设使用权限管理员和普通用户修改文件权限文件调用权限针对于文件所有者所属组以及其他人使用可以对文件的调用权限进行修改语法其中的命令选项说明如下操作对象用户表示文件或目录所有者用户组表示文件或目录所属组其他用户所有用户操作符添加权限减少权限给定特定权限赋予的权限读权限写权限执行权限根据配置场景可以同时修改文件的一组权限也可以只修改文件的某个权限修改文件权限示例同时修改测试文件的所有权限修改文件权限利用可以将指定文件的所有者改为指定的用户或组语法其中的命令选项说明如下显示更改的部分的信息忽略错误信息修复符号链接显示详细的处理信息处理指定目录以及其子目录下的所有文件根据配置场景可以只修改属主也可以只修改属组亦可以同时修改属主属组显示更改的部分的信息忽略错误信息修复符号链接显示详细的处理信息处理指定目录以及其子目录下的所有文件显示辅助说明显示版本修改文件权限示例修改文件权限可用来修改文件或目录的所属组语法其中的命令选项说明如下显示指令执行过程效果类似参数但是只回报更改的部分不显示错误信息只修改符号连接的文件而不对其他任何相关文件进行变动递归处理即将指定目录下的所有文件及子目录一并处理根据配置场景更改文件所属群组或效果类似参数但仅回报更改的部分或或不显示错误信息或只对符号连接的文件作修改而不更动其他任何相关文件或递归处理将指定目录下的所有文件及子目录一并处理或显示指令执行过程在线帮助参考文件或目录把指定文件或目录的所属群组全部设成和参考文件或目录的所属群组相同显示版本信息修改文件权限示例更改文件所属组如果不存在的组会报错预设权限掩码可用来指定在建立文件或目录时进行权限掩码的预设是一个和类系统中的命令用来设置或显示当前的文件创建掩码它控制着新文件和目录的默认权限在系统中每个文件和目录都有一组访问权限这些权限决定了谁能读取写入或执行它们的作用是指定默认权限的屏蔽值即哪些权限将被屏蔽掉或去掉的计算权限分为三部分所有者所属组和其他用户每一部分权限的八进制表示是读权限写权限执行权限例如读写执行权限读写权限读执行权限用的是一个屏蔽值它会从默认的权限值中减去这个掩码文件的默认权限是即所有人都可以读写文件默认没有执行权限目录的默认权限是即所有人都可以读写执行目录示例查看当前值执行命令可以查看当前的掩码值这表示默认权限会减去即其他用户没有写权限设置新的值要设置新的值可以使用命令并指定一个新的掩码值复制代码这表示默认的文件权限将减去文件的权限为所有者有读写权限组和其他用户只有读权限的影响新文件的权限默认情况下文件的权限是如果设置为新文件的权限会变成新目录的权限默认情况下目录的权限是如果设置为新目录的权限会变成常见的值新文件权限为新目录权限为常见设置新文件权限为新目录权限为限制权限仅所有者有读写权限新文件权限为新目录权限为组用户也有写权限语法其中的命令选项说明如下显示命令名称文字形式表示权限掩码常见值及与之对应的文件或目录权限或效果类似参数但仅回报更改的部分或或不显示错误信息或只对符号连接的文件作修改而不更动其他任何相关文件或递归处理将指定目录下的所有文件及子目录一并处理或显示指令执行过程在线帮助参考文件或目录把指定文件或目录的所属群组全部设成和参考文件或目录的所属群组相同显示版本信息预设权限掩码示例修改文件权限掩码通过来查看为修改权限掩码前值使用命令进行权限的修改再通过查看后发现权限掩码已修改访问控制列表常用权限的操作命令及已经可以对文件权限进行修改那么为什么还会出现访问控制列表在没有技术之前系统对文件的权限控制仅可划分文件的属主用户组其他用户三类随着技术的发展传统的文件权限控制已经无法使用复杂场景下的权限控制需求比如说一个部门即一个用户组存在有多名员工即用户针对于部门内不同职责的员工会为其赋予不同的权限如为赋予可读写权限为赋予只读权限不为赋予任何权限此时由于这些员工属于同一部门就无法为这些不同的员工进行权限的细化为此访问控制列表技术应运而生使用权限控制可以提供常见权限如权限之外的权限设置可以针对单一用户或组来设置特定的权限常见类型针对文件所有者分配权限针对文件所属用户组分配权限针对其他用户分配使用必须要由文件系统支持目前绝大多数的文件系统都支持相关命令在里我们可以通过来管理某个文件及其特定的用户和用户组权限简单来说只需掌握三个命令即可设置文件的根据文件所有者所属群组及其他用户三级权限进行权限分配而则可以针对每一文件或目录进行更加精准的权限分配获取文件的更改文件或目录的与相似但是更为强大精细通过可以控制文件被何人调用但若是某一用户的文件只想给特定的用户看时则需要出场完成用户的需求使用必须要由文件系统支持目前绝大多数的文件系统都支持获取文件可获取文件或目录的访问控制列表语法其中的命令选项说明如下仅显示文件访问控制列表仅显示默认的访问控制列表不限时注释表头显示所有的有效权限显示无效权限跳过只有基条目的文件相关参数仅显示文件访问控制列表仅显示默认的访问控制列表不显示注释表头显示所有的有效权限显示无效权限跳过只有基条目的文件递归显示子目录逻辑遍历跟随符号链接物理遍历不跟随符号链接使用制表符分隔的输出格式显示数字的用户组标识不去除路径前的符号显示版本并退出显示本帮助信息示例通过查看文件名为的文件的所有有效权限命令为设置文件可用来设置文件的语法其中的命令选项说明如下修改指定文件的不能和混合使用删除后续参数删除所有设定参数移除预设的参数递归设置参数预设目录的参数设置文件示例为文件添加用户名为的用户的读写权限使用命令来添加用户名为的读写权限并再通过查看发现已添加更改文件或目录可用来设置文件或目录的控制权限语法其中的命令选项说明如下同时修改文件权限和默认目录权限设置目录的默认权限只删除文件的权限只删除目录的权限删除所有权限列出所有文件和目录权限设置所有目录和子目录下的权限更改文件或目录示例清除文件名为的文件上的设置命令其他权限管理中默认账户为普通用户但是在更改系统文件或者执行某些命令时都需要以用户的权限才能进行此时就需要将默认的普通用户更改为用户在切换用户身份时常常用到的命令有三种此命令在切换用户时仅切换用户身份但环境仍为普通用户此命令在切换用户时用户身份和环境都会切换为用户此命令可以允许普通用户执行管理员账户才能执行的命令命令可用来更改用户身份但不会更改环境语法其中的命令选项说明如下执行时不会改变环境变量指定要执行的等变更账号为的使用者并在执行完后为变为原使用者不需要读启动档仅用于或示例将账户身份变更为且将详细信息显示出来命令命令可允许普通用户执行用户才能执行的任务语法其中的命令选项说明如下显示版本号以及指令的使用说明使使用者在下次执行时询问密码显示版本编号显示使用者的权限显示设置参数说明显示版本编号会显示版本编号及指令的使用方式说明显示出自己执行的使用者的权限因为在第一次执行时或是在分钟内没有执行预设为五会问密码这个参数是重新做一次确认如果超过分钟也会问密将会强迫使用者在下一次执行时问密码不论有没有超过分钟码将要执行的指令放在背景执行可以更改问密码的提示语其中会代换为使用者的帐号名称会显示主机名称不加此参数代表要以的身份执行指令而加了此参数可以以的身份执行指令为该的使用者号码执行环境变数中的所指定的或是里所指定的将环境变数中的家目录指定为要变更身份的使用者家目录如不加参数就是系统管理者要以系统管理者身份或以更改为其他人执行的指令本章主要介绍了中用户和组的基础概念以及具体添加用户和组的命令及方式之后介绍了文件权限的相关概念了解到了常见的读权限写权限及执行权限的相关概念并学习了如何针对文件或目录进行权限的修改最后学习了文件权限中的一些特殊权限包括及以及访问控制列表并结合相关参数及示例演示熟悉了如何使用相关命令来对文件或目录进行对应的权限修改',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-05-19 03:44:48',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://npm.elemecdn.com/anzhiyu-blog-static@1.0.4/img/avatar.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><a id="site-name" href="/" accesskey="h"><div class="title">XBCID's BLOG</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" target="_blank"><img class="post-qr-code-img" alt="微信" src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" target="_blank"><img class="post-qr-code-img" alt="支付宝" src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/HCIA/" style="font-size: 1.05rem;">HCIA<sup>9</sup></a><a href="/tags/HCIP/" style="font-size: 1.05rem;">HCIP<sup>6</sup></a><a href="/tags/Huawei/" style="font-size: 1.05rem;">Huawei<sup>15</sup></a><a href="/tags/Linux/" style="font-size: 1.05rem;">Linux<sup>18</sup></a><a href="/tags/openEuler/" style="font-size: 1.05rem;">openEuler<sup>18</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/05/"><span class="card-archive-list-date">May 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">23</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/03/"><span class="card-archive-list-date">March 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">6</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/02/"><span class="card-archive-list-date">February 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">8</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="article-meta tags"><a class="article-meta__tags" href="/tags/Linux/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>Linux</span></a><a class="article-meta__tags" href="/tags/openEuler/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>openEuler</span></a><a class="article-meta__tags" href="/tags/Huawei/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>Huawei</span></a><a class="article-meta__tags" href="/tags/HCIA/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>HCIA</span></a></span></div></div><h1 class="post-title" itemprop="name headline">04 用户和权限管理</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2025-02-14T09:22:46.000Z" title="发表于 2025-02-14 17:22:46">2025-02-14</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2025-05-18T19:44:48.595Z" title="更新于 2025-05-19 03:44:48">2025-05-19</time></span></div><div class="meta-secondline"><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为重庆"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>重庆</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src=""></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="http://example.com/2025/02/14/openEuler/%E7%AC%94%E8%AE%B0/IA/04%20%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/"><header><a href="/tags/Linux/" tabindex="-1" itemprop="url">Linux</a><a href="/tags/openEuler/" tabindex="-1" itemprop="url">openEuler</a><a href="/tags/Huawei/" tabindex="-1" itemprop="url">Huawei</a><a href="/tags/HCIA/" tabindex="-1" itemprop="url">HCIA</a><h1 id="CrawlerTitle" itemprop="name headline">04 用户和权限管理</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">XBCID</span><time itemprop="dateCreated datePublished" datetime="2025-02-14T09:22:46.000Z" title="发表于 2025-02-14 17:22:46">2025-02-14</time><time itemprop="dateCreated datePublished" datetime="2025-05-18T19:44:48.595Z" title="更新于 2025-05-19 03:44:48">2025-05-19</time></header><p>#Huawei #Linux </p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/04%20%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/2024120602-4634377.png"></p>
+<p>本章节主要讲述openEuler中用户和权限管理的相关内容。通过本章节的学习，您将能够了解openEuler中用户和组的基础概念，并且熟悉文件及目录的创建、删除、修改等命令行的使用方法。在了解了openEuler中用户所涉及的相关知识点之后，会结合文件权限管理的相关知识，使得您能够了解文件权限的相关配置以及具体的操作命令。</p>
+<p>学完本课程后，您将能够：</p>
+<ul>
+<li>掌握用户和组的基础概念</li>
+<li>掌握文件和目录的相关命令行操作</li>
+<li>掌握文件权限的相关配置及操作命令</li>
+<li>掌握文件访问的特殊控制方法</li>
+</ul>
+<hr>
+<h2 id="0x01-管理用户和组"><a href="#0x01-管理用户和组" class="headerlink" title="0x01 管理用户和组"></a>0x01 管理用户和组</h2><h3 id="1-1-用户的基础概念"><a href="#1-1-用户的基础概念" class="headerlink" title="1.1 用户的基础概念"></a>1.1 用户的基础概念</h3><ul>
+<li>Linux是一个多用户的操作系统：<ul>
+<li>所有要使用系统资源的用户需要先向系统管理员申请一个账号，之后以此账号进入系统</li>
+<li>可以在系统上建立多个用户,而多个用户可以在同一时间内登录至同一系统执行不同的任务，并不会相互影响</li>
+</ul>
+</li>
+<li>用户：<ul>
+<li>用户是能够获取系统资源的权限的集合</li>
+<li>每个用户都会分配一个特有的id号-uid</li>
+</ul>
+</li>
+</ul>
+<p><strong>用户组是具有相同特征用户的逻辑集合，</strong><br>有时我们需要让多个用户具有相同的权限，比如查看、修改某一个文件的权限，一种方法是分别对多个用户进行文件访问授权，如果有10个用户的话，就需要授权10次，显然这种方法不太合理；另一种方法是建立一个组，让这个组具有查看、修改此文件的权限，然后将所有需要访问此文件的用户放入这个组中，那么所有用户就具有了和组一样的权限。这就是用户组，<br><strong>将用户分组是Linux 系统中对用户进行管理及控制访问权限的一种手段，</strong><br>通过定义用户组，在很大程度上简化了管理工作。</p>
+<h4 id="1-1-1-用户UID"><a href="#1-1-1-用户UID" class="headerlink" title="1.1.1 用户UID"></a>1.1.1 用户UID</h4><p><strong>UID指的是用户的ID（User ID）</strong>，一个用户UID标示一个给定用户，UID是用户的唯<br>一标示符，通过UID可以区分不同用户的类别（用户在登录系统时是通过<strong>UID</strong>来区分<br>用户，而不是通过用户名来区分）：</p>
+<ul>
+<li>超级用户：也称为root用户，它的UID为0，超级用户拥有系统的完全控制权，可以进行修改、删除文件等操作，也可以运行各种命令，所以在使用root用户时要十分谨慎；</li>
+<li>普通用户:也称为一般用户，它的UID为1000-60000之间，普通用户可以对自己目录下的文件进行访问和修改，也可以对经过授权的文件进行访问。</li>
+<li>虚拟用户：也称为系统用户，它的UID为1-999之间，虚拟用户最大的特点是不提供密码登录系统，它们的存在主要是为了方便系统的管理</li>
+</ul>
+<p>通常普通用户的UID大于1000，因为在添加普通用户时，系统默认用户ID从1000开始编号。 根用户也就是root用户，它的ID是0，也被称为超级用户，root账户拥有对系统的完全控制权：可以修改、删除任何文件，运行任何命令。所以root用户也是系统里面最具危险性的用户，root用户甚至可以在系统正常运行时删除所有文件系统，造成无法挽回的灾难。所以一般情况下，使用root用户登录系统时需要十分小心。</p>
+<p>root可以超越任何用户和用户组来对文件或目录进行读取、修改或删除（在系统正常的许可范围内）；对可执行程序的执行、终止；对硬件设备的添加、创建和移除等；也可以对文件和目录进行属主和权限进行修改，以适合系统管理的需要（因为root是系统中权限最高的特权用户）。</p>
+<h4 id="1-1-2-区分用户类别"><a href="#1-1-2-区分用户类别" class="headerlink" title="1.1.2 区分用户类别"></a>1.1.2 区分用户类别</h4><ul>
+<li><p>通过查看不同用户UID来区分用户的类别为超级用户、普通用户或是虚拟用户。</p>
+</li>
+<li><p>查看UID命令：<code>id [option] [user_name]</code>。</p>
+</li>
+<li><p>相关参数：</p>
+<ul>
+<li>-u，-user只输出有效UID</li>
+<li>-n，name对于-ugG输出名字而不是数值</li>
+<li>-r，-real对于-ugG输出真实ID而不是有效ID</li>
+</ul>
+</li>
+<li><p>UID为0时，标识的是超级用户（即root用户），UID为1000-60000之间，标识的是普通用户；UID为1-999之间，标识的是虚拟用户（即系统用户）</p>
+</li>
+<li><p>linux用户组的分类：</p>
+<ul>
+<li>管理员root：具有使用系统所有权限的用户，其UID为0</li>
+<li>普通用户：即一般用户，其使用系统的权限受限，其UID为<strong>1000-60000</strong>之间（此处书上给出时500-60000，但结合来看，应该是1000）</li>
+<li>系统用户：保障系统运行的用户，一般不提供密码登录系统，其UID为1-499之间</li>
+</ul>
+</li>
+<li><p>用户组分类：</p>
+<ul>
+<li>普通用户组：可以加入多个用户</li>
+<li>系统组：一般加入一些系统用户</li>
+<li>私有组（也称基本组）:当创建用户时，如果没有为其指明所属组，则就为其定义一个私有的用户组，起名称与用户名同名.注：私有组可以变成普通用户组，当把其他用户加入到该组中，则其就变成了普通组。</li>
+</ul>
+</li>
+<li><p>将用户分组是Linux系统中对用户进行管理及控制访问权限的一种手段，通过定义用户组，很多程序上简化了对用户的管理工作。</p>
+</li>
+</ul>
+<h3 id="1-2-用户相关管理命令"><a href="#1-2-用户相关管理命令" class="headerlink" title="1.2 用户相关管理命令"></a>1.2 用户相关管理命令</h3><h4 id="1-2-1-管理用户"><a href="#1-2-1-管理用户" class="headerlink" title="1.2.1 管理用户"></a>1.2.1 管理用户</h4><ul>
+<li>在Linux系统中，每个普通用户都有一个账号，包括用户名、密码和主目录等信息。除此之外，还有一些系统本身创建的特殊用户，具有特殊的存在意义，其中最重要的用户就是管理员账户，默认的用户名为root（也就是超级用户）</li>
+<li>通过操作命令行能够对用户文件进行创建、修改、删除更改密码等操作</li>
+</ul>
+<h4 id="1-2-2-创建用户-useradd"><a href="#1-2-2-创建用户-useradd" class="headerlink" title="1.2.2 创建用户 - useradd"></a>1.2.2 创建用户 - useradd</h4><ul>
+<li>useradd命令可用来创建用户账号，并保存在<code>/etc/passwd</code>文件中</li>
+<li>语法：<code>useradd [options] user_name</code><ul>
+<li>其中的命令选项说明如下：</li>
+<li>-u 指定用户UID</li>
+<li>-o 配合”-u”属性，允许UID重复</li>
+<li>-g 指明用户所属基本组，既可为用户组名，也可为GID（该组必须已存在）</li>
+<li>-d 指定用户的home目录，并自动创建用户home目录</li>
+<li>-s 指明用户的默认shell程序</li>
+<li>-D 显示或更改默认配置</li>
+</ul>
+</li>
+<li>常用用法：<ul>
+<li><code>useradd -D</code> 显示创建用户所使用的默认值</li>
+<li><code>useradd -D -g 500</code> 修改创建用户所使用的默认值</li>
+<li><code>useradd user1</code> 创建名为user1 的用户</li>
+<li><code>useradd -m user1</code> 创建时给用户创建家目录</li>
+<li><code>useradd -M user1</code> 创建时不创建用户的家目录</li>
+<li><code>useradd -d / user1</code> 指定新用户的家目录为根目录</li>
+<li><code>useradd -u 501 user1</code> 指定新用户的uid</li>
+<li><code>useradd -g g1 user1</code> 指定新用户的gid，该组必须先存在</li>
+<li><code>useradd -G g1,g2,g3 user1</code> 把用户加到g1, g2, g3 三个附加组里</li>
+<li><code>useradd -o -u 100 user1 -o</code> 允许uid 重复</li>
+<li><code>useradd -s /bin/python user1</code> 使用指定的shell 程序</li>
+</ul>
+</li>
+<li>配置文件 <code>/etc/login.defs</code> 也影响着创建新用户的各项参数。</li>
+</ul>
+<h4 id="1-2-3-修改用户-usermod"><a href="#1-2-3-修改用户-usermod" class="headerlink" title="1.2.3 修改用户 - usermod"></a>1.2.3 修改用户 - usermod</h4><ul>
+<li>usermod可用来修改用户账号的各类信息</li>
+<li>语法：<code>usermod [options] user_name</code><ul>
+<li>其中的命令选项说明如下：</li>
+<li>-u 修改用户UID</li>
+<li>-g 修改用户所属用户组</li>
+<li>-l  修改用户账号名称</li>
+<li>-d 修改用户home目录</li>
+<li>-s 修改用户默认shell程序</li>
+</ul>
+</li>
+<li>用户基本信息保存在数据库 <code>/etc/passwd</code>中，其记录由用冒号分隔的7个字段组成：<ul>
+<li><code>name:password:uid:gid:comment:home:shell</code></li>
+<li>命令 usermod 可以修改其中的6个字段。</li>
+</ul>
+</li>
+<li>其他参数说明：<ul>
+<li><code>-c &lt;备注&gt;</code> 修改用户帐号的备注文字。</li>
+<li><code>-d &lt;登入目录&gt;</code> 修改用户登入时的目录。</li>
+<li><code>-e&lt;有效期限&gt;</code> 修改帐号的有效期限。</li>
+<li><code>-f&lt;缓冲天数&gt;</code> 修改在密码过期后多少天即关闭该帐号。</li>
+<li><code>-g&lt;群组&gt;</code> 修改用户所属的群组。</li>
+<li><code>-G&lt;群组&gt;</code> 修改用户所属的附加群组。</li>
+<li><code>-l&lt;帐号名称&gt;</code> 修改用户帐号名称。</li>
+<li><code>-L</code> 锁定用户密码，使密码无效。</li>
+<li><code>-s &lt;shell&gt;</code> 修改用户登入后所使用的shell。</li>
+<li><code>-u&lt;uid&gt;</code> 修改用户ID。</li>
+<li><code>-U</code> 解除密码锁定。</li>
+</ul>
+</li>
+</ul>
+<p>修改用户 - 示例</p>
+<ul>
+<li>修改一个用户user：<ul>
+<li>查看修改前用户uid: <code>id user</code><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# id user</span><br><span class="line">uid=1002(user) gid=1004(user) groups=1004(user)</span><br></pre></td></tr></table></figure></li>
+<li>修改uid为1003：usermod -u 1003 user，通过查看uid发现已更改。<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# usermod -u 1003 user</span><br><span class="line">[root@localhost ~]# id user</span><br><span class="line">uid=1003(user) gid=1004(user) groups=1004(user)</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h4 id="1-2-4-删除用户-userdel"><a href="#1-2-4-删除用户-userdel" class="headerlink" title="1.2.4 删除用户 - userdel"></a>1.2.4 删除用户 - userdel</h4><ul>
+<li><p>userdel用于删除指定的用户以及与该用户相关的文件。</p>
+</li>
+<li><p>语法：<code>userdel [options] user_name</code></p>
+<ul>
+<li>其中得命令选项说明如下：</li>
+<li>-f 强制删除用户账号，即使用户当前处于登录状态</li>
+<li>-r 删除用户，同时删除与用户相关的所有文件</li>
+<li>-h 显示命令的帮助信息<br>  (userdel命令用于删除指定的用户以及用户相关的文件，实际上是对系统的用户账号文件进行了修改)</li>
+<li>如果想同时删除该用户的主目录以及其中所有内容，要使用-r参数递归删除</li>
+<li>不建议直接删除已经进入系统的用户，如果需要强制删除，请使用<code>userdel -f Test</code>命令</li>
+<li>若输入删除操作命令时，没有加入参数选项，则仅仅会删除用户账号，而不删除相关文件</li>
+</ul>
+</li>
+<li><p>删除用户 - 示例</p>
+<ul>
+<li>删除一个测试用户<ul>
+<li>查看删除前user用户:<code>cat /etc/passwd</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# cat /etc/passwd</span><br><span class="line">dbus:x:980:980:System Message Bus:/:/usr/sbin/nologin</span><br><span class="line">test:x:1000:1000::/home/test:/bin/bash</span><br><span class="line">test02:x:1001:1001::/home/test02:/bin/bash</span><br><span class="line">user:x:1002:1004::/home/user:/bin/bash</span><br></pre></td></tr></table></figure>
+<pre><code>- 通过userdel删除test用户：userdel user，通过命令再次查看发现user用户已删除。
+</code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# userdel user</span><br><span class="line">[root@localhost ~]# cat /etc/passwd</span><br><span class="line">dbus:x:980:980:System Message Bus:/:/usr/sbin/nologin</span><br><span class="line">test:x:1000:1000::/home/test:/bin/bash</span><br><span class="line">test02:x:1001:1001::/home/test02:/bin/bash</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-2-5-修改用户密码-passwd"><a href="#1-2-5-修改用户密码-passwd" class="headerlink" title="1.2.5 修改用户密码 - passwd"></a>1.2.5 修改用户密码 - passwd</h4><ul>
+<li>passwd用来修改用户的密码</li>
+<li>语法：<code>passwd [OPTION...] user_name</code><ul>
+<li>其中的命令选项说明如下：</li>
+<li>-n  设置修改密码最短天数</li>
+<li>-x  设置修改密码最长天数</li>
+<li>-w 设置用户在密码过期前多少天收到警告信息</li>
+<li>-i   设置密码过期多少天后禁用账号</li>
+<li>-d 删除用户密码</li>
+<li>-S 显示用户密码信息</li>
+<li>（root用户可以修改任何用户的密码，普通用户只能修改自身的密码）</li>
+</ul>
+</li>
+<li>注意：passwd命令行操作需在root权限下进行</li>
+<li>其他参数选项：<ul>
+<li>-f  强制执行</li>
+<li>-k 保留即将过期的用户在期满后仍能使用</li>
+<li>-g 修改群组密码</li>
+<li>-e 使密码过期</li>
+<li>-l  锁定用户密码，被锁定的用户不能登录</li>
+<li>-u 接触用户密码的锁定状态</li>
+</ul>
+</li>
+</ul>
+<p>修改用户密码 - 示例</p>
+<ul>
+<li>修改一个测试用户的密码：<ul>
+<li>通过<code>/etc/shadow</code>查看修改前user密码，显示为”!”<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# cat /etc/shadow</span><br><span class="line">user:!:18421:0:99999:7:::</span><br></pre></td></tr></table></figure></li>
+<li>通过passwd修改user用户密码：<code>passwd user</code><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# passwd user</span><br><span class="line">Changing password for user user.</span><br><span class="line">New password:</span><br><span class="line">Retype new password:</span><br><span class="line">passwd: all authentication tokens updated successfully.</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>再次通过&#x2F;etc&#x2F;shadow查看密码是否修改成功，通过查看发现密码修改成功<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# cat /etc/shadow</span><br><span class="line">user:$6$KOrFTTStwbMS0eIG$3peFd8yIgxPyaSYi8TG8XFNUdYUdeMd60lR2hvRC6zx3d</span><br><span class="line">AdbEqQcnQuDoWT7ocu3Ss.zzWSrEb6cZ6Ae6b2EN/:18421:0:99999:7:::</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="1-3-用户组的基础概念"><a href="#1-3-用户组的基础概念" class="headerlink" title="1.3 用户组的基础概念"></a>1.3 用户组的基础概念</h3><p>用户组：</p>
+<ul>
+<li>具有相同特性用户的逻辑集合，通过组的形式使得具有相同特性的多个用户能够拥有相同的权限，便于管理；</li>
+<li>每一个用户都拥有自己的私有组；</li>
+<li>同一组内的所有用户可以共享该组下的文件；</li>
+<li>每一个用户组都会被分配一个特有的id号-gid</li>
+</ul>
+<p>用户组是具有相同特征用户的逻辑集合，有时我们需要让多个用户具有相同的权限，比如查看、修改某一个文件的权限，一种方法是分别对多个用户进行文件访问授权，如果有10个用户的话，就需要授权10次，显然这种方法不太合理；另一种方法是建立一个组，让这个组具有查看、修改此文件的权限，然后所有需要访问此文件的用户放入这个组中，那么所有用户就具有了和组一样的权限。这就是用户组，将用户分组是Linux 系统中对用户进行管理及控制访问权限的一种手段，通过定义用户组，在很大程度上简化了管理工作。</p>
+<h4 id="1-3-1-用户组GID"><a href="#1-3-1-用户组GID" class="headerlink" title="1.3.1 用户组GID"></a>1.3.1 用户组GID</h4><ul>
+<li>用户组ID(Group ID，简称GID)和用户UID类似，作为唯一标识符来标示系统中的一个用户组：<ul>
+<li>在添加账户时，默认情况下会同时建立一个与用户同名且UID和GID相同的组；</li>
+<li>GID与UID都会将0赋予给超级用户或者具有超级用户的用户组（也就是root用户组）；</li>
+<li>系统会预留一些较前的GID给虚拟用户（也称为系统用户）。</li>
+</ul>
+</li>
+<li>可以通过输入命令行<code>id [option] [user_name]</code>，查看用户组gid以及每个用户组下拥有的用户数量。</li>
+<li>每个系统预留的GID都有所不同，比如Fedora 预留了500个</li>
+<li>在创建目录和文件时，会使用默认的用户组</li>
+</ul>
+<h4 id="1-3-2-用户组分类"><a href="#1-3-2-用户组分类" class="headerlink" title="1.3.2 用户组分类"></a>1.3.2 用户组分类</h4><ul>
+<li>用户组分类：<ul>
+<li>普通用户组：可以加入多个用户；</li>
+<li>系统组：一般加入的用户为系统用户；</li>
+<li>私有组：也称为基本组，在创建用户时，如果没有为其指明所属用户组，则会为该用户定义一个私有用户组，且该用户组名称与用户名同名</li>
+</ul>
+</li>
+<li>linux用户组的分类<ul>
+<li>管理员 root :具有使用系统所有权限的用户,其UID 为0.</li>
+<li>普通用户 : 即一般用户,其使用系统的权限受限,其UID为500-60000之间.</li>
+<li>系统用户 :保障系统运行的用户,一般不提供密码登录系统,其UID为1-499之间</li>
+</ul>
+</li>
+<li>注:私有组可以变成普通用户组,当把其他用户加入到该组中,则其就变成了普通</li>
+<li>将用户分组是 Linux 系统中对用户进行管理及控制访问权限的一种手段，通过定义用户组，很多程序上简化了对用户的管理工作。</li>
+</ul>
+<h4 id="1-3-3-用户和用户组的关系"><a href="#1-3-3-用户和用户组的关系" class="headerlink" title="1.3.3 用户和用户组的关系"></a>1.3.3 用户和用户组的关系</h4><ul>
+<li>一对一：一个用户可以存在一个用户组中，成为组中的唯一成员；</li>
+<li>一对多：一个用户可以存在多个用户组中，该用户具有多个组的共同权限；</li>
+<li>多对一：多个用户可以存在一个用户组中，这些用户具有和组相同的权限；</li>
+<li>多对多：多个用户可以存在多个用户组中，其实就是以上三种关系的扩展。</li>
+</ul>
+<h3 id="1-4-用户组相关管理命令"><a href="#1-4-用户组相关管理命令" class="headerlink" title="1.4 用户组相关管理命令"></a>1.4 用户组相关管理命令</h3><ul>
+<li>随着用户的不断增多，用户权限的把控变得复杂繁重，对系统的安全管理产生负面影响，用户组的加入，使得每一个用户至少属于一个用户组，从而便利了权限管理。</li>
+<li>用户和用户组管理是系统安全管理的重要组成部分，通过操作命令行能够对用户组文件进行创建、修改、删除以及关联用户等操作。</li>
+</ul>
+<h4 id="1-4-1-创建组-groupadd"><a href="#1-4-1-创建组-groupadd" class="headerlink" title="1.4.1 创建组 - groupadd"></a>1.4.1 创建组 - groupadd</h4><ul>
+<li>groupadd可用来创建一个新的用户组，并将新用户信息添加到系统文件中。</li>
+<li>语法：<code>groupadd [options] group_name</code><ul>
+<li>其中的命令选项说明如下：</li>
+<li><code>-f</code>如果组已存在，则成功退出</li>
+<li><code>-g</code>为新用户组所使用的GID</li>
+<li><code>-h</code>显示此帮助信息并退出</li>
+<li><code>-o</code>允许创建有重复GID的组</li>
+<li><code>-p</code>为新用户组使用此加密过的密码</li>
+<li><code>-r</code>创建一个系统账户</li>
+<li><code>-R, --root CHROOT_DIR</code> chroot 到的目录</li>
+<li><code>-P, --prefix PREFIX_DIR</code> directory prefix</li>
+<li><code>-K, --key KEY=VALUE</code> 不使用 &#x2F;etc&#x2F;login.defs 中的默认值</li>
+</ul>
+</li>
+<li>创建组  - 示例<ul>
+<li><p>通过groupadd创建一个新的测试用户组:<code>groupadd usergroup</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# groupadd usergroup</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>通过<code>cat /etc/group</code>命令查看用户组是否创建成功，查看后发现新的测试组创建成功</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/04%20%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/2025021323-0245107.png"></p>
+<h4 id="1-4-2-修改组-groupmod"><a href="#1-4-2-修改组-groupmod" class="headerlink" title="1.4.2 修改组 - groupmod"></a>1.4.2 修改组 - groupmod</h4><ul>
+<li>groupmod可用来更改<strong>群组识别码</strong>或者<strong>名称</strong>。</li>
+<li>语法：<code>groupmod [options] group_name</code></li>
+<li>其中的命令选项说明如下：<ul>
+<li>-g 修改为要使用的GID</li>
+<li>-h 显示此帮助信息并退出</li>
+<li>-n 修改为要使用的组名称</li>
+<li>-o 允许使用重复的 GID</li>
+<li>-p 更改密码(加密过的)</li>
+</ul>
+</li>
+<li>修改组 - 示例<ul>
+<li>修改一个测试用户组GID：<ul>
+<li>查看测试用户原GID：<code>id user</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/04%20%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/2025021323-0710869.png"></p>
+<ul>
+<li>通过groupmod修改测试用户组GID为1006：<code>groupmod –g 1006 user</code>，再次查看发现GID已修改成功：<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/04%20%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/2025021323-0849641.png"><br>需要注意的是，这是对用户组进行的修改，所以GID不可以重复（或者-o选项）<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/04%20%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/2025021323-0942150.png"></li>
+</ul>
+<h4 id="1-4-3-删除组-Groupdel"><a href="#1-4-3-删除组-Groupdel" class="headerlink" title="1.4.3 删除组 - Groupdel"></a>1.4.3 删除组 - Groupdel</h4><ul>
+<li>Groupdel可用来删除用户组，但若是用户组中包含一些用户，需先删除掉用户后再删除用户组：</li>
+<li>语法：<code>groupdel [options] group_name</code></li>
+<li>其中的命令选项说明如下：<ul>
+<li><code>-f</code> 即便是用户的主组也继续删除</li>
+<li><code>-h</code> 显示此帮助信息并退出</li>
+</ul>
+</li>
+<li>（groupdel命令用于从系统中删除组，需要注意的是，若是在组中仍然包括某些用户，此时需要先删除这些用户后，才能删除组）</li>
+<li>功能说明：用于删除指定的用户组，此命令不能删除用户归属的主用户组。</li>
+<li><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/04%20%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/2025021323-1124565.png" alt="无法删除组内仍存在用户的用户组"></li>
+</ul>
+<h4 id="1-4-4-关联用户和组-gpasswd"><a href="#1-4-4-关联用户和组-gpasswd" class="headerlink" title="1.4.4 关联用户和组 - gpasswd"></a>1.4.4 关联用户和组 - gpasswd</h4><ul>
+<li><p><code>gpasswd</code>可以用来添加或删除用户到组中。</p>
+</li>
+<li><p>语法：<code>gpasswd [option] group_name</code></p>
+</li>
+<li><p>其中的命令选项说明如下：</p>
+<ul>
+<li><code>-a</code>向组GROUP中添加用户USER</li>
+<li><code>-d</code>从组GROUP中添加或删除用户</li>
+<li><code>-M</code>设置组GROUP的成员列表</li>
+<li><code>-A</code>设置组的管理员列表</li>
+<li><code>-r</code>移除组GROUP的密码</li>
+<li><code>-R</code>向其成员限制访问组GROUP</li>
+<li><code>-Q</code>要chroot进的目录</li>
+</ul>
+</li>
+<li><p>添加用户到某一个组 可以使用 <code>usermod -G group_name user_name</code> 这个命令可以添加一个用户到指定的组，<strong>但是以前添加的组就会清空掉</strong>。</p>
+</li>
+<li><p>所以想要添加一个用户到一个组，同时保留以前添加的组时，请使用 <code>gpasswd</code> 这个命令来添加操作用户</p>
+</li>
+<li><p><code>chroot</code>，即 <code>change root directory (更改 root 目录)</code>。在 linux 系统中，系统默认的目录结构都是以 <code>/</code>，即是以根 (root) 开始的。而在使用 <code>chroot</code> 之后，系统的目录结构将以指定的位置作为 <code>/</code> 位置。</p>
+</li>
+<li><p>Chroot的好处：</p>
+<ul>
+<li>增加了系统的安全性，限制了用户的权力；</li>
+<li>建立一个与原系统隔离的系统目录结构，方便用户的开发；</li>
+<li>切换系统的根目录位置，引导 Linux 系统启动以及急救系统等。</li>
+</ul>
+</li>
+<li><p>关联用户和组 - 示例</p>
+</li>
+<li><p>关联一个测试用户和测试组</p>
+<ul>
+<li><p>将user用户添加到usergroup用户组中:<code>gpasswd -a user usergroup</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# gpasswd -a user usergroup</span><br><span class="line">Adding user user to group usergroup</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>通过<code>groups</code>命令查看到已将用户user加入到组usergroup中：<code>groups user</code></p>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# groups user</span><br><span class="line">user : user usergroup</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="1-4-5-用户和组的关联文件"><a href="#1-4-5-用户和组的关联文件" class="headerlink" title="1.4.5 用户和组的关联文件"></a>1.4.5 用户和组的关联文件</h4><ul>
+<li>openEuler下涉及到管理用户信息的文件一般有以下两种：</li>
+<li><code>/etc/passwd</code>：用户账户文件。<ul>
+<li>在这个文件中，保存着系统中所有用户的主要信息，每一行代表着一个记录。</li>
+<li>每一行用户记录中定义了用户各个方面的相关属性</li>
+</ul>
+</li>
+<li><code>/etc/shadow</code>：用户账号信息加密文件（又称为”影子文件”）<ul>
+<li>用于存储系统中用户的密码信息；</li>
+<li>由于<code>/etc/passwd</code>文件允许所有用户读取，容易导致密码泄露，因此将密码信息从该文件中分离出来，单独放置在&#x2F;etc&#x2F;shadow文件中。</li>
+</ul>
+</li>
+</ul>
+<h6 id="1-4-5-1-用户关联文件–-etc-passwd"><a href="#1-4-5-1-用户关联文件–-etc-passwd" class="headerlink" title="1.4.5.1 用户关联文件–&#x2F;etc&#x2F;passwd"></a>1.4.5.1 用户关联文件–&#x2F;etc&#x2F;passwd</h6><ul>
+<li>&#x2F;etc&#x2F;passwd文件每一行由七个字段的数据组成，且字段之间用“:”隔开</li>
+<li><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/04%20%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/2025021517-0418303.png"></li>
+<li>Linux中的shell，是指一个面向用户的命令接口，表现形式为一个可以由用户登陆的界面，Linux的shell有很多种sh，csh，ksh，tcsh，bash等。<br>（shell是建立在内核的基础上，且面向与&#x3D;于用户的一种表现形式）</li>
+</ul>
+<p>&#x2F;etc&#x2F;passwd文件相关参数</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/04%20%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/2025021517-0620626.png" alt="/etc/passwd文件相关参数"></p>
+<ul>
+<li>&#x2F;etc&#x2F;passwd 由：分割成7个字段，每个字段的具体含义是:<ul>
+<li>用户名（如第一行中的root就是用户名）。用户名字符可以是大小写字母、数字、减号（不能出现在首位）、点以及下划线，其他字符不合法。虽然用户名中可以出现点，但不建议使用，尤其是首位为点时，另外减号也不建议使用，因为容易造成混淆。</li>
+<li>存放该用户的密码。早期的lunix系统口令确实是存放在这里，但是基于对安全因素的考虑，之后就将密码存放到 &#x2F;etc&#x2F;shadow中了，此处的x对应的就是&#x2F;etc&#x2F;shadow文件中的密码</li>
+<li>这个数字代表用户标识号，也叫做UID。系统就是通过这个数字来对用户进行识别，0就是root，我们可以修改test用户的UID为0，此时系统就会认为root和test为同一个账户。通常UID的取值范围是0<del>65535(但实际上已经可以支持到4294967294)，0是超级用户（root）的标识号，1</del>499为系统用户保留，普通用户的标识号从500开始，如果我们自定义建立一个普通用户，你会看到该账户的标识号是大于或等于500的。</li>
+<li>代表用户组标识，也叫做GID。这个字段对应着&#x2F;etc&#x2F;group 中的一条记录，其实&#x2F;etc&#x2F;group和&#x2F;etc&#x2F;passwd基本上是类似的。</li>
+<li>备注信息，该字段没有实际意义，主要记录该用户的一些属性，例如姓名、电话、地址等等。</li>
+<li>用户的home目录，当用户登录时就处在这个目录下。root的home目录是&#x2F;root，普通用户的家目录是&#x2F;home&#x2F;username，这个字段<strong>是可以自定义的</strong>，比如你建立一个普通用户test1，要想让test1的家目录在&#x2F;data目录下，只要修改&#x2F;etc&#x2F;passwd文件中test1那行中的该字段为&#x2F;data即可。</li>
+<li>shell，用户登录后要启动一个进程，用来将用户下达的指令传给内核，这就是shell。Linux的shell有很多种sh, csh, ksh, tcsh, bash等，而Redhat&#x2F;CentOS的shell就是<code>bash</code>。查看<code>/etc/passwd</code>文件，该字段中除了<code>/bin/bash</code>外还有<code>/sbin/nologin</code>比较多，它表示不允许该账号登录。如果你想建立一个账号不让登录，那么就可以把该字段改成<code>/sbin/nologin</code>，默认是<code>/bin/bash</code>.</li>
+</ul>
+</li>
+</ul>
+<h6 id="1-4-5-2-用户关联文件–-etc-shadow"><a href="#1-4-5-2-用户关联文件–-etc-shadow" class="headerlink" title="1.4.5.2 用户关联文件–&#x2F;etc&#x2F;shadow"></a>1.4.5.2 用户关联文件–&#x2F;etc&#x2F;shadow</h6><ul>
+<li>&#x2F;etc&#x2F;shadow文件只有超级用户（root用户）具有读权限，其他用户均没有权限，从而保证了用户密码的安全性</li>
+<li>密码在经由&#x2F;etc&#x2F;shadow保护后，在&#x2F;etc&#x2F;passwd文件的用户记录中只会以“X”的形式呈现。</li>
+<li>与 &#x2F;etc&#x2F;passwd 文件 相似， 每一 行记 录代表 一个 用户 ，且 以“ :” 隔开 ，不 同之处 在 于&#x2F;etc&#x2F;shadow（书上有误）中每行记录被分为九个字段。</li>
+<li><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/04%20%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/2025021517-2248257.png" alt="/etc/shadow九字段"></li>
+<li>在安装系统时，默认会自动开启shadow保护，若是发现未启用shadow保护，可以通过pwconv来启用，当然也可以通过pwunconv来取消shadow保护（这里说到的操作仅允许root用户执行）</li>
+</ul>
+<p>&#x2F;etc&#x2F;shadow文件相关参数<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/04%20%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/2025021519-5131154.png" alt="/etc/shadow文件相关参数"><br>（注：&#x2F;etc&#x2F;shadow 由 pwconv 命令根据&#x2F;etc&#x2F;passwd中的数据自动产生）</p>
+<ul>
+<li>我们常常会因为某些原因忘记自己的账号密码，这个时候该怎么办？难道我们就不能再次使用这个账户了吗？其实是有解决办法的，可以通过root账户来解决这个问题，它可以在不知道密码的情况下，重新为你配置好指定账户的密码（这步是利用了root的身份使用passwd命令）</li>
+<li>但是若是root账户的密码忘记了，我们就需要重新启动进入单用户模式，系统会提供对应的bash接口，那么此时呢，我们就可以利用passwd命令来修改账户密码；也可以通过挂载根目录的形式，来修改&#x2F;etc&#x2F;shadow，从而将账户的root密码清空，这个方式可以使得root账户不需要密码就可以登录，这里建议登陆后来使用passwd命令配置对应的root密码</li>
+<li>加密的密码：这里可以看到3类，分别是字符串、<code>*</code>和<code>！！</code>其中，字符串就是加密过的密码文件。星号代表帐号被锁定，双叹号表示这个密码已经过期了。字符串是以<code>$6$</code>开头的，表明是用<code>SHA-512</code>加密的，<code>$1$</code> 表明是用MD5加密的、<code>$2$</code> 是用Blowfish加密的、<code>$5$</code>是用SHA-256加密的。</li>
+</ul>
+<h6 id="1-4-5-3-用户组关联的文件"><a href="#1-4-5-3-用户组关联的文件" class="headerlink" title="1.4.5.3 用户组关联的文件"></a>1.4.5.3 用户组关联的文件</h6><ul>
+<li>openEuler下涉及到管理用户组信息的文件一般有以下两种：<ul>
+<li>&#x2F;etc&#x2F;group：组信息文件。<ul>
+<li>在这个文件中，保存着用户组的所有信息，每一行记录代表一个用户组</li>
+<li>将用户分组是对用户进行管理及控制访问权限的一种手段，每个用户都属于一个用户组；一个组中可以有多个用户，一个用户也可以属于不同的组。</li>
+</ul>
+</li>
+<li>&#x2F;etc&#x2F;gshadow：组信息加密文件<ul>
+<li>在这个文件中，会保存用户组加密信息，比如说用户组管理密码就保存在此（与&#x2F;etc&#x2F;shadow文件相似）；</li>
+<li>与&#x2F;etc&#x2F;group文件互补，对于大型服务器来说，拥有很多用户和组，此时会针对这些用户和组来生成一些复杂的权限模型，此时设置并管理密码就显得尤为重要。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/04%20%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/2025021519-5618773.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/04%20%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/2025021519-5641793.png"></p>
+<h6 id="1-4-5-4-用户组文件–-etc-group文件"><a href="#1-4-5-4-用户组文件–-etc-group文件" class="headerlink" title="1.4.5.4 用户组文件–&#x2F;etc&#x2F;group文件"></a>1.4.5.4 用户组文件–&#x2F;etc&#x2F;group文件</h6><ul>
+<li>&#x2F;etc&#x2F;group文件每一行由四个字段的数据组成，且字段之间用“:”隔开。</li>
+<li>这里我们以root用户为例，根据root用户的文件记录来了解&#x2F;etc&#x2F;group文件用户组记录中相关字段的意义：</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/04%20%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/2025021519-5822516.png"></p>
+<p>&#x2F;etc&#x2F;group文件相关参数<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/04%20%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/2025021519-5937341.png"></p>
+<ul>
+<li>组名，也就是是用户组的名称，有字母或数字构成。同 &#x2F;etc&#x2F;passwd 中的用户名一样，组名也不能重复。</li>
+<li>组密码和 &#x2F;etc&#x2F;passwd 文件一样，这里的 “x” 仅仅是密码标识，真正加密后的组密码默认保存在 &#x2F;etc&#x2F;gshadow 文件中。</li>
+<li>用户组密码主要是用来指定组管理员的，由于系统中的账号可能会非常多，root 用户可能没有时间进行用户的组调整，这时可以给用户组指定组管理员，如果有用户需要加入或退出某用户组，可以由该组的组管理员替代 root 进行管理。但是这项功能目前很少使用，我们也很少设置组密码。如果需要赋予某用户调整某个用户组的权限，则可以使用 sudo 命令代替。</li>
+<li>组ID (GID)就是群组的 ID 号，Linux 系统就是通过 GID 来区分用户组的，同用户名一样，组名也只是为了便于管理员记忆。这里的组 GID 与 &#x2F;etc&#x2F;passwd 文件中第 4个字段的 GID 相对应，实际上，&#x2F;etc&#x2F;passwd 文件中使用 GID 对应的群组名，就是通过此文件对应得到的。</li>
+<li>组中的用户列表，此字段列出每个群组包含的所有用户。需要注意的是，如果该用户组是这个用户的<strong>初始组</strong>，则该用户不会写入这个字段，可以这么理解，该字段显示的用户都是这个用户组的附加用户。</li>
+</ul>
+<h6 id="1-4-5-5-etc-gshadow文件"><a href="#1-4-5-5-etc-gshadow文件" class="headerlink" title="1.4.5.5 &#x2F;etc&#x2F;gshadow文件"></a>1.4.5.5 &#x2F;etc&#x2F;gshadow文件</h6><ul>
+<li>&#x2F;etc&#x2F;gshadow文件每一行由四个字段的数据组成，且字段之间用“:”隔开。 </li>
+<li>这里我们以root用户为例，根据root用户的文件记录来了解&#x2F;etc&#x2F;group文件中相关字段的意义：<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/04%20%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/2025021520-0646308.png"></li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/04%20%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/2025021519-5641793.png"></p>
+<p>&#x2F;etc&#x2F;gshadow文件相关参数<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/04%20%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/2025021520-0710010.png"></p>
+<ul>
+<li>组名，同 &#x2F;etc&#x2F;group 文件中的组名相对应。</li>
+<li>组密码，对于大多数用户来说，通常不设置组密码，因此该字段常为空，但有时为”!”，指的是该群组没有组密码，也不设有群组管理员。</li>
+<li>组管理员，从系统管理员的角度来说，该文件最大的功能就是创建群组管理员。考虑到 Linux 系统中账号太多，而超级管理员 root 可能比较忙碌，因此当有加入某群组时，root 或许不能及时作出回应。这种情况下，如果有群组管理员，那么他就能将用户加入自己管理的群组中，也就免去麻烦 root 了。由于目前有 sudo之类的工具，因此群组管理员的这个功能已经很少使用了。</li>
+<li>组中的附加用户，该字段显示这个用户组中有哪些附加用户，和 &#x2F;etc&#x2F;group 文件中<br>附加组显示内容相同。</li>
+</ul>
+<h2 id="0x02-用户权限管理"><a href="#0x02-用户权限管理" class="headerlink" title="0x02 用户权限管理"></a>0x02 用户权限管理</h2><h3 id="2-1-文件权限的基本概念"><a href="#2-1-文件权限的基本概念" class="headerlink" title="2.1 文件权限的基本概念"></a>2.1 文件权限的基本概念</h3><h4 id="2-1-1-权限概述"><a href="#2-1-1-权限概述" class="headerlink" title="2.1.1 权限概述"></a>2.1.1 权限概述</h4><ul>
+<li>权限是操作系统用来限制对资源访问的一种机制，权限一般分为读、写、执行。</li>
+<li>在Linux系统中，不同的用户所处的地位也不尽相同，不同地位的用户拥有不同的权限等级，为了保证系统的安全性，Linux系统针对不同用户的权限制定了不同的规则。</li>
+<li>在Linux系统中，每个文件或目录都具有特定的访问权限、所属用户及所属组，通过这些规则可以限制什么用户、什么组可以对特定的文件执行什么样的操作。</li>
+</ul>
+<p>通过权限的设定可以划分出以下三种访问方式来限制用户的访问权限：</p>
+<ul>
+<li>只允许自己访问</li>
+<li>允许一个指定的用户组中的用户访问</li>
+<li>允许系统中的任意用户访问</li>
+</ul>
+<h4 id="2-1-2-权限示例"><a href="#2-1-2-权限示例" class="headerlink" title="2.1.2 权限示例"></a>2.1.2 权限示例</h4><p>示例通过<code>ls- l</code>命令可将文件权限的详细信息呈现出来：</p>
+<ul>
+<li>以root用户文件信息为引：</li>
+<li><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/04%20%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/2025021520-2814774.png"></li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/04%20%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/2025021520-2823680.png"></p>
+<h5 id="2-1-2-1-文件类型"><a href="#2-1-2-1-文件类型" class="headerlink" title="2.1.2.1 文件类型"></a>2.1.2.1 文件类型</h5><p>示例中每一行第一位代表的是文件类型，在Linux中有七种文件类型：</p>
+<table>
+<thead>
+<tr>
+<th>文件类型</th>
+<th>解释说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-</td>
+<td>普通文件-除去其他六种类型文件</td>
+</tr>
+<tr>
+<td>d</td>
+<td>目录</td>
+</tr>
+<tr>
+<td>b</td>
+<td>块设备文件-可随机存取装置</td>
+</tr>
+<tr>
+<td>c</td>
+<td>字符设备文件-键盘、鼠标等一次性读取装置</td>
+</tr>
+<tr>
+<td><code>l</code></td>
+<td>符号链接文件-指向另一文件（link file）</td>
+</tr>
+<tr>
+<td>p</td>
+<td>命名管道文件</td>
+</tr>
+<tr>
+<td>s</td>
+<td>套接字文件（socket）</td>
+</tr>
+</tbody></table>
+<h5 id="2-1-2-2-权限位说明"><a href="#2-1-2-2-权限位说明" class="headerlink" title="2.1.2.2 权限位说明"></a>2.1.2.2 权限位说明</h5><p>Linux文件或目录的权限位是由9个权限位来控制的，每三位为一组，都是<code>[r]、[w]、[x]</code>三个参数的组合，其中<code>[r]</code>代表的是读权限（read），<code>[w]</code>代表的是写权限（write），<code>[x]</code>代表的是执行权限（execute），且三个权限位的位置在文件或目录中是不变的。若是没有权限，则用“-”表示。<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/04%20%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/2025021520-3256094.png"></p>
+<ul>
+<li>r（read）读权限 对应数字4</li>
+<li>w（write）写权限 对应数字2</li>
+<li>x （execute）执行权限 对应数字1</li>
+<li>“-”（没有任何权限）对应数字0</li>
+<li>每个文件的属性由从左到右依次为0-9字符组成</li>
+</ul>
+<p>在文件信息中显示为：</p>
+<ul>
+<li><code>-r</code> 允许读取文件内容或目录下全部内容</li>
+<li><code>-w</code> 允许写文件或在目录下创建、删除文件</li>
+<li><code>-x</code> 允许执行文件或进入目录</li>
+<li><code>-</code> 无任何权限（显示方式在r、w、x的位置处显示为-）</li>
+<li>以usertxt文件为例：drwxr-xr-x. 2 root root 4096 Jun 1 14:00 usertxt</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>位置</th>
+<th>权限代号</th>
+<th>对应二进制</th>
+<th>对应十进制</th>
+<th>权限详情</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>第123位</td>
+<td>rwx</td>
+<td>111</td>
+<td>4+2+1&#x3D;7</td>
+<td>文件属主可读可写可执行</td>
+</tr>
+<tr>
+<td>第456位</td>
+<td>r-x</td>
+<td>101</td>
+<td>4+1&#x3D;5</td>
+<td>同组用户可读不可写可执行</td>
+</tr>
+<tr>
+<td>第789位</td>
+<td>r-x</td>
+<td>101</td>
+<td>4+1&#x3D;5</td>
+<td>其他用户可读不可写可执行</td>
+</tr>
+</tbody></table>
+<ul>
+<li>读权限（Read）<ul>
+<li>针对于文件，具有读取文件实际内容的权限</li>
+<li>针对于目录，具有读取目录结构列表的权限</li>
+</ul>
+</li>
+<li>写权限（Write）<ul>
+<li>针对于文件，具有编辑、增加或修改文件内容的权限</li>
+<li>针对于目录，具有修改、删除或移动目录内文件的权限</li>
+</ul>
+</li>
+<li>执行权限（Execute）<ul>
+<li>针对于文件，具有执行文件的权限</li>
+<li>针对于目录，具有进入目录的权限</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-2-文件权限的操作命令"><a href="#2-2-文件权限的操作命令" class="headerlink" title="2.2 文件权限的操作命令"></a>2.2 文件权限的操作命令</h3><h5 id="2-2-1-常用权限设置命令"><a href="#2-2-1-常用权限设置命令" class="headerlink" title="2.2.1 常用权限设置命令"></a>2.2.1 常用权限设置命令</h5><ul>
+<li><code>chmod</code>命令：修改文件权限<ul>
+<li>Linux的文件调用权限分为三级：文件所有者、群组及其他；通过chmod命令可以控制文件被何人调用；</li>
+<li>使用权限：文件所有者。</li>
+</ul>
+</li>
+<li><code>chown</code>命令：修改文件属主属组（只允许管理员）。<ul>
+<li>Linux做为多用户多任务系统，所有文件都有其所有者，通过chown可以将特定文件的所有者更改为指定用户或组</li>
+<li>使用权限：管理员（root用户）。</li>
+</ul>
+</li>
+<li><code>chgrp</code>命令：修改文件属组。<ul>
+<li>通过<code>chgrp</code>命令可以对文件或目录的所属群组进行更改；</li>
+<li>使用权限：管理员（root用户）。</li>
+</ul>
+</li>
+<li><code>umask</code>命令：遮罩码。<ul>
+<li>通过<code>umask</code>命令可以指定在建立文件时进行权限掩码的预设；</li>
+<li>使用权限：管理员和普通用户。</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-2-2-修改文件权限-chmod"><a href="#2-2-2-修改文件权限-chmod" class="headerlink" title="2.2.2 修改文件权限 - chmod"></a>2.2.2 修改文件权限 - chmod</h4><ul>
+<li>文件调用权限针对于文件所有者，所属组以及其他人，使用chmod可以对文件的调用权限进行修改。</li>
+<li>语法：<code>chmod [OPTION]...MODE[,MODE]... FILE...</code></li>
+<li>其中的命令选项说明如下：<ul>
+<li>操作对象<ul>
+<li>u：用户user，表示文件或目录所有者</li>
+<li>g：用户组group，表示文件或目录所属组</li>
+<li>o：其他用户other</li>
+<li>a：所有用户all</li>
+</ul>
+</li>
+<li>操作符：<ul>
+<li>+：添加权限</li>
+<li>-：减少权限</li>
+<li>&#x3D;：给定特定权限</li>
+</ul>
+</li>
+<li>赋予的权限：<ul>
+<li>r：读权限</li>
+<li>w：写权限</li>
+<li>x：执行权限</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>根据配置场景，可以同时修改文件的一组权限，也可以只修改文件的某个权限。</li>
+</ul>
+<p>修改文件权限 - 示例</p>
+<ul>
+<li>同时修改测试文件usertxt的所有权限<br><code>chmod 644 usertxt</code></li>
+</ul>
+<h4 id="2-2-3-修改文件权限-chown"><a href="#2-2-3-修改文件权限-chown" class="headerlink" title="2.2.3 修改文件权限 - chown"></a>2.2.3 修改文件权限 - chown</h4><ul>
+<li>利用chown可以将指定文件的所有者改为指定的用户或组。</li>
+<li>语法：<code>chown [OPTION]... [OWNER][:[GROUP]] FILE...</code></li>
+<li>其中的命令选项说明如下：<ul>
+<li>-c：显示更改的部分的信息</li>
+<li>-f：忽略错误信息</li>
+<li>-h：修复符号链接</li>
+<li>-v：显示详细的处理信息</li>
+<li>-R：处理指定目录以及其子目录下的所有文件</li>
+</ul>
+</li>
+<li>根据配置场景，可以只修改属主，也可以只修改属组，亦可以同时修改属主属组</li>
+<li><code>chown [-cfhvR] [--help] [--version] user[:group] file...</code></li>
+<li><code>-c</code> : 显示更改的部分的信息</li>
+<li><code>-f</code> : 忽略错误信息</li>
+<li><code>-h</code> :修复符号链接</li>
+<li><code>-v</code> : 显示详细的处理信息</li>
+<li><code>-R</code> : 处理指定目录以及其子目录下的所有文件</li>
+<li><code>--help</code> : 显示辅助说明</li>
+<li><code>--version</code> : 显示版本</li>
+</ul>
+<p>修改文件权限 - 示例<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/04%20%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/2025021520-5714545.png"></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chown user:usergroup usertxt</span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/04%20%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/2025021520-5751332.png"></p>
+<h4 id="2-2-4-修改文件权限-chgrp"><a href="#2-2-4-修改文件权限-chgrp" class="headerlink" title="2.2.4 修改文件权限 - chgrp"></a>2.2.4 修改文件权限 - chgrp</h4><ul>
+<li><p>chgrp可用来修改文件或目录的所属组。</p>
+</li>
+<li><p>语法：<code>chgrp [OPTION]... GROUP FILE...</code></p>
+</li>
+<li><p>其中的命令选项说明如下：</p>
+<ul>
+<li><code>-v</code>：显示指令执行过程</li>
+<li><code>-c</code>：效果类似“-v”参数，但是只回报更改的部分</li>
+<li>-f：不显示错误信息</li>
+<li>-h：只修改符号连接的文件，而不对其他任何相关文件进行变动</li>
+<li>-R：递归处理，即将指定目录下的所有文件及子目录一并处理</li>
+</ul>
+</li>
+<li><p>根据配置场景更改文件所属群组。</p>
+</li>
+<li><p>-c或–changes 效果类似”-v”参数，但仅回报更改的部分。</p>
+</li>
+<li><p>-f或–quiet或–silent 不显示错误信息。</p>
+</li>
+<li><p>-h或–no-dereference 只对符号连接的文件作修改，而不更动其他任何相关文件。</p>
+</li>
+<li><p>-R或–recursive 递归处理，将指定目录下的所有文件及子目录一并处理。</p>
+</li>
+<li><p>-v或–verbose 显示指令执行过程。</p>
+</li>
+<li><p>–help 在线帮助。</p>
+</li>
+<li><p>–reference&#x3D;&lt;参考文件或目录&gt; 把指定文件或目录的所属群组全部设成和参考文件或目录的所属群组相同。</p>
+</li>
+<li><p>–version 显示版本信息。</p>
+</li>
+</ul>
+<p>修改文件权限 - 示例<br><strong>更改文件所属组：</strong><br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/04%20%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/2025021521-0106325.png"><br>如果不存在的组 会报错<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/04%20%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/2025021521-0136989.png"></p>
+<h4 id="2-2-5-预设权限掩码-umask"><a href="#2-2-5-预设权限掩码-umask" class="headerlink" title="2.2.5 预设权限掩码 - umask"></a>2.2.5 预设权限掩码 - umask</h4><ul>
+<li>umask可用来指定在建立文件或目录时进行权限掩码的预设。</li>
+</ul>
+<p><code>umask</code> 是一个 Unix 和类 Unix 系统中的命令，用来设置或显示当前的文件创建掩码。它控制着新文件和目录的默认权限。</p>
+<p>在 Linux 系统中，每个文件和目录都有一组访问权限，这些权限决定了谁能读取、写入或执行它们。<code>umask</code> 的作用是指定默认权限的“屏蔽”值，即哪些权限将被“屏蔽”掉或去掉。</p>
+<p><code>umask</code> 的计算：</p>
+<ul>
+<li><p>权限分为三部分：所有者（user）、所属组（group）和其他用户（others）。</p>
+</li>
+<li><p>每一部分权限的八进制表示是：</p>
+<ul>
+<li>读权限：<code>4</code></li>
+<li>写权限：<code>2</code></li>
+<li>执行权限：<code>1</code></li>
+</ul>
+<p>  例如：</p>
+<ul>
+<li><code>7</code> &#x3D; <code>4 + 2 + 1</code>（读、写、执行权限）</li>
+<li><code>6</code> &#x3D; <code>4 + 2</code>（读、写权限）</li>
+<li><code>5</code> &#x3D; <code>4 + 1</code>（读、执行权限）</li>
+</ul>
+</li>
+<li><p><code>umask</code> 用的是一个“屏蔽”值，它会从默认的权限值中减去这个掩码。</p>
+<ul>
+<li><strong>文件的默认权限是 <code>666</code>（即所有人都可以读写文件，默认没有执行权限）。</strong></li>
+<li><strong>目录的默认权限是 <code>777</code>（即所有人都可以读写执行目录）。</strong></li>
+</ul>
+</li>
+</ul>
+<p>示例：</p>
+<ol>
+<li><p><strong>查看当前 umask 值：</strong> 执行 <code>umask</code> 命令可以查看当前的掩码值。</p>
+<p> <code>$ umask 0022</code><br> 这表示默认权限会减去 <code>0022</code>，即其他用户没有写权限。</p>
+</li>
+<li><p><strong>设置新的 umask 值：</strong> 要设置新的 umask 值，可以使用 <code>umask</code> 命令并指定一个新的掩码值。</p>
+<p> bash复制代码</p>
+<p> <code>$ umask 022</code></p>
+<p> 这表示默认的文件权限将减去 <code>022</code>，文件的权限为 <code>644</code>（所有者有读写权限，组和其他用户只有读权限）。</p>
+</li>
+<li><p><strong>umask 的影响：</strong></p>
+<ul>
+<li><strong>新文件的权限：</strong> 默认情况下，文件的权限是 <code>666</code>，如果 <code>umask</code> 设置为 <code>022</code>，新文件的权限会变成 <code>644</code>。</li>
+<li><strong>新目录的权限：</strong> 默认情况下，目录的权限是 <code>777</code>，如果 <code>umask</code> 设置为 <code>022</code>，新目录的权限会变成 <code>755</code>。</li>
+</ul>
+</li>
+</ol>
+<p>常见的 <code>umask</code> 值：</p>
+<ul>
+<li><p><code>022</code>：新文件权限为 <code>644</code>，新目录权限为 <code>755</code>（常见设置）。</p>
+</li>
+<li><p><code>077</code>：新文件权限为 <code>600</code>，新目录权限为 <code>700</code>（限制权限，仅所有者有读写权限）。</p>
+</li>
+<li><p><code>002</code>：新文件权限为 <code>664</code>，新目录权限为 <code>775</code>（组用户也有写权限）</p>
+</li>
+<li><p>语法：<code>umask: umask [-p] [-S] [mode]</code></p>
+</li>
+<li><p>其中的命令选项说明如下：</p>
+<ul>
+<li>-p：显示命令名称</li>
+<li>-S：文字形式表示权限掩码</li>
+</ul>
+</li>
+<li><p>常见umask值及与之对应的文件或目录权限：<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/04%20%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/2025021521-1706636.png"></p>
+</li>
+<li><p>-c或–changes 效果类似”-v”参数，但仅回报更改的部分。</p>
+</li>
+<li><p>-f或–quiet或–silent 不显示错误信息。</p>
+</li>
+<li><p>-h或–no-dereference 只对符号连接的文件作修改，而不更动其他任何相关文件。</p>
+</li>
+<li><p>-R或–recursive 递归处理，将指定目录下的所有文件及子目录一并处理。</p>
+</li>
+<li><p>-v或–verbose 显示指令执行过程。</p>
+</li>
+<li><p>–help 在线帮助。</p>
+</li>
+<li><p>–reference&#x3D;&lt;参考文件或目录&gt; 把指定文件或目录的所属群组全部设成和参考文件或目录的所属群组相同。</p>
+</li>
+<li><p>–version 显示版本信息。</p>
+</li>
+</ul>
+<p>预设权限掩码 - 示例</p>
+<ul>
+<li>修改文件权限掩码：<ul>
+<li>通过umask来查看为修改权限掩码前umask值。<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/04%20%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/2025021521-3106318.png"></li>
+</ul>
+</li>
+<li>使用umask命令进行权限的修改： umask 022，再通过umask查看后发现权限掩码已修改。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# umask 022</span><br><span class="line">[root@localhost ~]# umask</span><br><span class="line">0022</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="2-3-访问控制列表-ACL"><a href="#2-3-访问控制列表-ACL" class="headerlink" title="2.3 访问控制列表 - ACL"></a>2.3 访问控制列表 - ACL</h3><ul>
+<li>常用权限的操作命令chmod、chown、chgrp及umask已经可以对文件权限进行修改，那么为什么还会出现访问控制列表ACL(Access Control List)？<ul>
+<li>在没有ACL技术之前，Linux系统对文件的权限控制仅可划分文件的属主、用户组、其他用户三类，随着技术的发展，传统的文件权限控制已经无法使用复杂场景下的权限控制需求，比如说一个部门（即一个用户组group）存在有多名员工（即用户user01、user02…），针对于部门内不同职责的员工，会为其赋予不同的权限，如为usri01赋予可读写权限，为user02赋予只读权限，不为user03赋予任何权限，此时由于这些员工属于同一部门，就无法为这些不同的员工进行权限的细化。为此ACL(Access Control List)访问控制列表技术应运而生，使用ACL权限控制可以提供常见权限（如rwx、ugo）权限之外的权限设置，可以针对单一用户或组来设置特定的权限</li>
+</ul>
+</li>
+<li>常见类型：<ul>
+<li>针对文件所有者(owner)分配权限</li>
+<li>针对文件所属用户组分配权限</li>
+<li>针对其他用户分配</li>
+<li>etc.</li>
+</ul>
+</li>
+<li>使用ACL必须要由文件系统支持 ，目前绝大多数的文件系统都支持：<ul>
+<li>ext3\ext4</li>
+<li>xfs\zfs</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-3-1-ACL-相关命令"><a href="#2-3-1-ACL-相关命令" class="headerlink" title="2.3.1 ACL - 相关命令"></a>2.3.1 ACL - 相关命令</h4><ul>
+<li>在linux里我们可以通过ACL来管理某个文件及其特定的用户和用户组权限，简单来说ACL只需掌握三个命令即可：<code>setfacl,getfacl,chacl</code>。</li>
+<li><code>setfacl</code>：设置文件的ACL。<ul>
+<li>chmod 根据文件所有者、所属群组及其他用户三级权限进行权限分配，而setfacl则可以针对每一文件或目录进行更加精准的权限分配</li>
+</ul>
+</li>
+<li>getfacl：获取文件的ACL</li>
+<li><h2 id="chacl：更改文件或目录的ACL-与chmod相似，但是更为强大精细，通过chmod可以控制文件被何人调用，但若是某一用户的文件只想给特定的用户看时，则需要chacl出场完成用户的需求"><a href="#chacl：更改文件或目录的ACL-与chmod相似，但是更为强大精细，通过chmod可以控制文件被何人调用，但若是某一用户的文件只想给特定的用户看时，则需要chacl出场完成用户的需求" class="headerlink" title="chacl：更改文件或目录的ACL  - 与chmod相似，但是更为强大精细，通过chmod可以控制文件被何人调用，但若是某一用户的文件只想给特定的用户看时，则需要chacl出场完成用户的需求"></a>chacl：更改文件或目录的ACL<br>  - 与chmod相似，但是更为强大精细，通过chmod可以控制文件被何人调用，但若是某一用户的文件只想给特定的用户看时，则需要chacl出场完成用户的需求</h2>使用 ACL 必须要由文件系统支持，目前绝大多数的文件系统都支持：<br>Ext3\ext4<br>\zfs</li>
+</ul>
+<h4 id="2-3-2-获取文件ACL-getfacl"><a href="#2-3-2-获取文件ACL-getfacl" class="headerlink" title="2.3.2 获取文件ACL - getfacl"></a>2.3.2 获取文件ACL - getfacl</h4><ul>
+<li><p>getfacl可获取文件或目录的访问控制列表ACL</p>
+</li>
+<li><p>语法：&#96;getfacl[-aceEsRLPtpndvh] file</p>
+</li>
+<li><p>其中的命令选项说明如下：</p>
+<ul>
+<li>-a：仅显示文件访问控制列表</li>
+<li>-d：仅显示默认的访问控制列表</li>
+<li>-c：不限时注释表头</li>
+<li>-e：显示所有的有效权限</li>
+<li>-E：显示无效权限</li>
+<li>-s：跳过只有基条目（base entries）的文件</li>
+<li>etc…</li>
+</ul>
+</li>
+<li><p>相关参数：</p>
+<ul>
+<li>-a，–access 仅显示文件访问控制列表</li>
+<li>-d，–default仅显示默认的访问控制列表</li>
+<li>-c，–omit-header 不显示注释表头</li>
+<li>-e，–all-effective 显示所有的有效权限</li>
+<li>-E，–no-effective 显示无效权限</li>
+<li>-s，–skip-base 跳过只有基条目（base entries）的文件</li>
+<li>-R，–recursive 递归显示子目录</li>
+<li>-L，–logical 逻辑遍历（跟随符号链接）</li>
+<li>-P，–physical物理遍历（不跟随符号链接）</li>
+<li>-t，–tabular 使用制表符分隔的输出格式</li>
+<li>-n，–numeric 显示数字的用户&#x2F;组标识</li>
+<li>-p，–absolute-names 不去除路径前的’&#x2F;‘符号</li>
+<li>-v，–version 显示版本并退出</li>
+<li>-h，–help 显示本帮助信息</li>
+</ul>
+</li>
+</ul>
+<p>示例</p>
+<ul>
+<li>通过getfacl查看文件名为usertxt的文件的所有有效权限。</li>
+<li>命令为：getfacl –e usertxt</li>
+<li><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/04%20%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/2025021619-5718103.png"></li>
+</ul>
+<h4 id="2-3-3-设置文件ACL-setfacl"><a href="#2-3-3-设置文件ACL-setfacl" class="headerlink" title="2.3.3 设置文件ACL - setfacl"></a>2.3.3 设置文件ACL - setfacl</h4><ul>
+<li>setfacl可用来设置文件的ACL。</li>
+<li>语法：<code>setfacl [-bkndRLP]&#123;-m|-M|-x|-X&#125; file...</code></li>
+<li>其中的命令选项说明如下：<ul>
+<li>-m 修改指定文件的acl，不能和-x混合使用</li>
+<li>-x 删除后续参数</li>
+<li>-b 删除所有acl设定参数</li>
+<li>-k 移除预设的acl参数</li>
+<li>-R 递归设置acl参数</li>
+<li>-d 预设目录的acl参数</li>
+</ul>
+</li>
+</ul>
+<p>设置文件ACl - 示例</p>
+<ul>
+<li>为文件添加用户名为user的用户的读写权限</li>
+<li>使用setfacl命令来添加用户名为user的读写权限，并再通过getfacl查看，发现已添加：<code>setfacl –m u:user:rw usertxt</code> 。<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/04%20%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/2025021620-0200193.png"></li>
+</ul>
+<h4 id="2-3-4-更改文件或目录ACL-chacl"><a href="#2-3-4-更改文件或目录ACL-chacl" class="headerlink" title="2.3.4 更改文件或目录ACL - chacl"></a>2.3.4 更改文件或目录ACL - chacl</h4><ul>
+<li>chacl可用来设置文件或目录的控制权限</li>
+<li>语法：<code>chacl [acl/R/D/B/l/r] pathname... / chacl -b acl dacl pathname... / chacl -d daclpathname...</code></li>
+<li>其中的命令选项说明如下：<ul>
+<li><code>-b</code> 同时修改文件权限和默认目录权限</li>
+<li><code>-d</code> 设置目录的默认权限</li>
+<li><code>-R</code> 只删除文件的权限</li>
+<li><code>-D</code> 只删除目录的权限</li>
+<li><code>-B</code> 删除所有权限</li>
+<li><code>-I</code> 列出所有文件和目录权限</li>
+<li><code>-r</code> 设置所有目录和子目录下的权限</li>
+</ul>
+</li>
+</ul>
+<p>更改文件或目录ACL - 示例</p>
+<ul>
+<li>清除文件名为usertxt的文件上的ACL设置</li>
+<li>命令：<code>chacl -B usertxt</code></li>
+<li><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/04%20%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/2025021620-0537157.png"></li>
+</ul>
+<h2 id="0x03-其他权限管理"><a href="#0x03-其他权限管理" class="headerlink" title="0x03 其他权限管理"></a>0x03 其他权限管理</h2><ul>
+<li>Linux中默认账户为普通用户，但是在更改系统文件或者执行某些命令时，都需要以root用户的权限才能进行，此时就需要将默认的普通用户更改为root用户。</li>
+<li>在切换用户身份时，常常用到的命令有三种：<ul>
+<li><code>su</code>：此命令在切换用户时，仅切换root用户身份，但<strong>shell环境</strong>仍为普通用户；</li>
+<li><code>su –</code>：此命令在切换用户时，用户身份和shell环境都会切换为root用户；</li>
+<li><code>sudo</code>：此命令可以允许普通用户执行管理员账户才能执行的命令。</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-1-命令-su-su"><a href="#3-1-命令-su-su" class="headerlink" title="3.1 命令 - su&#x2F;su -"></a>3.1 命令 - su&#x2F;su -</h3><ul>
+<li>su可用来更改用户身份，但不会更改shell环境。</li>
+<li>语法：<code>su [options] [-] [&lt;user&gt; [&lt;argument&gt;...]]</code></li>
+<li>其中的命令选项说明如下：<ul>
+<li><code>-m</code>,<code>-p</code>：执行su时不会改变环境变量</li>
+<li><code>-s</code>：指定要执行的shell（bash csh tcsh）等</li>
+<li><code>-c</code>：变更账号为USER的使用者并在执行完command后为变为原使用者</li>
+<li><code>-f</code>：不需要读启动档，仅用于csh或tcsh</li>
+<li>etc…</li>
+</ul>
+</li>
+</ul>
+<p>示例</p>
+<ul>
+<li>将账户身份变更为root，且将详细信息显示出来。</li>
+<li>命令：<code>su -c ls root</code></li>
+</ul>
+<h3 id="3-2-命令-sudo"><a href="#3-2-命令-sudo" class="headerlink" title="3.2 命令 - sudo"></a>3.2 命令 - sudo</h3><ul>
+<li>sudo可允许普通用户执行root用户才能执行的任务。</li>
+<li>语法：<code>sudo –h | -K | -k | -V</code></li>
+<li>其中的命令选项说明如下：<ul>
+<li><code>-h</code>：显示版本号以及指令的使用说明</li>
+<li><code>-k</code>：使使用者在下次执行sudo时询问密码</li>
+<li><code>-V</code>：显示版本编号</li>
+<li><code>-l</code>：显示使用者的权限</li>
+<li><code>-L</code>：显示sudos设置</li>
+<li>etc…</li>
+</ul>
+</li>
+<li>参数说明<ul>
+<li><code>-V</code> 显示版本编号</li>
+<li><code>-h</code> 会显示版本编号及指令的使用方式说明</li>
+<li><code>-l</code> 显示出自己（执行 sudo 的使用者）的权限</li>
+<li><code>-v</code> 因为 sudo 在第一次执行时或是在 N 分钟内没有执行（N 预设为五）会问密码，这个参数是重新做一次确认，如果超过 N 分钟，也会问密</li>
+<li><code>-k</code> 将会强迫使用者在下一次执行 sudo 时问密码（不论有没有超过 N 分钟）码</li>
+<li><code>-b</code> 将要执行的指令放在背景执行</li>
+<li><code>-p prompt</code> 可以更改问密码的提示语，其中 <code>%u</code> 会代换为使用者的帐号名称，<code>%h</code> 会显示主机名称</li>
+<li><code>-u username/#uid</code> 不加此参数，代表要以 <code>root</code> 的身份执行指令，而加了此参数，可以以 <code>username</code> 的身份执行指令（#uid 为该 username 的使用者号码）</li>
+<li><code>-s</code> 执行环境变数中的 SHELL 所指定的 shell ，或是 <code>/etc/passwd</code> 里所指定的</li>
+<li><code>-H</code> 将环境变数中的 HOME （家目录）指定为要变更身份的使用者家目录（如不加 -u 参数就是系统管理者 root ）</li>
+</ul>
+</li>
+<li>command 要以系统管理者身份（或以 -u 更改为其他人）执行的指令</li>
+</ul>
+<p>本章主要介绍了openEuler中用户和组的基础概念以及具体添加用户和组的命令及方式，之后介绍了文件权限的相关概念，了解到了常见的读权限、写权限及执行权限的相关概念，并学习了如何针对文件或目录进行权限的修改，最后学习了文件权限中的一些特殊权限，包括setfacl、getfacl及chacl，以及访问控制列表ACL，并结合相关参数及示例演示，熟悉了如何使用相关命令来对文件或目录进行对应的权限修改</p>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">XBCID</div><div class="post-copyright__author_desc"></div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="http://example.com/2025/02/14/openEuler/%E7%AC%94%E8%AE%B0/IA/04%20%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('http://example.com/2025/02/14/openEuler/%E7%AC%94%E8%AE%B0/IA/04%20%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/')">04 用户和权限管理</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"></div><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="http://example.com/2025/02/14/openEuler/%E7%AC%94%E8%AE%B0/IA/04%20%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" target="_blank" href="https://service.weibo.com/share/share.php?title=04 用户和权限管理&amp;url=http://example.com/2025/02/14/openEuler/%E7%AC%94%E8%AE%B0/IA/04%20%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/&amp;pic=" rel="external nofollow noreferrer noopener"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><script>function copyCurrentPageUrl() {
+  var currentPageUrl = window.location.href;
+  var input = document.createElement("input");
+  input.setAttribute("value", currentPageUrl);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">XBCID's BLOG</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"><a class="post-meta__box__tags" href="/tags/Linux/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>Linux<span class="tagsPageCount">18</span></a><a class="post-meta__box__tags" href="/tags/openEuler/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>openEuler<span class="tagsPageCount">18</span></a><a class="post-meta__box__tags" href="/tags/Huawei/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>Huawei<span class="tagsPageCount">15</span></a><a class="post-meta__box__tags" href="/tags/HCIA/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>HCIA<span class="tagsPageCount">9</span></a></div></div></div><div class="post_share"><div class="social-share" data-image="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2025/02/14/openEuler/%E7%AC%94%E8%AE%B0/IA/07%20%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">07 系统管理</div></div></a></div><div class="next-post pull-right"><a href="/2025/02/14/openEuler/%E7%AC%94%E8%AE%B0/IA/03%20%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8%E4%BB%A5%E5%8F%8A%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86/"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">03 文本编辑器以及文本处理</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="anzhiyufont anzhiyu-icon-thumbs-up fa-fw" style="font-size: 1.5rem; margin-right: 4px"></i><span>喜欢这篇文章的人也看了</span></div><div class="relatedPosts-list"><div><a href="/2025/02/14/openEuler/%E7%AC%94%E8%AE%B0/IA/01%20openEuler%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%85%A5%E9%97%A8/" title="01 openEuler操作系统入门"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-02-14</div><div class="title">01 openEuler操作系统入门</div></div></a></div><div><a href="/2025/02/14/openEuler/%E7%AC%94%E8%AE%B0/IA/02%20%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%93%8D%E4%BD%9C%E5%9F%BA%E7%A1%80/" title="02 命令行操作基础"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-02-14</div><div class="title">02 命令行操作基础</div></div></a></div><div><a href="/2025/02/14/openEuler/%E7%AC%94%E8%AE%B0/IA/03%20%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8%E4%BB%A5%E5%8F%8A%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86/" title="03 文本编辑器以及文本处理"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-02-14</div><div class="title">03 文本编辑器以及文本处理</div></div></a></div><div><a href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/" title="06 管理文件系统及存储"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-05-19</div><div class="title">06 管理文件系统及存储</div></div></a></div><div><a href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/05%20%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E5%B9%B6%E7%AE%A1%E7%90%86%E6%9C%8D%E5%8A%A1/" title="05 安装软件并管理服务"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-05-19</div><div class="title">05 安装软件并管理服务</div></div></a></div><div><a href="/2025/02/14/openEuler/%E7%AC%94%E8%AE%B0/IA/07%20%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/" title="07 系统管理"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-02-14</div><div class="title">07 系统管理</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__description"></div></div></div><div class="card-widget anzhiyu-right-widget" id="card-wechat" onclick="null"><div id="flip-wrapper"><div id="flip-content"><div class="face" style="background: url(https://bu.dusays.com/2023/01/13/63c02edf44033.png) center center / 100% no-repeat"></div><div class="back face" style="background: url(https://bu.dusays.com/2023/05/13/645fa415e8694.png) center center / 100% no-repeat"></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-%E7%AE%A1%E7%90%86%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84"><span class="toc-number">1.</span> <span class="toc-text">0x01 管理用户和组</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E7%94%A8%E6%88%B7%E7%9A%84%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 用户的基础概念</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-1-%E7%94%A8%E6%88%B7UID"><span class="toc-number">1.1.1.</span> <span class="toc-text">1.1.1 用户UID</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-2-%E5%8C%BA%E5%88%86%E7%94%A8%E6%88%B7%E7%B1%BB%E5%88%AB"><span class="toc-number">1.1.2.</span> <span class="toc-text">1.1.2 区分用户类别</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E7%94%A8%E6%88%B7%E7%9B%B8%E5%85%B3%E7%AE%A1%E7%90%86%E5%91%BD%E4%BB%A4"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 用户相关管理命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-1-%E7%AE%A1%E7%90%86%E7%94%A8%E6%88%B7"><span class="toc-number">1.2.1.</span> <span class="toc-text">1.2.1 管理用户</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-2-%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7-useradd"><span class="toc-number">1.2.2.</span> <span class="toc-text">1.2.2 创建用户 - useradd</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-3-%E4%BF%AE%E6%94%B9%E7%94%A8%E6%88%B7-usermod"><span class="toc-number">1.2.3.</span> <span class="toc-text">1.2.3 修改用户 - usermod</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-4-%E5%88%A0%E9%99%A4%E7%94%A8%E6%88%B7-userdel"><span class="toc-number">1.2.4.</span> <span class="toc-text">1.2.4 删除用户 - userdel</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-5-%E4%BF%AE%E6%94%B9%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81-passwd"><span class="toc-number">1.2.5.</span> <span class="toc-text">1.2.5 修改用户密码 - passwd</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-%E7%94%A8%E6%88%B7%E7%BB%84%E7%9A%84%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5"><span class="toc-number">1.3.</span> <span class="toc-text">1.3 用户组的基础概念</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-1-%E7%94%A8%E6%88%B7%E7%BB%84GID"><span class="toc-number">1.3.1.</span> <span class="toc-text">1.3.1 用户组GID</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-2-%E7%94%A8%E6%88%B7%E7%BB%84%E5%88%86%E7%B1%BB"><span class="toc-number">1.3.2.</span> <span class="toc-text">1.3.2 用户组分类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-3-%E7%94%A8%E6%88%B7%E5%92%8C%E7%94%A8%E6%88%B7%E7%BB%84%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-number">1.3.3.</span> <span class="toc-text">1.3.3 用户和用户组的关系</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-%E7%94%A8%E6%88%B7%E7%BB%84%E7%9B%B8%E5%85%B3%E7%AE%A1%E7%90%86%E5%91%BD%E4%BB%A4"><span class="toc-number">1.4.</span> <span class="toc-text">1.4 用户组相关管理命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-1-%E5%88%9B%E5%BB%BA%E7%BB%84-groupadd"><span class="toc-number">1.4.1.</span> <span class="toc-text">1.4.1 创建组 - groupadd</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-2-%E4%BF%AE%E6%94%B9%E7%BB%84-groupmod"><span class="toc-number">1.4.2.</span> <span class="toc-text">1.4.2 修改组 - groupmod</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-3-%E5%88%A0%E9%99%A4%E7%BB%84-Groupdel"><span class="toc-number">1.4.3.</span> <span class="toc-text">1.4.3 删除组 - Groupdel</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-4-%E5%85%B3%E8%81%94%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84-gpasswd"><span class="toc-number">1.4.4.</span> <span class="toc-text">1.4.4 关联用户和组 - gpasswd</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-5-%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84%E7%9A%84%E5%85%B3%E8%81%94%E6%96%87%E4%BB%B6"><span class="toc-number">1.4.5.</span> <span class="toc-text">1.4.5 用户和组的关联文件</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#1-4-5-1-%E7%94%A8%E6%88%B7%E5%85%B3%E8%81%94%E6%96%87%E4%BB%B6%E2%80%93-etc-passwd"><span class="toc-number">1.4.5.0.1.</span> <span class="toc-text">1.4.5.1 用户关联文件–&#x2F;etc&#x2F;passwd</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#1-4-5-2-%E7%94%A8%E6%88%B7%E5%85%B3%E8%81%94%E6%96%87%E4%BB%B6%E2%80%93-etc-shadow"><span class="toc-number">1.4.5.0.2.</span> <span class="toc-text">1.4.5.2 用户关联文件–&#x2F;etc&#x2F;shadow</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#1-4-5-3-%E7%94%A8%E6%88%B7%E7%BB%84%E5%85%B3%E8%81%94%E7%9A%84%E6%96%87%E4%BB%B6"><span class="toc-number">1.4.5.0.3.</span> <span class="toc-text">1.4.5.3 用户组关联的文件</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#1-4-5-4-%E7%94%A8%E6%88%B7%E7%BB%84%E6%96%87%E4%BB%B6%E2%80%93-etc-group%E6%96%87%E4%BB%B6"><span class="toc-number">1.4.5.0.4.</span> <span class="toc-text">1.4.5.4 用户组文件–&#x2F;etc&#x2F;group文件</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#1-4-5-5-etc-gshadow%E6%96%87%E4%BB%B6"><span class="toc-number">1.4.5.0.5.</span> <span class="toc-text">1.4.5.5 &#x2F;etc&#x2F;gshadow文件</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86"><span class="toc-number">2.</span> <span class="toc-text">0x02 用户权限管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 文件权限的基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-1-%E6%9D%83%E9%99%90%E6%A6%82%E8%BF%B0"><span class="toc-number">2.1.1.</span> <span class="toc-text">2.1.1 权限概述</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-2-%E6%9D%83%E9%99%90%E7%A4%BA%E4%BE%8B"><span class="toc-number">2.1.2.</span> <span class="toc-text">2.1.2 权限示例</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-1-2-1-%E6%96%87%E4%BB%B6%E7%B1%BB%E5%9E%8B"><span class="toc-number">2.1.2.1.</span> <span class="toc-text">2.1.2.1 文件类型</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-1-2-2-%E6%9D%83%E9%99%90%E4%BD%8D%E8%AF%B4%E6%98%8E"><span class="toc-number">2.1.2.2.</span> <span class="toc-text">2.1.2.2 权限位说明</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90%E7%9A%84%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 文件权限的操作命令</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-1-%E5%B8%B8%E7%94%A8%E6%9D%83%E9%99%90%E8%AE%BE%E7%BD%AE%E5%91%BD%E4%BB%A4"><span class="toc-number">2.2.0.1.</span> <span class="toc-text">2.2.1 常用权限设置命令</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-2-%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90-chmod"><span class="toc-number">2.2.1.</span> <span class="toc-text">2.2.2 修改文件权限 - chmod</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-3-%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90-chown"><span class="toc-number">2.2.2.</span> <span class="toc-text">2.2.3 修改文件权限 - chown</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-4-%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90-chgrp"><span class="toc-number">2.2.3.</span> <span class="toc-text">2.2.4 修改文件权限 - chgrp</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-5-%E9%A2%84%E8%AE%BE%E6%9D%83%E9%99%90%E6%8E%A9%E7%A0%81-umask"><span class="toc-number">2.2.4.</span> <span class="toc-text">2.2.5 预设权限掩码 - umask</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6%E5%88%97%E8%A1%A8-ACL"><span class="toc-number">2.3.</span> <span class="toc-text">2.3 访问控制列表 - ACL</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-1-ACL-%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4"><span class="toc-number">2.3.1.</span> <span class="toc-text">2.3.1 ACL - 相关命令</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#chacl%EF%BC%9A%E6%9B%B4%E6%94%B9%E6%96%87%E4%BB%B6%E6%88%96%E7%9B%AE%E5%BD%95%E7%9A%84ACL-%E4%B8%8Echmod%E7%9B%B8%E4%BC%BC%EF%BC%8C%E4%BD%86%E6%98%AF%E6%9B%B4%E4%B8%BA%E5%BC%BA%E5%A4%A7%E7%B2%BE%E7%BB%86%EF%BC%8C%E9%80%9A%E8%BF%87chmod%E5%8F%AF%E4%BB%A5%E6%8E%A7%E5%88%B6%E6%96%87%E4%BB%B6%E8%A2%AB%E4%BD%95%E4%BA%BA%E8%B0%83%E7%94%A8%EF%BC%8C%E4%BD%86%E8%8B%A5%E6%98%AF%E6%9F%90%E4%B8%80%E7%94%A8%E6%88%B7%E7%9A%84%E6%96%87%E4%BB%B6%E5%8F%AA%E6%83%B3%E7%BB%99%E7%89%B9%E5%AE%9A%E7%9A%84%E7%94%A8%E6%88%B7%E7%9C%8B%E6%97%B6%EF%BC%8C%E5%88%99%E9%9C%80%E8%A6%81chacl%E5%87%BA%E5%9C%BA%E5%AE%8C%E6%88%90%E7%94%A8%E6%88%B7%E7%9A%84%E9%9C%80%E6%B1%82"><span class="toc-number">3.</span> <span class="toc-text">chacl：更改文件或目录的ACL  - 与chmod相似，但是更为强大精细，通过chmod可以控制文件被何人调用，但若是某一用户的文件只想给特定的用户看时，则需要chacl出场完成用户的需求</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-2-%E8%8E%B7%E5%8F%96%E6%96%87%E4%BB%B6ACL-getfacl"><span class="toc-number">3.0.1.</span> <span class="toc-text">2.3.2 获取文件ACL - getfacl</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-3-%E8%AE%BE%E7%BD%AE%E6%96%87%E4%BB%B6ACL-setfacl"><span class="toc-number">3.0.2.</span> <span class="toc-text">2.3.3 设置文件ACL - setfacl</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-4-%E6%9B%B4%E6%94%B9%E6%96%87%E4%BB%B6%E6%88%96%E7%9B%AE%E5%BD%95ACL-chacl"><span class="toc-number">3.0.3.</span> <span class="toc-text">2.3.4 更改文件或目录ACL - chacl</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x03-%E5%85%B6%E4%BB%96%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86"><span class="toc-number">4.</span> <span class="toc-text">0x03 其他权限管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E5%91%BD%E4%BB%A4-su-su"><span class="toc-number">4.1.</span> <span class="toc-text">3.1 命令 - su&#x2F;su -</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E5%91%BD%E4%BB%A4-sudo"><span class="toc-number">4.2.</span> <span class="toc-text">3.2 命令 - sudo</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IP/07%20openEuler%E7%B3%BB%E7%BB%9F%E7%9B%91%E6%8E%A7%E5%85%A5%E9%97%A8/" title="无题">无题</a><time datetime="2025-05-18T19:46:45.900Z" title="发表于 2025-05-19 03:46:45">2025-05-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/%E6%B3%A8%E9%87%8A/shebang/" title="无题">无题</a><time datetime="2025-05-18T19:46:45.880Z" title="发表于 2025-05-19 03:46:45">2025-05-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/10%20%E5%B8%B8%E7%94%A8%E5%B0%8F%E6%8C%87%E4%BB%A4/" title="无题">无题</a><time datetime="2025-05-18T19:46:45.685Z" title="发表于 2025-05-19 03:46:45">2025-05-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/09%20Samba%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86/" title="09 Samba文件共享服务器管理">09 Samba文件共享服务器管理</a><time datetime="2025-05-18T19:46:45.684Z" title="发表于 2025-05-19 03:46:45">2025-05-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/08%20%E4%BD%BF%E7%94%A8shell%E8%84%9A%E6%9C%AC/" title="08 使用shell脚本">08 使用shell脚本</a><time datetime="2025-05-18T19:46:45.683Z" title="发表于 2025-05-19 03:46:45">2025-05-19</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2025 By <a class="footer-bar-link" href="/" title="XBCID" target="_blank">XBCID</a></div></div><div id="footer-type-tips"></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/anzhiyu-c/hexo-theme-anzhiyu" title="主题">主题</a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">37</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">5</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">0</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://blog.anheyu.com/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://image.anheyu.com/" title="安知鱼图床"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.anheyu.com/favicon.ico" alt="安知鱼图床"/><span class="back-menu-item-text">安知鱼图床</span></a></div></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/HCIA/" style="font-size: 0.88rem;">HCIA<sup>9</sup></a><a href="/tags/HCIP/" style="font-size: 0.88rem;">HCIP<sup>6</sup></a><a href="/tags/Huawei/" style="font-size: 0.88rem;">Huawei<sup>15</sup></a><a href="/tags/Linux/" style="font-size: 0.88rem;">Linux<sup>18</sup></a><a href="/tags/openEuler/" style="font-size: 0.88rem;">openEuler<sup>18</sup></a></div></div><hr/></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8152976493" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random" volume="0.7"></meting-js></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.5/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("01/12/2021 14:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2020 By 安知鱼 V1.6.14",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 XBCID 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><div class="js-pjax"><input type="hidden" name="page-type" id="page-type" value="post"></div><script>var visitorMail = "";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/qrcodejs/1.0.0/qrcode.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>

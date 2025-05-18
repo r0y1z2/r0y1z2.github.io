@@ -1,0 +1,1174 @@
+<!DOCTYPE html><html lang="zh" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>01 openEuler操作系统入门 | XBCID's BLOG</title><meta name="keywords" content="Linux,openEuler,Huawei,HCIP"><meta name="author" content="XBCID"><meta name="copyright" content="XBCID"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="01 openEuler操作系统入门"><meta name="application-name" content="01 openEuler操作系统入门"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="01 openEuler操作系统入门"><meta property="og:url" content="http://example.com/2025/02/14/openEuler/%E7%AC%94%E8%AE%B0/IP/01%20openEuler%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86/index.html"><meta property="og:site_name" content="XBCID's BLOG"><meta property="og:description" content="Web本章将介绍主流的开源web服务应用，及与其相关的其他应用 目标  学完本课程后，您将能够： 掌握Apache的工作原理及搭建配置 掌握Nginx的工作原理及搭建配置 DNS服务器的工作原理及搭建配置 MySQL数据库的基本操作     0x01 Web服务简介1.1 互联网、万维网和web 万"><meta property="og:locale" content="zh"><meta property="og:image" content="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg"><meta property="article:author" content="XBCID"><meta property="article:tag"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg"><meta name="description" content="Web本章将介绍主流的开源web服务应用，及与其相关的其他应用 目标  学完本课程后，您将能够： 掌握Apache的工作原理及搭建配置 掌握Nginx的工作原理及搭建配置 DNS服务器的工作原理及搭建配置 MySQL数据库的基本操作     0x01 Web服务简介1.1 互联网、万维网和web 万"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="http://example.com/2025/02/14/openEuler/%E7%AC%94%E8%AE%B0/IP/01%20openEuler%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86/"><link rel="preconnect" href="//cdn.cbd.int"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: {"enable":true,"img":"https://upload-bbs.miyoushe.com/upload/2024/07/27/125766904/ba62475f396df9de3316a08ed9e65d86_5680958632268053399..png"},
+  postHeadAiDescription: {"enable":true,"gptName":"AnZhiYu","mode":"local","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"xxxx","Referer":"https://xx.xx/"},
+  diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
+  LA51: undefined,
+  greetingBox: undefined,
+  twikooEnvId: '',
+  commentBarrageConfig:undefined,
+  music_page_default: "nav_music",
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: undefined,
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: XBCID","link":"链接: ","source":"来源: XBCID's BLOG","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: 'XBCID's BLOG',
+  title: '01 openEuler操作系统入门',
+  postAI: '',
+  pageFillDescription: '0x01 Web服务简介, 1.1 互联网、万维网和web, 1.1.1 万维网三要素, 1.2 HTTP, 1.2.1 HTTP请求访问的完整过程, 1.2.2 HTTP的特点, 1.2.3 HTTP协议版本, 1.2.4 HTTP的报文结构, 1.2.5 HTTP处理请求的方法, 1.3 HTTPS简介, 1.3.1 HTTPS会话过程概要, 1.4 Web, 1.4.1 Web服务器简介, 1.4.2 Web资源简介, 1.4.3 Web服务器接收HTTP连接的方式, 1.4.4 Web服务器的Cookie和Session, 1.4.5 Web服务器响应码, 0x02 Apache简介及配置, 2.1 Apache HTTP服务器的关键特性, 2.2 Apache HTTP服务器的多处理模块（MPM）, 2.3 Apache HTTP服务器的安装, 2.4 Apache HTTP服务器目录结构及说明, 2.5 Apache HTTP服务器配置文件 x2Fetcx2Fhttpd, 2.5.1 主配置文件（httpd.conf）重点参数说明 - 全局配置, 2.5.2 基础配置 - 主页面配置（http.conf）, 2.6 Apache HTTP服务器基础配置 -, 2.6.1 DSO, 2.6.2 MPM, 2.6.3 持久连接, 2.6.4 静态资源访问, 2.6.5 静态资源权限设置, 2.6.6 数据压缩, 2.6.7 日志配置, 2.6.8 实现HTTPS, 2.6.9 虚拟主机, 0x03 Nginx简介及配置, 3.1 Nginx简介, 3.1.2Nginx关键特性, 3.1.3 Nginx运行架构, 3.1.4 Nginx关键工作机制, 3.1.5 Nginx的模块化体系, 3.1.6 Nginx的反向代理功能, 3.1.7 Nginx的负载均衡功能, 3.2 安装Nginx, 3.2.1 Yum自动化安装Nginx, 3.2.2 编译安装Nginx, 3.2.3 常用Nginx命令, 3.3 Nginx服务相关文件, 3.4 Nginx服务主配置文件nginx.conf, 3.4.1 结构, 3.4.2 全局配置, 3.4.3 HTTP配置, 3.4.4 HTTPS配置, 3.4.5 传输压缩, 3.4.6 虚拟主机, 3.4.7  路由规则配置, 3.5 Nginx的热升级, 0x04 DNS简介及配置, 4.1 DNS简介, 4.2 DNS域名正向解析流程, 4.3 DNS反向解析简介, 4.4 DNS的资源记录简介, 4.4.1 DNS的资源记录类型 - SOA, 4.4.2 DNS的资源记录常见类型, 4.5 DNS服务关键配置文件, 4.6 DNS服务配置常用命令, 4.7 常用DNS服务检查工具, 4.7.1 nslookup, 4.7.2 dig, 4.7.3 host, 0x05 MySQL简介及配置, 5.1 数据与数据库简介, 5.1.1 什么是数据？, 5.1.2 数据库服务器Database, 5.1.3 数据库管理系统DBMS, 5.1.4 数据库管理系统排名, 5.1.5 数据库管理系统功能介绍, 5.2 MySQL介绍, 5.2.1 MySQL架构, 5.2.2 安装MySQL, 5.2.3 登录MySQL及初始化root账户本章将介绍主流的开源服务应用及与其相关的其他应用目标学完本课程后您将能够掌握的工作原理及搭建配置掌握的工作原理及搭建配置服务器的工作原理及搭建配置数据库的基本操作服务简介互联网万维网和万维网它是一个由互联网上全部资源及信息组成的系统通常会使用或来代替万维网在互联网进行访问时网址以开头的就是万维网万维网三要素全称为是指所访问的资源在互联网中对应的位置全称为是指所访问的资源在互联网中对应的名称全称为在浏览器中显示文档语言标准全称为它是互联网数据通信的基础之一访问网站时使用的是可以明确的找到对应资源在互联网的位置只是一种资源的名称位置确无法确定例如资源下载时会使用磁力链接就是一种典型的组成结构为访问互联网资源时使用的协议例如等访问互联网资源时需要的用户名访问互联网资源时用户所对应的密码在互联网中提供资源的主机的主机名或地址主机提供资源时使用的端口号被访问资源在主机中存放的路径访问资源时携带的参数查询资源时需要传递给主机的参数一部分资源的名称一次请求发送和对应的请求相应组成一次事务请求访问的完整过程建立连接接受一个客户端请求或者如果不希望与这个客户端建立连接就将其关闭接受请求从网络中读取一条请求报文处理请求从请求报文进行解释并采取行动访问资源从数据存储中读取报文中指定的资源构建响应创建带有正确头部的相应报文发送相应将响应回送给客户端记录事务处理过程将与已完成事务相关的内容记录到日志中的特点单向连接仅能从客户端向服务器端发起连接请求无状态协议每一次请求都是独立的响应完成后本次连接即结束的连接可分为长连接短连接明文传输短连接版本中的默认连接方式浏览器和服务器进行一次任务就建立一次连接任务结束连接也就会中断长连接也可以叫做持久连接版本起的默认连接方式在该方式中会在响应头中加入当连接打开后浏览器或客户端与服务器之间用于传输数据的连接不会关闭如果浏览器会客户端再次访问服务器时使用的还是上次的连接这样就减少了建立连接和关闭连接的操作减少资源浪费长连接会设置一个超时时间到了该时间后连接就会自动中断长连接多用于客户端和服务器频繁连接的场景中例如数据库连接等网站则建议使用短连接协议版本推出原型版本功能局限性比较大仅支持方法年推出新引入和方法仅支持单次连接年推出新引入方法相对于增加了持久连接年推出基于升级引入了头信息压缩机制服务器推送等功能采用多路复用机制在一个连接中客户端和服务器可以同时发送多个请求或响应且不用按顺序对应避免了对头堵塞年月日推出使用代替了具有更低的延迟是由谷歌开发的在年推出的它与有以下区别支持明文传输而强制使用消息头的压缩算法采用而非采用的的报文结构报文包含三部分起始行首部字段主体报文的第一行就是起始行在请求报文中用来说明要做些什么在响应报文中要说明出现了什么情况起始行后面有零个或多个首部字段每个首部字段都包含一个字段名和对应的值并使用冒号分隔首部以一个空行结束首部字段的空行后面全部是主体部分其中包含了所有类型的数据请求主体中包含了要发送给服务器的数据响应主体中装载了服务器返回给客户端的数据起始行和首部都是文本形式且都是结构化的主体则不同主体中可以包含任意的二进制数据例如文本图片视频软件程序等处理请求的方法向服务器请求资源向服务器输入数据向服务器写入文档删除中所指定的资源向服务器请求资源后服务器仅返回资源首部不返回主体客户端发起请求时如果穿过防火墙代理等应用时原始的请求会被修改使用后客户端可以在最终请求发送给服务器时看到其形态请求服务器告知其支持的各种功能简介是用以解决明文传输带来的安全隐患需要到申请证书运行在基于的之上若有内容都会被加密使用的端口区别于默认使用的是端口的加密过程会降低用户的访问速度但是经过优化对其影响可控制在可接受范围目前几乎所有网站都使用实现会话过程概要会话过程客户端发送可供选择的加密方式并向服务器请求证书服务器端返回证书以及选定的加密方式给客户端客户端取得证书并进行证书验证来源的合法性内容的合法性是否有效拥有者的名字是否与访问的目标主机一致客户端生成临时会话密钥对称密钥并使用服务器端的公钥加密此数据发送给服务器完成密钥交换服务用此密钥加密用户请求的资源响应给客户端在浏览器中输入网址后它会使用协议向服务器请求对应资源服务器收到请求后将资源返回给浏览器最终以的形式展现给用户服务器简介服务器用来实现和相关连接的处理同时负责所提供资源的管理及服务相关的配置控制及扩展模块的管理主流服务器和基于系统也是后续要学习的重点基于微软操作系统资源简介资源可分为静态资源和动态资源静态资源存放在服务器中的文件可以是文本文件文件图片文件或者视频文件静态资源不需要经过应用的处理直接就可以被用户访问动态资源需要经过应用服务器处理后提供给用户的资源动态资源可以是搜索出来的结果或者在线交易后的结果显示都是经过应用计算后反馈到用户的服务器接收连接的方式单进程模型启动一个进程处理用户请求而且一次只处理一个多个请求被串行响应多进程模型并行启动多个进程每个进程响应一个连接请求复用结构启动一个进程同时响应个连接请求复用的多进程模型启动个进程每个进程响应个连接请求同时接收个请求服务器的和和用以解决无状态所带来的问题由于是无状态协议因此如果后续访问需要用到前面访问时所获取到的资源则客户端需要服务器进行重传这样就会导致资源的浪费因此加入了和机制进行会话管理将状态保存下来来自于服务器响应报头中的字段浏览器收到响应后会将该字段保存到本地同时该字段是由开发者在服务器中构造的当浏览器后续访问服务器时就会携带信息如果数据较大则会浪费带宽资源同时如果保存了认证信息也会带来安全风险因此就诞生了机制中服务器收到浏览器的请求会会产生一个以及其对应的会被保存在服务器上而会被返回给浏览器后续访问时浏览携带的是服务器收到后会找到对应的然后再进行进一步处理例如权限认证等和通常会配合使用但不是必须的服务器响应码信息性状态码成功状态码重定向状态码客户端错误状态码服务器错误状态码常见状态码表示连接正常表示访问被拒绝大多数是由于客户端对被请求的文件没有访问权限或者由于被访问资源对应的文件或目录损坏表示无法找到任何资源表示服务器当前无法处理客户端的请求可以尝试刷新重新发送新的请求表示未接收到服务器的及时响应请求的指向的资源已经被删除但在响应报文中通过首部指明了资源现在所处的新位置响应报文指明资源临时新位置客户端发出了条件式请求但服务器上的资源未曾发生改变则通过响应此响应状态码通知客户端浏览器内部重定向需要输入账号和密码认证方能访问资源服务器内部错误代理服务器从后端服务器收到了一条伪响应如无法连接到网关简介及配置服务器是基金会的第一个项目同时以服务器项目为中心启动了更多的其他项目服务器的关键特性模块化服务器采用的是核心模块其他模块的形式功能模块动态加载卸载对请求多路处理相应的工作模式核心模块是指在安装编译是必须要静态编译的模块例如其中用于处理配置文件的配置指令则用于动态加载其他模块也会被认为是核心模块其他模块则是可选安装的如果应用对其依赖则安装如果不安装也不会影响的正常运行例如等服务器的多处理模块模式对应左侧上方示意图在该模式下在启动后立刻创建多个子进程来响应连接请求这样可以减少频繁创建和销毁子进程时所产生的开销保证服务器的稳定运行但是子进程会占用内存资源因此在高并发的场景中不建议使用此模式模式对应左侧下放示意图在该模式下在启动后也会创建多个子进程出来同时每个子线程会创建线程出来然后由线程去响应连接请求这种模式下占用的资源较少可以处理大量并发请求但是其中子进程或线程崩溃会影响该子进程下的全部任务同时长连接的请求的被一直占用直到超时后才会释放模式版本后新发布的模式也是最新的工作模式在该模式下每个子线程下面有一个监听线程用于改善模式下长连接一直占用线程的问题监听线程负责接收请求并将其转发给工作线程工作线程负责真正处理请求监控线程只会把真正的请求转发给工作线程而空线程不会转发服务器的安装安装跨平台程序开发指的是一个大的开发团队中有的人使用开发有的人使用开发因此需要使用统一的针对进行开发编译安装可以同时将安装这样就可以避免不同调用不同而造成的问题服务器目录结构及说明服务器配置文件位于其目录结构如下在工作中主配置文件中一般用来存放全局配置如果要修改某些参数或功能不会通过修改主配置文件来实现而是通过在目录中创建新的扩展配置文件来实现这样做可提高配置文件的可读性同时也有利于后期维护服务器配置文件主配置文件重点参数说明全局配置可过滤掉主配置文件中的注释行和空行和都是服务的模块配置文件二者之间是由区别的如果在对应的目录下不存在相应配置文件使用时系统会报错使用则不会报错基础配置主页面配置指定服务器监听地址及端口指定主页面存放目录指定默认页面如果在指定端口的时候未指定地址表示可以通过服务器的任意地址访问服务如果指定了地址则仅能通过该地址访问服务如果允许多个端口号进行访问可在多次使用对应实验手册主页面配置中内容服务器基础配置动态功能模块存放路径查看当前被加载的动态功能模块取消或加载动态功能模块在配置文件中添加或注释模块名称模块路径如对应实验手册动态功能模块加载卸载练习中内容模块配置文件默认位置模块工作模式配置对应实验手册工作模式调整中内容持久连接持久连接相关配置打开或关闭持久连接持久连接时长秒默认值为允许最大的持久连接请求数默认值静态资源访问服务器支持从文件系统路径和两种方式配置静态资源文件系统路径的方式可以从服务器中的目录或者文件作为静态资源供用户访问指定目录的配置文件语法目录路径指定静态资源对该目录进行授权指定文件的配置文件语法文件路径文件也可以使用通配符和正则表达式来表示目录和文件的路径可以基于主目录也可以使用使用别名的方式重定向到其他路径静态资源权限设置在配置静态资源时可以使用以下参数进行权限设置如果没有主页面则将索引当前目录允许访问目录中软链接文件的源文件全部禁止全部允许表示将权限相关的配置全部放到指定目录的文件中表示中的指令全部有效表示中的指令全部无效表示出来自动生成的指令其他全部无效在和前面加表示删除此功能基于客户端地址默认拒绝所有访问表示允许所有地址表示拒绝所有地址和配合使用表示黑名单时不需要使用表示白名单账户基于账户默认无账户认证认证类型明文认证需要启用消息摘要认证认证提示框内容密码文件路径可用于认证的账户在基于账户进行权限控制前需使用命令命令创建账户及密码密码文件位置一般建议存放在被访问静态资源相同目录中数据压缩启用压缩模块设置压缩参数可选项指定要进行压缩的文件类型设置压缩级别最低最高为指定浏览器指定压缩或者不压缩日志配置用于存放服务器的接入日志用于存放服务器的错误日志日志配置格式为定义日志格式指定日志存放目录及调用日志格式实现安装依赖包依赖模块需安装指定证书相关路径证书文件路径私钥文件路径证书链文件路径通过重定向实现将重定向到虚拟主机虚拟主机指的是在同一服务器运行多个给服务并对应不同的域名虚拟主机有三种实现方式基于不同的地址基于不同端口号基于不同域名虚拟主机配置为虚拟主机真实地址和对应端口号域名虚拟主机端口号虚拟主机户主页在一台服务器上运行多个虚拟主机每个虚拟主机可对应一个服务每个服务对应独立的静态或动态资源用户可使用不同的域名不同的端口号或者不同的地址来访问到不同的资源简介及配置简介是一款轻量级服务器也是一款邮箱代理服务器同时具备反向代理通用代理的功能可以运行在等多种平台上同时支持等主流的操作系统一般用于搭建服务器服务器或者作为反向代理及负载均衡部署在服务器前端关键特性支持高并发单机可支持十万级的并发连接经过优化后可最高支持百万级并发连接内存资源消耗低在同级服务器中占用的内存最少一万非活跃的连接仅消耗内存高扩展性和一样采用模块化设计并支持非常丰富的第三方块高可靠性采用模式如果出现故障可以快速开启一个新的来提供服务运行架构主进程检查配置是否正确创建监控进程的数量和状态接收对的管理指令并作出对应操作工作进程处理客户端请求接收发来的指令并做对应操作默认情况下会创建和服务器核心数量相等的进程进程之间相互独立其中一个出现故障不会影响其他进程关键工作机制的抢占机制的异步非阻塞事件处理机制抢占机制当客户端发起请求时会激活互斥锁哪个抢占了该互斥锁该客户端的请求就由哪个响应和处理异步非阻塞模式在传统事件处理模式下如果所有的被客户端阻塞后新来的客户就需要等待直到原来的客户端释放以后才能被处理请求在异步非阻塞模式下底层使用了的模型就算被阻塞新的客户端请求也会被正常处理的模块化体系核心模块包括标准化模块有很多图中列出的仅是比较有代表性的的反向代理功能反向代理的工作流程客户端向发送请求在收到客户端发送的请求后将请求转发到后端服务器后端服务器将客户端请求的资源回复给将资源返回给客户端反向代理通过位于中的实现在反向代理的工作流程中客户端向代理请求资源时使用的端口可以和服务器提供服务的端口不一致支持对和等协议进行代理例如客户端使用端口向代理发送请求服务器使用端口向反向代理提供资源的负载均衡功能可以提供四层和七层的负载均衡的负载均衡功能通过位于中的实现提供了多种负载均衡算法如轮询权重等轮询算法下会轮流将请求发送给不同的服务器使每个服务器都均等的提供服务权重算法下会按照配置的权重比例将请求发送给服务器性能较好的服务器将提供更多的服务性能较好的服务器将提供较少的服务安装自动化安装编译安装下载源码安装包源码安装包下载路径为安装依赖环境安装命令编译安装创建文件编译安装编译安装具备以下优势可选择官方开放下载的版本可对安装路径模块及第三方插件进行自定义用于服务在编译过程可能会报依赖缺失的错误需根据提示进行安装创建文件时添加的参数及其功能可查看官方文档常用命令检查配置文件使用指定配置文件代替缺省配置文件查看版本查看版本编译器版本配置参数等详细信息启动强制停止优雅停止重启重新加载服务相关文件的配置文件存放在为子配置文件目录为主配置文件用以翻译的变量供识别用以配置支持的媒体文件类型用以翻译的变量供识别为默认的网站根目录为默认日志目录服务主配置文件结构全局配置运行用户数量日志参数导入的外部配置文件性能配置工作模式连接数模块配置请求和响应的参数路由配置虚拟主机配置反向代理配置负载均衡配置的配置文件除全局配置外其他配置以为标志将各个配置以模块化的形式分割全局配置的用户为进程的用户可在全局配置中通过调整默认情况进程数量和服务器核心数一致也可以在全局配置中通过调整进程所需用户进程数量错误日志存放路径进程文件对应路径功能模块对应路径配置表示对于数据包是否立刻发送表示否表示是该参数用来调优如果立刻发送可能导致堵塞一般建议设置为会增加通信的延时但是会提高带宽利用率在高延时数据量大的通信场景中应该会有不错的效果会增加小包的数量但是可以提高响应速度在及时性高的通信场景中应该会有不错的效果影响散列表的冲突率越大就会消耗更多的内存但散列的冲突率会降低检索速度就更快越小消耗的内存就越小但散列的冲突率可能上升详细的可以查看没好看配置传输压缩传输压缩相关配置包在中压缩比越大的性能损耗越多虚拟主机在模块中使用字段配置虚拟主机中的虚拟主机也支持三种实现方式基于不同地址基于不同端口号基于不同域名字段的语法格式为路由规则配置中使用参数进行路由配置位于虚拟主机配置模块中参数的语法为开头表示精准匹配开头表示以某个常规字符串开头不是正则匹配开头表示区分大小写的正则匹配开头表示不区分大小写的正则匹配通用匹配如果没有其他匹配任何请求都会匹配到如果是一个目录需要以结尾在中路径有两种设置方法表示相对路径表示绝对路径配置模块中可开启功能表示可对访问的目录进行索引不同表达的优先级为完整路径路径正则顺序部分起始路径的热升级的热升级指的是在不影响客户端请求的请求下将当前版本的升级为指定版本热升级的流程为通过编译获取到新的二进制文件备份当前版本文件将当前版本的文件更换为新版本文件向当前版本进程发送信号启用新版本的进程测试新版本工作是否正常退出老版本进程简介及配置简介是的缩写它是互联网中非常重要的一项服务用于将域名和服务器的地址进行对应和解析降低了互联网访问的难度同时也减少了运维工作量是应用层协议使用的是和的端口采用的是架构在中服务通常使用实现域名采用分层结构最上层是根域依次是顶级域名二级域名及其下属的子域最多支持级子域域名正向解析流程在本地缓存中查找是否有对应地址查看本地文件是否配置静态域名解析向本地服务器发送查询请求如果本地服务器没有所请求的域名则由其向根服务器查询根服务器将对应的顶级服务器地址提供给本地服务器本地服务器向顶级服务器发送解析请求顶级服务器将对应的权威服务器地址返回给本地服务器本地服务器向权威服务器发送解析请求权威服务器完成地址解析将域名对应的地址返回给本地服务器本地服务器将地址返回给客户端上图展示的是迭代查询流程还支持递归查询方式在递归查询中步骤的时候顶级服务器的地址不会直接返给本地而是由根直接向顶级服务器发送解析请求同时步骤中的权威服务器地址也不会返回给本地服务器而是继续向权威服务器进行解析查询最后解析后的地址由权威返回给顶级然后再返回给根最后由根返回给本地服务器反向解析简介反向解析是指将地址解析成对应的域名反向解析主要使用在邮箱域名解析的场景中反向解析时对应的顶级域为的资源记录简介资源记录是服务器用来进行域名解析的依据相当于的数据库文件常用的资源类型有等资源记录有固定的格式具体为表示域名表示缓存时间可以从全局配置继承记录格式固定表示资源记录的类型值不同资源记录中到的值不同的资源记录类型是起始授权记录一个区域解析库有且只能有一个记录记录必须放在区域解析库的第一条记录中的即为当前区域的名称记录中的有很多部分组成记录的内容如下图所示全局定义了当前域的缓存时间后续其他资源记录可省略该值的定义在资源记录里等同于当前域的名称主服务器管理员邮箱由于在有特殊含义因此使用代替表示版本号供备从服务器确定是否同步信息表示从服务器向主服务器同步数据的间隔表示从服务器向主服务器同步数据的重试间隔表示从服务器判断主服务器是否失效的时间段例如表示如果从服务器在周都无法和主服务器同步数据则认为其已失效无效域名缓存的时长在此时间内如果用户再次查询无效域名解析服务器将直接返回无法解析的响应不在进行查询在记录中可以使用代替域名如果不使用而写具体域名时切记注意该域名要以结尾例如域名为在中要写为中的需要单独为其设置一条类型的记录将其解析成对应的地址的资源记录常见类型用以将域名解析为地址用以将域名解析为地址在资源记录中表示主机的表示主机对应的地址为域名服务记录一个区域可包含多个这些中一个为主服务器其余为从服务器用于标明区域内的邮件服务器地址一个区域可包含多个使用表示对应的优先级其中优先级最好最低用于定义域名的别名用于反向解析将域名解析为地址记录是唯一的它们以开始以地址的主机位结尾中为区域名称为邮箱服务器的主机名中为别名的为真实的记录中一个主机名可对应多个地址使用可以将没有定义的主机全部解析为指定的地址服务关键配置文件服务配置常用命令检测配置是否有语法错误检测数据文件配置是否有语法错误域名数据文件重新加载配置常用服务检查工具命令用于查看域名解析是否正常在网络故障时可以用来诊断网络问题交互式用于多次查询和诊断非交互式用于单次查询和诊断命令的功能比更强大它支持更多的查询功能如追踪等命令是一个用于执行查找的简单实用程序它可以用于查询正反向解析结果命令常用选项显示详细的信息指定查询类型查询指定主机的完整记录指定查询域名信息的类型使用进行查询使用进行查询简介及配置数据与数据库简介什么是数据数据是信息的表现形式和载体可以是符号文字数字语音图像视频等数据和信息是不可分离的数据是信息的内涵数据本身没有意义数据只有对实体行为产生影响时才成为信息在计算机系统中各种字母数字符号的组合语音图形图像等统称为数据数据以二进制信息单元形式表示数据经过加工后就成为信息描述事物的符号称为数据数据有多种表现形式可以是数字也可以是文字图形图像声音语言等在数据库中数据表示记录例如在学生管理数据库中记录学生的信息包括学号姓名性别年龄籍贯和联系电话等这些信息就是数据信息是指对数据进行加工处理后提取的对人类社会实践和生产活动产生决策影响的数据信息就是数据中所包含的意义未经过加工的数据只是一种原始材料它的价值在于记录了客观世界的事实数据库服务器数据库服务器是指长期存储在计算机内有组织可共享的大量的数据的集合数据库服务器中的数据按照一定的数据模型组织描述和存储具有较小的冗余度较高的数据独立性和易扩展性并可为各种用户共享数据库指长期存储在计算机内的有组织的可共享的数据集合通俗的讲数据库就是存储数据的地方就像冰箱是存储食物的地方一样在生活中每个人都在使用数据库当我们在电话簿里查找名字时就是在使用数据库在某个浏览器上进行搜索时也是在使用数据库以及平时我们登录网络也需要依靠数据库验证自己的名字和密码即便是在使用机时也要利用数据库进行码验证和余额检查数据库实际上就是一个文件集合是一个存储数据的仓库本质就是一个文件系统数据库是按照特定的格式把数据存储起来用户可以对存储的数据进行增删改查操作在日常生活中人们可以直接用中文英文等自然语言描述客观事物在计算机中则要抽象出对这些事物感兴趣的特征并组成一个记录来描述数据库是结构化信息或数据一般以电子形式存储在计算机系统中的有组织的集合数据库简而言之可视为电子化的文件柜存储电子文件的处所用户可以对文件中的数据运行新增截取更新删除等操作所谓数据库系以一定方式储存在一起能予多个用户共享具有尽可能小的冗余度与应用程序彼此独立的数据集合数据库管理系统数据库管理系统有一个互相关联的数据的集合和一组用以访问这些数据的程序组成这个数据集合通常被称作数据库的主要目的是提供一种可以方便高效地存取数据库信息的途径充当数据库与其用户或程序之间的接口允许用户检索更新和管理信息的组织和优化方式此外还有助于监督和控制数据库提供各种管理操作例如性能监视调优备份和恢复具有代表性的数据库管理系统有及等数据库通常离不开完备的数据库软件程序也就是数据库管理系统充当数据库与其用户或程序之间的接口允许用户检索更新和管理信息的组织和优化方式此外还有助于监督和控制数据库提供各种管理操作例如性能监视调优备份和恢复数据库软件旨用于创建编辑和维护数据库文件及记录帮助用户更轻松地执行文件和记录创建数据录入数据编辑更新和报告等操作除此之外数据库软件还能处理数据存储备份和报告以及多路访问控制和安全性等问题随着当今数据盗窃日益频繁数据库安全性已变得至为重要数据库软件有时也称为数据库管理系统常见的数据库软件或有和数据库管理系统排名数据库管理系统功能介绍数据定义功能提供数据定义语言用户通过它可以方便地对数据库中的数据对象进行定义数据操纵功能还提供数据操纵语言用户可以使用操作数据实现对数据库的基本操作如插入删除和修改等数据库的运行管理数据库在建立运用和维护时由数据库管理系统统一管理统一控制以保证数据的安全性完整性多用户对数据的并发使用及发生故障后的系统恢复提供方便有效地存取数据库信息的接口和工具编程人员可通过编程语言与数据库之间的接口进行数据库应用程序的开发数据库管理员可通过提供的工具对数据库进行管理数据库的建立和维护功能数据库功能包括数据库初始数据的输入转换功能数据库的转储恢复功能数据库的重组织功能和性能监控分析功能等这些功能通常是由一些程序来完成介绍架构连接器不同语言开发的程序可以通过接口与建立连接连接池连接池用于管理缓冲用户连接线程处理等需要缓存的需求系统管理和控制工具提供了丰富的数据库管理功能如数据库备份恢复分库分表管理等接口接受用户的命令并且返回用户需要查询的结果解析器用于语句的解析验证查询优化器用于语句的查询优化缓存查询缓存有命中的查询结果查询语句就可以直接去查询缓存中取数据不执行可插拔存储引擎底层数据存储引擎采用插件式管理支持多种存储引擎存储引擎基于表非数据库系统文件文件和日志物理文件包括等安装使用自带源进行安装官网下载对应版本的源文件配置工具完成配置后使用安装官网下载对应版本的包然后使用命令安装官网下载对应的源码包然后进行编译安装本课程使用自带源进行安装安装的是同时源中也包含了版本的本次课程以为例后续内容如果未加特殊说明表示在版本中的输入输出登录及初始化账户完成安装后使用命令即可登录数据库',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-05-19 03:44:01',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://npm.elemecdn.com/anzhiyu-blog-static@1.0.4/img/avatar.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><a id="site-name" href="/" accesskey="h"><div class="title">XBCID's BLOG</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" target="_blank"><img class="post-qr-code-img" alt="微信" src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" target="_blank"><img class="post-qr-code-img" alt="支付宝" src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/HCIA/" style="font-size: 1.05rem;">HCIA<sup>9</sup></a><a href="/tags/HCIP/" style="font-size: 1.05rem;">HCIP<sup>6</sup></a><a href="/tags/Huawei/" style="font-size: 1.05rem;">Huawei<sup>15</sup></a><a href="/tags/Linux/" style="font-size: 1.05rem;">Linux<sup>18</sup></a><a href="/tags/openEuler/" style="font-size: 1.05rem;">openEuler<sup>18</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/05/"><span class="card-archive-list-date">May 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">23</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/03/"><span class="card-archive-list-date">March 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">6</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/02/"><span class="card-archive-list-date">February 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">8</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="article-meta tags"><a class="article-meta__tags" href="/tags/Linux/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>Linux</span></a><a class="article-meta__tags" href="/tags/openEuler/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>openEuler</span></a><a class="article-meta__tags" href="/tags/Huawei/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>Huawei</span></a><a class="article-meta__tags" href="/tags/HCIP/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>HCIP</span></a></span></div></div><h1 class="post-title" itemprop="name headline">01 openEuler操作系统入门</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2025-02-14T09:22:46.000Z" title="发表于 2025-02-14 17:22:46">2025-02-14</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2025-05-18T19:44:01.483Z" title="更新于 2025-05-19 03:44:01">2025-05-19</time></span></div><div class="meta-secondline"><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为重庆"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>重庆</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src=""></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="http://example.com/2025/02/14/openEuler/%E7%AC%94%E8%AE%B0/IP/01%20openEuler%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86/"><header><a href="/tags/Linux/" tabindex="-1" itemprop="url">Linux</a><a href="/tags/openEuler/" tabindex="-1" itemprop="url">openEuler</a><a href="/tags/Huawei/" tabindex="-1" itemprop="url">Huawei</a><a href="/tags/HCIP/" tabindex="-1" itemprop="url">HCIP</a><h1 id="CrawlerTitle" itemprop="name headline">01 openEuler操作系统入门</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">XBCID</span><time itemprop="dateCreated datePublished" datetime="2025-02-14T09:22:46.000Z" title="发表于 2025-02-14 17:22:46">2025-02-14</time><time itemprop="dateCreated datePublished" datetime="2025-05-18T19:44:01.483Z" title="更新于 2025-05-19 03:44:01">2025-05-19</time></header><p><strong>Web</strong>本章将介绍主流的开源web服务应用，及与其相关的其他应用</p>
+<p>目标</p>
+<ul>
+<li>学完本课程后，您将能够：<ul>
+<li>掌握Apache的工作原理及搭建配置</li>
+<li>掌握Nginx的工作原理及搭建配置</li>
+<li>DNS服务器的工作原理及搭建配置</li>
+<li>MySQL数据库的基本操作</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="0x01-Web服务简介"><a href="#0x01-Web服务简介" class="headerlink" title="0x01 Web服务简介"></a>0x01 Web服务简介</h2><h3 id="1-1-互联网、万维网和web"><a href="#1-1-互联网、万维网和web" class="headerlink" title="1.1 互联网、万维网和web"></a>1.1 互联网、万维网和web</h3><ul>
+<li>万维网（World Wide Web），它是一个由互联网上全部资源及信息组成的系统，通常会使用web或www来代替万维网</li>
+<li>在互联网进行访问时，网址以www开头的，www就是万维网</li>
+</ul>
+<h4 id="1-1-1-万维网三要素"><a href="#1-1-1-万维网三要素" class="headerlink" title="1.1.1 万维网三要素"></a>1.1.1 万维网三要素</h4><ul>
+<li><p>URI：</p>
+<ul>
+<li>URL：全称为<code>uniform resource locator</code>，是指所访问的资源在互联网中对应的位置</li>
+<li>URN：全称为<code>uniform resouce naming</code>，是指所访问的资源在互联网中对应的名称</li>
+</ul>
+</li>
+<li><p>HTML：</p>
+<ul>
+<li>全称为<code>HyperText Markup Language</code>，在浏览器中显示文档语言标准\</li>
+</ul>
+</li>
+<li><p>HTTP:</p>
+<ul>
+<li>全称为<code>HyperText Transfer Protocol</code>，它是互联网数据通信的基础之一</li>
+</ul>
+</li>
+<li><p>访问网站时使用的是URL，可以明确的找到对应资源在互联网的位置</p>
+</li>
+<li><p>URN只是一种资源的名称，位置确无法确定，例如P2P资源下载时会使用URN，磁力链接就是一种典型的URN</p>
+</li>
+<li><p>URL组成结构为：<br>  <code>&lt;scheme&gt;://&lt;user&gt;:&lt;password&gt;@&lt;host&gt;:&lt;port&gt;/&lt;path&gt;;&lt;params&gt;?&lt;query&gt;#&lt;frag&gt;</code></p>
+<ul>
+<li>scheme：访问互联网资源时使用的协议，例如http、https:、ftp等</li>
+<li>User：访问互联网资源时需要的用户名</li>
+<li>Password：访问互联网资源时用户所对应的密码</li>
+<li>Host：在互联网中提供资源的主机的主机名或IP地址</li>
+<li>Port：主机提供资源时使用的端口号</li>
+<li>Path：被访问资源在主机中存放的路径</li>
+<li>Params：访问资源时携带的参数</li>
+<li>Query：查询资源时需要传递给主机的参数</li>
+<li>Frag：一部分资源的名称</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-2-HTTP"><a href="#1-2-HTTP" class="headerlink" title="1.2 HTTP"></a>1.2 HTTP</h3><ul>
+<li>一次请求发送和对应的请求相应组成一次HTTP事务<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/file-20250223213102233.png" alt="HTTP工作机制"></li>
+</ul>
+<h4 id="1-2-1-HTTP请求访问的完整过程"><a href="#1-2-1-HTTP请求访问的完整过程" class="headerlink" title="1.2.1 HTTP请求访问的完整过程"></a>1.2.1 HTTP请求访问的完整过程</h4><ol>
+<li>建立连接：接受一个客户端请求，或者如果不希望与这个客户端建立连接，就将其关闭</li>
+<li>接受请求：从网络中读取一条HTTP请求报文 </li>
+<li>处理请求：从请求报文进行解释，并采取行动</li>
+<li>访问资源：从数据存储中读取报文中指定的资源</li>
+<li>构建响应：创建带有正确头部的HTTP相应报文</li>
+<li>发送相应：将响应回送给客户端</li>
+<li>记录事务处理过程：将与已完成事务相关的内容记录到日志中</li>
+</ol>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/file-20250224173053326.png" alt="完整的一次HTTP请求"></p>
+<h4 id="1-2-2-HTTP的特点"><a href="#1-2-2-HTTP的特点" class="headerlink" title="1.2.2 HTTP的特点"></a>1.2.2 HTTP的特点</h4><ul>
+<li><p>单向连接：仅能从客户端向服务器端发起连接请求</p>
+</li>
+<li><p>无状态协议：每一次请求都是独立的，响应完成后，本次连接即结束</p>
+<ul>
+<li>HTTP的连接可分为：<ul>
+<li>长连接</li>
+<li>短连接</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>明文传输</p>
+</li>
+<li><p>短连接：HTTP&#x2F;1.0版本中的默认连接方式，浏览器和服务器进行一次HTTP任务，就建立一次连接，任务结束，连接也就会中断</p>
+</li>
+<li><p>长连接：也可以叫做持久连接，HTTP&#x2F;1.1版本起的默认连接方式，在该方式中，会在响应头中加入“Connection:keep-alive”，当连接打开后，浏览器或客户端与服务器之间用于传输http数据的TCP连接不会关闭，如果浏览器会客户端再次访问web服务器时，使用的还是上次的tcp连接，这样就减少了建立连接和关闭连接的操作，减少资源浪费。长连接会设置一个超时时间，到了该时间后，连接就会自动中断</p>
+</li>
+<li><p>长连接多用于客户端和服务器频繁连接的场景中，例如数据库连接等，web网站则建议使用短连接。</p>
+</li>
+</ul>
+<h4 id="1-2-3-HTTP协议版本"><a href="#1-2-3-HTTP协议版本" class="headerlink" title="1.2.3 HTTP协议版本"></a>1.2.3 HTTP协议版本</h4><ul>
+<li><p>HTTP&#x2F;0.9</p>
+<ul>
+<li>1991推出，原型版本，功能局限性比较大，仅支持GET方法</li>
+</ul>
+</li>
+<li><p>HTTP&#x2F;1.0</p>
+<ul>
+<li>1996年推出，新引入POST和HEAD方法，仅支持单次连接</li>
+</ul>
+</li>
+<li><p>HTTP&#x2F;1.1</p>
+<ul>
+<li>1997年推出，新引入PUT、PATCH、OPTIONS、DELETE方法，相对于HTTP&#x2F;1.0增加了持久连接</li>
+</ul>
+</li>
+<li><p>HTTP&#x2F;2.0</p>
+<ul>
+<li>2015年推出，基于SPDY升级，引入了头信息压缩机制、服务器推送等功能</li>
+<li>采用多路复用机制，在一个连接中，客户端和服务器可以同时发送多个请求或响应，且不用按 顺序对应，避免了”对头堵塞“</li>
+</ul>
+</li>
+<li><p>HTTP&#x2F;3.0</p>
+<ul>
+<li>2022年6月6日推出，使用UDP代替了TCP，具有更低的延迟</li>
+</ul>
+</li>
+<li><p>SPDY是由谷歌开发的，在2009年推出的，它与http&#x2F;2.0有以下区别：</p>
+<ul>
+<li>HTTP2.0支持明文HTTP传输，而SPDY强制使用HTTPS</li>
+<li>HTTP2.0 消息头的压缩算法采用 HPACK，而非 SPDY 采用的 DEFLATE</li>
+</ul>
+</li>
+</ul>
+<h4 id="1-2-4-HTTP的报文结构"><a href="#1-2-4-HTTP的报文结构" class="headerlink" title="1.2.4 HTTP的报文结构"></a>1.2.4 HTTP的报文结构</h4><ul>
+<li>HTTP报文包含三部分：<ul>
+<li>起始行</li>
+<li>首部字段</li>
+<li>主体</li>
+</ul>
+</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/file-20250224181405891.png"></p>
+<ul>
+<li>报文的第一行就是起始行，在请求报文中用来说明要做些什么，在响应报文中要说明出现了什么情况</li>
+<li>起始行后面有零个或多个首部字段。每个首部字段都包含一个字段名和对应的值，并使用冒号分隔，首部以一个空行结束</li>
+<li>首部字段的空行后面全部是主体部分，其中包含了所有类型的数据。请求主体中包含了要发送给web服务器的数据，响应主体中装载了web服务器返回给客户端的数据。起始行和首部都是文本形式且都是结构化的，主体则不同，主体中可以包含任意的二进制数据，例如文本、图片、视频、软件程序等</li>
+</ul>
+<h4 id="1-2-5-HTTP处理请求的方法"><a href="#1-2-5-HTTP处理请求的方法" class="headerlink" title="1.2.5 HTTP处理请求的方法"></a>1.2.5 HTTP处理请求的方法</h4><ul>
+<li>GET:向服务器请求资源</li>
+<li>POST:向服务器输入数据</li>
+<li>PUT:向服务器写入文档</li>
+<li>DELETE:删除URL中所指定的资源</li>
+<li>HEAD:向服务器请求资源后，服务器仅返回资源首部，不返回主体</li>
+<li>TRACE:客户端发起请求时如果穿过防火墙、代理等应用时，原始的HTTP请求会被修改，使用TRACE后，客户端可以在最终请求发送给服务器时，看到其形态</li>
+<li>OPTIONS:请求web服务器告知其支持的各种功能</li>
+</ul>
+<h3 id="1-3-HTTPS简介"><a href="#1-3-HTTPS简介" class="headerlink" title="1.3 HTTPS简介"></a>1.3 HTTPS简介</h3><ul>
+<li>HTTPS是用以解决HTTP明文传输带来的安全隐患</li>
+<li>HTTPS需要到CA申请证书</li>
+<li>HTTPS运行在基于TCP的SSL&#x2F;TLS之上，若有内容都会被加密</li>
+<li>HTTPS使用的端口区别于HTTP，默认使用的是443端口</li>
+<li>HTTPS的加密过程会降低用户的访问速度，但是经过优化，对其影响可控制在可接受范围</li>
+<li>目前几乎所有网站都使用HTTPS实现</li>
+</ul>
+<h4 id="1-3-1-HTTPS会话过程概要"><a href="#1-3-1-HTTPS会话过程概要" class="headerlink" title="1.3.1 HTTPS会话过程概要"></a>1.3.1 HTTPS会话过程概要</h4><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/file-20250224181952350.png"></p>
+<ul>
+<li>https会话过程：<ul>
+<li>客户端发送可供选择的加密方式，并向服务器请求证书</li>
+<li>服务器端返回证书以及选定的加密方式给客户端</li>
+<li>客户端取得证书并进行证书验证<ul>
+<li>来源的合法性</li>
+<li>内容的合法性</li>
+<li>是否有效</li>
+<li>拥有者的名字是否与访问的目标主机一致</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>客户端生成临时会话密钥（对称密钥），并使用服务器端的公钥加密此数据发送给服务器，完成密钥交换</li>
+<li>服务用此密钥加密用户请求的资源，响应给客户端</li>
+</ul>
+<h3 id="1-4-Web"><a href="#1-4-Web" class="headerlink" title="1.4 Web"></a>1.4 Web</h3><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/file-20250224182104909.png"></p>
+<ul>
+<li>在浏览器中输入网址（URL）后，它会使用http协议向web服务器请求对应资源，web服务器收到请求后，将资源返回给浏览器，最终以html的形式展现给用户</li>
+</ul>
+<h4 id="1-4-1-Web服务器简介"><a href="#1-4-1-Web服务器简介" class="headerlink" title="1.4.1 Web服务器简介"></a>1.4.1 Web服务器简介</h4><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/file-20250224182340435.png" alt="Web服务器统计数据"></p>
+<ul>
+<li><p>Web服务器用来实现HTTP和相关TCP连接的处理，同时负责所提供资源的管理及服务相关的配置、控制及扩展模块的管理</p>
+</li>
+<li><p>主流Web服务器</p>
+<ul>
+<li>Nginx</li>
+<li>Apache</li>
+<li>IIS</li>
+</ul>
+</li>
+<li><p>Nginx和Apache基于linux系统，也是后续要学习的重点</p>
+</li>
+<li><p>IIS基于微软Windows操作系统</p>
+</li>
+</ul>
+<h4 id="1-4-2-Web资源简介"><a href="#1-4-2-Web资源简介" class="headerlink" title="1.4.2 Web资源简介"></a>1.4.2 Web资源简介</h4><ul>
+<li>Web资源可分为静态资源和动态资源<ul>
+<li>静态资源<ul>
+<li>存放在web服务器中的文件，可以是文本文件、HTML文件、图片文件或者视频文件。静态资源不需要经过应用的处理，直接就可以被用户访问</li>
+</ul>
+</li>
+<li>动态资源<ul>
+<li>需要经过应用服务器处理后提供给用户的资源。动态资源可以是搜索出来的结果，或者在线交易后的结果显示，都是经过应用计算后反馈到用户的</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="1-4-3-Web服务器接收HTTP连接的方式"><a href="#1-4-3-Web服务器接收HTTP连接的方式" class="headerlink" title="1.4.3 Web服务器接收HTTP连接的方式"></a>1.4.3 Web服务器接收HTTP连接的方式</h4><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/file-20250224182534416.png"></p>
+<ul>
+<li>单进程I&#x2F;O模型：启动一个进程处理用户请求，而且一次只处理一个，多个请求被串</li>
+<li>行响应</li>
+<li>多进程I&#x2F;O模型：并行启动多个进程,每个进程响应一个连接请求</li>
+<li>复用I&#x2F;O结构：启动一个进程，同时响应N个连接请求</li>
+<li>复用的多进程I&#x2F;O模型：启动M个进程，每个进程响应N个连接请求，同时接收<code>M*N</code>个请求</li>
+</ul>
+<h4 id="1-4-4-Web服务器的Cookie和Session"><a href="#1-4-4-Web服务器的Cookie和Session" class="headerlink" title="1.4.4 Web服务器的Cookie和Session"></a>1.4.4 Web服务器的Cookie和Session</h4><ul>
+<li>Cookie和Session用以解决HTTP无状态所带来的问题<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/file-20250225154800468.png"></li>
+<li>由于http是无状态协议，因此，如果后续访问需要用到前面访问时所获取到的资源，则客户端需要服务器进行重传，这样就会导致资源的浪费，因此http加入了Cookie和Session机制，进行会话管理，将状态保存下来</li>
+<li>Cookie来自于web服务器响应报头中的“set-cookie”字段，浏览器收到响应后，会将该字段保存到本地，同时，该字段是由app开发者在服务器中构造的。当浏览器后续访问web服务器时就会携带cookie信息，如果cookie数据较大，则会浪费带宽资源，同时如果保存了认证信息，也会带来安全风险，因此就诞生了session。</li>
+<li>Session机制中，服务器收到浏览器的请求会，会产生一个session ID以及其对应的value，value会被保存在web服务器上，而session ID会被返回给浏览器，后续访问时，浏览携带的是session，服务器收到后会找到对应的value，然后再进行进一步处理，例如权限认证等。</li>
+<li>Cookie和session通常会配合使用，但不是必须的</li>
+</ul>
+<h4 id="1-4-5-Web服务器响应码"><a href="#1-4-5-Web服务器响应码" class="headerlink" title="1.4.5 Web服务器响应码"></a>1.4.5 Web服务器响应码</h4><ul>
+<li><p>100-199:信息性状态码</p>
+</li>
+<li><p>200-299:成功状态码</p>
+</li>
+<li><p>300-399:重定向状态码</p>
+</li>
+<li><p>400-499:客户端错误状态码</p>
+</li>
+<li><p>500-599:服务器错误状态码</p>
+</li>
+<li><p>常见状态码:</p>
+</li>
+<li><p>200:OK，表示连接正常</p>
+</li>
+<li><p>403:Forbidden，表示访问被拒绝，大多数是由于客户端对被请求的文件没有访问权限，或者由于被访问资源对应的文件或目录损坏</p>
+</li>
+<li><p>404:Not Found，表示无法找到任何资源</p>
+</li>
+<li><p>503:Server Unavailable，表示服务器当前无法处理客户端的请求，可以尝试刷新重新发送新的请求</p>
+</li>
+<li><p>504:Gateway Timeout，表示未接收到服务器的及时响应</p>
+</li>
+<li><p>301：请求的URL指向的资源已经被删除；但在响应报文中通过首部Location指明了</p>
+</li>
+<li><p>资源现在所处的新位置；Moved Permanently</p>
+</li>
+<li><p>302：响应报文Location指明资源临时新位置 Moved Temporarily</p>
+</li>
+<li><p>304：客户端发出了条件式请求，但服务器上的资源未曾发生改变，则通过响应此响</p>
+</li>
+<li><p>应状态码通知客户端；Not Modified</p>
+</li>
+<li><p>307: 浏览器内部重定向</p>
+</li>
+<li><p>401：需要输入账号和密码认证方能访问资源；Unauthorized</p>
+</li>
+<li><p>500：服务器内部错误；Internal Server Error</p>
+</li>
+<li><p>502：代理服务器从后端服务器收到了一条伪响应，如无法连接到网关；Bad Gateway</p>
+</li>
+</ul>
+<h2 id="0x02-Apache简介及配置"><a href="#0x02-Apache简介及配置" class="headerlink" title="0x02 Apache简介及配置"></a>0x02 Apache简介及配置</h2><ul>
+<li>Apache HTTP服务器是Apache基金会的第一个项目，同时以Apache HTTP服务器项目为中心，启动了更多的其他项目</li>
+</ul>
+<h3 id="2-1-Apache-HTTP服务器的关键特性"><a href="#2-1-Apache-HTTP服务器的关键特性" class="headerlink" title="2.1 Apache HTTP服务器的关键特性"></a>2.1 Apache HTTP服务器的关键特性</h3><ul>
+<li>模块化<ul>
+<li>Apache HTTP服务器采用的是核心模块+其他模块的形式</li>
+</ul>
+</li>
+<li><code>DSO：Dynamic Shared Object</code><ul>
+<li>功能模块动态加载&#x2F;卸载</li>
+</ul>
+</li>
+<li><code>MPM：Multi-Processing Module</code><ul>
+<li>对请求多路处理相应的工作模式</li>
+</ul>
+</li>
+<li>核心模块是指在安装编译apache是必须要静态编译的模块，例如mod_so、mod_core，其中mod_core用于处理配置文件的配置指令，mod_so则用于动态加载其他模块</li>
+<li>MPM也会被认为是核心模块</li>
+<li>其他模块则是可选安装的，如果应用对其依赖则安装，如果不安装，也不会影响apache的正常运行，例如<code>mod_ssl、mod_perl</code>等</li>
+</ul>
+<h3 id="2-2-Apache-HTTP服务器的多处理模块（MPM）"><a href="#2-2-Apache-HTTP服务器的多处理模块（MPM）" class="headerlink" title="2.2 Apache HTTP服务器的多处理模块（MPM）"></a>2.2 Apache HTTP服务器的多处理模块（MPM）</h3><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/file-20250225233433967.png"></p>
+<ul>
+<li>Prefork模式：对应左侧上方示意图，在该模式下，apache在启动后立刻创建多个子进程来响应连接请求，这样可以减少频繁创建和销毁子进程时所产生的开销，保证web服务器的稳定运行，但是子进程会占用内存资源，因此<strong>在高并发的场景中，不建议使用此模式</strong>。</li>
+<li>Worker模式：对应左侧下放示意图，在该模式下，apache在启动后也会创建多个子进程出来，同时每个子线程会创建线程出来，然后由线程去响应连接请求，这种模式下占用的资源较少，可以处理大量并发请求，但是其中子进程或线程崩溃，会影响该子进程下的全部任务，同时长连接的请求的被一直占用，直到超时后才会释放</li>
+<li>Event模式：apache 2.4版本后新发布的模式，也是apache最新的工作模式，在该模式下，每个子线程下面有一个监听线程，用于改善worker模式下长连接一直占用线程的问题，监听线程负责接收请求，并将其转发给工作线程，工作线程负责真正处理请求，监控线程只会把真正的请求转发给工作线程，而空线程不会转发</li>
+</ul>
+<h3 id="2-3-Apache-HTTP服务器的安装"><a href="#2-3-Apache-HTTP服务器的安装" class="headerlink" title="2.3 Apache HTTP服务器的安装"></a>2.3 Apache HTTP服务器的安装</h3><ul>
+<li>Yum安装 <code>dnf install -y httpd</code></li>
+<li>跨平台程序开发指的是一个大的开发团队中有的人使用windows开发、有的人使用linux开发，因此需要使用统一的API针对httpd进行开发，编译安装可以同时将APR安装，这样就可以避免不同OS调用不同API而造成的问题</li>
+</ul>
+<h3 id="2-4-Apache-HTTP服务器目录结构及说明"><a href="#2-4-Apache-HTTP服务器目录结构及说明" class="headerlink" title="2.4 Apache HTTP服务器目录结构及说明"></a>2.4 Apache HTTP服务器目录结构及说明</h3><ul>
+<li>Apache HTTP服务器配置文件位于&#x2F;etc&#x2F;httpd，其目录结构如下</li>
+<li><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/file-20250226185739040.png"><br>在工作中，主配置文件中一般用来存放全局配置，如果要修改某些参数或功能，不会通过修改主配置文件来实现，而是通过在<strong>conf.d</strong>目录中<strong>创建新的扩展配置文件</strong>来实现。这样做可提高配置文件的可读性，同时也有利于后期维护</li>
+</ul>
+<h3 id="2-5-Apache-HTTP服务器配置文件-etc-httpd"><a href="#2-5-Apache-HTTP服务器配置文件-etc-httpd" class="headerlink" title="2.5 Apache HTTP服务器配置文件 &#x2F;etc&#x2F;httpd"></a>2.5 Apache HTTP服务器配置文件 &#x2F;etc&#x2F;httpd</h3><h4 id="2-5-1-主配置文件（httpd-conf）重点参数说明-全局配置"><a href="#2-5-1-主配置文件（httpd-conf）重点参数说明-全局配置" class="headerlink" title="2.5.1 主配置文件（httpd.conf）重点参数说明 - 全局配置"></a>2.5.1 主配置文件（httpd.conf）重点参数说明 - 全局配置</h4><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/file-20250226190146151.png"><br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/file-20250226190223022.png"></p>
+<ul>
+<li><code>grep -Ev “^[ ]*#|^$|^#” httpd.conf</code>可过滤掉主配置文件中的注释行和空行</li>
+<li><code>Include</code>和<code>includeOptional</code>都是httpd服务的模块配置文件，二者之间是由区别的。如<br>果在对应的目录下不存在相应配置文件，使用<code>Include</code>时，系统会报错，使用<code>InludeOptional</code>则不会报错</li>
+</ul>
+<h4 id="2-5-2-基础配置-主页面配置（http-conf）"><a href="#2-5-2-基础配置-主页面配置（http-conf）" class="headerlink" title="2.5.2 基础配置 - 主页面配置（http.conf）"></a>2.5.2 基础配置 - 主页面配置（http.conf）</h4><ul>
+<li>指定服务器监听地址及端口<ul>
+<li><code>Listen 80</code></li>
+</ul>
+</li>
+<li>指定主页面存放目录<ul>
+<li><code>DocumentRoot &quot;/var/www/html&quot;</code></li>
+</ul>
+</li>
+<li>指定默认页面<ul>
+<li><code>DirectoryIndex index.html</code></li>
+</ul>
+</li>
+<li>如果在指定端口的时候未指定地址，表示可以通过服务器的任意地址访问httpd服务，如果指定了地址，则仅能通过该地址访问服务</li>
+<li>如果允许多个端口号进行访问，可在多次使用Listen</li>
+<li>对应实验手册《2.3 Apache主页面配置》中内容</li>
+</ul>
+<h3 id="2-6-Apache-HTTP服务器基础配置"><a href="#2-6-Apache-HTTP服务器基础配置" class="headerlink" title="2.6 Apache HTTP服务器基础配置 -"></a>2.6 Apache HTTP服务器基础配置 -</h3><h4 id="2-6-1-DSO"><a href="#2-6-1-DSO" class="headerlink" title="2.6.1 DSO"></a>2.6.1 DSO</h4><ul>
+<li>动态功能模块存放路径<ul>
+<li><code>/usr/lib64/httpd/modules</code></li>
+</ul>
+</li>
+<li>查看当前被加载的动态功能模块<ul>
+<li><code>httpd -M</code></li>
+</ul>
+</li>
+<li>取消或加载动态功能模块<ul>
+<li>在配置文件中添加或注释”LoadModule 模块名称 模块路径”，如<code>LoadModule data_modules/mod_data.so</code></li>
+</ul>
+</li>
+<li>对应实验手册《2.4 Apache动态功能模块加载卸载练习》中内容</li>
+</ul>
+<h4 id="2-6-2-MPM"><a href="#2-6-2-MPM" class="headerlink" title="2.6.2 MPM"></a>2.6.2 MPM</h4><ul>
+<li>MPM模块配置文件默认位置<ul>
+<li><code>/etc/httpd/conf.modules.d/00-mpm.conf</code></li>
+</ul>
+</li>
+<li>MPM模块工作模式配置<ul>
+<li><code>LoadModule mpm_prefork_module modules/mod_mpm_prefork.so</code></li>
+<li><code>LoadModule mpm_worker_module modules/mod_mpm_worker.so</code></li>
+<li><code>LoadModule mpm_event_module modules/mod_event_worker.so</code><br>  对应实验手册《2.5 Apache MPM工作模式调整》中内容</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-6-3-持久连接"><a href="#2-6-3-持久连接" class="headerlink" title="2.6.3 持久连接"></a>2.6.3 持久连接</h4><ul>
+<li>持久连接相关配置：<ul>
+<li><code>KeepAlive On|Off</code><ul>
+<li>打开或关闭持久连接</li>
+</ul>
+</li>
+<li><code>KeepAlive Timeout 15</code><ul>
+<li>持久连接时长15秒，默认值为5</li>
+</ul>
+</li>
+<li><code>MaxKeepAliveRequests 200</code><ul>
+<li>允许最大的持久连接请求数，默认值100</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-6-4-静态资源访问"><a href="#2-6-4-静态资源访问" class="headerlink" title="2.6.4 静态资源访问"></a>2.6.4 静态资源访问</h4><ul>
+<li>Apache http服务器支持从文件系统路径和URI两种方式配置静态资源</li>
+<li>文件系统路径的方式可以从服务器中的目录或者文件作为静态资源供用户访问<ul>
+<li>指定目录的配置文件语法：<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Directory</span> &quot;<span class="attr">目录路径</span>&quot;&gt;</span>             //指定静态资源</span><br><span class="line">...                               //对该目录进行授权</span><br><span class="line"><span class="tag">&lt;/<span class="name">Directory</span>&gt;</span>                   </span><br></pre></td></tr></table></figure></li>
+<li>指定文件的配置文件语法<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">File</span> &quot;<span class="attr">文件路径</span>&quot;&gt;</span></span><br><span class="line">...</span><br><span class="line"><span class="tag">&lt;/<span class="name">File</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>文件也可以使用通配符和正则表达式来表示</li>
+<li>目录和文件的路径可以基于Apache主目录，也可以使用使用别名的方式重定向到其他路径</li>
+</ul>
+<h4 id="2-6-5-静态资源权限设置"><a href="#2-6-5-静态资源权限设置" class="headerlink" title="2.6.5 静态资源权限设置"></a>2.6.5 静态资源权限设置</h4><ul>
+<li>在配置静态资源时，可以使用以下参数进行权限设置<ul>
+<li><code>Options</code><ul>
+<li><code>Indexes</code>：如果没有主页面，则将索引当前目录</li>
+<li><code>FollowSymLinks</code>：允许访问目录中软链接文件的源文件</li>
+<li><code>None</code>：全部禁止</li>
+<li><code>All</code>：全部允许</li>
+</ul>
+</li>
+<li><code>AllowOverride</code>：表示将权限相关的配置全部放到指定目录的.htaccess文件中<ul>
+<li><code>All</code>：表示.htaccess中的指令全部有效</li>
+<li><code>None</code>：表示.htaccess中的指令全部无效</li>
+<li><code>AuthConfig</code>：表示出来自动生成的指令，其他全部无效</li>
+</ul>
+</li>
+<li>在Indexes和FollowSymLinks前面加“-”表示删除此功能</li>
+<li>基于客户端地址<ul>
+<li>默认拒绝所有访问</li>
+<li><code>Require all granted/denied</code>        &#x2F;&#x2F;granted表示允许所有地址，denied表示拒绝所有地址</li>
+<li><code>Require not ip</code>                          &#x2F;&#x2F;not和granted配合使用，表示黑名单，denied时不需要使用not，表示白名单账户</li>
+</ul>
+</li>
+<li>基于账户<ul>
+<li>默认无账户认证<ul>
+<li><code>AuthType</code>                            &#x2F;&#x2F;认证类型<ul>
+<li><code>Basic</code>：明文认证，需要启用<code>auth_basic_module</code></li>
+<li><code>Digest</code>：消息摘要认证</li>
+<li><code>AuthName</code>                &#x2F;&#x2F;认证提示框内容</li>
+<li><code>AuthUserFile</code>            &#x2F;&#x2F;密码文件路径</li>
+<li><code>Require user</code>            &#x2F;&#x2F;可用于认证的账户</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>在基于账户进行权限控制前，需使用命令<code>htpasswd</code>命令创建账户及密码</li>
+<li>密码文件位置一般建议存放在被访问静态资源相同目录中</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-6-6-数据压缩"><a href="#2-6-6-数据压缩" class="headerlink" title="2.6.6 数据压缩"></a>2.6.6 数据压缩</h4><ul>
+<li>启用压缩模块<ul>
+<li><code>LoadModule deflate_module modules/mod_deflate.so SetOutputFilter</code></li>
+</ul>
+</li>
+<li>设置压缩参数<ul>
+<li><code>SetOutputFilter DEFLATE</code>                ###可选项</li>
+<li><code>AddOutputFilterByType DEFLATE application text/plain</code>                        ###指定要进行压缩的文件类型</li>
+<li><code>AddOutputFilterByType DEFLATE text/html</code>   </li>
+<li><code>AddOutputFilterByType DEFLATE application/xhtml+xml</code></li>
+<li>…</li>
+<li><code>DeflateCompressionLevel 9</code>    ####设置压缩级别，1最低，9最高</li>
+<li><code>BrowserMatch ^Mozilla/4/gzip-only-text/html</code>                                ####为指定浏览器指定压缩或者不压缩</li>
+<li><code>BrowserMatch ^Mozilla/4\.0[678] no-gzip</code></li>
+<li><code>BrowserNatch \bMSI[E] !no-gzip !gzip-only-text/html</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="2-6-7-日志配置"><a href="#2-6-7-日志配置" class="headerlink" title="2.6.7 日志配置"></a>2.6.7 日志配置</h4><ul>
+<li>access_log用于存放Apache HTTP服务器的接入日志</li>
+<li>error_log用于存放Apache HTTP服务器的错误日志</li>
+<li>日志配置格式为：<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">lfModule</span> <span class="attr">log_config_module</span>&gt;</span></span><br><span class="line">LogFormat &quot;%h %l %u %t\&quot;%r&quot; %&gt;s %b\&quot;%&#123;Referer&#125;i&quot;\&quot;%&#123;User-Agent&#125;&quot;&quot;combined //定义日志格式LogFormat &quot;%h %l %u $t \&quot;%パ&quot; %&gt;s %b&quot; common</span><br><span class="line">CustomLog&quot;logs/access log&quot; combined</span><br><span class="line">/指定日志存放目录及调用日志格式</span><br><span class="line"><span class="tag">&lt;/<span class="name">lfModule</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="2-6-8-实现HTTPS"><a href="#2-6-8-实现HTTPS" class="headerlink" title="2.6.8 实现HTTPS"></a>2.6.8 实现HTTPS</h4><ul>
+<li>安装依赖包<ul>
+<li>HTTPS依赖SSL模块，需安装mod_ssl</li>
+</ul>
+</li>
+<li>指定证书相关路径<ul>
+<li><code>SSLCertificateFile /path/file        ####证书文件路径</code></li>
+<li>&#96;SSLCertifiateKeyFile &#x2F;path&#x2F;file      ####私钥文件路径</li>
+<li>&#96;SSLCACertificateFile &#x2F;path&#x2F;file       ####证书链文件路径</li>
+</ul>
+</li>
+<li>通过url重定向实现将http重定向到https<ul>
+<li><code>RewriteEngine on</code></li>
+<li><code>RewriteRule ^(/.*)$ https://%&#123;HTTP HOST&#125;$1 [redirect=302]</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="2-6-9-虚拟主机"><a href="#2-6-9-虚拟主机" class="headerlink" title="2.6.9 虚拟主机"></a>2.6.9 虚拟主机</h4><ul>
+<li><p>Apache虚拟主机指的是在同一服务器运行多个给web服务，并对应不同的域名</p>
+</li>
+<li><p>虚拟主机有三种实现方式：</p>
+<ul>
+<li>基于不同的IP地址</li>
+<li>基于不同端口号</li>
+<li>基于不同域名</li>
+</ul>
+</li>
+<li><p>虚拟主机配置为：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">VirtualHost</span> <span class="attr">IP:PORT</span>&gt;</span>         //虚拟主机真实IP地址和对应端口号</span><br><span class="line">ServerName 域名               //虚拟主机端口号</span><br><span class="line">DocumentRoot &quot;/path&quot;         //虚拟主机户主页</span><br><span class="line"><span class="tag">&lt;/<span class="name">VirtualHost</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在一台服务器上运行多个虚拟主机，每个虚拟主机可对应一个web服务，每个web服务对应独立的静态或动态资源，用户可使用不同的域名、不同的端口号或者不同的IP地址来访问到不同的资源</p>
+</li>
+</ul>
+<h2 id="0x03-Nginx简介及配置"><a href="#0x03-Nginx简介及配置" class="headerlink" title="0x03 Nginx简介及配置"></a>0x03 Nginx简介及配置</h2><h3 id="3-1-Nginx简介"><a href="#3-1-Nginx简介" class="headerlink" title="3.1 Nginx简介"></a>3.1 Nginx简介</h3><ul>
+<li>Nginx是一款轻量级HTTP服务器，也是一款邮箱代理服务器，同时具备反向代理、通用TCP&#x2F;UDP代理的功能</li>
+<li>Nginx可以运行在x86、ARM等多种平台上，同时支持Linux、Windows等主流的操作系统</li>
+<li>Nginx一般用于搭建http服务器、ftp服务器，或者作为<strong>反向代理</strong>及<strong>负载均衡</strong>部署在服务器前端</li>
+</ul>
+<h4 id="3-1-2Nginx关键特性"><a href="#3-1-2Nginx关键特性" class="headerlink" title="3.1.2Nginx关键特性"></a>3.1.2Nginx关键特性</h4><ul>
+<li>支持高并发<ul>
+<li>单机Nginx可支持十万级的并发连接，经过优化后可最高支持百万级并发连接</li>
+</ul>
+</li>
+<li>内存资源消耗低<ul>
+<li>在同级web服务器中，Nginx占用的内存最少，一万非活跃的httpkeep-alive连接仅消耗2.5M内存</li>
+</ul>
+</li>
+<li>高扩展性<ul>
+<li>和Apache一样，Nginx采用模块化设计，并支持非常丰富的第三方块</li>
+</ul>
+</li>
+<li>高可靠性<ul>
+<li>Nginx采用master-worker模式，如果worker出现故障，master可以快速开启一个新的worker来提供服务</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-1-3-Nginx运行架构"><a href="#3-1-3-Nginx运行架构" class="headerlink" title="3.1.3 Nginx运行架构"></a>3.1.3 Nginx运行架构</h4><ul>
+<li>主进程:master<ul>
+<li>检查Nginx配置是否正确</li>
+<li>创建、监控worker进程的数量和状态</li>
+<li>接收对Nginx的管理指令，并作出对应操作</li>
+</ul>
+</li>
+<li>工作进程:worker<ul>
+<li>处理客户端请求</li>
+<li>接收master发来的指令，并做对应操作<br>  <img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/file-20250301175146611.png"></li>
+</ul>
+</li>
+<li>默认情况下，Nginx会创建<strong>和服务器CPU核心数量</strong>相等的worker进程</li>
+<li>Worker进程之间相互独立，其中一个出现故障不会影响其他进程</li>
+</ul>
+<h4 id="3-1-4-Nginx关键工作机制"><a href="#3-1-4-Nginx关键工作机制" class="headerlink" title="3.1.4 Nginx关键工作机制"></a>3.1.4 Nginx关键工作机制</h4><ul>
+<li><p>Worker的抢占机制<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/file-20250301175232786.png"></p>
+</li>
+<li><p>Nginx的异步非阻塞事件处理机制<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/file-20250301175314958.png"></p>
+</li>
+<li><p>抢占机制：当客户端发起请求时，会激活<code>Accept_mutex</code>互斥锁，哪个worker抢占了该互斥锁，该客户端的请求就由哪个<code>worker</code>响应和处理</p>
+</li>
+<li><p>异步非阻塞模式：在传统事件处理模式下，如果所有的worker被客户端阻塞后，新来的客户就需要等待，直到原来的客户端释放worker以后才能被处理请求，在异步非阻塞模式下，底层使用了linux的<code>epoll</code>模型，就算worker被阻塞，新的客户端请求也会被正常处理</p>
+</li>
+</ul>
+<h4 id="3-1-5-Nginx的模块化体系"><a href="#3-1-5-Nginx的模块化体系" class="headerlink" title="3.1.5 Nginx的模块化体系"></a>3.1.5 Nginx的模块化体系</h4><ul>
+<li>核心模块包括<code>ngx_core_module、ngx_errlog_module、ngx_events_module、ngx_openssl_module、ngx_http_module、ngx_mail_module</code></li>
+<li>标准化模块有很多，图中列出的仅是比较有代表性的</li>
+<li><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/file-20250301175429707.png"></li>
+</ul>
+<h4 id="3-1-6-Nginx的反向代理功能"><a href="#3-1-6-Nginx的反向代理功能" class="headerlink" title="3.1.6 Nginx的反向代理功能"></a>3.1.6 Nginx的反向代理功能</h4><ul>
+<li>Nginx反向代理的工作流程：<ol>
+<li>客户端向Nginx发送请求</li>
+<li>Nginx在收到客户端发送的请求后，将请求转发到后端服务器</li>
+<li>后端服务器将客户端请求的资源回复给Nginx</li>
+<li>Nginx将资源返回给客户端</li>
+</ol>
+</li>
+<li>Nginx反向代理通过位于location中的proxy_pass实现</li>
+<li>在反向代理的工作流程中，客户端向代理请求资源时使用的端口，可以和服务器提供服务的端口不一致</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/file-20250301175920437.png"></p>
+<ul>
+<li>Nginx支持对http、https、tcp、websocket、GRPC、pop&#x2F;imap和rtmp等协议进行代理</li>
+<li>例如：客户端使用80端口向代理发送请求，服务器使用8080端口向反向代理提供资源</li>
+</ul>
+<h4 id="3-1-7-Nginx的负载均衡功能"><a href="#3-1-7-Nginx的负载均衡功能" class="headerlink" title="3.1.7 Nginx的负载均衡功能"></a>3.1.7 Nginx的负载均衡功能</h4><ul>
+<li>Nginx可以提供四层和七层的负载均衡</li>
+<li>Nginx的负载均衡功能通过位于http中的upstream实现</li>
+<li>Nginx提供了多种负载均衡算法，如轮询、权重等</li>
+<li>轮询算法下，Nginx会轮流将请求发送给不同的服务器，使每个服务器都均等的提供服务</li>
+<li>权重算法下，Nginx会按照配置的权重比例，将请求发送给服务器。性能较好的服务器将提供更多的服务，性能较好的服务器将提供较少的服务</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/file-20250301180128394.png"></p>
+<h3 id="3-2-安装Nginx"><a href="#3-2-安装Nginx" class="headerlink" title="3.2 安装Nginx"></a>3.2 安装Nginx</h3><h4 id="3-2-1-Yum自动化安装Nginx"><a href="#3-2-1-Yum自动化安装Nginx" class="headerlink" title="3.2.1 Yum自动化安装Nginx"></a>3.2.1 Yum自动化安装Nginx</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum installl -y nginx</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-2-2-编译安装Nginx"><a href="#3-2-2-编译安装Nginx" class="headerlink" title="3.2.2 编译安装Nginx"></a>3.2.2 编译安装Nginx</h4><ul>
+<li>下载源码安装包<ul>
+<li>源码安装包下载路径为:<a target="_blank" rel="noopener" href="https://nginx.org/en/download.html">https://nginx.org/en/download.html</a></li>
+</ul>
+</li>
+<li>安装依赖环境<ul>
+<li>安装命令:<code>yum install -y gcc gcc-c++ make pcre pcre-devel zlib-devel openssl openssl-devel</code></li>
+</ul>
+</li>
+<li>编译安装<ul>
+<li>创建makefile文件:<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/confiqure</span><br><span class="line">-prefixs/usr/local/nginx</span><br><span class="line">pid-path=,/var/runNginx/nginx pid </span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>编译安装:<code>make &amp;&amp; make install0</code></li>
+</ul>
+<p>编译安装具备以下优势：</p>
+<ul>
+<li>可选择官方开放下载的版本</li>
+<li>可对安装路径、模块及第三方插件进行自定义</li>
+<li>Openssl用于https服务</li>
+<li>在编译过程可能会报依赖缺失的错误，需根据提示进行安装</li>
+<li>创建makefile文件时添加的参数及其功能可查看官方文档：<br><a target="_blank" rel="noopener" href="https://nginx.org/en/docs/configure.html">https://nginx.org/en/docs/configure.html</a></li>
+</ul>
+<h4 id="3-2-3-常用Nginx命令"><a href="#3-2-3-常用Nginx命令" class="headerlink" title="3.2.3 常用Nginx命令"></a>3.2.3 常用Nginx命令</h4><ul>
+<li>检查Nginx配置文件：nginx -t</li>
+<li>使用指定配置文件代替缺省配置文件：nginx -c file</li>
+<li>查看nginx版本：nginx -v</li>
+<li>查看nginx版本、编译器版本、配置参数等详细信息：nginx -v</li>
+<li>启动Nginx：nginxx</li>
+<li>强制停止Nginx：nginx -s stop</li>
+<li>优雅停止Nginx：nginx -s quit</li>
+<li>重启Nginx：nginx restart</li>
+<li>重新加载Nginx：nginx -s reload</li>
+</ul>
+<h3 id="3-3-Nginx服务相关文件"><a href="#3-3-Nginx服务相关文件" class="headerlink" title="3.3 Nginx服务相关文件"></a>3.3 Nginx服务相关文件</h3><ul>
+<li>Nginx的配置文件存放在&#x2F;etc&#x2F;Nginx</li>
+<li>&#x2F;etc&#x2F;nginx&#x2F;conf.d为子配置文件目录</li>
+<li>&#x2F;etc&#x2F;nginx&#x2F;nginx.conf为主配置文件</li>
+<li>&#x2F;etc&#x2F;nginx&#x2F;fastcgi_params用以翻译nginx的变量供php识别</li>
+<li>&#x2F;etc&#x2F;nginx&#x2F;mime.types用以配置支持的媒体文件类型&#x2F;</li>
+<li>etc&#x2F;nginx&#x2F;uwsgl_params用以翻译nginx的变量供python识别</li>
+<li>&#x2F;etc&#x2F;share&#x2F;nginx&#x2F;html为默认的nginx网站根目录</li>
+<li>&#x2F;etc&#x2F;log&#x2F;nginx为默认nginx日志目录</li>
+</ul>
+<h3 id="3-4-Nginx服务主配置文件nginx-conf"><a href="#3-4-Nginx服务主配置文件nginx-conf" class="headerlink" title="3.4 Nginx服务主配置文件nginx.conf"></a>3.4 Nginx服务主配置文件nginx.conf</h3><h4 id="3-4-1-结构"><a href="#3-4-1-结构" class="headerlink" title="3.4.1 结构"></a>3.4.1 结构</h4><ul>
+<li>全局配置<ul>
+<li>运行用户</li>
+<li>Worker数量</li>
+<li>日志参数</li>
+<li>Include导入的外部配置文件</li>
+</ul>
+</li>
+<li>性能配置<ul>
+<li>工作模式</li>
+<li>TCP连接数</li>
+</ul>
+</li>
+<li>HTTP模块配置<ul>
+<li>HTTP请求和响应的参数</li>
+<li>路由配置</li>
+<li>虚拟主机配置</li>
+<li>反向代理配置</li>
+<li>负载均衡配置<br>  <img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/file-20250301184013294.png"></li>
+</ul>
+</li>
+</ul>
+<p>Nginx的配置文件除全局配置外，其他配置以{}为标志，将各个配置以模块化的形式分割</p>
+<h4 id="3-4-2-全局配置"><a href="#3-4-2-全局配置" class="headerlink" title="3.4.2 全局配置"></a>3.4.2 全局配置</h4><ul>
+<li>Master的用户为root，worker进程的用户可在全局配置中通过user调整</li>
+<li>默认情况worker进程数量和服务器CPU核心数一致，也可以在全局配置中通过worker_processes调整<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">user nginx;                          ####worker进程所需用户</span><br><span class="line">worker_processes auto;               ####worker进程数量</span><br><span class="line">error_log /var/log/nginx/error.log   ####错误日志存放路径</span><br><span class="line">pid /run/nginx.pid                   ####进程文件对应路径</span><br><span class="line">include /usr/share/nginx/modules/*.conf              ####功能模块对应路径</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="3-4-3-HTTP配置"><a href="#3-4-3-HTTP配置" class="headerlink" title="3.4.3 HTTP配置"></a>3.4.3 HTTP配置</h4><p>p54<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/file-20250302134853925.png"></p>
+<ul>
+<li>tcp_nopush表示对于数据包是否立刻发送，on表示否，off表示是。该参数用来调优，如果立刻发送可能导致堵塞，一般建议设置为on</li>
+<li>tcp_nodelay off，会增加通信的延时，但是会提高带宽利用率。在高延时、数据量大的通信场景中应该会有不错的效果；tcp_nodelay on，会增加小包的数量，但是可以提高响应速度。在及时性高的通信场景中应该会有不错的效果</li>
+<li>types_hash_max_size影响散列表的冲突率。types_hash_max_size越大，就会消耗更多的内存，但散列key的冲突率会降低，检索速度就更快。types_hash_max_size越小，消耗的内存就越小，但散列key的冲突率可能上升<br>详细的可以查看<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/nginx.conf" alt="nginx.conf">（没vim好看😜)</li>
+</ul>
+<h4 id="3-4-4-HTTPS配置"><a href="#3-4-4-HTTPS配置" class="headerlink" title="3.4.4 HTTPS配置"></a>3.4.4 HTTPS配置</h4><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/file-20250302140701801.png"></p>
+<h4 id="3-4-5-传输压缩"><a href="#3-4-5-传输压缩" class="headerlink" title="3.4.5 传输压缩"></a>3.4.5 传输压缩</h4><ul>
+<li>传输压缩相关配置包在HTTP中</li>
+<li>压缩比越大，CPU的性能损耗越多</li>
+<li><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/file-20250302140649357.png"></li>
+</ul>
+<h4 id="3-4-6-虚拟主机"><a href="#3-4-6-虚拟主机" class="headerlink" title="3.4.6 虚拟主机"></a>3.4.6 虚拟主机</h4><ul>
+<li>Nginx在http模块中，使用server字段配置虚拟主机</li>
+<li>Nginx中的虚拟主机也支持三种实现方式：<ul>
+<li>基于不同IP地址</li>
+<li>基于不同端口号</li>
+<li>基于不同域名</li>
+</ul>
+</li>
+<li>Server字段的语法格式为：<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">http&#123;</span><br><span class="line">	server&#123;</span><br><span class="line">		<span class="comment">#Server Configuration</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="3-4-7-路由规则配置"><a href="#3-4-7-路由规则配置" class="headerlink" title="3.4.7  路由规则配置"></a>3.4.7  路由规则配置</h4><ul>
+<li>Nginx中使用location参数进行路由配置，位于虚拟主机配置模块中</li>
+<li>Location参数的语法为：&#96;location [&#x3D;|<del>|</del>*|^~]&#x2F;uri&#x2F;{…}<ul>
+<li><code>=</code> 开头表示精准匹配</li>
+<li><code>^~</code>开头表示uri以某个常规字符串开头，不是正则匹配</li>
+<li><code>~</code>开头表示区分大小写的正则匹配</li>
+<li><code>~*</code>开头表示不区分大小写的正则匹配</li>
+<li><code>/</code>通用匹配，如果没有其他匹配，任何请求都会匹配到</li>
+</ul>
+</li>
+<li>Uri如果是一个目录，需要以”&#x2F;“结尾</li>
+<li>在location中，路径有两种设置方法：<ul>
+<li>root，表示相对路径</li>
+<li>alias，表示绝对路径</li>
+</ul>
+</li>
+<li>Location配置模块中可开启autoindex功能，表示可对访问的目录进行索引</li>
+<li>Location不同表达的优先级为：( location &#x3D; ) &gt; ( location 完整路径 ) &gt; ( location^~ 路径 ) &gt; ( location ,* 正则顺序 ) &gt; ( location 部分起始路径 ) &gt; ( &#x2F; )<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/file-20250302141438062.png"></li>
+</ul>
+<h3 id="3-5-Nginx的热升级"><a href="#3-5-Nginx的热升级" class="headerlink" title="3.5 Nginx的热升级"></a>3.5 Nginx的热升级</h3><ul>
+<li>Nginx的热升级指的是在不影响客户端请求的请求下，将当前版本的nginx升级为指定版本</li>
+<li>Nginx热升级的流程为:<ul>
+<li>通过编译获取到新的nginx二进制文件</li>
+<li>备份当前版本nginx文件</li>
+<li>将当前版本的nginx文件更换为新版本文件</li>
+<li>向当前版本master进程发送USR2信号</li>
+<li>启用新版本的master进程</li>
+<li>测试新版本nginx工作是否正常</li>
+<li>退出老版本nginx进程</li>
+</ul>
+</li>
+</ul>
+<h2 id="0x04-DNS简介及配置"><a href="#0x04-DNS简介及配置" class="headerlink" title="0x04 DNS简介及配置"></a>0x04 DNS简介及配置</h2><h3 id="4-1-DNS简介"><a href="#4-1-DNS简介" class="headerlink" title="4.1 DNS简介"></a>4.1 DNS简介</h3><ul>
+<li>DNS是Domain Name system的缩写，它是互联网中非常重要的一项服务，用于将域名和服务器的IP地址进行对应和解析，降低了互联网访问的难度，同时也减少了运维工作量</li>
+<li>DNS是应用层协议，使用的是T<strong>CP和UDP的53端口</strong>，采用的是<strong>C&#x2F;S架构</strong></li>
+<li>在Linux中，DNS服务通常使用**BIND(BerkeleyInternet Name Domain)**实现</li>
+<li>DNS域名采用分层结构，最上层是根域，依次是顶级域名、二级域名及其下属的子域，最多支持127级子域</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/file-20250302144445322.png"></p>
+<h3 id="4-2-DNS域名正向解析流程"><a href="#4-2-DNS域名正向解析流程" class="headerlink" title="4.2 DNS域名正向解析流程"></a>4.2 DNS域名正向解析流程</h3><ol>
+<li>在本地缓存中查找是否有对应IP地址</li>
+<li>查看本地hosts文件是否配置静态域名解析</li>
+<li>向本地DNS服务器发送查询请求</li>
+<li>如果本地DNS服务器没有所请求的域名，则由其向根服务器查询</li>
+<li>根服务器将对应的顶级DNS服务器地址提供给本地DNS服务器</li>
+<li>本地DNS服务器向顶级DNS服务器发送解析请求</li>
+<li>顶级DNS服务器将对应的权威DNS服务器地址返回给本地DNS服务器</li>
+<li>本地DNS服务器向权威DNS服务器发送解析请求</li>
+<li>权威DNS服务器完成地址解析，将域名对应的地址返回给本地DNS服务器</li>
+<li>本地DNS服务器将地址返回给客户端</li>
+</ol>
+<ul>
+<li><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/file-20250302144534336.png"></p>
+</li>
+<li><p>上图展示的是迭代查询流程，DNS还支持递归查询方式</p>
+</li>
+<li><p>在递归查询中，步骤5的时候顶级DNS服务器的地址不会直接返给本地DNS，而是由根直接向顶级服务器发送解析请求，同时步骤7中的权威DNS服务器地址也不会返回给本地服务器，而是继续向权威DNS服务器进行解析查询，最后解析后的地址由权威DNS返回给顶级DNS，然后再返回给根DNS，最后由根DNS返回给本地DNS服务器</p>
+</li>
+</ul>
+<h3 id="4-3-DNS反向解析简介"><a href="#4-3-DNS反向解析简介" class="headerlink" title="4.3 DNS反向解析简介"></a>4.3 DNS反向解析简介</h3><ul>
+<li>DNS反向解析是指将IP地址解析成对应的域名</li>
+<li>DNS反向解析主要使用在邮箱域名解析的场景中</li>
+<li>反向解析时对应的顶级域为arpa<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/file-20250302144659934.png"></li>
+</ul>
+<h3 id="4-4-DNS的资源记录简介"><a href="#4-4-DNS的资源记录简介" class="headerlink" title="4.4 DNS的资源记录简介"></a>4.4 DNS的资源记录简介</h3><ul>
+<li>资源记录是DNS服务器用来进行域名解析的依据，相当于DNS的数据库文件</li>
+<li>常用的资源类型有A、AAAA、SOA、NS、PTR、CNAME、MX等</li>
+<li>资源记录有固定的格式，具体为:<code>name [TTL] IN RRTYPE VALUE</code><ul>
+<li>name:表示域名</li>
+<li>TTL:表示缓存时间，可以从全局配置继承</li>
+<li>IN:Internet记录，格式固定</li>
+<li>RR_TYPE:表示资源记录的类型</li>
+<li>VALUE:值，不同资源记录中到的值不同</li>
+</ul>
+</li>
+</ul>
+<h4 id="4-4-1-DNS的资源记录类型-SOA"><a href="#4-4-1-DNS的资源记录类型-SOA" class="headerlink" title="4.4.1 DNS的资源记录类型 - SOA"></a>4.4.1 DNS的资源记录类型 - SOA</h4><ul>
+<li>SOA是起始授权记录，一个区域解析库有且只能有一个SOA记录</li>
+<li>SOA记录必须放在区域解析库的第一条</li>
+<li>SOA记录中的name即为当前区域的名称</li>
+<li>SOA记录中的value有很多部分组成</li>
+<li>SOA记录的内容如下图所示:<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/file-20250302145139212.png"></li>
+<li>$TTL:全局定义了当前域的缓存时间，后续其他资源记录可省略该值的定义</li>
+<li>@:在资源记录里等同于当前域的名称</li>
+<li>master.test.com:主DNS服务器</li>
+<li>xxx.test.com:管理员邮箱，由于@在SOA有特殊含义，因此使用“.”代替0:表示版本号，供备从DNS服务器确定是否同步信息</li>
+<li>1D:表示从服务器向主服务器同步数据的间隔</li>
+<li>1H:表示从服务器向主服务器同步数据的重试间隔</li>
+<li>1W:表示从服务器判断主服务器是否失效的时间段，例如，1W表示如果从服务器在1周都无法和主服务器同步数据，则认为其已失效</li>
+<li>3H:无效域名缓存的时长，在此时间内，如果用户再次查询无效域名解析，服务器将直接返回无法解析的响应，不在进行查询</li>
+</ul>
+<p>在SOA记录中，可以使用@代替域名，如果不使用，而写具体域名时，切记注意该域名<strong>要以“.”结尾</strong>，例如域名为test.com，在SOA中要<strong>写为“test.com.”</strong></p>
+<p>Master.test.com中的master需要单独为其设置一条A类型的记录，将其解析成对应的IP地址</p>
+<h4 id="4-4-2-DNS的资源记录常见类型"><a href="#4-4-2-DNS的资源记录常见类型" class="headerlink" title="4.4.2 DNS的资源记录常见类型"></a>4.4.2 DNS的资源记录常见类型</h4><ul>
+<li><p>A用以将域名解析为IPv4地址，AAAA用以将域名解析为IPv6地址，在A资源记录中，name表示主机的FQDN，value表示主机对应的IP地址</p>
+</li>
+<li><p>NS为域名服务记录，一个区域可包含多个NS，这些NS中，一个为主DNS服务器，其余为从DNS服务器</p>
+</li>
+<li><p>MX用于标明区域内的邮件服务器地址，一个区域可包含多个MX。MX使用0-99表示对应的优先级，其中0优先级最好，99最低</p>
+</li>
+<li><p>CNAME用于定义域名的别名</p>
+</li>
+<li><p>PTR用于反向解析，将域名解析为IP地址。PTR记录是唯一的，它们以.arpa开始，以地址的主机位结尾</p>
+</li>
+<li><p>MX中，name为区域名称，value为邮箱服务器的主机名</p>
+</li>
+<li><p>CNAME中，name为别名的FQND，value为真实的FQDN</p>
+</li>
+<li><p>A记录中，一个主机名可对应多个IP地址，使用<code>*</code>可以将没有定义的主机全部解析为指定的IP地址</p>
+</li>
+</ul>
+<h3 id="4-5-DNS服务关键配置文件"><a href="#4-5-DNS服务关键配置文件" class="headerlink" title="4.5 DNS服务关键配置文件"></a>4.5 DNS服务关键配置文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ql <span class="built_in">bind</span></span><br></pre></td></tr></table></figure>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/file-20250302145607787.png"></p>
+<h3 id="4-6-DNS服务配置常用命令"><a href="#4-6-DNS服务配置常用命令" class="headerlink" title="4.6 DNS服务配置常用命令"></a>4.6 DNS服务配置常用命令</h3><ul>
+<li>检测DNS配置是否有语法错误：<code>named-checkconf</code></li>
+<li>检测DNS数据文件配置是否有语法错误：<code>named-checkzone 域名 数据文件</code><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">named-checkzone test.com /var/named/test.com.zone</span><br></pre></td></tr></table></figure></li>
+<li>重新加载DNS配置:<code>rndc reload</code></li>
+</ul>
+<h3 id="4-7-常用DNS服务检查工具"><a href="#4-7-常用DNS服务检查工具" class="headerlink" title="4.7 常用DNS服务检查工具"></a>4.7 常用DNS服务检查工具</h3><h4 id="4-7-1-nslookup"><a href="#4-7-1-nslookup" class="headerlink" title="4.7.1 nslookup"></a>4.7.1 nslookup</h4><ul>
+<li>Nslookup命令用于查看域名解析是否正常，在网络故障时可以用来诊断网络问题<ul>
+<li>交互式：用于多次查询和诊断</li>
+<li>非交互式：用于单次查询和诊断<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/file-20250302150146469.png"></li>
+</ul>
+</li>
+</ul>
+<h4 id="4-7-2-dig"><a href="#4-7-2-dig" class="headerlink" title="4.7.2 dig"></a>4.7.2 dig</h4><p>Dig命令的功能比nslookup更强大，它支持更多的DNS查询功能，如DNS追踪等<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/file-20250302150431572.png"></p>
+<h4 id="4-7-3-host"><a href="#4-7-3-host" class="headerlink" title="4.7.3 host"></a>4.7.3 host</h4><ul>
+<li>Host命令是一个用于执行DNS查找的简单实用程序。它可以用于查询DNS正反向解析结果</li>
+<li>Host命令常用选项：<ul>
+<li>-a:显示详细的DNS信息</li>
+<li>-c:指定查询类型</li>
+<li>-C:查询指定主机的完整SOA记录</li>
+<li>-t:指定查询域名信息的类型</li>
+<li>-4:使用IPv4进行查询</li>
+<li>-6:使用IPv6进行查询</li>
+</ul>
+</li>
+</ul>
+<h2 id="0x05-MySQL简介及配置"><a href="#0x05-MySQL简介及配置" class="headerlink" title="0x05 MySQL简介及配置"></a>0x05 MySQL简介及配置</h2><h3 id="5-1-数据与数据库简介"><a href="#5-1-数据与数据库简介" class="headerlink" title="5.1 数据与数据库简介"></a>5.1 数据与数据库简介</h3><h4 id="5-1-1-什么是数据？"><a href="#5-1-1-什么是数据？" class="headerlink" title="5.1.1 什么是数据？"></a>5.1.1 什么是数据？</h4><ul>
+<li>数据是信息的表现形式和载体，可以是符号、文字、数字、语音、图像、视频等。数据和信息是不可分离的数据是信息的内涵。数据本身没有意义，数据只有对实体行为产生影响时才成为信息</li>
+<li>在计算机系统中，各种字母、数字符号的组合、语音、图形、图像等统称为数据，数据以二进制信息单元0&#x2F;1形式表示，数据经过加工后就成为信息</li>
+<li>描述事物的符号称为数据。数据有多种表现形式，可以是数字，也可以是文字、图形、图像、声音、语言等。在数据库中数据表示记录，例如，在学生管理数据库中，记录学生的信息包括学号、姓名、性别、年龄、籍贯和联系电话等，这些信息就是数据。</li>
+<li>信息是指对数据进行加工处理后提取的对人类社会实践和生产活动产生决策影响的数据。信息就是数据中所包含的意义。未经过加工的数据只是一种原始材料，它的价值在于记录了客观世界的事实。</li>
+</ul>
+<h4 id="5-1-2-数据库服务器Database"><a href="#5-1-2-数据库服务器Database" class="headerlink" title="5.1.2 数据库服务器Database"></a>5.1.2 数据库服务器Database</h4><p>数据库服务器是指长期存储在计算机内、有组织、可共享的大量的数据的集合。数据库服务器中的数据按照一定的数据模型组织、描述和存储，具有较小的冗余度、较高的数据独立性和易扩展性，并可为各种用户共享<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/file-20250302180550707.png"></p>
+<ul>
+<li>数据库（Database）指长期存储在计算机内的、有组织的、可共享的数据集合。通俗的讲，数据库就是存储数据的地方，就像冰箱是存储食物的地方一样。在生活中，每个人都在使用数据库。当我们在电话簿里查找名字时，就是在使用数据库。在某个浏览器上进行搜索时，也是在使用数据库。以及平时我们登录网络，也需要依靠数据库验证自己的名字和密码。即便是在使用 ATM 机时，也要利用数据库进行 PIN 码验证和余额检查。</li>
+<li>数据库实际上就是一个文件集合，是一个存储数据的仓库，本质<strong>就是一个文件系统</strong>，数据库是按照特定的格式把数据存储起来，用户可以对存储的数据进行增删改查操作。</li>
+<li>在日常生活中，人们可以直接用中文、英文等自然语言描述客观事物。在计算机中，则要抽象出对这些事物感兴趣的特征，并组成一个记录来描述。</li>
+<li>数据库是结构化信息或数据（一般以电子形式存储在计算机系统中）的有组织的集合。</li>
+<li>数据库，简而言之可视为电子化的文件柜——存储电子文件的处所，用户可以对文件中的数据运行新增、截取、更新、删除等操作。</li>
+<li>所谓“数据库”系以一定方式储存在一起、能予多个用户共享、具有尽可能小的冗余度、与应用程序彼此独立的数据集合</li>
+</ul>
+<h4 id="5-1-3-数据库管理系统DBMS"><a href="#5-1-3-数据库管理系统DBMS" class="headerlink" title="5.1.3 数据库管理系统DBMS"></a>5.1.3 数据库管理系统DBMS</h4><ul>
+<li>数据库管理系统(DataBase-Management System，DBMS)有一个互相关联的数据的集合和一组用以访问这些数据的程序组成。这个数据集合通常被称作数据库(Database)。DBMS的主要目的是提供一种可以方便、高效地存取数据库信息的途径</li>
+<li>DBMS充当数据库与其用户或程序之间的接口，允许用户检索、更新和管理信息的组织和优化方式。此外DBMS还有助于监督和控制数据库，提供各种管理操作，例如性能监视、调优、备份和恢复</li>
+<li>具有代表性的数据库管理系统有:Oracle、Microsoft SQLServer、Access、MySQL及PostgreSQl等</li>
+</ul>
+<p>数据库通常离不开完备的数据库软件程序，也就是数据库管理系统（DBMS）。<br>DBMS充当数据库与其用户或程序之间的接口，允许用户检索、更新和管理信息的组<br>织和优化方式。此外，DBMS还有助于监督和控制数据库，提供各种管理操作，例如<br>性能监视、调优、备份和恢复。<br>• 数据库软件旨用于创建、编辑和维护数据库文件及记录，帮助用户更轻松地执行文件<br>和记录创建、数据录入、数据编辑、更新和报告等操作。除此之外，数据库软件还能<br>处理数据存储、备份和报告以及多路访问控制和安全性等问题。随着当今数据盗窃日<br>益频繁，数据库安全性已变得至为重要。数据库软件有时也称为“数据库管理系统”<br>（DBMS）。<br>• 常见的数据库软件或DBMS有MySQL、Microsoft Access、Microsoft SQL Server、FileMaker Pro、Oracle Database和dBASE。</p>
+<h4 id="5-1-4-数据库管理系统排名"><a href="#5-1-4-数据库管理系统排名" class="headerlink" title="5.1.4 数据库管理系统排名"></a>5.1.4 数据库管理系统排名</h4><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/file-20250513135049293.png"></p>
+<h4 id="5-1-5-数据库管理系统功能介绍"><a href="#5-1-5-数据库管理系统功能介绍" class="headerlink" title="5.1.5 数据库管理系统功能介绍"></a>5.1.5 数据库管理系统功能介绍</h4><ul>
+<li>数据定义功能：DBMs提供数据定义语言（DataDefinitionLanguage，DDL），用户通过它可以方便地对数据库中的数据对象进行定义</li>
+<li>数据操纵功能：DBMS还提供数据操纵语言（DataManipulationLanguage，DML），用户可以使用DML操作数据，实现对数据库的基本操作，如插入、删除和修改等</li>
+<li>数据库的运行管理：数据库在建立、运用和维护时由数据库管理系统统一管理、统一控制，以保证数据的安全性、完整性、多用户对数据的并发使用及发生故障后的系统恢复</li>
+<li>提供方便、有效地存取数据库信息的接口和工具：编程人员可通过编程语言与数据库之间的接口进行数据库应用程序的开发。数据库管理员（DatabaseAdministrator，DBA）可通过提供的工具对数据库进行管理</li>
+<li>数据库的建立和维护功能：数据库功能包括数据库初始数据的输入、转换功能，数据库的转储、恢复功能，数据库的重组织功能和性能监控、分析功能等。这些功能通常是由一些程序来完成</li>
+</ul>
+<h3 id="5-2-MySQL介绍"><a href="#5-2-MySQL介绍" class="headerlink" title="5.2 MySQL介绍"></a>5.2 MySQL介绍</h3><h4 id="5-2-1-MySQL架构"><a href="#5-2-1-MySQL架构" class="headerlink" title="5.2.1 MySQL架构"></a>5.2.1 MySQL架构</h4><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/file-20250513135524696.png"></p>
+<ul>
+<li>连接器：不同语言开发的程序可以通过Connectors接口与mysql 建立连接</li>
+<li>连接池：连接池用于管理缓冲用户连接，线程处理等需要缓存的需求系统管理和控制工具：提供了丰富的数据库管理功能，如数据库备份、恢复、分库分表管理等</li>
+<li>SQL接口：接受用户的SQL命令，并且返回用户需要查询的结果</li>
+<li>解析器：用于SQL语句的解析、验证</li>
+<li>查询优化器：用于SQL语句的查询优化</li>
+<li>缓存：查询缓存有命中的查询结果，查询语句就可以直接去查询缓存中取数据，不执行sql</li>
+<li>可插拔存储引擎：mysql底层数据存储引擎采用插件式管理，支持多种存储引擎，存储引擎基于表非数据库</li>
+<li>系统文件、文件和日志：物理文件，包括：redolog、undolog、binlog、errorlog、querylog、slowlog、data、index等</li>
+</ul>
+<h4 id="5-2-2-安装MySQL"><a href="#5-2-2-安装MySQL" class="headerlink" title="5.2.2 安装MySQL"></a>5.2.2 安装MySQL</h4><ul>
+<li>使用openEuler自带yum源进行安装</li>
+<li>MySQL官网下载对应版本的yum源文件配置工具，完成配置后，使用yum安装</li>
+<li>MySQL官网下载对应版本的rpm包，然后使用rpm命令安装</li>
+<li>MySQL官网下载对应的源码包，然后进行编译安装</li>
+</ul>
+<p>本课程使用openEuler自带yum源进行安装，安装的是MySQL 8.0.x，同时yum源中也包含了5.7版本的mysql，本次课程以8.0为例<br>后续内容如果未加特殊说明，表示在8.0.x版本中的输入输出</p>
+<h4 id="5-2-3-登录MySQL及初始化root账户"><a href="#5-2-3-登录MySQL及初始化root账户" class="headerlink" title="5.2.3 登录MySQL及初始化root账户"></a>5.2.3 登录MySQL及初始化root账户</h4><ul>
+<li>完成安装后，使用命令“mysql”即可登录数据库</li>
+</ul>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">XBCID</div><div class="post-copyright__author_desc"></div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="http://example.com/2025/02/14/openEuler/%E7%AC%94%E8%AE%B0/IP/01%20openEuler%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('http://example.com/2025/02/14/openEuler/%E7%AC%94%E8%AE%B0/IP/01%20openEuler%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86/')">01 openEuler操作系统入门</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"></div><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="http://example.com/2025/02/14/openEuler/%E7%AC%94%E8%AE%B0/IP/01%20openEuler%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86/"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" target="_blank" href="https://service.weibo.com/share/share.php?title=01 openEuler操作系统入门&amp;url=http://example.com/2025/02/14/openEuler/%E7%AC%94%E8%AE%B0/IP/01%20openEuler%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86/&amp;pic=" rel="external nofollow noreferrer noopener"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><script>function copyCurrentPageUrl() {
+  var currentPageUrl = window.location.href;
+  var input = document.createElement("input");
+  input.setAttribute("value", currentPageUrl);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">XBCID's BLOG</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"><a class="post-meta__box__tags" href="/tags/Linux/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>Linux<span class="tagsPageCount">18</span></a><a class="post-meta__box__tags" href="/tags/openEuler/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>openEuler<span class="tagsPageCount">18</span></a><a class="post-meta__box__tags" href="/tags/Huawei/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>Huawei<span class="tagsPageCount">15</span></a><a class="post-meta__box__tags" href="/tags/HCIP/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>HCIP<span class="tagsPageCount">6</span></a></div></div></div><div class="post_share"><div class="social-share" data-image="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2025/02/14/openEuler/%E7%AC%94%E8%AE%B0/IP/04%20%E8%87%AA%E5%8A%A8%E5%8C%96%E7%AE%A1%E7%90%86/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">04 自动化管理</div></div></a></div><div class="next-post pull-right"><a href="/2025/02/14/openEuler/%E7%AC%94%E8%AE%B0/IA/07%20%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">07 系统管理</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="anzhiyufont anzhiyu-icon-thumbs-up fa-fw" style="font-size: 1.5rem; margin-right: 4px"></i><span>喜欢这篇文章的人也看了</span></div><div class="relatedPosts-list"><div><a href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IP/03%20openEuler%E5%AD%98%E5%82%A8%E7%AE%A1%E7%90%86/" title="03 openEuler存储管理"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-05-19</div><div class="title">03 openEuler存储管理</div></div></a></div><div><a href="/2025/03/06/openEuler/%E7%AC%94%E8%AE%B0/IP/05%20shell%E8%84%9A%E6%9C%AC%E8%BF%9B%E9%98%B6/" title="05 shell脚本进阶"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-03-06</div><div class="title">05 shell脚本进阶</div></div></a></div><div><a href="/2025/02/14/openEuler/%E7%AC%94%E8%AE%B0/IP/04%20%E8%87%AA%E5%8A%A8%E5%8C%96%E7%AE%A1%E7%90%86/" title="04 自动化管理"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-02-14</div><div class="title">04 自动化管理</div></div></a></div><div><a href="/2025/03/08/openEuler/%E7%AC%94%E8%AE%B0/IP/06%20openEuler%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA/" title="06 openEuler操作系统安全加固"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-03-08</div><div class="title">06 openEuler操作系统安全加固</div></div></a></div><div><a href="/2025/02/14/openEuler/%E7%AC%94%E8%AE%B0/IA/01%20openEuler%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%85%A5%E9%97%A8/" title="01 openEuler操作系统入门"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-02-14</div><div class="title">01 openEuler操作系统入门</div></div></a></div><div><a href="/2025/02/14/openEuler/%E7%AC%94%E8%AE%B0/IA/02%20%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%93%8D%E4%BD%9C%E5%9F%BA%E7%A1%80/" title="02 命令行操作基础"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-02-14</div><div class="title">02 命令行操作基础</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__description"></div></div></div><div class="card-widget anzhiyu-right-widget" id="card-wechat" onclick="null"><div id="flip-wrapper"><div id="flip-content"><div class="face" style="background: url(https://bu.dusays.com/2023/01/13/63c02edf44033.png) center center / 100% no-repeat"></div><div class="back face" style="background: url(https://bu.dusays.com/2023/05/13/645fa415e8694.png) center center / 100% no-repeat"></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-Web%E6%9C%8D%E5%8A%A1%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">0x01 Web服务简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E4%BA%92%E8%81%94%E7%BD%91%E3%80%81%E4%B8%87%E7%BB%B4%E7%BD%91%E5%92%8Cweb"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 互联网、万维网和web</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-1-%E4%B8%87%E7%BB%B4%E7%BD%91%E4%B8%89%E8%A6%81%E7%B4%A0"><span class="toc-number">1.1.1.</span> <span class="toc-text">1.1.1 万维网三要素</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-HTTP"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 HTTP</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-1-HTTP%E8%AF%B7%E6%B1%82%E8%AE%BF%E9%97%AE%E7%9A%84%E5%AE%8C%E6%95%B4%E8%BF%87%E7%A8%8B"><span class="toc-number">1.2.1.</span> <span class="toc-text">1.2.1 HTTP请求访问的完整过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-2-HTTP%E7%9A%84%E7%89%B9%E7%82%B9"><span class="toc-number">1.2.2.</span> <span class="toc-text">1.2.2 HTTP的特点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-3-HTTP%E5%8D%8F%E8%AE%AE%E7%89%88%E6%9C%AC"><span class="toc-number">1.2.3.</span> <span class="toc-text">1.2.3 HTTP协议版本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-4-HTTP%E7%9A%84%E6%8A%A5%E6%96%87%E7%BB%93%E6%9E%84"><span class="toc-number">1.2.4.</span> <span class="toc-text">1.2.4 HTTP的报文结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-5-HTTP%E5%A4%84%E7%90%86%E8%AF%B7%E6%B1%82%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-number">1.2.5.</span> <span class="toc-text">1.2.5 HTTP处理请求的方法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-HTTPS%E7%AE%80%E4%BB%8B"><span class="toc-number">1.3.</span> <span class="toc-text">1.3 HTTPS简介</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-1-HTTPS%E4%BC%9A%E8%AF%9D%E8%BF%87%E7%A8%8B%E6%A6%82%E8%A6%81"><span class="toc-number">1.3.1.</span> <span class="toc-text">1.3.1 HTTPS会话过程概要</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-Web"><span class="toc-number">1.4.</span> <span class="toc-text">1.4 Web</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-1-Web%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%80%E4%BB%8B"><span class="toc-number">1.4.1.</span> <span class="toc-text">1.4.1 Web服务器简介</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-2-Web%E8%B5%84%E6%BA%90%E7%AE%80%E4%BB%8B"><span class="toc-number">1.4.2.</span> <span class="toc-text">1.4.2 Web资源简介</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-3-Web%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%8E%A5%E6%94%B6HTTP%E8%BF%9E%E6%8E%A5%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="toc-number">1.4.3.</span> <span class="toc-text">1.4.3 Web服务器接收HTTP连接的方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-4-Web%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84Cookie%E5%92%8CSession"><span class="toc-number">1.4.4.</span> <span class="toc-text">1.4.4 Web服务器的Cookie和Session</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-5-Web%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%93%8D%E5%BA%94%E7%A0%81"><span class="toc-number">1.4.5.</span> <span class="toc-text">1.4.5 Web服务器响应码</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-Apache%E7%AE%80%E4%BB%8B%E5%8F%8A%E9%85%8D%E7%BD%AE"><span class="toc-number">2.</span> <span class="toc-text">0x02 Apache简介及配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-Apache-HTTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E5%85%B3%E9%94%AE%E7%89%B9%E6%80%A7"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 Apache HTTP服务器的关键特性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-Apache-HTTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E5%A4%9A%E5%A4%84%E7%90%86%E6%A8%A1%E5%9D%97%EF%BC%88MPM%EF%BC%89"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 Apache HTTP服务器的多处理模块（MPM）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-Apache-HTTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E5%AE%89%E8%A3%85"><span class="toc-number">2.3.</span> <span class="toc-text">2.3 Apache HTTP服务器的安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-Apache-HTTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E5%8F%8A%E8%AF%B4%E6%98%8E"><span class="toc-number">2.4.</span> <span class="toc-text">2.4 Apache HTTP服务器目录结构及说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5-Apache-HTTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6-etc-httpd"><span class="toc-number">2.5.</span> <span class="toc-text">2.5 Apache HTTP服务器配置文件 &#x2F;etc&#x2F;httpd</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-5-1-%E4%B8%BB%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%EF%BC%88httpd-conf%EF%BC%89%E9%87%8D%E7%82%B9%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E-%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AE"><span class="toc-number">2.5.1.</span> <span class="toc-text">2.5.1 主配置文件（httpd.conf）重点参数说明 - 全局配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-5-2-%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE-%E4%B8%BB%E9%A1%B5%E9%9D%A2%E9%85%8D%E7%BD%AE%EF%BC%88http-conf%EF%BC%89"><span class="toc-number">2.5.2.</span> <span class="toc-text">2.5.2 基础配置 - 主页面配置（http.conf）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-6-Apache-HTTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE"><span class="toc-number">2.6.</span> <span class="toc-text">2.6 Apache HTTP服务器基础配置 -</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-6-1-DSO"><span class="toc-number">2.6.1.</span> <span class="toc-text">2.6.1 DSO</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-6-2-MPM"><span class="toc-number">2.6.2.</span> <span class="toc-text">2.6.2 MPM</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-6-3-%E6%8C%81%E4%B9%85%E8%BF%9E%E6%8E%A5"><span class="toc-number">2.6.3.</span> <span class="toc-text">2.6.3 持久连接</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-6-4-%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E8%AE%BF%E9%97%AE"><span class="toc-number">2.6.4.</span> <span class="toc-text">2.6.4 静态资源访问</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-6-5-%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E6%9D%83%E9%99%90%E8%AE%BE%E7%BD%AE"><span class="toc-number">2.6.5.</span> <span class="toc-text">2.6.5 静态资源权限设置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-6-6-%E6%95%B0%E6%8D%AE%E5%8E%8B%E7%BC%A9"><span class="toc-number">2.6.6.</span> <span class="toc-text">2.6.6 数据压缩</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-6-7-%E6%97%A5%E5%BF%97%E9%85%8D%E7%BD%AE"><span class="toc-number">2.6.7.</span> <span class="toc-text">2.6.7 日志配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-6-8-%E5%AE%9E%E7%8E%B0HTTPS"><span class="toc-number">2.6.8.</span> <span class="toc-text">2.6.8 实现HTTPS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-6-9-%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA"><span class="toc-number">2.6.9.</span> <span class="toc-text">2.6.9 虚拟主机</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x03-Nginx%E7%AE%80%E4%BB%8B%E5%8F%8A%E9%85%8D%E7%BD%AE"><span class="toc-number">3.</span> <span class="toc-text">0x03 Nginx简介及配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-Nginx%E7%AE%80%E4%BB%8B"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 Nginx简介</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-2Nginx%E5%85%B3%E9%94%AE%E7%89%B9%E6%80%A7"><span class="toc-number">3.1.1.</span> <span class="toc-text">3.1.2Nginx关键特性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-3-Nginx%E8%BF%90%E8%A1%8C%E6%9E%B6%E6%9E%84"><span class="toc-number">3.1.2.</span> <span class="toc-text">3.1.3 Nginx运行架构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-4-Nginx%E5%85%B3%E9%94%AE%E5%B7%A5%E4%BD%9C%E6%9C%BA%E5%88%B6"><span class="toc-number">3.1.3.</span> <span class="toc-text">3.1.4 Nginx关键工作机制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-5-Nginx%E7%9A%84%E6%A8%A1%E5%9D%97%E5%8C%96%E4%BD%93%E7%B3%BB"><span class="toc-number">3.1.4.</span> <span class="toc-text">3.1.5 Nginx的模块化体系</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-6-Nginx%E7%9A%84%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E5%8A%9F%E8%83%BD"><span class="toc-number">3.1.5.</span> <span class="toc-text">3.1.6 Nginx的反向代理功能</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-7-Nginx%E7%9A%84%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E5%8A%9F%E8%83%BD"><span class="toc-number">3.1.6.</span> <span class="toc-text">3.1.7 Nginx的负载均衡功能</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E5%AE%89%E8%A3%85Nginx"><span class="toc-number">3.2.</span> <span class="toc-text">3.2 安装Nginx</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-1-Yum%E8%87%AA%E5%8A%A8%E5%8C%96%E5%AE%89%E8%A3%85Nginx"><span class="toc-number">3.2.1.</span> <span class="toc-text">3.2.1 Yum自动化安装Nginx</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-2-%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85Nginx"><span class="toc-number">3.2.2.</span> <span class="toc-text">3.2.2 编译安装Nginx</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-3-%E5%B8%B8%E7%94%A8Nginx%E5%91%BD%E4%BB%A4"><span class="toc-number">3.2.3.</span> <span class="toc-text">3.2.3 常用Nginx命令</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-Nginx%E6%9C%8D%E5%8A%A1%E7%9B%B8%E5%85%B3%E6%96%87%E4%BB%B6"><span class="toc-number">3.3.</span> <span class="toc-text">3.3 Nginx服务相关文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-Nginx%E6%9C%8D%E5%8A%A1%E4%B8%BB%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6nginx-conf"><span class="toc-number">3.4.</span> <span class="toc-text">3.4 Nginx服务主配置文件nginx.conf</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-1-%E7%BB%93%E6%9E%84"><span class="toc-number">3.4.1.</span> <span class="toc-text">3.4.1 结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-2-%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AE"><span class="toc-number">3.4.2.</span> <span class="toc-text">3.4.2 全局配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-3-HTTP%E9%85%8D%E7%BD%AE"><span class="toc-number">3.4.3.</span> <span class="toc-text">3.4.3 HTTP配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-4-HTTPS%E9%85%8D%E7%BD%AE"><span class="toc-number">3.4.4.</span> <span class="toc-text">3.4.4 HTTPS配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-5-%E4%BC%A0%E8%BE%93%E5%8E%8B%E7%BC%A9"><span class="toc-number">3.4.5.</span> <span class="toc-text">3.4.5 传输压缩</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-6-%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA"><span class="toc-number">3.4.6.</span> <span class="toc-text">3.4.6 虚拟主机</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-7-%E8%B7%AF%E7%94%B1%E8%A7%84%E5%88%99%E9%85%8D%E7%BD%AE"><span class="toc-number">3.4.7.</span> <span class="toc-text">3.4.7  路由规则配置</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-Nginx%E7%9A%84%E7%83%AD%E5%8D%87%E7%BA%A7"><span class="toc-number">3.5.</span> <span class="toc-text">3.5 Nginx的热升级</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x04-DNS%E7%AE%80%E4%BB%8B%E5%8F%8A%E9%85%8D%E7%BD%AE"><span class="toc-number">4.</span> <span class="toc-text">0x04 DNS简介及配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-DNS%E7%AE%80%E4%BB%8B"><span class="toc-number">4.1.</span> <span class="toc-text">4.1 DNS简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-DNS%E5%9F%9F%E5%90%8D%E6%AD%A3%E5%90%91%E8%A7%A3%E6%9E%90%E6%B5%81%E7%A8%8B"><span class="toc-number">4.2.</span> <span class="toc-text">4.2 DNS域名正向解析流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-DNS%E5%8F%8D%E5%90%91%E8%A7%A3%E6%9E%90%E7%AE%80%E4%BB%8B"><span class="toc-number">4.3.</span> <span class="toc-text">4.3 DNS反向解析简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-DNS%E7%9A%84%E8%B5%84%E6%BA%90%E8%AE%B0%E5%BD%95%E7%AE%80%E4%BB%8B"><span class="toc-number">4.4.</span> <span class="toc-text">4.4 DNS的资源记录简介</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-4-1-DNS%E7%9A%84%E8%B5%84%E6%BA%90%E8%AE%B0%E5%BD%95%E7%B1%BB%E5%9E%8B-SOA"><span class="toc-number">4.4.1.</span> <span class="toc-text">4.4.1 DNS的资源记录类型 - SOA</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-4-2-DNS%E7%9A%84%E8%B5%84%E6%BA%90%E8%AE%B0%E5%BD%95%E5%B8%B8%E8%A7%81%E7%B1%BB%E5%9E%8B"><span class="toc-number">4.4.2.</span> <span class="toc-text">4.4.2 DNS的资源记录常见类型</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-5-DNS%E6%9C%8D%E5%8A%A1%E5%85%B3%E9%94%AE%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">4.5.</span> <span class="toc-text">4.5 DNS服务关键配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-6-DNS%E6%9C%8D%E5%8A%A1%E9%85%8D%E7%BD%AE%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-number">4.6.</span> <span class="toc-text">4.6 DNS服务配置常用命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-7-%E5%B8%B8%E7%94%A8DNS%E6%9C%8D%E5%8A%A1%E6%A3%80%E6%9F%A5%E5%B7%A5%E5%85%B7"><span class="toc-number">4.7.</span> <span class="toc-text">4.7 常用DNS服务检查工具</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-7-1-nslookup"><span class="toc-number">4.7.1.</span> <span class="toc-text">4.7.1 nslookup</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-7-2-dig"><span class="toc-number">4.7.2.</span> <span class="toc-text">4.7.2 dig</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-7-3-host"><span class="toc-number">4.7.3.</span> <span class="toc-text">4.7.3 host</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x05-MySQL%E7%AE%80%E4%BB%8B%E5%8F%8A%E9%85%8D%E7%BD%AE"><span class="toc-number">5.</span> <span class="toc-text">0x05 MySQL简介及配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-%E6%95%B0%E6%8D%AE%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%80%E4%BB%8B"><span class="toc-number">5.1.</span> <span class="toc-text">5.1 数据与数据库简介</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5-1-1-%E4%BB%80%E4%B9%88%E6%98%AF%E6%95%B0%E6%8D%AE%EF%BC%9F"><span class="toc-number">5.1.1.</span> <span class="toc-text">5.1.1 什么是数据？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-1-2-%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9C%8D%E5%8A%A1%E5%99%A8Database"><span class="toc-number">5.1.2.</span> <span class="toc-text">5.1.2 数据库服务器Database</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-1-3-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9FDBMS"><span class="toc-number">5.1.3.</span> <span class="toc-text">5.1.3 数据库管理系统DBMS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-1-4-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E6%8E%92%E5%90%8D"><span class="toc-number">5.1.4.</span> <span class="toc-text">5.1.4 数据库管理系统排名</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-1-5-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E5%8A%9F%E8%83%BD%E4%BB%8B%E7%BB%8D"><span class="toc-number">5.1.5.</span> <span class="toc-text">5.1.5 数据库管理系统功能介绍</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-MySQL%E4%BB%8B%E7%BB%8D"><span class="toc-number">5.2.</span> <span class="toc-text">5.2 MySQL介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5-2-1-MySQL%E6%9E%B6%E6%9E%84"><span class="toc-number">5.2.1.</span> <span class="toc-text">5.2.1 MySQL架构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-2-2-%E5%AE%89%E8%A3%85MySQL"><span class="toc-number">5.2.2.</span> <span class="toc-text">5.2.2 安装MySQL</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-2-3-%E7%99%BB%E5%BD%95MySQL%E5%8F%8A%E5%88%9D%E5%A7%8B%E5%8C%96root%E8%B4%A6%E6%88%B7"><span class="toc-number">5.2.3.</span> <span class="toc-text">5.2.3 登录MySQL及初始化root账户</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IP/07%20openEuler%E7%B3%BB%E7%BB%9F%E7%9B%91%E6%8E%A7%E5%85%A5%E9%97%A8/" title="无题">无题</a><time datetime="2025-05-18T19:46:45.900Z" title="发表于 2025-05-19 03:46:45">2025-05-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/%E6%B3%A8%E9%87%8A/shebang/" title="无题">无题</a><time datetime="2025-05-18T19:46:45.880Z" title="发表于 2025-05-19 03:46:45">2025-05-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/10%20%E5%B8%B8%E7%94%A8%E5%B0%8F%E6%8C%87%E4%BB%A4/" title="无题">无题</a><time datetime="2025-05-18T19:46:45.685Z" title="发表于 2025-05-19 03:46:45">2025-05-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/09%20Samba%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86/" title="09 Samba文件共享服务器管理">09 Samba文件共享服务器管理</a><time datetime="2025-05-18T19:46:45.684Z" title="发表于 2025-05-19 03:46:45">2025-05-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/08%20%E4%BD%BF%E7%94%A8shell%E8%84%9A%E6%9C%AC/" title="08 使用shell脚本">08 使用shell脚本</a><time datetime="2025-05-18T19:46:45.683Z" title="发表于 2025-05-19 03:46:45">2025-05-19</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2025 By <a class="footer-bar-link" href="/" title="XBCID" target="_blank">XBCID</a></div></div><div id="footer-type-tips"></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/anzhiyu-c/hexo-theme-anzhiyu" title="主题">主题</a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">37</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">5</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">0</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://blog.anheyu.com/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://image.anheyu.com/" title="安知鱼图床"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.anheyu.com/favicon.ico" alt="安知鱼图床"/><span class="back-menu-item-text">安知鱼图床</span></a></div></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/HCIA/" style="font-size: 0.88rem;">HCIA<sup>9</sup></a><a href="/tags/HCIP/" style="font-size: 0.88rem;">HCIP<sup>6</sup></a><a href="/tags/Huawei/" style="font-size: 0.88rem;">Huawei<sup>15</sup></a><a href="/tags/Linux/" style="font-size: 0.88rem;">Linux<sup>18</sup></a><a href="/tags/openEuler/" style="font-size: 0.88rem;">openEuler<sup>18</sup></a></div></div><hr/></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8152976493" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random" volume="0.7"></meting-js></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.5/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("01/12/2021 14:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2020 By 安知鱼 V1.6.14",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 XBCID 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><div class="js-pjax"><input type="hidden" name="page-type" id="page-type" value="post"></div><script>var visitorMail = "";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/qrcodejs/1.0.0/qrcode.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>

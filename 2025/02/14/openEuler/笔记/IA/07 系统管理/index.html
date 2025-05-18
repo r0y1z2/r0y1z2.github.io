@@ -1,0 +1,817 @@
+<!DOCTYPE html><html lang="zh" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>07 系统管理 | XBCID's BLOG</title><meta name="keywords" content="Linux,openEuler,Huawei,HCIA"><meta name="author" content="XBCID"><meta name="copyright" content="XBCID"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="07 系统管理"><meta name="application-name" content="07 系统管理"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="07 系统管理"><meta property="og:url" content="http://example.com/2025/02/14/openEuler/%E7%AC%94%E8%AE%B0/IA/07%20%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/index.html"><meta property="og:site_name" content="XBCID's BLOG"><meta property="og:description" content="本章介绍了 openEuler 中的任务、网络配置以及进程的状态和调度主要讲解 openEuler 中的任务管理、网络管理以及进程管理 学完本课程后，您将能够：  配置一次性或定期执行的任务 配置 openEuler 中的网络，使得主机间网络可达 管理 openEuler 中的进程，能够查看、管理进"><meta property="og:locale" content="zh"><meta property="og:image" content="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg"><meta property="article:author" content="XBCID"><meta property="article:tag"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg"><meta name="description" content="本章介绍了 openEuler 中的任务、网络配置以及进程的状态和调度主要讲解 openEuler 中的任务管理、网络管理以及进程管理 学完本课程后，您将能够：  配置一次性或定期执行的任务 配置 openEuler 中的网络，使得主机间网络可达 管理 openEuler 中的进程，能够查看、管理进"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="http://example.com/2025/02/14/openEuler/%E7%AC%94%E8%AE%B0/IA/07%20%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/"><link rel="preconnect" href="//cdn.cbd.int"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: {"enable":true,"img":"https://upload-bbs.miyoushe.com/upload/2024/07/27/125766904/ba62475f396df9de3316a08ed9e65d86_5680958632268053399..png"},
+  postHeadAiDescription: {"enable":true,"gptName":"AnZhiYu","mode":"local","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"xxxx","Referer":"https://xx.xx/"},
+  diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
+  LA51: undefined,
+  greetingBox: undefined,
+  twikooEnvId: '',
+  commentBarrageConfig:undefined,
+  music_page_default: "nav_music",
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: undefined,
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: XBCID","link":"链接: ","source":"来源: XBCID's BLOG","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: 'XBCID's BLOG',
+  title: '07 系统管理',
+  postAI: '',
+  pageFillDescription: '0x01 任务管理, 1.1 任务管理的类型, 1.2 计划执行at, 1.2.1 at命令, 1.2.2 设置时间 - 绝对计时, 1.2.3 设置时间 - 相对计时, 1.2.4 执行权限, 1.3 周期性运行-批程序 - cron, 1.3.1 cron运行机制, 1.3.2 crontab命令, 1.3.3 crontab文件, 0x02 网络管理, 2.1 openEuler 系统网络重要概念, 2.2 设备信息示例, 2.3 openEuler网卡设备配置文件, 2.3.1 网卡配置文件参数说明, 2.3.2 修改配置文件, 2.3.2.1 网卡最小配置文件示例, 2.4 查看IP地址, 2.5 显示接口的统计信息, 2.6 显示套接字信息, 2.7 NetworkManager, 2.7.1 通过nmcli查看网络信息, 2.7.2 通过 nmcli 创建连接, 2.7.3 通过nmcli修改连接, 2.8 路由, 2.8.1 openEuler 路由管理与配置, 2.8.2 route查看路由表, 2.8.3 route新增路由, 2.8.4 route删除路由, 2.8.5 nmcli配置静态路由, 2.8.6 主机名, 2.8.6.1 设置主机名, 2.8.6.2 hosts文件, 2.8.6.3 修改hosts文件, 2.8.7 hosts与DNS, 2.8.8 DNS, 2.8.8.1 查询DNS记录, 2.8.8.2 DNS解析记录, 2.8.8.3 查询其他记录, 0x03 进程管理, 3.1 进程介绍, 3.2 进程的生命周期, 3.3 进程的状态, 3.4 进程的优先级, 3.5.1 调整进程的优先级, 3.6 前台与后台进程, 3.6.1 控制前台与后台进程, 3.7 查看进程, 3.7.1 查看进程 - ps、top, 3.8 管理进程 - 信号, 3.8.1 管理进程本章介绍了中的任务网络配置以及进程的状态和调度主要讲解中的任务管理网络管理以及进程管理学完本课程后您将能够配置一次性或定期执行的任务配置中的网络使得主机间网络可达管理中的进程能够查看管理进程任务管理什么是任务管理在系统运维过程中可能需要在某个预设的时间执行特定任务比如定时发送邮件备份并清空日志文件等任务任务的内容可以看作是一系列命令或者一个脚本我们则需要在特定时间去执行它任务管理的类型计划执行在特定时间运行一次定期执行按周期执行多次计划执行命令可以指定在特定时刻运行脚本是的守护进程在系统启动时就会以后台模式运行进程会定期检查系统上的目录获取通过命令写入的任务内可能未安装安装并启动命令用户使用命令在指定时刻执行指定的命令序列该命令至少需要指定一个命令和一个执行时间命令可以只指定时间也可以时间和日期一起指定命令语法队列文件名时间作业作业此处作业和前面提到的任务一系列命令命令序列是同一概念设置时间绝对计时允许一套相当复杂的时间指定方法接受在当天的小时分钟式的时间指定如果该时间已经过去那么就放存第二天执行使用深夜中午饮茶时间一般是下午点等比较模糊的词语来指定时间采用小时计时制即在时间后面加上或者来说明上午还是下午指定命令执行的具体日期指定格式为月日或者月日年或者日月年指定的日期必须跟在指定时间的后面设置时间相对计时使用相对计时法对于安排不久后就要执行的命令较为方便指定格式为就是当前时间是时间单位这里可以是是时间的数量或者使用来只当完成命令的时间例如指定在今天执行某个命令假设现在时间是年月日命令如下时间输入完成后进入交互式界面按结束命令的输入时间可执行特定脚本文件使用命令查看作业队列使用命令可以删除作业队列中的作业格式为作业号作业号为回显的第一列执行权限对于命令来说需要定时执行的命令是从标准输入或者使用选项指定的文件中读取并执行的如果命令是从一个使用命令切换到用户中执行的那么当前用户被认为是执行用户所有的错误和输出结果都会送给这个用户对于其他用户来说是否执行某个命令或脚本取决于和文件周期性运行批程序命令会在指定时间内完成指定任务但是只能执行一次系统在指定时间完成任务以后就不再执行了在很多情况下需要周期性重复执行一些命令这时候需要使用命令来完成任务运行机制会搜索目录寻找以文件中的用户命令的文件然后将文件装入内存还将搜索文件这个文件时间表是以特定格式写成的启动以后先检查是否有用户设置了文件如果没有就转入睡眠状态释放系统资源所以该后台进程占用资源极少之后每分钟被唤醒一次查看当前是否有需要运行的命令首先命令会搜索目录寻找以文件中的用户名命名的文件被找到的这种文件将装入内存比如一个用户名为的用户对应的立件应该是即以该用户命名的文件存放在目录下面命令还将搜索文件这个文件是用不同的格式写成的命令执行结束后任何输出都将作为邮件发送给的所有者或者是文件中环境变量中指定的用户这是的工作原理但是命令的执行不需要用户干涉用户只需要修改中要执行的命令命令命令用于创建编辑查看删除用户的周期性计划任务用户把需要执行的命令序列放到文件中以获得执行而且每个用户都可以有自己的文件常用命令设置某个用户的服务用户在执行时需要此参数列出某个用户服务的详细内容删除某个用户的服务编辑某个用户的服务文件在文件中输入需要执行的命令和时间该文件中每行都包括个域其中前个域是指定命令被执行的时间最后一个域是要被执行的命令每个域之间使用空格或者制表符分隔格式如下文件参数说明例每周一上午执行命令文件参数补充说明上述参数项都不能为空必须指定值对于要执行的命令调用的时候需要写出命令的绝对路径除了数字还有几个特殊的符号和每次编辑完某个用户的设置后自动在下生成一个与此用户同名的文件此用户的信息都记录在这个文件中这个文件是不可以直接编辑的只可以用来编辑用户也可以另外建立一个文件使用文件名命令导入设置启动后每过一分钟读一次文件检查是否要执行里面的命令因此该文件被修改后不需要重新启动服务使用配置是针对某个用户的而编辑是针对系统的任务此文件的文件格式如下如果出现错误或者有数据输出数据作为邮件发给这个账号每个小时执行一次里的脚本每天执行一次里的脚本每周执行一次里的脚本每月执行一次里的脚本如果去掉参数其后面就是运行的某个脚本名而不是目录名网络管理系统网络重要概念设备主机内的网卡广播地址到达本网段上所有主机的地址接口为使用设备驱动程序在设备上创建了接口子网掩码将地址划分成网络地址和主机地址两部分的掩码路由包跨网段访问时候的下一跳地址链路设备到网络的连接设备信息示例网卡设备一致性命名规则等同于网卡设备配置文件网络设备默认的配置路径配置文件网卡配置文件参数说明参数值不区分大小写可以不用引号详细参数说明修改配置文件使用编辑器直接修改配置文件修改前做好备份配置修改后不会立即生效需要重启服务进程或者重启系统备份配置文件重启服务进程网卡最小配置文件示例一份可用的网卡配置文件并不需要列出所有配置选项如下也可生效查看地址使用命令显示设备和地址信息查看所有接口的当前地址和子网掩码显示接口的统计信息命令可以用于显示关于网络性能的统计信息表示接受的数据包信息表示传送的数据包信息显示套接字信息使用命令查看套接字统计信息加上参数可过滤不同类型的套接字如显示所有套接字信息是系统中动态控制及配置网络的守护进程用于保持当前网络设备和连接处于工作状态通过命令行工具可以控制全面强大且复杂关键概念设备网络中设备即网络接口连接连接是供设备是用的配置同一个设备可能存在多个连接但一次只能有一个保持活动状态通过查看网络信息代表连接选项可以过滤出活动的连接显示单个连接的详细信息连接名与命令相似显示设备状态使用显示设备信息使用通过创建连接创建一个名为的连接使用方式通过网口连接显示所有连接启动刚刚创建的连接查看当前连接状态连接前的网络连接中还有很多可选类型如网桥绑定等要查看所有选项使用操作步骤例图通过修改连接使用命令修改连接传入的参数为键值对键为属性名称可通过连接名查询如以修改服务器为例配置参数可以增加或删除值在参数前使用符号如添加辅助服务器修改完成后需要活动中的连接使之生效还有交互式编辑模式和图形界面更多信息参考路由要让不同子网的两台主机能够相互通讯就需要有一种能够描述如何从一台主机到另一台主机的机制这一机制称为路由选择路由选择通过路由项进行描述路由项是一对预先定义的地址包括目的地和网关路由项的含义是通过网关能够完成与目的地的通讯路由表是多个路由项的集合关于系统中路由的详细描述路由管理与配置中使用查看配置管理本机路由除了命令和命令也可以用来管理系统路由这些命令作用于系统中的路由表系统运行时路由表加载到内存中由系统内核进行维护都可以用来管理路由这里以为例介绍查看路由表需要安装使用查看路由表使用参数显示路由时字段显示的是采用命令查看路由时共有八个字段字段意义说明如下表示此路由当前为启动状态表示此网关为一主机表示此网关为一路由器使用动态路由重新初始化的路由此路由是动态性地写入此路由是由路由守护程序或导向器动态修改表示此路由当前为关闭状态新增路由新增暂时一条到网段或主机的路由如下例如使用命令可以新增路由数据新增路由数据保存在内存中重启后失效代表新增到网段路由经由发送出去代表新增到主机路由经由发送出去通过查看路由表可知到主机的路由优先于到网段的路由删除路由使用命令删除网段或者主机的路由语法例如代表删除到网段路由删除网段路由时网段和掩码这两个参数一定需要携带参数可以不携带代表删除到主机路由后面的参数可以不带删除文件中的路由采用编辑然后重启网络即可配置静态路由使用命令为网络连接配置静态路由如下使用编辑器配置静态路由使用交互式命令如下主机名主机名是一个局域网中唯一标识一台机器的名称这台机器不一定是一台物理机器也可以是一台虚拟机主机名信息存放在为文件中设置主机名临时设置主机名直到下次重启前有效永久设置主机名通过修改文件设置文件名在文件写入设置完成后并不会立即生效重新登陆后才能在命令提示符中看到或者使用命令查看当前系统的主机名文件局域网中存在着一些主机我们可以通过地址去访问它们随着局域网中主机数量增加地址较难记忆我们希望通过主机名直接访问其他主机这时我们可以通过一张记录着主机名和地址的表找到这些主机这张表就是是一个没有扩展名的系统文件其基本作用就是将一些常用的网址域名与其对应的地址建立一个关联数据库当用户在浏览器中输入一个需要登录的网址时系统会首先自动从文件中寻找对应的地址一旦找到系统就会立即打开对应网页如果没有找到则系统会将网址提交域名解析服务器进行地址的解析查看文件修改文件可以用编辑器修改文件内容格式若想去掉某条记录加注释即可如与随着网络中主机数量的增加单个文件难以承载众多的映射关系当在中找不到域名对应的时主机会将域名提交给域名解析服务器然后返回给主机这个过程称为域名解析就像是一个公共的文件分布式数据库查询记录中使用命令查询中的记录通过可以查看域名解析是否正常帮助诊断网络问题的命令格式如下其中是要查询的域名是域名解析服务器非必选参数常见的如在中未安装采用如下命令进行安装例查询对应的命令能够实现类似功能详见解析记录中除了将域名解析到一个地址之外还支持其他类型的解析记录解析记录详解查询其他记录可以查询各种类型的记录例如进程管理进程介绍进程是计算机已运行程序的实体是程序的一个具体实现每个进程在被创建的时候都被分配给一段内存空间即系统给该进程分配一定的逻辑地址空间每个程序都能看到一片完整连续的地址空间这些空间并没有直接关联到物理内存而是操作系统提供了内存的一种抽象概念使得每个进程都有一个连续完整的地址空间在程序的运行过程再完成虚拟地址到物理地址的转换我们同样知道进程的地址空间是分段的存在所谓的数据段代码段段堆栈等等具体的内存分布参考进程的生命周期每个进程都有一个唯一的进程用于追踪该进程任何进程都可以通过复制自己地址空间的方式创建子进程子进程中记录着父进程的第一个系统进程是其他所有进程都是其后代每个进程都有自己生命周期比如创建执行终止和删除在系统运行过程中这些阶段反复执行成千上万次当一个进程创建一个新的进程创建进程的进程父进程使用名为的系统调用当被调用的时候它会为新创建的进程子进程获得一个进程描述符并且设置新的进程复制父进程的进程描述符给子进程这时候不会复制父进程的地址空间而是父子进程使用同样的地址空间系统调用把新程序复制到子进程的地址空间由于共享同样的地址空间写入新进程的数据会引发页错误的异常此时内核给子进程分配新的物理页这个延迟的操作叫做子进程和父进程执行的程序通常不一样它执行自己的程序这个操作避免了不必要的开销因为复制整个地址空间是很慢且低效率的还会消耗很多的处理器时间和资源当程序执行完成子进程使用系统调用终止会释放进程的大部分数据结构并且把这个终止的消息通知给父进程这时候子进程被称为僵尸进程直到父进程通过系统调用知悉子进程终止之前子进程都不会被完全的清除旦父进程知道子进程终止它会清除子进程的所有数据结构和进程描述符进程的状态运行状态是运行态和就绪态的合并表示进程正在运行或准备运行中使用宏表示此状态可中断睡眠状态浅度睡眠进程正在睡眠被阻塞等待资源到来是唤醒也可以通过其他进程信号或时钟中断唤醒进入运行队列使用宏表示此状态不可中断睡眠状态深度睡眠状态其和浅度睡眠基本类似但有一点就是不可被其他进程信号或时钟中断唤醒使用宏表示此状态暂停状态进程暂停执行接受某种处理如正在接受调试的进程处于这种状态使用宏表示此状态僵死状态进程已经结束但未释放使用宏表示此状态进程的优先级进程的资源时间片分配就是指进程的优先级优先级高的进程有优先执行权利配置进程的优先级对多任务环境下的很有用可以改善系统性能使用命令查看进程中使用调度器来调度进程代表执行者的身份代表这个进程的代号代表这个进程是由哪个进程发展衍生来的即父进程的代号代表这个进程可被执行的优先级表示程序被执行的先后顺序其值越小优先级别越高越早被执行代表这个进程的值表示进程可被执行的优先级的修正数值可理解为谦让度进程的值不是进程的优先级但是可以通过调整值可以影响进程的优先值进程优先级由动态优先级和静态优先级决定它是决定进程在中执行顺序的数字优先级越高的进程被处理器执行的机会越大根据进程的行为内核使用启发式算法决定开启或关闭动态优先级可以通过级别直接修改进程的静态优先级拥有越高静态优先级的进程会获得更长的时间片时间片是进程在处理器中的执行时间支持的级别从最低优先级到最高优先级默认值是只有身份的用户才能把进程的级别调整为负数让其具备较高优先级值越小越快被执行那么加入值后变为当值为负值的时候那么该程序将会优先级值将变小即其优先级会变高则其越快被执行内核使用一些简单的数值范围表示内部优先级数值越低优先级越高从的范围专供实时进程使用的值则映射到范围调整进程的优先级中使用和调整进程的值进而影响进程优先级命令语法优先序取值范围例如将运行的优先级设置为语法优先序范围同作用对象有程序群组进程用户语法格式例如将运行的优先级设置为查看说明查看说明也可以使用更改进程的值进入后按输入进程输入值前台与后台进程后台进程几乎不和用户交互优先级略低的守护进程是一种特殊的后台进程其独立于终端并周期性地执行任务或等待唤醒前台进程和用户交互需要较高的响应速度优先级较高前台进程就是用户使用的有控制终端的进程守护的意思就是不受终端控制的大多数服务器就是用守护进程实现的比如服务器服务器等同时守护进程完成许多系统任务比如作业规划进程打印进程等守护进程一般用作系统服务可以用提交编辑或者删除相应得作业进程也就是守护进程大多数的服务进程都是通过守护进程实现的比如号进程调度进程号进程进程机器启动后就运行关机才停止参考控制前台与后台进程中常用以下命令管理进程包括前后台切换及启停将放在命令的最后可以把这个命令放到后台执行当前台正在执行一个命令时按键将其放到后台暂停中断当前正在执行的命令查看当前有多少正在后台运行的命令将后台中的命令调至前台继续运行将后台任务唤醒并在后台运行查看进程在对系统进行故障排除时了解进程的状态非常重要中使用或命令查看每个进程的详细信息查看进程命令可以显示当前进程并列出详细的进程信息字段含义如下表常用或查看进程信息命令用于显示特定时间点的进程信息静态命令可以实时显示进程信息动态管理进程信号中进程之间通过信号来通信常见信号见表格进程的信号是预定义好的一个消息进程能识别它并决定是忽略还是做出反应系统管理员需要知道如何向一个进程发送何种信号以管理进程管理进程中使用和命令向进程发送信号发送的前提是当前用户必须是进程的属主或用户通过向进程发信号默认发送信号使用参数指定其他信号例通过进程名向进程发信号且支持通配符例以用户登录时命令可以使用',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-05-19 03:45:21',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://npm.elemecdn.com/anzhiyu-blog-static@1.0.4/img/avatar.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><a id="site-name" href="/" accesskey="h"><div class="title">XBCID's BLOG</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" target="_blank"><img class="post-qr-code-img" alt="微信" src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" target="_blank"><img class="post-qr-code-img" alt="支付宝" src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/HCIA/" style="font-size: 1.05rem;">HCIA<sup>9</sup></a><a href="/tags/HCIP/" style="font-size: 1.05rem;">HCIP<sup>6</sup></a><a href="/tags/Huawei/" style="font-size: 1.05rem;">Huawei<sup>15</sup></a><a href="/tags/Linux/" style="font-size: 1.05rem;">Linux<sup>18</sup></a><a href="/tags/openEuler/" style="font-size: 1.05rem;">openEuler<sup>18</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/05/"><span class="card-archive-list-date">May 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">23</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/03/"><span class="card-archive-list-date">March 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">6</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/02/"><span class="card-archive-list-date">February 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">8</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="article-meta tags"><a class="article-meta__tags" href="/tags/Linux/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>Linux</span></a><a class="article-meta__tags" href="/tags/openEuler/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>openEuler</span></a><a class="article-meta__tags" href="/tags/Huawei/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>Huawei</span></a><a class="article-meta__tags" href="/tags/HCIA/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>HCIA</span></a></span></div></div><h1 class="post-title" itemprop="name headline">07 系统管理</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2025-02-14T09:22:46.000Z" title="发表于 2025-02-14 17:22:46">2025-02-14</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2025-05-18T19:45:21.909Z" title="更新于 2025-05-19 03:45:21">2025-05-19</time></span></div><div class="meta-secondline"><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为重庆"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>重庆</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src=""></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="http://example.com/2025/02/14/openEuler/%E7%AC%94%E8%AE%B0/IA/07%20%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/"><header><a href="/tags/Linux/" tabindex="-1" itemprop="url">Linux</a><a href="/tags/openEuler/" tabindex="-1" itemprop="url">openEuler</a><a href="/tags/Huawei/" tabindex="-1" itemprop="url">Huawei</a><a href="/tags/HCIA/" tabindex="-1" itemprop="url">HCIA</a><h1 id="CrawlerTitle" itemprop="name headline">07 系统管理</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">XBCID</span><time itemprop="dateCreated datePublished" datetime="2025-02-14T09:22:46.000Z" title="发表于 2025-02-14 17:22:46">2025-02-14</time><time itemprop="dateCreated datePublished" datetime="2025-05-18T19:45:21.909Z" title="更新于 2025-05-19 03:45:21">2025-05-19</time></header><p>本章介绍了 openEuler 中的任务、网络配置以及进程的状态和调度<br>主要讲解 openEuler 中的任务管理、网络管理以及进程管理</p>
+<p>学完本课程后，您将能够：</p>
+<ul>
+<li>配置一次性或定期执行的任务</li>
+<li>配置 openEuler 中的网络，使得主机间网络可达</li>
+<li>管理 openEuler 中的进程，能够查看、管理进程</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/07%20%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/2025020404-1740866.png"></p>
+<hr>
+<h2 id="0x01-任务管理"><a href="#0x01-任务管理" class="headerlink" title="0x01 任务管理"></a>0x01 任务管理</h2><p>什么是任务管理？</p>
+<ul>
+<li>在系统运维过程中，可能需要在某个预设的时间执行特定任务</li>
+<li>比如定时发送邮件、备份并清空日志文件等 任务</li>
+<li>任务的内容可以看作是一系列命令或者一个脚本，我们则需要在特定时间去执行它</li>
+<li><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/07%20%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/2025020404-1856871.png"></li>
+</ul>
+<h3 id="1-1-任务管理的类型"><a href="#1-1-任务管理的类型" class="headerlink" title="1.1 任务管理的类型"></a>1.1 任务管理的类型</h3><ul>
+<li>计划执行，在特定时间运行一次：<code>at</code></li>
+<li>定期执行，按周期执行多次：cron</li>
+</ul>
+<h3 id="1-2-计划执行at"><a href="#1-2-计划执行at" class="headerlink" title="1.2 计划执行at"></a>1.2 计划执行at</h3><ul>
+<li><p><code>at</code>命令可以指定Linux在特定时刻运行脚本</p>
+</li>
+<li><p><code>atd</code>是<code>at</code>的守护进程，在系统启动时就会以后台模式运行</p>
+</li>
+<li><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/07%20%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/2025020404-2646588.png"></p>
+</li>
+<li><p><code>atd</code>进程会定期检查系统上的&#x2F;var&#x2F;spool&#x2F;at目录，获取通过at命令写入的任务</p>
+</li>
+<li><p>openEuler 内可能未安装 at，安装并启动：<br><code>yum install -y at</code><br><code>systemctl start at</code></p>
+</li>
+</ul>
+<h3 id="1-2-1-at命令"><a href="#1-2-1-at命令" class="headerlink" title="1.2.1 at命令"></a>1.2.1 at命令</h3><ul>
+<li>用户使用at命令在指定时刻执行指定的命令序列</li>
+<li>该命令至少需要指定一个命令和一个执行时间</li>
+<li>at命令可以只指定时间，也可以时间和日期一起指定</li>
+<li>at命令语法：</li>
+<li><code>at [-V] [-q 队列] [-f 文件名] [-mldbv] 时间</code></li>
+<li><code>at -c 作业[作业...]</code></li>
+<li>此处【作业】和前面提到的【任务】、【一系列命令】、【命令序列是同一概念】</li>
+</ul>
+<h4 id="1-2-2-设置时间-绝对计时"><a href="#1-2-2-设置时间-绝对计时" class="headerlink" title="1.2.2 设置时间 - 绝对计时"></a>1.2.2 设置时间 - 绝对计时</h4><ul>
+<li>at允许一套相当复杂的时间指定方法：<ul>
+<li>接受在当天的hh:mm（小时：分钟）式的时间指定；如果该时间已经过去，那么就放存第二天执行</li>
+<li>使用<code>midnight(深夜)</code>、<code>noon(中午)</code>、<code>teatime(饮茶时间，一般是下午4点)</code>等比较模糊的词语来指定时间</li>
+<li>采用12小时计时制，即在时间后面加上AM或者PM来说明上午还是下午</li>
+<li>指定命令执行的具体日期，指定格式为month day（月 日）或者mm&#x2F;dd&#x2F;yy(月&#x2F;日&#x2F;年)或者dd.mm.yy(日.月.年)；指定的日期必须跟在指定时间的后面</li>
+</ul>
+</li>
+</ul>
+<h4 id="1-2-3-设置时间-相对计时"><a href="#1-2-3-设置时间-相对计时" class="headerlink" title="1.2.3 设置时间 - 相对计时"></a>1.2.3 设置时间 - 相对计时</h4><ul>
+<li>使用相对计时法，对于安排不久后就要执行的命令较为方便：<ul>
+<li>指定格式为<code>now+count time-units</code>,<code>now</code>就是当前时间，<code>time-units</code>是时间单位，这里可以是<code>minutes</code>、<code>hours</code>、<code>days</code>、<code>weeks</code></li>
+<li>count是时间的数量，；或者使用<code>today</code>、<code>tommorrow</code>来只当完成命令的时间</li>
+<li>例如指定在今天16：30执行某个命令，假设现在时间是12：30，2015年6月7日，命令如下：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">at 4:30pm</span><br><span class="line">at 16:30</span><br><span class="line">at 16:30 today</span><br><span class="line">at now+4 hours</span><br><span class="line">at now+240 minutes</span><br><span class="line">at 16:30 7.6.15</span><br><span class="line">at 16:30 7/6/715</span><br><span class="line">at 16:30 Jun 7</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>at + 时间， 输入完成后，进入交互式界面，按 Ctrl + d 结束命令的输入</li>
+<li>at -f file-name.sh 时间 ，可执行特定脚本文件</li>
+<li>使用 atq 命令查看作业队列</li>
+<li>使用 atrm 命令可以删除作业队列中的作业，格式为 atrm + 作业号，作业号 为 atq<br>回显的第一列</li>
+</ul>
+<h4 id="1-2-4-执行权限"><a href="#1-2-4-执行权限" class="headerlink" title="1.2.4 执行权限"></a>1.2.4 执行权限</h4><ul>
+<li>对于 at 命令来说，需要定时执行的命令是从标准输入或者使用 –f 选项指定的文件中读取并执行的</li>
+<li>如果 at 命令是从一个使用 su 命令切换到用户 shell 中执行的，那么当前用户被认为是执行用户，所有的错误和输出结果都会送给这个用户</li>
+<li>对于其他用户来说，是否执行某个命令或脚本取决于 &#x2F;etc&#x2F;at.allow 和 &#x2F;etc&#x2F;at.deny文件<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@openEuler ~]# at -f example.sh 15:00</span><br><span class="line">warning: commands will be executed using /bin/sh</span><br><span class="line">job 1 at Wed Jul 29 15:00:00 2020</span><br><span class="line">[root@openEuler ~]# atq</span><br><span class="line">1 Wed Jul 29 15:00:00 2020 a root</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="1-3-周期性运行-批程序-cron"><a href="#1-3-周期性运行-批程序-cron" class="headerlink" title="1.3 周期性运行-批程序 - cron"></a>1.3 周期性运行-批程序 - cron</h3><ul>
+<li>at命令会在指定时间内完成指定任务，但是只能执行一次；系统在指定时间完成任务，以后就不再执行了。</li>
+<li>在很多情况下需要周期性重复执行一些命令，这时候需要使用<code>cron</code>命令来完成任务</li>
+</ul>
+<h4 id="1-3-1-cron运行机制"><a href="#1-3-1-cron运行机制" class="headerlink" title="1.3.1 cron运行机制"></a>1.3.1 cron运行机制</h4><ul>
+<li><p><code>cron</code>会搜索<code>/var/spool/cron</code>目录，寻找以&#x2F;etc&#x2F;passwd文件中的用户命令的<code>crontab</code>文件，然后将crontab文件装入内存</p>
+</li>
+<li><p><code>cron</code>还将搜索<code>/etc/crontab</code>文件，这个文件(<code>cron</code>时间表)是以特定格式写成的</p>
+</li>
+<li><p><code>cron</code>启动以后，先检查是否有用户设置了<code>crontab</code>文件，如果没有就转入睡眠状态，释放系统资源；所以该后台进程占用资源极少，之后每分钟被唤醒一次，查看当前是否有需要运行的命令</p>
+</li>
+<li><p>首先cron命令会搜索<code>/var/spool/cron</code>目录，寻找以<code>/etc/passwd</code>文件中的用户名命名的<code>crontab文件</code>，被找到的这种文件将装入内存。比如一个用户名为<code>globus</code>的用户，对应的crontab立件应该是<code>/var/spool/cron/globus</code>，即以该用户命名的<code>crontab</code>文件存放在<code>/var/spool/cron</code>目录下面。</p>
+</li>
+<li><p>cron命令还将搜索<code>/etc/crontab</code>文件，这个文件是用不同的格式写成的。</p>
+</li>
+<li><p>命令执行结束后，任何输出都将作为邮件发送给<code>crontab</code>的所有者，或者是<code>/etc/crontab</code>文件中<code>MAILTO</code>环境变量中指定的用户。这是<code>cron</code>的工作原理，但是cron命令的执行不需要用户干涉，用户只需要修改<code>crontab</code>中要执行的命令。</p>
+</li>
+</ul>
+<h4 id="1-3-2-crontab命令"><a href="#1-3-2-crontab命令" class="headerlink" title="1.3.2 crontab命令"></a>1.3.2 crontab命令</h4><ul>
+<li>crontab 命令用于创建（编辑）、查看、删除用户的周期性计划任务</li>
+<li>用户把需要执行的命令序列放到 crontab 文件中以获得执行，而且每个用户都可以有自己的 crontab 文件</li>
+<li>crontab常用命令<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">crontab -u //设置某个用户的cron服务，root用户在执行crontab时需要此参数</span><br><span class="line">crontab -l //列出某个用户cron服务的详细内容</span><br><span class="line">crontab -r //删除某个用户的cron服务</span><br><span class="line">crontab -e //编辑某个用户的cron服务</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="1-3-3-crontab文件"><a href="#1-3-3-crontab文件" class="headerlink" title="1.3.3 crontab文件"></a>1.3.3 crontab文件</h4><ul>
+<li>在<code>crontab</code>文件中输入需要执行的命令和时间</li>
+<li>该文件中每行都包括6个域，其中前5个域是指定命令被执行的时间，最后一个域是要被执行的命令</li>
+<li>每个域之间使用空格或者制表符分隔，格式如下：<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">minute hour day-of-month month-of-year day-of-week commands</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>crontab 文件参数说明<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/07%20%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/2025020616-1642880.png"></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">例：每周一上午 8:00 执行命令</span><br><span class="line">00 08 * * 1 commands</span><br></pre></td></tr></table></figure>
+
+<p>crontab 文件参数补充说明</p>
+<ul>
+<li><p>上述参数项都不能为空，必须指定值</p>
+</li>
+<li><p>对于要执行的命令，调用的时候需要写出命令的绝对路径</p>
+</li>
+<li><p>除了数字还有几个特殊的符号<code>*</code>、<code>/</code>和<code>-</code>、<code>，</code></p>
+</li>
+<li><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/07%20%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/2025020616-1828700.png"></p>
+</li>
+<li><p>每次编辑完某个用户的cron设置后，cron自动在&#x2F;var&#x2F;spool&#x2F;cron下生成一个与此用户同名的文件。此用户的cron信息都记录在这个文件中，这个文件是不可以直接编辑的，只可以用crontab -e来编辑。用户也可以另外建立一个文件，使用“cron文件名”命令导入cron设置。</p>
+</li>
+<li><p>cron启动后，每过一分钟读一次crontab文件，检查是否要执行里面的命令。因此该文件被修改后不需要重新启动cron服务</p>
+</li>
+<li><p>使用 crontab 配置是针对某个用户的，而编辑 &#x2F;etc&#x2F;crontab 是针对系统的任务</p>
+</li>
+<li><p>此文件的文件格式如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">SHELL=/bin/sh</span><br><span class="line">PATH=/usr/bin:/usr/sbin:/sbin:/bin:/usr/lib/news/bin</span><br><span class="line">MAILTO=root //如果出现错误，或者有数据输出，数据作为邮件发给这个账号</span><br><span class="line">HOME=/</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">run-parts01</span></span><br><span class="line">05 * * * * root run-parts /etc/cron.hourly //每个小时执行一次/etc/cron.hourly里的脚本</span><br><span class="line">02 4 * * * root run-parts /etc/cron.daily //每天执行一次/etc/cron.daily里的脚本</span><br><span class="line">22 4 * * 0 root run-parts /etc/cron.weekly //每周执行一次/etc/cron.weekly里的脚本</span><br><span class="line">42 4 1 * * root run-parts /etc/cron.monthly //每月执行一次/etc/cron.monthly里的脚本</span><br></pre></td></tr></table></figure>
+<p>如果去掉run-parts参数，其后面就是运行的某个脚本名，而不是目录名</p>
+</li>
+</ul>
+<h2 id="0x02-网络管理"><a href="#0x02-网络管理" class="headerlink" title="0x02 网络管理"></a>0x02 网络管理</h2><h3 id="2-1-openEuler-系统网络重要概念"><a href="#2-1-openEuler-系统网络重要概念" class="headerlink" title="2.1 openEuler 系统网络重要概念"></a>2.1 openEuler 系统网络重要概念</h3><ul>
+<li>设备<ul>
+<li>主机内的网卡</li>
+</ul>
+</li>
+<li>广播地址<ul>
+<li>到达本网段上所有主机的地址</li>
+</ul>
+</li>
+<li>接口<ul>
+<li>为使用设备，驱动程序在设备上创建了接口</li>
+</ul>
+</li>
+<li>子网掩码<ul>
+<li>将IP地址划分成网络地址和主机地址两部分的掩码</li>
+</ul>
+</li>
+<li>路由<ul>
+<li>IP包跨网段访问时候的下一跳地址</li>
+</ul>
+</li>
+<li>链路<ul>
+<li>设备到网络的连接</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-2-设备信息示例"><a href="#2-2-设备信息示例" class="headerlink" title="2.2 设备信息示例"></a>2.2 设备信息示例</h3><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/07%20%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/2025020620-4905786.png"></p>
+<ul>
+<li>网卡设备一致性命名规则：<a target="_blank" rel="noopener" href="https://www.kclouder.cn/centos-consistent-networkdevice-naming/">https://www.kclouder.cn/centos-consistent-networkdevice-naming/</a></li>
+<li>ip a 等同于 ip addr</li>
+</ul>
+<h3 id="2-3-openEuler网卡设备配置文件"><a href="#2-3-openEuler网卡设备配置文件" class="headerlink" title="2.3 openEuler网卡设备配置文件"></a>2.3 openEuler网卡设备配置文件</h3><ul>
+<li>网络设备默认的配置路径：<code>/etc/sysconfig/network-scripts</code></li>
+<li>配置文件：<code>ifcfg-*</code><br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/07%20%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/2025020620-5121650.png"></li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/07%20%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/2025020620-5148785.png"></p>
+<h4 id="2-3-1-网卡配置文件参数说明"><a href="#2-3-1-网卡配置文件参数说明" class="headerlink" title="2.3.1 网卡配置文件参数说明"></a>2.3.1 网卡配置文件参数说明</h4><p>参数值不区分大小写，可以不用引号<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/07%20%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/2025020621-1427370.png"><br>详细参数说明： <a target="_blank" rel="noopener" href="https://blog.csdn.net/gua___gua/article/details/48968837">https://blog.csdn.net/gua___gua/article/details/48968837</a></p>
+<h4 id="2-3-2-修改配置文件"><a href="#2-3-2-修改配置文件" class="headerlink" title="2.3.2 修改配置文件"></a>2.3.2 修改配置文件</h4><ul>
+<li>使用编辑器直接修改配置文件，修改前做好备份</li>
+<li>配置修改后不会立即生效，需要重启NetworkManager服务进程或者重启系统<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">备份配置文件：</span><br><span class="line">[root@openEuler ~]# cp ifcfg-eth1 ifcfg-eth1.bak</span><br><span class="line">重启 NetworkManager 服务进程：</span><br><span class="line">[root@openEuler ~]# systemctl reload NetworkManager</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="2-3-2-1-网卡最小配置文件示例"><a href="#2-3-2-1-网卡最小配置文件示例" class="headerlink" title="2.3.2.1 网卡最小配置文件示例"></a>2.3.2.1 网卡最小配置文件示例</h3><p>一份可用的网卡配置文件并不需要列出所有配置选项，如下也可生效：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">TYPE=Ethernet</span><br><span class="line">BOOTPROTO=static</span><br><span class="line">NAME=enp0s3</span><br><span class="line">DEVICE=enp0s3</span><br><span class="line">ONBOOT=yes</span><br><span class="line">IPADDR=192.168.56.100</span><br><span class="line">NETMASK=255.255.255.0</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-4-查看IP地址"><a href="#2-4-查看IP地址" class="headerlink" title="2.4 查看IP地址"></a>2.4 查看IP地址</h3><ul>
+<li>使用ip命令显示设备和地址信息<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/07%20%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/2025020621-2456502.png"></li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/07%20%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/2025020622-2409418.png"></p>
+<p>查看所有接口的当前 IP 地址和子网掩码：<code>ip addr</code></p>
+<h3 id="2-5-显示接口的统计信息"><a href="#2-5-显示接口的统计信息" class="headerlink" title="2.5 显示接口的统计信息"></a>2.5 显示接口的统计信息</h3><ul>
+<li>ip 命令可以用于显示关于网络性能的统计信息</li>
+<li>RX表示接受的数据包信息</li>
+<li>TX表示传送的数据包信息<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/07%20%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/2025020622-3123319.png"></li>
+</ul>
+<h3 id="2-6-显示套接字信息"><a href="#2-6-显示套接字信息" class="headerlink" title="2.6 显示套接字信息"></a>2.6 显示套接字信息</h3><p>使用 ss 命令查看套接字统计信息，加上参数可过滤不同类型的套接字，如显示所有TCP 套接字信息：<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/07%20%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/2025020622-3216504.png"></p>
+<h3 id="2-7-NetworkManager"><a href="#2-7-NetworkManager" class="headerlink" title="2.7 NetworkManager"></a>2.7 NetworkManager</h3><ul>
+<li><code>NetworkAManager</code>是系统中动态控制及配置网络的守护进程，用于保持当前网络设备和连接处于工作状态。</li>
+<li>通过命令行工具<code>nmcli</code>可以控制<code>NetworkManage</code>，<code>nmcli</code>全面，强大，且复杂</li>
+<li>关键概念：<ul>
+<li>设备：网络中，设备即网络接口</li>
+<li>连接：连接是供设备是用的配置</li>
+<li>同一个设备可能存在多个连接，但一次只能有一个保持活动状态。</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-7-1-通过nmcli查看网络信息"><a href="#2-7-1-通过nmcli查看网络信息" class="headerlink" title="2.7.1 通过nmcli查看网络信息"></a>2.7.1 通过nmcli查看网络信息</h4><p><code>con</code>代表连接，<code>--active</code>选项可以过滤出活动的连接<br><code>nmcli connection show --active</code></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/07%20%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/2025020622-4425079.png"></p>
+<ul>
+<li>显示单个连接的详细信息：<code>nmcli con show “连接名”</code>，与 ip link 命令相似</li>
+<li>显示设备状态，使用：<code>nmcli dev status</code></li>
+<li>显示设备信息，使用：<code>nmcli dev status</code></li>
+</ul>
+<h4 id="2-7-2-通过-nmcli-创建连接"><a href="#2-7-2-通过-nmcli-创建连接" class="headerlink" title="2.7.2 通过 nmcli 创建连接"></a>2.7.2 通过 nmcli 创建连接</h4><p>What about the nc?</p>
+<hr>
+<ol>
+<li>创建一个名为“Demo”的连接，使用DHCP方式通过enp4s0网口连接</li>
+<li>显示所有连接</li>
+<li>启动刚刚创建的“Demo”连接</li>
+<li>查看当前连接状态</li>
+</ol>
+<p>连接前的网络连接<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/07%20%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/2025020622-4839369.png"></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">nmcli con add con-name &quot;Euler&quot; type Ethernet ifname enp4s0</span><br><span class="line">nmcli con show</span><br><span class="line">nmcli con up &quot;Euler&quot;</span><br><span class="line">nmcli con show</span><br></pre></td></tr></table></figure>
+
+<p>nmcli con add 中还有很多可选类型，如网桥、绑定、VPN、VxLAN 等，要查看所有选项，使用 nmcli con add help</p>
+<p>操作步骤例图</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmcli con add con-name &quot;Euler&quot; type Ethernet ifname enp4s0</span><br></pre></td></tr></table></figure>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/07%20%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/2025020622-5136289.png"></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmcli con show</span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/07%20%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/2025020623-1943997.png"></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmcli con up &quot;Euler&quot;</span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/07%20%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/2025020623-2533296.png"></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmcli con show</span><br></pre></td></tr></table></figure>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/07%20%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/2025020623-2550575.png"></p>
+<h4 id="2-7-3-通过nmcli修改连接"><a href="#2-7-3-通过nmcli修改连接" class="headerlink" title="2.7.3 通过nmcli修改连接"></a>2.7.3 通过nmcli修改连接</h4><ul>
+<li>使用命令<code>nmcli con mod</code>修改连接,传入的参数为键值对。</li>
+<li>键为属性名称，可通过<code>nmcli con show [连接名]</code>查询，如：</li>
+<li><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/07%20%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/2025020623-3022322.png"><br>以修改 DNS 服务器为例：<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@openEuler ~]# nmcli connection modify &#x27;Demo&#x27; ipv4.dns 192.168.100.250</span><br><span class="line">[root@openEuler ~]# nmcli connection show Demo | grep ipv4.dns</span><br><span class="line">ipv4.dns: 192.168.100.250</span><br><span class="line">ipv4.dns-search: --</span><br><span class="line">ipv4.dns-options: &quot;&quot;</span><br><span class="line">ipv4.dns-priority: 0</span><br></pre></td></tr></table></figure></li>
+<li>配置参数可以增加或删除值，在参数前使用 +&#x2F;- 符号，如：<ul>
+<li>添加辅助 DNS 服务器</li>
+<li><code>nmcli con mod “Euler” +ipv4.dns 114.114.114.114</code></li>
+</ul>
+</li>
+<li>修改完成后需要 up 活动中的连接，使之生效：<ul>
+<li>nmcli con up “Euler”</li>
+</ul>
+</li>
+<li>nmcli 还有交互式编辑模式和图形界面</li>
+<li>更多信息参考 <a target="_blank" rel="noopener" href="https://wiki.archlinux.org/index.php/NetworkManager">https://wiki.archlinux.org/index.php/NetworkManager</a></li>
+</ul>
+<h3 id="2-8-路由"><a href="#2-8-路由" class="headerlink" title="2.8 路由"></a>2.8 路由</h3><ul>
+<li>要让不同子网的两台主机能够相互通讯，就需要有一种能够描述如何从一台主机到另一台主机的机制，这一机制称为：路由选择（Routing），路由选择通过路由项进行描述。</li>
+<li>路由项是一对预先定义的地址，包括：目的地（Destination）和网关（Gateway）。</li>
+<li>路由项的含义是通过网关能够完成与目的地的通讯；路由表是多个路由项的集合。</li>
+</ul>
+<p>关于系统中路由的详细描述：<br><a target="_blank" rel="noopener" href="https://www.freebsd.org/doc/zh_CN/books/handbook/network-routing.html">https://www.freebsd.org/doc/zh_CN/books/handbook/network-routing.html</a></p>
+<h4 id="2-8-1-openEuler-路由管理与配置"><a href="#2-8-1-openEuler-路由管理与配置" class="headerlink" title="2.8.1 openEuler 路由管理与配置"></a>2.8.1 openEuler 路由管理与配置</h4><ul>
+<li>openEuler中，使用<code>route</code>查看、配置、管理本机路由</li>
+<li>除了 route 命令，ip 和 nmcli 命令也可以用来管理系统路由。</li>
+<li>这些命令作用于系统中的路由表，系统运行时，路由表加载到内存中，由系统内核进行维护。</li>
+</ul>
+<p>route、ip、nmcli 都可以用来管理路由，这里以 route 为例介绍</p>
+<h4 id="2-8-2-route查看路由表"><a href="#2-8-2-route查看路由表" class="headerlink" title="2.8.2 route查看路由表"></a>2.8.2 route查看路由表</h4><p>需要安装</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y net-tools</span><br></pre></td></tr></table></figure>
+<p>使用route查看路由表：<br>![[Pasted image 20250219001416.png]]</p>
+<ul>
+<li>使用<code>route -n</code>参数显示路由时，Destination字段显示的是IP。</li>
+<li>采用route命令查看路由时，共有八个字段，字段意义说明如下：<ul>
+<li>U Up表示此路由当前为启动状态</li>
+<li>H Host表示此网关为一主机</li>
+<li>G Gateway，表示此网关为一路由器</li>
+<li>R Reinstate Route，使用动态路由重新初始化的路由</li>
+<li>D Dynamically,此路由是动态性地写入</li>
+<li>M Modified，此路由是由路由守护程序或导向器动态修改</li>
+<li>! 表示此路由当前为关闭状态</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-8-3-route新增路由"><a href="#2-8-3-route新增路由" class="headerlink" title="2.8.3 route新增路由"></a>2.8.3 route新增路由</h4><ul>
+<li>新增（暂时）一条到网段或主机的路由，如下：<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">route [-f] [-p] [Command [Destination] [mask Netmask] [Gateway] [metric Metric]] [if Interface]]</span><br></pre></td></tr></table></figure>
+例如：<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@openEuler ~]# route add -net 192.168.101.0 netmask 255.255.255.0 dev enp4s0</span><br><span class="line">[root@openEuler ~]# route add -host 192.168.100.10 dev enp4s0</span><br><span class="line">[root@openEuler ~]# route</span><br><span class="line">Kernel IP routing table</span><br><span class="line">Destination      Gateway   Genmask          Flags Metric Ref Use Iface</span><br><span class="line">default          _gateway  0.0.0.0          UG    100    0   0   enp4s0</span><br><span class="line">192.168.100.10   0.0.0.0   255.255.255.255  UH    0      0   0   enp4s0</span><br><span class="line">192.168.101.0    0.0.0.0   255.255.255.0    U     0      0   0   enp4s0</span><br><span class="line">192.168.110.0    0.0.0.0   255.255.255.0    U     100    0   0   enp4s0</span><br><span class="line">192.168.122.0    0.0.0.0   255.255.255.0    U     0      0   0   virbr0</span><br></pre></td></tr></table></figure></li>
+<li>使用route命令可以新增路由数据，新增路由数据保存在内存中，重启后失效。</li>
+<li><code>route add -net 192.168.101.0 netmask 255.255.255.0 dev enp3s0</code>，代表新增到192.168.101.0&#x2F;24网段路由，经由enp3s0发送出去。</li>
+<li><code>route add -host 192.168.101.100 dev enp3s0</code>，代表新增到192.168.101.100主机路由，经由enp3s0发送出去。</li>
+<li>通过route查看路由表，可知，到主机的路由优先于到网段的路由。</li>
+</ul>
+<h4 id="2-8-4-route删除路由"><a href="#2-8-4-route删除路由" class="headerlink" title="2.8.4 route删除路由"></a>2.8.4 route删除路由</h4><ul>
+<li>使用<code>route del</code>命令删除网段或者主机的路由</li>
+<li>语法：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">route del [-net|-host] [netmask Nm] [gw Gw] [[dev] If]</span><br></pre></td></tr></table></figure></li>
+<li>例如：<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@openEuler ~]# route del -host 192.168.100.10 dev enp4s0</span><br><span class="line">[root@openEuler ~]# route</span><br><span class="line">Kernel IP routing table</span><br><span class="line">Destination Gateway Genmask Flags Metric Ref Use Iface</span><br><span class="line">default _gateway 0.0.0.0 UG 100 0 0 enp4s0</span><br><span class="line">192.168.101.0 0.0.0.0 255.255.255.0 U 0 0 0 enp4s0</span><br><span class="line">192.168.110.0 0.0.0.0 255.255.255.0 U 100 0 0 enp4s0</span><br><span class="line">192.168.122.0 0.0.0.0 255.255.255.0 U 0 0 0 virbr0</span><br></pre></td></tr></table></figure></li>
+<li><code>route del -net 192.168.101.0 netmask 255.255.255.0 dev enp3s0</code>，代表删除到192.168.101.0&#x2F;24网段路由。删除网段路由时，网段和掩码这两个参数一定需要携带，dev参数可以不携带</li>
+<li><code>route del -host 192.168.101.100 dev enp3s0</code>，代表删除到192.168.101.100主机路由。后面的dev参数可以不带</li>
+<li>删除route文件中的路由，采用vi编辑，然后重启网络即可</li>
+</ul>
+<h4 id="2-8-5-nmcli配置静态路由"><a href="#2-8-5-nmcli配置静态路由" class="headerlink" title="2.8.5 nmcli配置静态路由"></a>2.8.5 nmcli配置静态路由</h4><ul>
+<li>使用 nmcli 命令为网络连接配置静态路由，如下：<ul>
+<li><code>nmcli connection modify enp3s0 +ipv4.routes &quot;192.168.122.0/24 10.10.10.1&quot;</code></li>
+</ul>
+</li>
+<li>使用编辑器配置静态路由，使用交互式命令如下：<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">nmcli con edit type ethernet con-name enp3s0</span><br><span class="line">===| nmcli interactive connection editor |===</span><br><span class="line">Adding a new &#x27;802-3-ethernet&#x27; connection</span><br><span class="line">Type &#x27;help&#x27; or &#x27;?&#x27; for available commands.</span><br><span class="line">Type &#x27;describe [&lt;setting&gt;.&lt;prop&gt;]&#x27; for detailed property description.</span><br><span class="line">You may edit the following settings: connection, 802-3-ethernet (ethernet), 802-1x, ipv4, ipv6, dcb</span><br><span class="line"><span class="meta prompt_">nmcli&gt; </span><span class="language-bash"><span class="built_in">set</span> ipv4.routes 192.168.122.0/24 10.10.10.1</span></span><br><span class="line"><span class="meta prompt_">nmcli&gt;</span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash">nmcli&gt; save persistent</span></span><br><span class="line">Saving the connection with &#x27;autoconnect=yes&#x27;. That might result in an immediate activation of the connection.</span><br><span class="line">Do you still want to save? [yes] yes</span><br><span class="line">Connection &#x27;enp3s0&#x27; (1464ddb4-102a-4e79-874a-0a42e15cc3c0) successfully saved.</span><br><span class="line"><span class="meta prompt_">nmcli&gt; </span><span class="language-bash">quit</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="2-8-6-主机名"><a href="#2-8-6-主机名" class="headerlink" title="2.8.6 主机名"></a>2.8.6 主机名</h4><ul>
+<li>主机名是一个局域网中唯一标识一台机器的名称</li>
+<li>这台机器不一定是一台物理机器，也可以是一台虚拟机</li>
+<li>主机名信息存放在为文件<code>/etc/hostname</code>中</li>
+</ul>
+<h5 id="2-8-6-1-设置主机名"><a href="#2-8-6-1-设置主机名" class="headerlink" title="2.8.6.1 设置主机名"></a>2.8.6.1 设置主机名</h5><ul>
+<li><p>临时设置主机名（直到下次重启前有效）：<code>hostname new-name</code></p>
+</li>
+<li><p>永久设置主机名：<code>hostnamectl set-hostname new-name</code></p>
+</li>
+<li><p>通过修改文件设置文件名：在<code>/etc/hostname</code>文件写入new-name</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@openEuler ~]# hostname</span><br><span class="line">openEuler</span><br><span class="line">[root@openEuler ~]# hostname huawei</span><br><span class="line">[root@openEuler ~]# hostname</span><br><span class="line">huawei</span><br><span class="line">[root@openEuler ~]# hostnamectl set-hostname openEuler01</span><br><span class="line">[root@openEuler ~]# hostname</span><br><span class="line">openEuler01</span><br><span class="line">[root@openEuler ~]# echo &quot;HCIA-openEuler&quot; &gt; /etc/hostname</span><br><span class="line">[root@openEuler ~]# hostname</span><br><span class="line">openEuler01</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置完成后并不会立即生效，重新登陆后才能在命令提示符中看到，或者<code>source .bashrc</code></p>
+</li>
+<li><p>使用hostname 命令查看当前系统的主机名<br> ![[Pasted image 20250219003557.png]]</p>
+</li>
+</ul>
+<h5 id="2-8-6-2-hosts文件"><a href="#2-8-6-2-hosts文件" class="headerlink" title="2.8.6.2 hosts文件"></a>2.8.6.2 hosts文件</h5><ul>
+<li>局域网中存在着一些主机，我们可以通过IP地址去访问它们</li>
+<li>随着局域网中主机数量增加，IP地址较难记忆，我们希望通过主机名直接访问其他主机</li>
+<li>这时我们可以通过一张记录着主机名和IP地址的表找到这些主机，这张表就是hosts。<br>![[Pasted image 20250219003839.png]]</li>
+<li>hosts是一个没有扩展名的系统文件，其基本作用就是将一些常用的网址域名与其对应的 IP 地址建立一个关联“ 数据库 ”</li>
+<li>当用户在浏览器中输入一个需要登录的网址时，系统会首先自动从hosts文件中寻找对应的 IP 地址，一旦找到，系统就会立即打开对应网页</li>
+<li>如果没有找到，则系统会将网址提交 DNS 域名解析服务器进行 IP 地址的解析</li>
+<li>查看 hosts 文件：<code>cat /etc/hosts</code></li>
+</ul>
+<h5 id="2-8-6-3-修改hosts文件"><a href="#2-8-6-3-修改hosts文件" class="headerlink" title="2.8.6.3 修改hosts文件"></a>2.8.6.3 修改hosts文件</h5><p>可以用编辑器修改hosts文件内容，格式：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">ip&lt;TAB&gt;domain.com</span></span><br><span class="line"><span class="number">192.168</span><span class="number">.10</span><span class="number">.20</span> <span class="string">www.example.com</span></span><br></pre></td></tr></table></figure>
+<p>若想去掉某条记录，加 # 注释即可，如：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#ip&lt;TAB&gt;domain.com</span></span><br><span class="line"><span class="comment">#192.168.10.20 www.example.com</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-8-7-hosts与DNS"><a href="#2-8-7-hosts与DNS" class="headerlink" title="2.8.7 hosts与DNS"></a>2.8.7 hosts与DNS</h4><ul>
+<li>随着网络中主机数量的增加，单个 hosts 文件难以承载众多的映射关系。</li>
+<li>当在 hosts 中找不到域名对应的 IP 时，主机会将域名提交给域名解析服务器（DNS），然后 DNS 返回 IP 给主机，这个过程称为：域名解析。</li>
+<li>DNS 就像是一个公共的 hosts 文件&#x2F;分布式数据库。</li>
+</ul>
+<h4 id="2-8-8-DNS"><a href="#2-8-8-DNS" class="headerlink" title="2.8.8 DNS"></a>2.8.8 DNS</h4><h5 id="2-8-8-1-查询DNS记录"><a href="#2-8-8-1-查询DNS记录" class="headerlink" title="2.8.8.1 查询DNS记录"></a>2.8.8.1 查询DNS记录</h5><ul>
+<li>openEuler 中，使用 <code>nslookup</code> 命令查询 DNS 中的记录；</li>
+<li>通过 <code>nslookup</code> 可以查看域名解析是否正常，帮助诊断网络问题；</li>
+<li><code>nslookup</code> 的命令格式如下：<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nslookup domain [dns-server]</span><br><span class="line">其中 domain 是要查询的域名</span><br><span class="line">[dns-server] 是域名解析服务器，非必选参数，常见的如：8.8.8.8，114.114.114.114</span><br></pre></td></tr></table></figure></li>
+<li><code>nslookup</code> 在 openEuler 中未安装，采用如下命令进行安装：<ul>
+<li><code>yum install -y bind-utils</code></li>
+</ul>
+</li>
+</ul>
+<p>例，查询<code>exam.openEuler.com</code>对应的 IP：<code>nslookup exam.openEuler.com</code><br>![[Pasted image 20250219004653.png]]<br>dig 命令能够实现类似功能，详见： <a target="_blank" rel="noopener" href="https://www.linuxcool.com/dig">https://www.linuxcool.com/dig</a></p>
+<h5 id="2-8-8-2-DNS解析记录"><a href="#2-8-8-2-DNS解析记录" class="headerlink" title="2.8.8.2 DNS解析记录"></a>2.8.8.2 DNS解析记录</h5><ul>
+<li><p>DNS 中除了将域名解析到一个 IP 地址之外，还支持其他类型的解析记录</p>
+</li>
+<li><p>![[Pasted image 20250219004832.png]]</p>
+</li>
+<li><p>解析记录详解： <a target="_blank" rel="noopener" href="https://itbilu.com/other/relate/EyxzdVl3.html">https://itbilu.com/other/relate/EyxzdVl3.html</a></p>
+</li>
+</ul>
+<h5 id="2-8-8-3-查询其他记录"><a href="#2-8-8-3-查询其他记录" class="headerlink" title="2.8.8.3 查询其他记录"></a>2.8.8.3 查询其他记录</h5><ul>
+<li><code>nslookup</code> 可以查询各种类型的记录，例如：<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@openEuler ~]# nslookup</span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash"><span class="built_in">set</span> <span class="built_in">type</span>=A</span></span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">exam.openEuler.com</span></span><br><span class="line">Server: 192.168.100.250</span><br><span class="line">Address: 192.168.100.250#53</span><br><span class="line">Name: exam.openEuler.com</span><br><span class="line">Address: 192.168.100.250</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="0x03-进程管理"><a href="#0x03-进程管理" class="headerlink" title="0x03 进程管理"></a>0x03 进程管理</h2><h3 id="3-1-进程介绍"><a href="#3-1-进程介绍" class="headerlink" title="3.1 进程介绍"></a>3.1 进程介绍</h3><ul>
+<li>进程（Process）是计算机已运行程序的实体，是程序的一个具体实现</li>
+<li>每个Linux进程在被创建的时候，都被分配给一段内存空间，即系统给该进程分配一定的逻辑地址空间<br>![[Pasted image 20250223114716.png]]</li>
+<li>每个程序都能看到一片完整连续的地址空间，这些空间并没有直接关联到物理内存，而是操作系统提供了内存的一种抽象概念，使得每个进程都有一个连续完整的地址空间，在程序的运行过程，再完成虚拟地址到物理地址的转换。我们同样知道，进程的地址空间是分段的，存在所谓的数据段，代码段，bbs段，堆，栈等等</li>
+<li>具体的内存分布参考：<br><a target="_blank" rel="noopener" href="https://github.com/1184893257/simplelinux/blob/master/mem.md">https://github.com/1184893257/simplelinux/blob/master/mem.md</a></li>
+</ul>
+<h3 id="3-2-进程的生命周期"><a href="#3-2-进程的生命周期" class="headerlink" title="3.2 进程的生命周期"></a>3.2 进程的生命周期</h3><ul>
+<li>每个进程都有一个唯一的进程 ID （PID），用于追踪该进程。</li>
+<li>任何进程都可以通过复制自己地址空间的方式（fork）创建子进程，子进程中记录着父进程的ID（PPID）</li>
+<li>第一个系统进程是<code>systemd</code>，其他所有进程都是其后代。</li>
+</ul>
+<p>![[Pasted image 20250223154858.png]]</p>
+<ul>
+<li>每个进程都有自己生命周期，比如创建、执行、终止和删除。在系统运行过程中，这些阶段反复执行成千上万次</li>
+<li>当一个进程创建一个新的进程，创建进程的进程（父进程）使用名为fork()的系统调用。当fork()被调用的时候，它会为新创建的进程（子进程）获得一个进程描述符，并且设置新的进程ID。复制父进程的进程描述符给子进程。这时候，不会复制父进程的地址空间，而是父子进程使用同样的地址空间。</li>
+<li>exec()系统调用把新程序复制到子进程的地址空间。由于共享同样的地址空间，写入新进程的数据会引发页错误的异常。此时，内核给子进程分配新的物理页。</li>
+<li>这个延迟的操作叫做Copy On Write。子进程和父进程执行的程序通常不一样，它执行自己的程序。这个操作避免了不必要的开销，因为，复制整个地址空间是很慢且低效率的，还会消耗很多的处理器时间和资源。</li>
+<li>当程序执行完成，子进程使用exit()系统调用终止。exit()会释放进程的大部分数据结构，并且把这个终止的消息通知给父进程。这时候，子进程被称为zombie process(僵尸进程)。</li>
+<li>直到父进程通过wait()系统调用知悉子进程终止之前，子进程都不会被完全的清除。旦父进程知道子进程终止，它会清除子进程的所有数据结构和进程描述符。</li>
+</ul>
+<h3 id="3-3-进程的状态"><a href="#3-3-进程的状态" class="headerlink" title="3.3 进程的状态"></a>3.3 进程的状态</h3><p>![[Pasted image 20250223155840.png]]</p>
+<ul>
+<li>运行状态（<code>TASK_RUNNING</code>）：是运行态和就绪态的合并，表示进程正在运行或准备运行，Linux 中使用<code>TASK_RUNNING</code> 宏表示此状态</li>
+<li>可中断睡眠状态（浅度睡眠）（<code>TASK_INTERRUPTIBLE</code>）：进程正在睡眠（被阻塞），等待资源到来是唤醒，也可以通过其他进程信号或时钟中断唤醒，进入运行队列。Linux 使用<code>TASK_INTERRUPTIBLE</code> 宏表示此状态。</li>
+<li>不可中断睡眠状态（深度睡眠状态）（TASK_UNINTERRUPTIBLE）：其和浅度睡眠基本类似，但有一点就是不可被其他进程信号或时钟中断唤醒。Linux 使用TASK_UNINTERRUPTIBLE 宏表示此状态。</li>
+<li>暂停状态（TASK_STOPPED）：进程暂停执行接受某种处理。如正在接受调试的进程处于这种状态，Linux 使用TASK_STOPPED 宏表示此状态。</li>
+<li>僵死状态（TASK_ZOMBIE）：进程已经结束但未释放PCB，Linux 使用TASK_ZOMBIE 宏表示此状态</li>
+</ul>
+<h3 id="3-4-进程的优先级"><a href="#3-4-进程的优先级" class="headerlink" title="3.4 进程的优先级"></a>3.4 进程的优先级</h3><ul>
+<li><p>进程的 CPU 资源（时间片）分配就是指进程的优先级（priority）；</p>
+</li>
+<li><p>优先级高的进程有优先执行权利；</p>
+</li>
+<li><p>配置进程的优先级对多任务环境下的 Linux 很有用，可以改善系统性能。<br>![[Pasted image 20250223160302.png]]</p>
+</li>
+<li><p>使用 ps 命令查看进程</p>
+</li>
+<li><p>openEuler中使用CFS调度器来调度进程</p>
+</li>
+<li><p><code>UID</code>：代表执行者的身份</p>
+</li>
+<li><p><code>PID</code>：代表这个进程的代号</p>
+</li>
+<li><p><code>PPID</code>：代表这个进程是由哪个进程发展衍生来的，即父进程的代号</p>
+</li>
+<li><p><code>PRI</code>：代表这个进程可被执行的优先级，表示程序被CPU执行的先后顺序，其值越<strong>小</strong>优先级别越高，越早被执行</p>
+</li>
+<li><p><code>NI</code>：代表这个进程的nice值，表示进程可被执行的优先级的修正数值，可理解为“谦让度”；进程的 nice 值不是进程的优先级，但是可以通过调整 nice 值可以影响进程的优先值。</p>
+</li>
+<li><p>进程优先级由动态优先级（PRI）和静态优先级（PR）决定，它是决定进程在CPU中执行顺序的数字。优先级越高的进程被处理器执行的机会越大</p>
+</li>
+<li><p>根据进程的行为，内核使用启发式算法决定开启或关闭动态优先级。可以通过nice级别直接修改进程的静态优先级，拥有越高静态优先级的进程会获得更长的时间片（时间片是进程在处理器中的执行时间）</p>
+</li>
+<li><p>Linux支持的nice级别从19（最低优先级）到-20（最高优先级），默认值是0。只有root身份的用户才能把进程的nice级别调整为负数（让其具备较高优先级）</p>
+</li>
+</ul>
+<p>![[Pasted image 20250223160921.png]]</p>
+<ul>
+<li>PRI 值越小越快被执行，那么加入nice值后，PRI变为：PRI(new)&#x3D;PRI(old)+nice</li>
+<li>当nice值为负值的时候，那么该程序将会优先级值将变小，即其优先级会变高，则其越快被执行</li>
+<li>内核使用一些简单的数值范围0<del>139表示内部优先级, 数值越低, 优先级越高。从0</del>99的范围专供实时进程使用, nice的值[-20,19]则映射到范围100~139</li>
+</ul>
+<h4 id="3-5-1-调整进程的优先级"><a href="#3-5-1-调整进程的优先级" class="headerlink" title="3.5.1 调整进程的优先级"></a>3.5.1 调整进程的优先级</h4><ul>
+<li><p>openEuler中使用<code>nice</code>和<code>renice</code>调整进程的nice值，进而影响进程优先级</p>
+<ul>
+<li><code>nice</code>命令语法，优先序（adjustment取值范围-19~20）:<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nice [-n adjustment][command]</span><br></pre></td></tr></table></figure>
+例如，将 vi 运行的优先级设置为 -18：<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nice -n -18 vi &amp;</span><br></pre></td></tr></table></figure>
+renice语法，优先序范围同nice，作用对象有程序群组-g、进程-p、用户-u，语法格式：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">renice [-n adjustment] [-] pid</span><br></pre></td></tr></table></figure>
+例如，将vi运行的优先级设置为12：<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">renice -n 12 -p 9700</span><br><span class="line">9700(process ID) old priority -18, new priority 12</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>查看 nice 说明：nice –help</p>
+</li>
+<li><p>查看 renice 说明：renice –h</p>
+</li>
+<li><p>也可以使用 top 更改进程的 NI 值</p>
+</li>
+<li><p>进入top后按“r”–&gt;输入进程PID–&gt;输入nice值</p>
+</li>
+</ul>
+<h3 id="3-6-前台与后台进程"><a href="#3-6-前台与后台进程" class="headerlink" title="3.6 前台与后台进程"></a>3.6 前台与后台进程</h3><ul>
+<li>后台进程几乎不和用户交互，优先级略低。<ul>
+<li><strong>Linux 的守护进程Daemon</strong>是一种特殊的后台进程，其<strong>独立于终端</strong>并周期性地执行任务或等待唤醒。</li>
+</ul>
+</li>
+<li><strong>前台进程和用户交互</strong>，需要较高的响应速度，优先级较高。<ul>
+<li>前台进程就是用户使用的有控制终端的进程。</li>
+</ul>
+</li>
+<li>守护的意思就是<strong>不受终端控制</strong></li>
+<li>Linux的大多数服务器就是用守护进程实现的。比如，Internet服务器inetd，Web服务器httpd等。同时，守护进程完成许多系统任务。比如，作业规划进程crond，打印进程lpd等</li>
+<li>守护进程一般用作系统服务，可以用crontab提交，编辑或者删除相应得作业。</li>
+<li>Daemon进程也就是守护进程，linux大多数的服务进程都是通过守护进程实现的。比如0号进程(调度进程) ，1号进程(init进程)。机器启动后就运行，关机才停止。</li>
+<li>参考：<a target="_blank" rel="noopener" href="http://www.xuetimes.com/archives/2102">http://www.xuetimes.com/archives/2102</a></li>
+</ul>
+<h4 id="3-6-1-控制前台与后台进程"><a href="#3-6-1-控制前台与后台进程" class="headerlink" title="3.6.1 控制前台与后台进程"></a>3.6.1 控制前台与后台进程</h4><ul>
+<li>openEuler中常用以下命令管理进程，包括前后台切换及启停：<ul>
+<li>&amp;：将&amp;放在命令的最后，可以把这个命令放到后台执行</li>
+<li>Ctrl+z：当前台正在执行一个命令时，按键Ctrl+z，将其放到后台<strong>暂停</strong></li>
+<li>Ctrl+c：中断当前正在执行的命令</li>
+<li>jobs：查看当前有多少正在后台运行的命令</li>
+<li>fg：将后台中的命令调至前台继续运行</li>
+<li>bg：将后台任务唤醒，并在后台运行</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-7-查看进程"><a href="#3-7-查看进程" class="headerlink" title="3.7 查看进程"></a>3.7 查看进程</h3><ul>
+<li>在对系统进行故障排除时，了解进程的状态非常重要</li>
+<li>openEuler中，使用ps或top命令查看每个进程的详细信息</li>
+</ul>
+<h4 id="3-7-1-查看进程-ps、top"><a href="#3-7-1-查看进程-ps、top" class="headerlink" title="3.7.1 查看进程 - ps、top"></a>3.7.1 查看进程 - ps、top</h4><ul>
+<li>ps命令可以显示当前进程，并列出详细的进程信息，字段含义如下表。</li>
+<li>常用ps aux或ps -ef查看进程信息</li>
+<li>ps命令用于显示特定时间点的进程信息（静态），top命令可以实时显示进程信息（动态）。</li>
+</ul>
+<p>![[Pasted image 20250223163950.png]]</p>
+<h3 id="3-8-管理进程-信号"><a href="#3-8-管理进程-信号" class="headerlink" title="3.8 管理进程 - 信号"></a>3.8 管理进程 - 信号</h3><ul>
+<li>openEuler中，进程之间通过信号来通信，常见信号见表格。</li>
+<li>进程的信号是预定义好的一个消息，进程能识别它并决定是忽略还是做出反应</li>
+<li>系统管理员需要知道如何向一个进程发送何种信号，以管理进程<br>![[Pasted image 20250223164243.png]]</li>
+</ul>
+<h4 id="3-8-1-管理进程"><a href="#3-8-1-管理进程" class="headerlink" title="3.8.1 管理进程"></a>3.8.1 管理进程</h4><ul>
+<li>openEuler 中使用 kill 和 killall 命令向进程发送信号；</li>
+<li>发送的前提是，当前用户必须是进程的属主或 root 用户；</li>
+<li>kill 通过 PID 向进程发信号，默认发送 TERM 信号，使用 –s 参数指定其他信号，例：<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kill 3389</span><br><span class="line">kill -s HUP 3389</span><br></pre></td></tr></table></figure></li>
+<li>killall 通过进程名向进程发信号，且支持通配符，例：<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">killall python*</span><br></pre></td></tr></table></figure></li>
+<li>以root用户登录时，killall命令可以使用</li>
+</ul>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">XBCID</div><div class="post-copyright__author_desc"></div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="http://example.com/2025/02/14/openEuler/%E7%AC%94%E8%AE%B0/IA/07%20%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('http://example.com/2025/02/14/openEuler/%E7%AC%94%E8%AE%B0/IA/07%20%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/')">07 系统管理</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"></div><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="http://example.com/2025/02/14/openEuler/%E7%AC%94%E8%AE%B0/IA/07%20%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" target="_blank" href="https://service.weibo.com/share/share.php?title=07 系统管理&amp;url=http://example.com/2025/02/14/openEuler/%E7%AC%94%E8%AE%B0/IA/07%20%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/&amp;pic=" rel="external nofollow noreferrer noopener"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><script>function copyCurrentPageUrl() {
+  var currentPageUrl = window.location.href;
+  var input = document.createElement("input");
+  input.setAttribute("value", currentPageUrl);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">XBCID's BLOG</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"><a class="post-meta__box__tags" href="/tags/Linux/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>Linux<span class="tagsPageCount">18</span></a><a class="post-meta__box__tags" href="/tags/openEuler/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>openEuler<span class="tagsPageCount">18</span></a><a class="post-meta__box__tags" href="/tags/Huawei/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>Huawei<span class="tagsPageCount">15</span></a><a class="post-meta__box__tags" href="/tags/HCIA/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>HCIA<span class="tagsPageCount">9</span></a></div></div></div><div class="post_share"><div class="social-share" data-image="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2025/02/14/openEuler/%E7%AC%94%E8%AE%B0/IP/01%20openEuler%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">01 openEuler操作系统入门</div></div></a></div><div class="next-post pull-right"><a href="/2025/02/14/openEuler/%E7%AC%94%E8%AE%B0/IA/04%20%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">04 用户和权限管理</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="anzhiyufont anzhiyu-icon-thumbs-up fa-fw" style="font-size: 1.5rem; margin-right: 4px"></i><span>喜欢这篇文章的人也看了</span></div><div class="relatedPosts-list"><div><a href="/2025/02/14/openEuler/%E7%AC%94%E8%AE%B0/IA/01%20openEuler%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%85%A5%E9%97%A8/" title="01 openEuler操作系统入门"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-02-14</div><div class="title">01 openEuler操作系统入门</div></div></a></div><div><a href="/2025/02/14/openEuler/%E7%AC%94%E8%AE%B0/IA/02%20%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%93%8D%E4%BD%9C%E5%9F%BA%E7%A1%80/" title="02 命令行操作基础"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-02-14</div><div class="title">02 命令行操作基础</div></div></a></div><div><a href="/2025/02/14/openEuler/%E7%AC%94%E8%AE%B0/IA/03%20%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8%E4%BB%A5%E5%8F%8A%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86/" title="03 文本编辑器以及文本处理"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-02-14</div><div class="title">03 文本编辑器以及文本处理</div></div></a></div><div><a href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/" title="06 管理文件系统及存储"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-05-19</div><div class="title">06 管理文件系统及存储</div></div></a></div><div><a href="/2025/02/14/openEuler/%E7%AC%94%E8%AE%B0/IA/04%20%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" title="04 用户和权限管理"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-02-14</div><div class="title">04 用户和权限管理</div></div></a></div><div><a href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/05%20%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E5%B9%B6%E7%AE%A1%E7%90%86%E6%9C%8D%E5%8A%A1/" title="05 安装软件并管理服务"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-05-19</div><div class="title">05 安装软件并管理服务</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__description"></div></div></div><div class="card-widget anzhiyu-right-widget" id="card-wechat" onclick="null"><div id="flip-wrapper"><div id="flip-content"><div class="face" style="background: url(https://bu.dusays.com/2023/01/13/63c02edf44033.png) center center / 100% no-repeat"></div><div class="back face" style="background: url(https://bu.dusays.com/2023/05/13/645fa415e8694.png) center center / 100% no-repeat"></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-%E4%BB%BB%E5%8A%A1%E7%AE%A1%E7%90%86"><span class="toc-number">1.</span> <span class="toc-text">0x01 任务管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E4%BB%BB%E5%8A%A1%E7%AE%A1%E7%90%86%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 任务管理的类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E8%AE%A1%E5%88%92%E6%89%A7%E8%A1%8Cat"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 计划执行at</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-1-at%E5%91%BD%E4%BB%A4"><span class="toc-number">1.3.</span> <span class="toc-text">1.2.1 at命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-2-%E8%AE%BE%E7%BD%AE%E6%97%B6%E9%97%B4-%E7%BB%9D%E5%AF%B9%E8%AE%A1%E6%97%B6"><span class="toc-number">1.3.1.</span> <span class="toc-text">1.2.2 设置时间 - 绝对计时</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-3-%E8%AE%BE%E7%BD%AE%E6%97%B6%E9%97%B4-%E7%9B%B8%E5%AF%B9%E8%AE%A1%E6%97%B6"><span class="toc-number">1.3.2.</span> <span class="toc-text">1.2.3 设置时间 - 相对计时</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-4-%E6%89%A7%E8%A1%8C%E6%9D%83%E9%99%90"><span class="toc-number">1.3.3.</span> <span class="toc-text">1.2.4 执行权限</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-%E5%91%A8%E6%9C%9F%E6%80%A7%E8%BF%90%E8%A1%8C-%E6%89%B9%E7%A8%8B%E5%BA%8F-cron"><span class="toc-number">1.4.</span> <span class="toc-text">1.3 周期性运行-批程序 - cron</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-1-cron%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6"><span class="toc-number">1.4.1.</span> <span class="toc-text">1.3.1 cron运行机制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-2-crontab%E5%91%BD%E4%BB%A4"><span class="toc-number">1.4.2.</span> <span class="toc-text">1.3.2 crontab命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-3-crontab%E6%96%87%E4%BB%B6"><span class="toc-number">1.4.3.</span> <span class="toc-text">1.3.3 crontab文件</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86"><span class="toc-number">2.</span> <span class="toc-text">0x02 网络管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-openEuler-%E7%B3%BB%E7%BB%9F%E7%BD%91%E7%BB%9C%E9%87%8D%E8%A6%81%E6%A6%82%E5%BF%B5"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 openEuler 系统网络重要概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E8%AE%BE%E5%A4%87%E4%BF%A1%E6%81%AF%E7%A4%BA%E4%BE%8B"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 设备信息示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-openEuler%E7%BD%91%E5%8D%A1%E8%AE%BE%E5%A4%87%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">2.3.</span> <span class="toc-text">2.3 openEuler网卡设备配置文件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-1-%E7%BD%91%E5%8D%A1%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E"><span class="toc-number">2.3.1.</span> <span class="toc-text">2.3.1 网卡配置文件参数说明</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-2-%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">2.3.2.</span> <span class="toc-text">2.3.2 修改配置文件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-2-1-%E7%BD%91%E5%8D%A1%E6%9C%80%E5%B0%8F%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E7%A4%BA%E4%BE%8B"><span class="toc-number">2.4.</span> <span class="toc-text">2.3.2.1 网卡最小配置文件示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-%E6%9F%A5%E7%9C%8BIP%E5%9C%B0%E5%9D%80"><span class="toc-number">2.5.</span> <span class="toc-text">2.4 查看IP地址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5-%E6%98%BE%E7%A4%BA%E6%8E%A5%E5%8F%A3%E7%9A%84%E7%BB%9F%E8%AE%A1%E4%BF%A1%E6%81%AF"><span class="toc-number">2.6.</span> <span class="toc-text">2.5 显示接口的统计信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-6-%E6%98%BE%E7%A4%BA%E5%A5%97%E6%8E%A5%E5%AD%97%E4%BF%A1%E6%81%AF"><span class="toc-number">2.7.</span> <span class="toc-text">2.6 显示套接字信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-7-NetworkManager"><span class="toc-number">2.8.</span> <span class="toc-text">2.7 NetworkManager</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-7-1-%E9%80%9A%E8%BF%87nmcli%E6%9F%A5%E7%9C%8B%E7%BD%91%E7%BB%9C%E4%BF%A1%E6%81%AF"><span class="toc-number">2.8.1.</span> <span class="toc-text">2.7.1 通过nmcli查看网络信息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-7-2-%E9%80%9A%E8%BF%87-nmcli-%E5%88%9B%E5%BB%BA%E8%BF%9E%E6%8E%A5"><span class="toc-number">2.8.2.</span> <span class="toc-text">2.7.2 通过 nmcli 创建连接</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-7-3-%E9%80%9A%E8%BF%87nmcli%E4%BF%AE%E6%94%B9%E8%BF%9E%E6%8E%A5"><span class="toc-number">2.8.3.</span> <span class="toc-text">2.7.3 通过nmcli修改连接</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-8-%E8%B7%AF%E7%94%B1"><span class="toc-number">2.9.</span> <span class="toc-text">2.8 路由</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-8-1-openEuler-%E8%B7%AF%E7%94%B1%E7%AE%A1%E7%90%86%E4%B8%8E%E9%85%8D%E7%BD%AE"><span class="toc-number">2.9.1.</span> <span class="toc-text">2.8.1 openEuler 路由管理与配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-8-2-route%E6%9F%A5%E7%9C%8B%E8%B7%AF%E7%94%B1%E8%A1%A8"><span class="toc-number">2.9.2.</span> <span class="toc-text">2.8.2 route查看路由表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-8-3-route%E6%96%B0%E5%A2%9E%E8%B7%AF%E7%94%B1"><span class="toc-number">2.9.3.</span> <span class="toc-text">2.8.3 route新增路由</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-8-4-route%E5%88%A0%E9%99%A4%E8%B7%AF%E7%94%B1"><span class="toc-number">2.9.4.</span> <span class="toc-text">2.8.4 route删除路由</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-8-5-nmcli%E9%85%8D%E7%BD%AE%E9%9D%99%E6%80%81%E8%B7%AF%E7%94%B1"><span class="toc-number">2.9.5.</span> <span class="toc-text">2.8.5 nmcli配置静态路由</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-8-6-%E4%B8%BB%E6%9C%BA%E5%90%8D"><span class="toc-number">2.9.6.</span> <span class="toc-text">2.8.6 主机名</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-8-6-1-%E8%AE%BE%E7%BD%AE%E4%B8%BB%E6%9C%BA%E5%90%8D"><span class="toc-number">2.9.6.1.</span> <span class="toc-text">2.8.6.1 设置主机名</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-8-6-2-hosts%E6%96%87%E4%BB%B6"><span class="toc-number">2.9.6.2.</span> <span class="toc-text">2.8.6.2 hosts文件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-8-6-3-%E4%BF%AE%E6%94%B9hosts%E6%96%87%E4%BB%B6"><span class="toc-number">2.9.6.3.</span> <span class="toc-text">2.8.6.3 修改hosts文件</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-8-7-hosts%E4%B8%8EDNS"><span class="toc-number">2.9.7.</span> <span class="toc-text">2.8.7 hosts与DNS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-8-8-DNS"><span class="toc-number">2.9.8.</span> <span class="toc-text">2.8.8 DNS</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-8-8-1-%E6%9F%A5%E8%AF%A2DNS%E8%AE%B0%E5%BD%95"><span class="toc-number">2.9.8.1.</span> <span class="toc-text">2.8.8.1 查询DNS记录</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-8-8-2-DNS%E8%A7%A3%E6%9E%90%E8%AE%B0%E5%BD%95"><span class="toc-number">2.9.8.2.</span> <span class="toc-text">2.8.8.2 DNS解析记录</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-8-8-3-%E6%9F%A5%E8%AF%A2%E5%85%B6%E4%BB%96%E8%AE%B0%E5%BD%95"><span class="toc-number">2.9.8.3.</span> <span class="toc-text">2.8.8.3 查询其他记录</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x03-%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86"><span class="toc-number">3.</span> <span class="toc-text">0x03 进程管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E8%BF%9B%E7%A8%8B%E4%BB%8B%E7%BB%8D"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 进程介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="toc-number">3.2.</span> <span class="toc-text">3.2 进程的生命周期</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%8A%B6%E6%80%81"><span class="toc-number">3.3.</span> <span class="toc-text">3.3 进程的状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-%E8%BF%9B%E7%A8%8B%E7%9A%84%E4%BC%98%E5%85%88%E7%BA%A7"><span class="toc-number">3.4.</span> <span class="toc-text">3.4 进程的优先级</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-5-1-%E8%B0%83%E6%95%B4%E8%BF%9B%E7%A8%8B%E7%9A%84%E4%BC%98%E5%85%88%E7%BA%A7"><span class="toc-number">3.4.1.</span> <span class="toc-text">3.5.1 调整进程的优先级</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-6-%E5%89%8D%E5%8F%B0%E4%B8%8E%E5%90%8E%E5%8F%B0%E8%BF%9B%E7%A8%8B"><span class="toc-number">3.5.</span> <span class="toc-text">3.6 前台与后台进程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-6-1-%E6%8E%A7%E5%88%B6%E5%89%8D%E5%8F%B0%E4%B8%8E%E5%90%8E%E5%8F%B0%E8%BF%9B%E7%A8%8B"><span class="toc-number">3.5.1.</span> <span class="toc-text">3.6.1 控制前台与后台进程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-7-%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B"><span class="toc-number">3.6.</span> <span class="toc-text">3.7 查看进程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-7-1-%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B-ps%E3%80%81top"><span class="toc-number">3.6.1.</span> <span class="toc-text">3.7.1 查看进程 - ps、top</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-8-%E7%AE%A1%E7%90%86%E8%BF%9B%E7%A8%8B-%E4%BF%A1%E5%8F%B7"><span class="toc-number">3.7.</span> <span class="toc-text">3.8 管理进程 - 信号</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-8-1-%E7%AE%A1%E7%90%86%E8%BF%9B%E7%A8%8B"><span class="toc-number">3.7.1.</span> <span class="toc-text">3.8.1 管理进程</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IP/07%20openEuler%E7%B3%BB%E7%BB%9F%E7%9B%91%E6%8E%A7%E5%85%A5%E9%97%A8/" title="无题">无题</a><time datetime="2025-05-18T19:46:45.900Z" title="发表于 2025-05-19 03:46:45">2025-05-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/%E6%B3%A8%E9%87%8A/shebang/" title="无题">无题</a><time datetime="2025-05-18T19:46:45.880Z" title="发表于 2025-05-19 03:46:45">2025-05-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/10%20%E5%B8%B8%E7%94%A8%E5%B0%8F%E6%8C%87%E4%BB%A4/" title="无题">无题</a><time datetime="2025-05-18T19:46:45.685Z" title="发表于 2025-05-19 03:46:45">2025-05-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/09%20Samba%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86/" title="09 Samba文件共享服务器管理">09 Samba文件共享服务器管理</a><time datetime="2025-05-18T19:46:45.684Z" title="发表于 2025-05-19 03:46:45">2025-05-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/08%20%E4%BD%BF%E7%94%A8shell%E8%84%9A%E6%9C%AC/" title="08 使用shell脚本">08 使用shell脚本</a><time datetime="2025-05-18T19:46:45.683Z" title="发表于 2025-05-19 03:46:45">2025-05-19</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2025 By <a class="footer-bar-link" href="/" title="XBCID" target="_blank">XBCID</a></div></div><div id="footer-type-tips"></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/anzhiyu-c/hexo-theme-anzhiyu" title="主题">主题</a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">37</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">5</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">0</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://blog.anheyu.com/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://image.anheyu.com/" title="安知鱼图床"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.anheyu.com/favicon.ico" alt="安知鱼图床"/><span class="back-menu-item-text">安知鱼图床</span></a></div></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/HCIA/" style="font-size: 0.88rem;">HCIA<sup>9</sup></a><a href="/tags/HCIP/" style="font-size: 0.88rem;">HCIP<sup>6</sup></a><a href="/tags/Huawei/" style="font-size: 0.88rem;">Huawei<sup>15</sup></a><a href="/tags/Linux/" style="font-size: 0.88rem;">Linux<sup>18</sup></a><a href="/tags/openEuler/" style="font-size: 0.88rem;">openEuler<sup>18</sup></a></div></div><hr/></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8152976493" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random" volume="0.7"></meting-js></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.5/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("01/12/2021 14:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2020 By 安知鱼 V1.6.14",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 XBCID 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><div class="js-pjax"><input type="hidden" name="page-type" id="page-type" value="post"></div><script>var visitorMail = "";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/qrcodejs/1.0.0/qrcode.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>

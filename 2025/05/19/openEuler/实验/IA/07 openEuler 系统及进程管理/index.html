@@ -1,0 +1,411 @@
+<!DOCTYPE html><html lang="zh" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>XBCID's BLOG | XBCID's BLOG</title><meta name="author" content="XBCID"><meta name="copyright" content="XBCID"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="XBCID's BLOG"><meta name="application-name" content="XBCID's BLOG"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="XBCID's BLOG"><meta property="og:url" content="http://example.com/2025/05/19/openEuler/%E5%AE%9E%E9%AA%8C/IA/07%20openEuler%20%E7%B3%BB%E7%BB%9F%E5%8F%8A%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/index.html"><meta property="og:site_name" content="XBCID's BLOG"><meta property="og:description" content="7.1 实验介绍7.1.1 实验介绍本实验主要介绍 openEuler 的计划任务、系统管理和服务管理等内容。 7.1.2 实验目标掌握系统任务管理方法；掌握 openEuler 网络管理配置；掌握 openEuler 系统服务管理。 7.2 任务管理7.2.1 临时任务管理步骤 1 使用 putt"><meta property="og:locale" content="zh"><meta property="og:image" content="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg"><meta property="article:author" content="XBCID"><meta property="article:tag"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg"><meta name="description" content="7.1 实验介绍7.1.1 实验介绍本实验主要介绍 openEuler 的计划任务、系统管理和服务管理等内容。 7.1.2 实验目标掌握系统任务管理方法；掌握 openEuler 网络管理配置；掌握 openEuler 系统服务管理。 7.2 任务管理7.2.1 临时任务管理步骤 1 使用 putt"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="http://example.com/2025/05/19/openEuler/%E5%AE%9E%E9%AA%8C/IA/07%20openEuler%20%E7%B3%BB%E7%BB%9F%E5%8F%8A%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/"><link rel="preconnect" href="//cdn.cbd.int"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: {"enable":true,"img":"https://upload-bbs.miyoushe.com/upload/2024/07/27/125766904/ba62475f396df9de3316a08ed9e65d86_5680958632268053399..png"},
+  postHeadAiDescription: {"enable":true,"gptName":"AnZhiYu","mode":"local","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"xxxx","Referer":"https://xx.xx/"},
+  diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
+  LA51: undefined,
+  greetingBox: undefined,
+  twikooEnvId: '',
+  commentBarrageConfig:undefined,
+  music_page_default: "nav_music",
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: undefined,
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: XBCID","link":"链接: ","source":"来源: XBCID's BLOG","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: 'XBCID's BLOG',
+  title: 'XBCID\'s BLOG',
+  postAI: '',
+  pageFillDescription: '7.1 实验介绍, 7.1.1 实验介绍, 7.1.2 实验目标, 7.2 任务管理, 7.2.1 临时任务管理, 7.2.2 周期任务管理, 7.3 网络管理, 7.3.1 主机名管理, 7.3.2 网络管理, 7.4 防火墙管理, 7.5 服务管理, 7.5.1 管理系统服务实验介绍实验介绍本实验主要介绍的计划任务系统管理和服务管理等内容实验目标掌握系统任务管理方法掌握网络管理配置掌握系统服务管理任务管理临时任务管理步骤使用登录虚拟机步骤执行如下命令添加单次任务输入完成后按组合键此处按组合键此处按组合键步骤执行如下命令查询任务列表左侧数字表示任务步骤执行如下命令查看任务详细信息步骤执行如下命令删除临时任务若前述步骤操作的慢可能导致此处查询没有任务可以查看第一个临时任务执行结果周期任务管理步骤执行如下步骤管理周期任务查询系统当前用户的定时任务将会打开一个编辑器请在编辑器中输入如下内容保存退出查询系统当前用户的定时任务删除当前用户的所有计划任务任务创建一个计划任务周一到周五的晚上点到点每隔五分钟执行往里面记录一下当前系统时间网络管理主机名管理步骤执行如下命令查看主机名这个文件是主机名的配置文件步骤执行如下命令临时修改主机名临时修改主机名重启失效重新启动一个会话步骤执行如下步骤永久修改主机名方法一此种方法不需要重启重新登录即可方法二修改此文件中主机名保存退出即可需要重启才可以生效网络管理步骤执行如下步骤使用命令修改网卡地址显示当前主机的信息步骤执行如下命令配置静态路由步骤执行如下步骤使用命令修改主机地址步骤执行如下步骤使用命令配置静态路由步骤执行如下步骤通过修改文件修改主机地址配置文件接口类型代理方式只浏览系统启动地址协议默认路由是否一定要进行检查是否执行自动配置默认路由是否一定要进行检查地址生成方式网络连接的名字设备随系统启动自动连接优先级物理设备的名字配置网络时可以将修改成或者然后增加如下信息如何生效需要先查看网络设备是什么步骤执行如下命令修改用来指向服务器地址改文件的格式是地址为服务器修改完成后保存退出步骤执行如下命令修改是系统中一个负责地址与域名快速解析的文件在最后新增一行输入如下信息新增这一行完成后保存退出防火墙管理步骤查看防火墙状态默认的规则链处理入站数据包处理出站数据包处理转发数据包链在进行路由选择后处理数据包链在进行路由选择前处理数据包步骤启动防火墙启动防火墙服务查看防火墙版本查看帮助查看运行状态这里的是在中做实验放行的步骤配置防火墙放通规则拒绝所有包取消拒绝所有包查看是否拒绝更新防火墙规则无需断开将网口添加到区域默认都在设置默认接口区域查看所有打开的端口永久打开端口打开一个服务服务管理管理系统服务步骤显示当前服务步骤显示服务状态如防火墙服务查看服务状态查看服务是否运行查看服务是否被启用步骤终止服务如防火墙服务步骤重启服务如防火墙步骤禁用服务如防火墙步骤启用服务如防火墙',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-02-28 23:04:53',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://npm.elemecdn.com/anzhiyu-blog-static@1.0.4/img/avatar.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><a id="site-name" href="/" accesskey="h"><div class="title">XBCID's BLOG</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" target="_blank"><img class="post-qr-code-img" alt="微信" src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" target="_blank"><img class="post-qr-code-img" alt="支付宝" src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/HCIA/" style="font-size: 1.05rem;">HCIA<sup>9</sup></a><a href="/tags/HCIP/" style="font-size: 1.05rem;">HCIP<sup>6</sup></a><a href="/tags/Huawei/" style="font-size: 1.05rem;">Huawei<sup>15</sup></a><a href="/tags/Linux/" style="font-size: 1.05rem;">Linux<sup>18</sup></a><a href="/tags/openEuler/" style="font-size: 1.05rem;">openEuler<sup>18</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/05/"><span class="card-archive-list-date">May 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">23</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/03/"><span class="card-archive-list-date">March 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">6</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/02/"><span class="card-archive-list-date">February 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">8</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="article-meta tags"></span></div></div><h1 class="post-title" itemprop="name headline">无题</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2025-05-18T19:46:45.348Z" title="发表于 2025-05-19 03:46:45">2025-05-19</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2025-02-28T15:04:53.862Z" title="更新于 2025-02-28 23:04:53">2025-02-28</time></span></div><div class="meta-secondline"><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为重庆"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>重庆</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src=""></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="http://example.com/2025/05/19/openEuler/%E5%AE%9E%E9%AA%8C/IA/07%20openEuler%20%E7%B3%BB%E7%BB%9F%E5%8F%8A%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/"><header><h1 id="CrawlerTitle" itemprop="name headline">无题</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">XBCID</span><time itemprop="dateCreated datePublished" datetime="2025-05-18T19:46:45.348Z" title="发表于 2025-05-19 03:46:45">2025-05-19</time><time itemprop="dateCreated datePublished" datetime="2025-02-28T15:04:53.862Z" title="更新于 2025-02-28 23:04:53">2025-02-28</time></header><h1 id="7-1-实验介绍"><a href="#7-1-实验介绍" class="headerlink" title="7.1 实验介绍"></a>7.1 实验介绍</h1><h2 id="7-1-1-实验介绍"><a href="#7-1-1-实验介绍" class="headerlink" title="7.1.1 实验介绍"></a>7.1.1 实验介绍</h2><p>本实验主要介绍 openEuler 的计划任务、系统管理和服务管理等内容。</p>
+<h2 id="7-1-2-实验目标"><a href="#7-1-2-实验目标" class="headerlink" title="7.1.2 实验目标"></a>7.1.2 实验目标</h2><p>掌握系统任务管理方法；<br>掌握 openEuler 网络管理配置；<br>掌握 openEuler 系统服务管理。</p>
+<h1 id="7-2-任务管理"><a href="#7-2-任务管理" class="headerlink" title="7.2 任务管理"></a>7.2 任务管理</h1><h2 id="7-2-1-临时任务管理"><a href="#7-2-1-临时任务管理" class="headerlink" title="7.2.1 临时任务管理"></a>7.2.1 临时任务管理</h2><p>步骤 1 使用 putty 登录虚拟机。<br>步骤 2 执行如下命令添加单次任务，输入完成后按组合键 Ctrl-D。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@openEuler ~]# at now+5min</span><br><span class="line">warning: commands will be executed using /bin/sh</span><br><span class="line"><span class="meta prompt_">at&gt; </span><span class="language-bash"><span class="built_in">echo</span> <span class="string">&quot;aaa&quot;</span> &gt;&gt; /tmp/at.log</span></span><br><span class="line"><span class="meta prompt_">at&gt; </span><span class="language-bash"><span class="built_in">echo</span> <span class="string">&quot;bbb&quot;</span> &gt;&gt; /tmp/at.log</span></span><br><span class="line"><span class="meta prompt_">at&gt; </span><span class="language-bash"><span class="built_in">date</span> &gt;&gt; /tmp/at.log</span></span><br><span class="line"><span class="meta prompt_">at&gt; </span><span class="language-bash"><span class="comment">#此处按 Ctrl+D 组合键</span></span></span><br><span class="line">job 1 at Thu Jul 2 11:21:00 2020</span><br><span class="line">[root@openEuler ~]# at 22:00</span><br><span class="line">warning: commands will be executed using /bin/sh</span><br><span class="line"><span class="meta prompt_">at&gt; </span><span class="language-bash"><span class="built_in">pwd</span> &gt;&gt; /tmp/check.log</span></span><br><span class="line"><span class="meta prompt_">at&gt; </span><span class="language-bash"><span class="comment">#此处按 Ctrl+D 组合键</span></span></span><br><span class="line">job 2 at Thu Jul 2 22:00:00 2020</span><br></pre></td></tr></table></figure>
+<p>步骤 3 执行如下命令查询任务列表。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@openeuler ~]# atq #左侧数字表示任务 ID</span><br><span class="line">2 Thu Jul 2 22:00:00 2020 a root</span><br><span class="line">1 Thu Jul 2 11:21:00 2020 a root</span><br></pre></td></tr></table></figure>
+<p>步骤 4 执行如下命令查看任务详细信息。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@openEuler ~]# at -c 1</span><br></pre></td></tr></table></figure>
+<p>步骤 5 执行如下命令删除临时任务。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@openEuler ~]# atrm 2</span><br><span class="line">[root@openEuler ~]# atq #若前述步骤操作的慢，可能导致此处查询没有任务</span><br><span class="line">[root@openEuler ~]# cat /tmp/at.log #可以查看第一个临时任务执行结果</span><br><span class="line">aaa</span><br><span class="line">bbb</span><br><span class="line">Thu Jul 2 11:21:00 CST 2020</span><br></pre></td></tr></table></figure>
+
+<h2 id="7-2-2-周期任务管理"><a href="#7-2-2-周期任务管理" class="headerlink" title="7.2.2 周期任务管理"></a>7.2.2 周期任务管理</h2><p>步骤 1 执行如下步骤管理周期任务。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@openeuler ~]# crontab -l #查询系统当前用户的 cron 定时任务</span><br><span class="line">no crontab for root</span><br><span class="line">[root@openeuler ~]#crontab -e #crontab 将会打开一个编辑器，请在编辑器中输入如下内容，保存退出</span><br><span class="line">5 * * * * date &gt;&gt; /tmp/croncheck.log</span><br><span class="line">*/2 * * * * id &gt;&gt; /tmp/cronuser.log</span><br><span class="line">[root@openeuler ~]# crontab -l #查询系统当前用户的 cron 定时任务</span><br><span class="line">5 * * * * date &gt;&gt; /tmp/croncheck.log</span><br><span class="line">*/2 * * * * id &gt;&gt; /tmp/cronuser.log</span><br><span class="line">[root@openEuler ~]# crontab -r #删除当前用户的所有计划任务</span><br><span class="line">[root@openEuler ~]# crontab -l</span><br><span class="line">no crontab for root</span><br></pre></td></tr></table></figure>
+<p>任务：创建一个计划任务，周一到周五的晚上 1 点到 2 点，每隔五分钟执行往&#x2F;mnt&#x2F;test.txt 里面记录一下当前系统时间。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*/5 13-14 * * 1-5 date&gt;&gt;/mnt/test.txt</span><br></pre></td></tr></table></figure>
+
+<h1 id="7-3-网络管理"><a href="#7-3-网络管理" class="headerlink" title="7.3 网络管理"></a>7.3 网络管理</h1><h2 id="7-3-1-主机名管理"><a href="#7-3-1-主机名管理" class="headerlink" title="7.3.1 主机名管理"></a>7.3.1 主机名管理</h2><p>步骤 1 执行如下命令查看主机名。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@openEuler ~]# hostname</span><br><span class="line">openEuler</span><br><span class="line">[root@openEuler ~]# cat /etc/hostname #这个文件是主机名的配置文件</span><br><span class="line">openEuler</span><br></pre></td></tr></table></figure>
+
+<p>步骤 2 执行如下命令临时修改主机名。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@openEuler ~]# hostname huawei #临时修改主机名，重启失效</span><br><span class="line">[root@openEuler ~]# hostname</span><br><span class="line">huawei</span><br><span class="line">[root@openEuler ~]# bash #重新启动一个会话</span><br><span class="line">Welcome to 4.19.90-2003.4.0.0036.oe1.x86_64</span><br><span class="line">System information as of time: Thu Jul 2 11:45:09 CST 2020</span><br><span class="line">System load: 0.00</span><br><span class="line">Processes: 17</span><br></pre></td></tr></table></figure>
+
+<p>步骤 3 执行如下步骤永久修改主机名。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">方法一：</span><br><span class="line">[root@openEuler ~]# hostnamectl set-hostname huawei #此种方法不需要重启，重新登录即可</span><br><span class="line">方法二：</span><br><span class="line">[root@openEuler ~]# vim /etc/hostname</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">修改此文件中主机名，保存退出即可，需要重启才可以生效。</span></span><br><span class="line">[root@openEuler ~]# reboot</span><br></pre></td></tr></table></figure>
+
+<h2 id="7-3-2-网络管理"><a href="#7-3-2-网络管理" class="headerlink" title="7.3.2 网络管理"></a>7.3.2 网络管理</h2><p>步骤 1 执行如下步骤使用 IP 命令修改网卡 IP 地址。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@openEuler ~]# ip addr show #显示当前主机的 IP 信息</span><br><span class="line">[root@openEuler ~]# ip addr add 192.168.110.100/24 dev enp4s0</span><br><span class="line">[root@openEuler ~]# ip addr show</span><br><span class="line">[root@openEuler ~]# ip addr del 192.168.110.100/24 dev enp4s0</span><br><span class="line">[root@openEuler ~]# ip addr show</span><br></pre></td></tr></table></figure>
+<p>步骤 2 执行如下命令配置静态路由。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@openEuler ~]# ip route</span><br><span class="line">[root@openEuler ~]# ip route add 192.168.2.1 via 192.168.110.254 dev enp4s0</span><br><span class="line">[root@openEuler ~]# ip route</span><br><span class="line">default via 192.168.110.254 dev enp4s0 proto dhcp metric 100</span><br><span class="line">192.168.2.1 via 192.168.110.254 dev enp4s0</span><br><span class="line">192.168.110.0/24 dev enp4s0 proto kernel scope link src 192.168.110.247 metric 100</span><br><span class="line">192.168.122.0/24 dev virbr0 proto kernel scope link src 192.168.122.1 linkdown</span><br></pre></td></tr></table></figure>
+<p>步骤 3 执行如下步骤使用 nmcli 命令修改主机 IP 地址。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[root@openEuler ~]# nmcli general status</span><br><span class="line">STATE CONNECTIVITY WIFI-HW WIFI WWAN-HW WWAN</span><br><span class="line">connected full enabled enabled enabled enabled</span><br><span class="line">[root@openEuler ~]# nmcli connection show</span><br><span class="line">NAME UUID TYPE DEVICE</span><br><span class="line">enp4s0 90dbef32-15b2-3400-81c7-f98ece257a55 ethernet enp4s0</span><br><span class="line">virbr0 d798e4ce-2296-4b6e-9dba-9a4b994d0b82 bridge virbr0</span><br><span class="line">[root@openEuler ~]# nmcli device status</span><br><span class="line">DEVICE TYPE STATE CONNECTION</span><br><span class="line">enp4s0 ethernet connected enp4s0</span><br><span class="line">virbr0 bridge connected virbr0</span><br><span class="line">lo loopback unmanaged --</span><br><span class="line">virbr0-nic tun unmanaged --</span><br><span class="line">[root@openEuler ~]# nmcli con add type ethernet con-name net-static ifname enp4s0 ip4</span><br><span class="line">192.168.110.10/24 gw4 192.168.110.254</span><br><span class="line">[root@openEuler ~]# nmcli con up net-static ifname enp4s0</span><br></pre></td></tr></table></figure>
+<p>步骤 4 执行如下步骤使用 nmcli 命令配置静态路由</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@openEuler ~]# nmcli connection modify enp4s0 +ipv4.routes &quot;192.168.100.0/24</span><br><span class="line">192.168.110.254&quot;</span><br></pre></td></tr></table></figure>
+<p>步骤 5 执行如下步骤通过修改 ifcfg 文件修改主机 IP 地址。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">[root@openEuler ~]# cat /etc/sysconfig/network-scripts/ifcfg-enp4s0</span><br><span class="line">TYPE=Ethernet #配置文件接口类型</span><br><span class="line">PROXY_METHOD=none #代理方式</span><br><span class="line">BROWSER_ONLY=no #只浏览</span><br><span class="line">BOOTPROTO=dhcp #系统启动地址协议</span><br><span class="line">DEFROUTE=yes #默认路由</span><br><span class="line">IPV4_FAILURE_FATAL=no #是否一定要进行 ipv4 检查</span><br><span class="line">IPV6INIT=yes #是否执行 IPv6</span><br><span class="line">IPV6_AUTOCONF=yes #IPv6 自动配置</span><br><span class="line">IPV6_DEFROUTE=yes #IPv6 默认路由</span><br><span class="line">IPV6_FAILURE_FATAL=no #是否一定要进行 ipv6 检查</span><br><span class="line">IPV6_ADDR_GEN_MODE=stable-privacy #I Pv6 地址生成方式</span><br><span class="line">NAME=enp4s0 #网络连接的名字</span><br><span class="line">UUID=90dbef32-15b2-3400-81c7-f98ece257a55 #设备 UUID</span><br><span class="line">ONBOOT=yes #随系统启动</span><br><span class="line">AUTOCONNECT_PRIORITY=-999 #自动连接优先级</span><br><span class="line">DEVICE=enp4s0 #物理设备的名字</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">##配置网络时可以将 dhcp 修改成 static 或者 none，然后增加如下信息：</span></span></span><br><span class="line">IPADDR=192.168.100.11</span><br><span class="line">NETMASK=255.255.255.0</span><br><span class="line">GATEWAY=192.168.110.254</span><br><span class="line">DNS1=114.114.114.114</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">##如何生效</span></span></span><br><span class="line">[root@openEuler ~]# ifdown enp4s0</span><br><span class="line">[root@openEuler ~]# ifup enp4s0</span><br></pre></td></tr></table></figure>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/file-20250228211532678.png"><br>需要先查看网络设备是什么<br>步骤 6 执行如下命令修改&#x2F;etc&#x2F;resolv.conf，用来指向 DNS 服务器地址。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@openEuler ~]# dnf -y install bind-utils</span><br><span class="line">[root@openEuler ~]# vim /etc/resolv.conf</span><br><span class="line">nameserver 192.168.137.1 #改文件的格式是 nameserver</span><br><span class="line">IP ，IP 地址为 DNS 服务器 IP</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">修改完成后保存退出</span></span><br><span class="line">[root@openEuler ~]# nslookup openeuler.org</span><br></pre></td></tr></table></figure>
+<p>步骤 7 执行如下命令修改&#x2F;etc&#x2F;hosts。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@openEuler ~]# vim /etc/hosts #hosts 是系统中一个负责 IP 地址与域名快速解析的文件，在最后</span><br><span class="line">新增一行，输入如下信息：</span><br><span class="line">159.138.7.136 server #新增这一行，完成后保存退出</span><br><span class="line">[root@openEuler ~]# ping server -c 3</span><br><span class="line">PING server (159.138.7.136) 56(84) bytes of data.</span><br><span class="line">64 bytes from server (159.138.7.136): icmp_seq=1 ttl=40 time=53.3 ms</span><br><span class="line">64 bytes from server (159.138.7.136): icmp_seq=2 ttl=40 time=51.3 ms</span><br><span class="line">64 bytes from server (159.138.7.136): icmp_seq=3 ttl=40 time=52.4 ms</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="7-4-防火墙管理"><a href="#7-4-防火墙管理" class="headerlink" title="7.4 防火墙管理"></a>7.4 防火墙管理</h1><p>步骤1 查看防火墙状态</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">[root@openEuler ~]# service iptables save</span><br><span class="line">iptables: Saving firewall rules to /etc/sysconfig/iptables: [ OK ]</span><br><span class="line">systemctl status firewalld.service</span><br><span class="line">[root@openEuler ~]# systemctl status firewalld.service</span><br><span class="line">● firewalld.service - firewalld - dynamic firewall daemon</span><br><span class="line">Loaded: loaded (/usr/lib/systemd/system/firewalld.service; enabled; vendor preset: enabled)</span><br><span class="line">Active: inactive (dead) since Fri 2020-07-31 10:51:17 CST; 5h 17min ago</span><br><span class="line">Docs: man:firewalld(1)</span><br><span class="line">Main PID: 1908 (code=exited, status=0/SUCCESS)</span><br><span class="line"></span><br><span class="line">Jul 08 11:19:39 localhost.localdomain systemd[1]: Starting firewalld - dynamic firewall daemon...</span><br><span class="line">Jul 08 11:19:40 localhost.localdomain systemd[1]: Started firewalld - dynamic firewall daemon.</span><br><span class="line">Jul 31 10:51:15 openEuler systemd[1]: Stopping firewalld - dynamic firewall daemon...</span><br><span class="line">Jul 31 10:51:17 openEuler systemd[1]: firewalld.service: Succeeded.</span><br><span class="line">Jul 31 10:51:17 openEuler systemd[1]: Stopped firewalld - dynamic firewall daemon.</span><br><span class="line"></span><br><span class="line">[root@openEuler ~]# iptables -L</span><br><span class="line">Chain INPUT (policy ACCEPT)</span><br><span class="line">target prot opt source destination</span><br><span class="line">Chain FORWARD (policy ACCEPT)</span><br><span class="line">target prot opt source destination</span><br><span class="line">Chain OUTPUT (policy ACCEPT)</span><br><span class="line">target prot opt source destination</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">#####iptables 默认的规则链######</span></span></span><br><span class="line">INPUT：处理入站数据包</span><br><span class="line">OUTPUT：处理出站数据包</span><br><span class="line">FORWARD：处理转发数据包</span><br><span class="line">POSTROUTING 链：在进行路由选择后处理数据包</span><br><span class="line">PREROUTING 链：在进行路由选择前处理数据包</span><br></pre></td></tr></table></figure>
+<p>步骤 2 启动防火墙</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">[root@openEuler ~]# systemctl start firewalld.service #启动防火墙服务</span><br><span class="line">[root@openEuler ~]# firewall-cmd --version #查看防火墙 firewalld 版本</span><br><span class="line">0.6.2</span><br><span class="line">[root@openEuler ~]# firewall-cmd --help #查看帮助</span><br><span class="line">[root@openEuler ~]# firewall-cmd --state #查看运行状态</span><br><span class="line">running</span><br><span class="line">[root@Huawei ~]# firewall-cmd --list-all</span><br><span class="line">public (active)</span><br><span class="line">  target: default</span><br><span class="line">  icmp-block-inversion: no</span><br><span class="line">  interfaces: ens33</span><br><span class="line">  sources:</span><br><span class="line">  services: dhcpv6-client mdns ssh</span><br><span class="line">  ports: 81/tcp                #这里的81是在IP中做实验放行的</span><br><span class="line">  protocols:</span><br><span class="line">  forward: yes</span><br><span class="line">  masquerade: no</span><br><span class="line">  forward-ports:</span><br><span class="line">  source-ports:</span><br><span class="line">  icmp-blocks:</span><br><span class="line">  rich rules:</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>步骤3 配置防火墙放通规则</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">root@openEuler ~]# firewall-cmd --panic-on #拒绝所有包</span><br><span class="line">[root@openEuler ~]# firewall-cmd --panic-off #取消拒绝所有包</span><br><span class="line">[root@openEuler ~]# firewall-cmd --query-panic #查看是否拒绝</span><br><span class="line">[root@openEuler ~]# firewall-cmd --reload #更新防火墙规则，无需断开</span><br><span class="line">[root@openEuler ~]# firewall-cmd --zone=public --add-interface=enp4s0 #将网口添加到区域，默</span><br><span class="line">认都在 public</span><br><span class="line">[root@openEuler ~]# firewall-cmd --set-default-zone=public #设置默认接口区域</span><br><span class="line">[root@openEuler ~]# [root@openEuler ~]# firewall-cmd --zone=public --list-ports #查看所有打开</span><br><span class="line">的端口</span><br><span class="line">[root@openEuler ~]# firewall-cmd --zone=public --add-port=8080/tcp --permanent #永久打开 tcp</span><br><span class="line">8080 端口</span><br><span class="line">[root@openEuler ~]# [root@openEuler ~]# firewall-cmd --zone=public --add-service=http #打</span><br><span class="line">开一个服务</span><br><span class="line">[root@openEuler ~]# systemctl restart firewalld.service</span><br><span class="line">[root@openEuler ~]# firewall-cmd --list-all</span><br><span class="line">public (active)</span><br><span class="line">target: default</span><br><span class="line">icmp-block-inversion: no</span><br><span class="line">interfaces: enp4s0</span><br><span class="line">sources:</span><br><span class="line">services: ssh mdns dhcpv6-client http</span><br><span class="line">ports: 8080/tcp</span><br><span class="line">protocols:</span><br><span class="line">masquerade: no</span><br><span class="line">forward-ports:</span><br><span class="line">source-ports:</span><br><span class="line">icmp-blocks:</span><br><span class="line">rich rules:</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="7-5-服务管理"><a href="#7-5-服务管理" class="headerlink" title="7.5 服务管理"></a>7.5 服务管理</h1><h2 id="7-5-1-管理系统服务"><a href="#7-5-1-管理系统服务" class="headerlink" title="7.5.1 管理系统服务"></a>7.5.1 管理系统服务</h2><p>步骤1 显示当前服务。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@openEuler ~]# systemctl list-units --type service</span><br></pre></td></tr></table></figure>
+<p>步骤 2 显示服务状态，如防火墙服务。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[root@openEuler ~]# systemctl status firewalld.service #查看服务状态</span><br><span class="line">● firewalld.service - firewalld - dynamic firewall daemon</span><br><span class="line">Loaded: loaded (/usr/lib/systemd/system/firewalld.service; enabled; vendor preset: enabled)</span><br><span class="line">Active: active (running) since Mon 2020-07-06 09:52:14 CST; 5h 33min ago</span><br><span class="line">Docs: man:firewalld(1)</span><br><span class="line">Main PID: 1863 (firewalld)</span><br><span class="line">Tasks: 2</span><br><span class="line">Memory: 61.3M</span><br><span class="line">CGroup: /system.slice/firewalld.service</span><br><span class="line">└─1863 /usr/bin/python3 /usr/sbin/firewalld --nofork --nopid</span><br><span class="line">Jul 06 09:52:13 openEuler systemd[1]: Starting firewalld - dynamic firewall daemon...</span><br><span class="line">Jul 06 09:52:14 openEuler systemd[1]: Started firewalld - dynamic firewall daemon.</span><br><span class="line">[root@openEuler ~]# systemctl is-active firewalld.service #查看服务是否运行</span><br><span class="line">active</span><br><span class="line">[root@openEuler ~]# systemctl is-enabled firewalld.service #查看服务是否被启用</span><br><span class="line">enabled</span><br></pre></td></tr></table></figure>
+<p>步骤 3 终止服务，如防火墙服务。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@openEuler ~]# systemctl stop firewalld.service</span><br><span class="line">[root@openEuler ~]# systemctl is-active firewalld.service</span><br><span class="line">inactive</span><br></pre></td></tr></table></figure>
+<p>步骤 4 重启服务，如防火墙。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@openEuler ~]# systemctl restart firewalld.service</span><br><span class="line">[root@openEuler ~]# systemctl is-active firewalld.service</span><br><span class="line">active</span><br></pre></td></tr></table></figure>
+<p>步骤 5 禁用服务，如防火墙。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@openEuler ~]# systemctl disable firewalld.service</span><br><span class="line">Removed /etc/systemd/system/multi-user.target.wants/firewalld.service.</span><br><span class="line">Removed /etc/systemd/system/dbus-org.fedoraproject.FirewallD1.service.</span><br><span class="line">[root@openEuler ~]# systemctl is-enabled firewalld.service</span><br><span class="line">disabled</span><br></pre></td></tr></table></figure>
+<p>步骤 6 启用服务，如防火墙</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@openEuler ~]# systemctl enable firewalld.service</span><br><span class="line">Created symlink /etc/systemd/system/dbus-org.fedoraproject.FirewallD1.service →</span><br><span class="line">/usr/lib/systemd/system/firewalld.service.</span><br><span class="line">Created symlink /etc/systemd/system/multi-user.target.wants/firewalld.service →</span><br><span class="line">/usr/lib/systemd/system/firewalld.service.</span><br><span class="line">[root@openEuler ~]# systemctl is-enabled firewalld.service</span><br><span class="line">enabled</span><br></pre></td></tr></table></figure>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">XBCID</div><div class="post-copyright__author_desc"></div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="http://example.com/2025/05/19/openEuler/%E5%AE%9E%E9%AA%8C/IA/07%20openEuler%20%E7%B3%BB%E7%BB%9F%E5%8F%8A%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('http://example.com/2025/05/19/openEuler/%E5%AE%9E%E9%AA%8C/IA/07%20openEuler%20%E7%B3%BB%E7%BB%9F%E5%8F%8A%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/')">XBCID's BLOG</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"></div><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="http://example.com/2025/05/19/openEuler/%E5%AE%9E%E9%AA%8C/IA/07%20openEuler%20%E7%B3%BB%E7%BB%9F%E5%8F%8A%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" target="_blank" href="https://service.weibo.com/share/share.php?title=XBCID's BLOG&amp;url=http://example.com/2025/05/19/openEuler/%E5%AE%9E%E9%AA%8C/IA/07%20openEuler%20%E7%B3%BB%E7%BB%9F%E5%8F%8A%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/&amp;pic=" rel="external nofollow noreferrer noopener"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><script>function copyCurrentPageUrl() {
+  var currentPageUrl = window.location.href;
+  var input = document.createElement("input");
+  input.setAttribute("value", currentPageUrl);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">XBCID's BLOG</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"></div></div></div><div class="post_share"><div class="social-share" data-image="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2025/05/19/openEuler/%E5%AE%9E%E9%AA%8C/IA/05%20%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E5%B9%B6%E7%AE%A1%E7%90%86%E6%9C%8D%E5%8A%A1/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info"></div></div></a></div><div class="next-post pull-right"><a href="/2025/05/19/openEuler/%E5%AE%9E%E9%AA%8C/IA/09/"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info"></div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__description"></div></div></div><div class="card-widget anzhiyu-right-widget" id="card-wechat" onclick="null"><div id="flip-wrapper"><div id="flip-content"><div class="face" style="background: url(https://bu.dusays.com/2023/01/13/63c02edf44033.png) center center / 100% no-repeat"></div><div class="back face" style="background: url(https://bu.dusays.com/2023/05/13/645fa415e8694.png) center center / 100% no-repeat"></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#7-1-%E5%AE%9E%E9%AA%8C%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">7.1 实验介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#7-1-1-%E5%AE%9E%E9%AA%8C%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.1.</span> <span class="toc-text">7.1.1 实验介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-1-2-%E5%AE%9E%E9%AA%8C%E7%9B%AE%E6%A0%87"><span class="toc-number">1.2.</span> <span class="toc-text">7.1.2 实验目标</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7-2-%E4%BB%BB%E5%8A%A1%E7%AE%A1%E7%90%86"><span class="toc-number">2.</span> <span class="toc-text">7.2 任务管理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#7-2-1-%E4%B8%B4%E6%97%B6%E4%BB%BB%E5%8A%A1%E7%AE%A1%E7%90%86"><span class="toc-number">2.1.</span> <span class="toc-text">7.2.1 临时任务管理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-2-2-%E5%91%A8%E6%9C%9F%E4%BB%BB%E5%8A%A1%E7%AE%A1%E7%90%86"><span class="toc-number">2.2.</span> <span class="toc-text">7.2.2 周期任务管理</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7-3-%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86"><span class="toc-number">3.</span> <span class="toc-text">7.3 网络管理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#7-3-1-%E4%B8%BB%E6%9C%BA%E5%90%8D%E7%AE%A1%E7%90%86"><span class="toc-number">3.1.</span> <span class="toc-text">7.3.1 主机名管理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-3-2-%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86"><span class="toc-number">3.2.</span> <span class="toc-text">7.3.2 网络管理</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7-4-%E9%98%B2%E7%81%AB%E5%A2%99%E7%AE%A1%E7%90%86"><span class="toc-number">4.</span> <span class="toc-text">7.4 防火墙管理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7-5-%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86"><span class="toc-number">5.</span> <span class="toc-text">7.5 服务管理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#7-5-1-%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1"><span class="toc-number">5.1.</span> <span class="toc-text">7.5.1 管理系统服务</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IP/07%20openEuler%E7%B3%BB%E7%BB%9F%E7%9B%91%E6%8E%A7%E5%85%A5%E9%97%A8/" title="无题">无题</a><time datetime="2025-05-18T19:46:45.900Z" title="发表于 2025-05-19 03:46:45">2025-05-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/%E6%B3%A8%E9%87%8A/shebang/" title="无题">无题</a><time datetime="2025-05-18T19:46:45.880Z" title="发表于 2025-05-19 03:46:45">2025-05-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/10%20%E5%B8%B8%E7%94%A8%E5%B0%8F%E6%8C%87%E4%BB%A4/" title="无题">无题</a><time datetime="2025-05-18T19:46:45.685Z" title="发表于 2025-05-19 03:46:45">2025-05-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/09%20Samba%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86/" title="09 Samba文件共享服务器管理">09 Samba文件共享服务器管理</a><time datetime="2025-05-18T19:46:45.684Z" title="发表于 2025-05-19 03:46:45">2025-05-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/08%20%E4%BD%BF%E7%94%A8shell%E8%84%9A%E6%9C%AC/" title="08 使用shell脚本">08 使用shell脚本</a><time datetime="2025-05-18T19:46:45.683Z" title="发表于 2025-05-19 03:46:45">2025-05-19</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2025 By <a class="footer-bar-link" href="/" title="XBCID" target="_blank">XBCID</a></div></div><div id="footer-type-tips"></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/anzhiyu-c/hexo-theme-anzhiyu" title="主题">主题</a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">37</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">5</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">0</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://blog.anheyu.com/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://image.anheyu.com/" title="安知鱼图床"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.anheyu.com/favicon.ico" alt="安知鱼图床"/><span class="back-menu-item-text">安知鱼图床</span></a></div></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/HCIA/" style="font-size: 0.88rem;">HCIA<sup>9</sup></a><a href="/tags/HCIP/" style="font-size: 0.88rem;">HCIP<sup>6</sup></a><a href="/tags/Huawei/" style="font-size: 0.88rem;">Huawei<sup>15</sup></a><a href="/tags/Linux/" style="font-size: 0.88rem;">Linux<sup>18</sup></a><a href="/tags/openEuler/" style="font-size: 0.88rem;">openEuler<sup>18</sup></a></div></div><hr/></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8152976493" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random" volume="0.7"></meting-js></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.5/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("01/12/2021 14:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2020 By 安知鱼 V1.6.14",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 XBCID 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><div class="js-pjax"><input type="hidden" name="page-type" id="page-type" value="post"></div><script>var visitorMail = "";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/qrcodejs/1.0.0/qrcode.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>

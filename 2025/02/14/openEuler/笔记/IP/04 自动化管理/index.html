@@ -1,0 +1,973 @@
+<!DOCTYPE html><html lang="zh" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>04 自动化管理 | XBCID's BLOG</title><meta name="keywords" content="Linux,openEuler,Huawei,HCIP"><meta name="author" content="XBCID"><meta name="copyright" content="XBCID"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="04 自动化管理"><meta name="application-name" content="04 自动化管理"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="04 自动化管理"><meta property="og:url" content="http://example.com/2025/02/14/openEuler/%E7%AC%94%E8%AE%B0/IP/04%20%E8%87%AA%E5%8A%A8%E5%8C%96%E7%AE%A1%E7%90%86/index.html"><meta property="og:site_name" content="XBCID's BLOG"><meta property="og:description" content="在大量服务器同时上线及维护的场景中，人工手动对业务进行部署和上线已经不再适用，因此，自动化运维成为了每个工程师必备的技能，本章将介绍最主流的两款自动化运维工具——Ansible和SaltStack。  目标  学完本课程后，您将能够： 掌握Ansible常用功能模块的使用 掌握Ansible pl"><meta property="og:locale" content="zh"><meta property="og:image" content="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg"><meta property="article:author" content="XBCID"><meta property="article:tag"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg"><meta name="description" content="在大量服务器同时上线及维护的场景中，人工手动对业务进行部署和上线已经不再适用，因此，自动化运维成为了每个工程师必备的技能，本章将介绍最主流的两款自动化运维工具——Ansible和SaltStack。  目标  学完本课程后，您将能够： 掌握Ansible常用功能模块的使用 掌握Ansible pl"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="http://example.com/2025/02/14/openEuler/%E7%AC%94%E8%AE%B0/IP/04%20%E8%87%AA%E5%8A%A8%E5%8C%96%E7%AE%A1%E7%90%86/"><link rel="preconnect" href="//cdn.cbd.int"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: {"enable":true,"img":"https://upload-bbs.miyoushe.com/upload/2024/07/27/125766904/ba62475f396df9de3316a08ed9e65d86_5680958632268053399..png"},
+  postHeadAiDescription: {"enable":true,"gptName":"AnZhiYu","mode":"local","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"xxxx","Referer":"https://xx.xx/"},
+  diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
+  LA51: undefined,
+  greetingBox: undefined,
+  twikooEnvId: '',
+  commentBarrageConfig:undefined,
+  music_page_default: "nav_music",
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: undefined,
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: XBCID","link":"链接: ","source":"来源: XBCID's BLOG","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: 'XBCID's BLOG',
+  title: '04 自动化管理',
+  postAI: '',
+  pageFillDescription: '0x01 自动化运维简介, 1.1 自动化运维的优势, 1.2 自动化运维场景, 1.3 常见自动化运维工具, 0x02. Ansible, 2.1 Ansible简介及基本操作, 2.1.1 概要, 2.1.2 Ansible的功能和优势, 2.1.3 Ansible功能组件和架构, 2.1.4 Ansible的安装方式, 2.1.5 Ansible配置文件重要配置项说明, 2.1.5.1 Ansible主机清单配置文件, 2.1.6 Ansible常用命令, 2.1.7 Ansible的基本用法, 2.1.8 Ansible的逻辑关系, 2.2 Ansible常用模块, 2.2.1 Ansible常用功能模块 - Command, 2.2.1.1 Command介绍, 2.2.1.2 Command实践, 2.2.2 Ansible常用功能模块 - Shell及相关案例, 2.2.3 Ansible常用功能模块 - Script及相关案例, 2.2.4 Ansible常用功能模块 - Copy和Fetch, 2.2.4.1 Copy和Fetch介绍, 2.2.4.2 Copy和Fetch实践, 2.2.5 Ansible常用功能模块 - File, 2.2.5.1 File介绍, 2.2.5.2  FIle实践, 2.2.6 Ansible常用功能模块 - Archive和Unarchive, 2.2.6.1 Archive和Unarchive介绍, 2.2.6.2 Archive和Unarchive实践, 2.2.7 Ansible常用功能模块 - Setup及使用案例, 2.2.8 Ansible常用功能模块 - Lineinfile和Replace, 2.2.9 Ansible常用功能模块 - User和Group, 2.2.10 Ansible常用功能模块 - Hostname、Cron、yum和Service, 2.3 Playbook简介, 2.3.1 YAML的特点, 2.3.2 YAML文件的基本语法, 2.3.3 Playbook的核心元素, 2.3.4 Playbook相关命令, 2.3.5 Playbook的基本用法 -  Hosts和Tasks, 2.3.6 Playbook的基本用法 - Handlers和Notify, 2.3.7 Playbook的基本用法 - Tags, 2.3.8 Playbook的基本用法 - Variables, 2.3.9 Playbook的基本用法 - Templates, 2.3.10 Playbook的基本用法 - Role, 0x03 SaltStack, 3.1 SaltStack逻辑架构, 3.2 Master与Minion的认证和通信, 3.3 SaltStack的安装部署, 3.4 Master和Minion重要配置, 3.5 Master和Minion的互信认证配置, 3.6 SaltStack的基本操作 - Grains, 3.7 SaltStack的基本操作 - Pillar, 3.8 SaltStack的远程执行功能, 3.8.1 SaltStack的远程执行功能 - Target指定, 3.8.2 SaltStack的远程执行功能 - 功能模块, 3.8.2.1 SaltStack常用模块简介 - Pkg, 3.8.2.2 SaltStack常用功能模块简介 - Network, 3.8.2.3 SaltStack常用功能模块简介 - Service, 3.8.2.4 SaltStack常用功能模块简介 - File, 3.8.2.5 SaltStack常用功能模块简介 - Status, 3.9 SaltStack的配置管理功能, 3.9.1 配置文件编写, 3.9.2 Top文件编写在大量服务器同时上线及维护的场景中人工手动对业务进行部署和上线已经不再适用因此自动化运维成为了每个工程师必备的技能本章将介绍最主流的两款自动化运维工具和目标学完本课程后您将能够掌握常用功能模块的使用掌握的开发掌握远程管理功能掌握配置管理功能自动化运维简介应用从开发到上线需运维的对象剧增自动化运维的优势自动化运维场景应用部署文件传输配置管理任务流编排常见自动化运维工具基于开发无需部署代理基于实现客户端管理适用于中小型环境基于开发需要在客户端部署代理因此执行效率较高一般情况上在少于台服务器的场景中使用超过台的服务器场景建议使用权威中文站简介及基本操作概要自动化平台可提供一个企业框架用于从混合云到边缘大规模构建和运维自动化自动化平台使整个企业的用户从开发运维到安全和网络团队能够创建共享和管理自动化由开发与年发布并于年被红帽收购是实现自动化运维的三个关键模块的功能和优势自动化执行环境自动化执行环境是用于执行和角色的容器镜像自动化执行环境提供了一种确定一致和可移植的方式在开发和生产之间构建和分发您的自动化环境实现自动化的标准化和规模化标准化部署启动授权和审核的自动化方式自动化控制器允许用户在企业中定义操作和扩展自动化用户可通过集中式用户界面和来完成管理清单启动和调度工作流跟踪更改以及整合成报告等一系列工作现在自动化控制器带有自动化拓扑查看器功能可以跨多个站点以图形方式可视化最复杂的自动化拓扑包括跳跃执行混合和控制节点自动化网格自动化网格提供了一种简单灵活且可靠的方法以跨越多种网络拓扑平台和区域扩展大型库存的自动化自动化网格提供灵活的设计选项以构建弹性和容错架构同时增强安全性从而从核心数据中心到边缘标准化和规范化整个资产的自动化功能组件和架构的管理对象是可以是的主机也可以是的主机或者是各种网络设备是管理对象的清单加入的对象才能被管理到内置了很多功能模块供管理员使用也可以自定义新的功能模块管理员可直接通过命令行对被管理对象进行操作是的核心功能之一管理员可以将的任务写成格式的文件然后由其自动执行的安装方式安装源码编译安装方式安装安装配置文件重要配置项说明的配置文件默认位于主机列表配置文件用于添加被管理对象库文件存放目录模块文件存放目录指定临时命令在远程主机存放的路径指定临时命令在本地存放的路径插件相关配置并发数默认为可根据控制器性能修改时间间隔默认问秒默认提权用户执行命令时是否询问提权密码建议修改为执行命令时是否询问密码建议修改为命令传输方式连接被控制对象的端口号是否校验建议设置为主机清单配置文件主机清单有多种书写方式官方提供了三种案例未分组的主机可直接放置到文件中分组的主机以组名作为标签后面跟随主机信息如果同组下的主机遵循某个规律也可以直接合并成一条常用命令主命令是管理员临时命令的执行工具用于查看配置文档用于编排的工具可定制自动化任务用于远程执行命令用于文件加密基于界面的交互式命令执行工具的基本用法的基本语法格式的常用参数显示执行过程和显示更详细的执行过程显示主机列表可简写为交互方式输入密码仅检查不执行设置命令的超时时间设置执行远程命令的用户交互方式输入密码的逻辑关系逻辑或主机或者逻辑与主机组和共同的主机逻辑非不属于主机组的主机正则表达式网段的主机逻辑关系可以多次使用例如查看主机组和主机组共有的但不属于主机组的主机可以使用常用模块有一些常用的模块比如在实验中多次出现但教程里没有说明请参考官方然后直接搜索模块名如即可阅读原生注释吧常用功能模块介绍模块是的默认模块用于在被控制对象进行远程执行命令使用模块执行命令时不可以使用或者等特殊符号该模块的常见选项有在执行命令前进入指定目录要执行的命令根据某个文件状态来检查是否执行对应命令如果存在则不执行对应命令和相反也是根据文件是否存在来判断是否执行命令如果存在则执行对应命令开启告警实践需求检查主机是否存在目录如果不存在则创建并将复制到中然后检查复制是否成功胶片中的执行过程是为了体现各个参数的用途实际工作中不需要如此操作在执行过程中使用了命令来创建一个目录系统会有告警原因是有专门的模块来创建目录常用功能模块及相关案例模块和使用方式基本一致但支持或者等特殊符号模块无法处理类似的复杂命令需求在主机创建用户并将密码设置为常用功能模块及相关案例用于将控制器上的脚本发送到被控制主机上执行需求查找出主机名为的虚拟机对应的地址在控制上创建以下内容的脚本常用功能模块和和介绍和用于控制器和被控制主机之间传输数据用于将控制器数据复制到被控制主机用于将被控制主机文件复制到控制器可用于传输目录而仅支持传输文件和常用选项有用于指定源文件如果目录为空则不进行复制用于指定目的目录模块参数和不能同时使用用于将具体内容复制到被控制主机文件中和模块参数用于指定目的文件的所属用户所属组和权限模块参数如果在拷贝时源文件内容和目的文件不一致将设为则覆盖目的文件如果设为则不覆盖不使用选项时目的文件也会被覆盖模块的选项需注意需使用绝对路径如果是目录也必须是目录如果指定的路径不存在并且路径是以结尾或者源是目录时该路径会被自动创建如果使用的是相对路径那么其该路径的起点取决于被控制主机如果和是一个文件且指定的目的路径不存在该路径中的所有父路径不会被创建此操作会失败模块的选项需注意会将文件存放在指定目录中并重新创建一个被控制主机地址或主机名开头与路径拼接成的路径如为被控制节点为目的路径为最终文件会被保存在控制器的中和实践需求一将控制器中的文件复制到中在复制的过程中将其所属指定为将权限设置为然后为输入需求二将被控制主机上的拷贝到控制器中目录下常用功能模块介绍模块用于文件及文件属性管理模块常用选项有在两种情况下强制创建软链接一种是源文件不存在但随后会创建另外一种是目标软链接已存在会强制取消创建新的和设置所属用户所属组和权限必选指定被管理文件的路径递归设置目录属性当时用来指定被链接的源文件和目的文件路径重要选项有多种配置具体为创建文件如果文件或目录已存在则更新其最后修改时间创建目录同时具备的递归创建功能和创建软链接和硬链接删除指定目录或解除链接实践需求在被控制主机中创建目录归属用户和组指定为权限设置为然后在该目录下创建文件并为创建软链接指向最后删除目录常用功能模块和和介绍模块用于文件的打包压缩模块用于压缩包的解压模块常用选项有和设置所属用户所属组和权限设置打包格式支持默认为指定需打包文件的绝对路径可指定一个或多个文件排除不需要打包的文件打包完成后删除源文件模块常用选项默认参数为表示解压的压缩包来自于控制器如果设置为时表示被解压的文件在被控制节点上设置压缩包的源路径和解压后存放的路径指定的可以是控制器上的路径在时也可以是被控制主机上的路径解压后文件的权限和不能使用设置为时表示压缩包来自被控制节点设置为时表示压缩包来自控制器和实践需求在主机中中创建文件将它们打包为同时删除和再将其解压至目录中常用功能模块及使用案例用于收集被控制节点的信息需求收集主机的信息常用功能模块和和用于修改文件内容功能和类似常用选项有指定被修改文件的绝对路径替换或插入的内容使用正则表达式匹配内容和在匹配行前面和后面插入常用选项有指定被修改文件的绝对路径使用正则表达式匹配内容替换正则表达式匹配到的内容和修改正则表达式匹配到的内容之前或之后的内容和修改文件所属用户所属组和权限常用功能模块和模块用于用户管理其常用选项有指定用户名和用于设置用户的主组用于将用户添加至其他组用于设置用户密码设置用户设置用户家目录设置用户描述信息设置用户模块用于组管理其常用选项有用户设置组指定组名称常用功能模块和模块用于修改被控制主机的主机名使用选项可指定需设置的主机名模块用于设置计划任务其常用选项有和分别对应文件中的分钟小时日期月份和星期指定执行的任务可以是命令也可以是脚本用于设置任务名称设置任务的状态可用于删除任务启用或禁用任务表示禁用表示启用模块用于管理软件包其常用选项有需要安装的软件包名称设置为表示卸载软件设置为表示安装软件设置为表示安装最新版本模块用于服务管理其常用选项有指定服务名称将服务设置为开机启动设置服务状态表示开启表示关闭表示重启简介是由多个组成每一个都对应一个任务任务通过调用的功能模块按照事先设置好的机制执行预定义的动作由编写的特点具有很高的可读性和脚本语言之间有较好的交互性具有较强的易用行可以基于流来处理具有极强的扩展性对语法有较严格的要求文件的基本语法使用缩进表示层级关系左侧对齐的数据表示同一层级缩进必须使用空格不可使用以开头代表是一个列表需执行顺序不以开头代表是一个字典无执行顺序对大小敏感的核心元素用于指定被控制主机的列表用于指定被执行的任务在中调用的变量可以是内置变量也可以是自定义变量模板内部嵌套和一般配合使用用于为任务配置触发条件标签用于选择性的运行任务的部分代码相关命令命令用于运行常用选项有列出相关主机列出所有标签列出所有任务不执行不执行只对可能发生的变更进行检测常用于检测能否正常运行从指定的任务开始指定执行特定对应任务排除不需要运行的主机查看详情的基本用法和需求在主机组中安装并将地址设置为同时保证开机自启下载并安装源安装修改配置文件将地址设置为设置开机启动文件一般命名为或者开头第一行一般是和之间建议空一行使可读性更强可以使用逻辑关系表示例如等可以在中使用也可以在中使用表示执行操作的用户表示是否收集主机信息和模块功能一致如果不需要根据主机信息进行判断建议设置为可提升效率来看下正确的格式替换为实际变量名如示例使用内置变量组合的基本用法和需求在主机组中安装每次修改地址后自动重启修改配置文件将地址设置为设置开机启动在一个任务中可以设置多个以触发多个的基本用法需求在主机组中安装为修改地址的动作定义标签后续地址发生变化仅需执行该操作即可修改配置文件将地址设置为设置开机启动如果仅需执行修改地址的操作可使用命令的基本用法需求在主机组中创建用户和组现实方式一定义变量执行命令时设置值创建组创建用户然后执行命令实现方式二定义变量并赋值创建组创建用户实现方式三单独创建变量文件然后在中调用变量文件内容如下内容如下创建组创建用户是中的变量使用来自定义变量或者通过中定义好的定了然后在命令中或者中或者特定的文件中指定变量的值需求将主机组中主机的主机名统一修改为格式为将主机组配置文件修改为以下内容使用模块进行主机名统一修改的基本用法可以参考的模块文件动态的生成配置文件供调用文件需放在固定的目录中且以结尾需求在主机组的主机上安装并将配置文件统一使用下载并安装源修改配置文件使用同一模板设置开机启动的基本用法用于层次性结构性较强的可以根据已定义好的层次性较高的目录自动装载变量文件任务及等批量的完成较复杂的运维任务的目录常见目录结构如下需求集群部署数据库基于服务器使用实现以项目为核心主要包含两大功能模块配置管理系统分布式远程命令执行系统具备六大特性易用性并行执行成熟稳定易集成高性能开源逻辑架构和采用的是架构服务器是运行了服务的客户端是运行了服务的向发送命令向特定的注册还采用了发布订阅的模式是任务的发布者则通过订阅的方式获取发布的任务将应当执行任务的一组定义为开放的事件系统用于事件管理系统中和之间的内部通信和用于从事件管理系统订阅及执行结果的可插拔组件和运行在中用来收集该的信息如域名地址等是静态数据仅系统信息发生变化或用户自定义了某个参数后才会刷新存放着由定义的动态数据当需要时再推送到和和用于监控运行在中当故障出现时它会触发来提供故障处理的帮助信息架构图来源和都是用来存放数据的其中用来存放一些私密数据如用户名密码等中的数据仅有特定的才能查看到除了运行服务还可以通过和来对客户端进行命令下发其中中不允许运行使用命令可查看所有主机的项查看详细值使用命令与的认证和通信与之间通过公钥私钥进行认证与之间通过和进行通信在第一次启动时会在下自动生成私钥和公钥并将公钥发送给收到发送的公钥后并不会自动接收需要管理员使用进行手动接收并将其保存到中的安装部署安装前检查安装和安装使用提供的脚本进行安装手动安装使用源进行安装安装后配置在中配置要注册的启动服务配置和之间的认证配置后检查和重要配置配置文件默认为同时包含了下所有文件中关于的配置文件默认为同时包含了下所有文件设置的目录用于存放任务执行脚本用于设置数据存放目录和的互信认证配置在上使用命令接收发来的密钥以下为常用选项接受全部密钥删除全部密钥列出全部密钥接受指定密钥拒绝指定密钥删除指定密钥的基本操作用于存放的静态数据管理员可以通过自带或自定义定义使用命令查看系统自带的所有使用命令可查看指定的对应的具体值使用命令可根据的值来指定主机进行命令执行命令中的表示所有主机可以指定主机进行查看修改配置文件中关于部分可进行的自定义在节点上目录中创建关于的配置文件并输入以下内容重启服务后在节点即可查看到自定义的除了目录中可自定义的在目录中创建文件也可以自定义在中直接以的格式定义可自定识别到相关内容修改后需要同步变更有两方式重启服务在上执行命令的基本操作用于存放动态数据仅对指定有效通过在指定目录中创建配置文件来自定义如在目录中创建的配置文件并输入以下内容完成配置后使用以下命令查看自定义的是否生效的配置文件存放目录在的配置文件中指定本课程指定在目录中的远程执行功能远程执行的命令格式为表示设置的方式表示需执行远程命令的客户端表示功能模块表示具体执行的命令的远程执行功能指定支持多种方式进行指定常见方式有通配符方式如等列表方式如正则表达方式如通过指定主机如通过指定主机如混合方式指定主机如通过网络信息指定主机如通过主机组方式指定主机需先在配置文件中设置主机组如的远程执行功能功能模块的功能模块有开发用于批量任务执行支持的功能模块列表可查看官方文档使用命令可列出所安装的模块使用命令可查看模块使用文档使用命令可查看模块支持功能常用模块有和常用模块简介模块用于包管理常用功能有查看软件包最新版本仅下载安装包但不安装下载完成后会返回安装包存放目录列出源相关信息安装指定软件包安装指定软件组卸载指定软件包查看某个文件输入哪个软件包列出全部已安装软件包修改源某些参数常用功能模块简介模块用于收集和管理网络信息常用功能有返回字典形式的活动的连接通过的指定端口测试与某个之间的连通性查看的指定网段路由明细使用对进行测试查看指定端口的地址指定对某个地址进行测试查看指定的路由表指定对某个地址进行路由追踪常用功能模块简介模块用于服务管理常用功能有查看某个服务是否可用如果可用返回值为反之则为将服务设置为开机不自启查看服务是否在开机不自启清单中如果在返回值为反之则为将服务设置为开机自启查看服务是否在开机自启清单中如果在返回值为反之则为列出全部已安装可用的服务启动某个服务关闭某个服务重启某个服务重新加载某个服务配置常用功能模块简介模块用于常规与非常规文件及目录的管理如设置文件的用户组权限等常用功能有测试对文件或目录是否具备某项权限查看所查询对象是否存在和本别用于查看是否具备读写和执行权限用于在文件里追加内容如果文件不存在则系统会报错和通过路径指定某个文件分别返回最后一部分和目录部分创建文件如果文件已存在则更新该文件的访问时间或修改时间和分别用于修改文件或目录的所属组或者所属用户和所属组搜索文件计算目录所占空间返回值的单位为字节和用于获取文件的所属组所属组所属用户和所属用户在某个文件中查找指定内容和创建目录二者有一定的区别例如如果创建目录使用后面需输入如果使用后面输入即可同时不支持同时创建多个目录则支持移动文件或目录和删除文件及重命名文件删除空目录常用功能模块简介模块用于查看的状态常用功能有查看的信息查看的状态查看的磁盘状态查看某块磁盘的使用率查看的内存信息查看的网络状态的配置管理功能的配置管理依赖功能模块实现的配置文件使用语法文件后缀需以结尾的配置文件需存放在指定目录中该目录由参数指定当定制了多个配置文件后可使用作为所有配置和文件的入口自动运行所有的文件文件的名称默认为可以在配置文件中修改文件的存放位置由参数中的配置为了使目录结构清晰在的目录中放在一级目录下其他文件建议存放在二级目录下配置文件编写需求通过配置管理功能为安装服务并设置为开机自启文件编写需求在上页胶片的基础上另外给安装服务并设置为开机启动并使用文件通过执行两个配置文件使用文件前在配置文件中取消关于文件配置的注释编写完成文件后使用命令对所有执行文件中的任务建议在正式执行文件前使用命令测试文件是否能够正确执行',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-05-19 03:44:12',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://npm.elemecdn.com/anzhiyu-blog-static@1.0.4/img/avatar.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><a id="site-name" href="/" accesskey="h"><div class="title">XBCID's BLOG</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" target="_blank"><img class="post-qr-code-img" alt="微信" src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" target="_blank"><img class="post-qr-code-img" alt="支付宝" src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/HCIA/" style="font-size: 1.05rem;">HCIA<sup>9</sup></a><a href="/tags/HCIP/" style="font-size: 1.05rem;">HCIP<sup>6</sup></a><a href="/tags/Huawei/" style="font-size: 1.05rem;">Huawei<sup>15</sup></a><a href="/tags/Linux/" style="font-size: 1.05rem;">Linux<sup>18</sup></a><a href="/tags/openEuler/" style="font-size: 1.05rem;">openEuler<sup>18</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/05/"><span class="card-archive-list-date">May 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">23</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/03/"><span class="card-archive-list-date">March 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">6</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/02/"><span class="card-archive-list-date">February 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">8</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="article-meta tags"><a class="article-meta__tags" href="/tags/Linux/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>Linux</span></a><a class="article-meta__tags" href="/tags/openEuler/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>openEuler</span></a><a class="article-meta__tags" href="/tags/Huawei/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>Huawei</span></a><a class="article-meta__tags" href="/tags/HCIP/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>HCIP</span></a></span></div></div><h1 class="post-title" itemprop="name headline">04 自动化管理</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2025-02-14T09:22:46.000Z" title="发表于 2025-02-14 17:22:46">2025-02-14</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2025-05-18T19:44:12.244Z" title="更新于 2025-05-19 03:44:12">2025-05-19</time></span></div><div class="meta-secondline"><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为重庆"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>重庆</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src=""></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="http://example.com/2025/02/14/openEuler/%E7%AC%94%E8%AE%B0/IP/04%20%E8%87%AA%E5%8A%A8%E5%8C%96%E7%AE%A1%E7%90%86/"><header><a href="/tags/Linux/" tabindex="-1" itemprop="url">Linux</a><a href="/tags/openEuler/" tabindex="-1" itemprop="url">openEuler</a><a href="/tags/Huawei/" tabindex="-1" itemprop="url">Huawei</a><a href="/tags/HCIP/" tabindex="-1" itemprop="url">HCIP</a><h1 id="CrawlerTitle" itemprop="name headline">04 自动化管理</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">XBCID</span><time itemprop="dateCreated datePublished" datetime="2025-02-14T09:22:46.000Z" title="发表于 2025-02-14 17:22:46">2025-02-14</time><time itemprop="dateCreated datePublished" datetime="2025-05-18T19:44:12.244Z" title="更新于 2025-05-19 03:44:12">2025-05-19</time></header><ul>
+<li>在大量服务器同时上线及维护的场景中，人工手动对业务进行部署和上线已经不再适用，因此，自动化运维成为了每个工程师必备的技能，本章将介绍最主流的两款自动化运维工具——Ansible和SaltStack。</li>
+</ul>
+<p><strong>目标</strong></p>
+<ul>
+<li>学完本课程后，您将能够：<ul>
+<li>掌握Ansible常用功能模块的使用</li>
+<li>掌握Ansible playbook的开发</li>
+<li>掌握SaltStack远程管理功能</li>
+<li>掌握SaltStack配置管理功能</li>
+</ul>
+</li>
+</ul>
+<h2 id="0x01-自动化运维简介"><a href="#0x01-自动化运维简介" class="headerlink" title="0x01 自动化运维简介"></a>0x01 自动化运维简介</h2><p>应用从开发到上线，需运维的对象剧增<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/file-20250510174947717.png"></p>
+<h3 id="1-1-自动化运维的优势"><a href="#1-1-自动化运维的优势" class="headerlink" title="1.1 自动化运维的优势"></a>1.1 自动化运维的优势</h3><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/file-20250510175035085.png"></p>
+<h3 id="1-2-自动化运维场景"><a href="#1-2-自动化运维场景" class="headerlink" title="1.2 自动化运维场景"></a>1.2 自动化运维场景</h3><ul>
+<li>应用部署</li>
+<li>文件传输</li>
+<li>配置管理</li>
+<li>任务流编排</li>
+</ul>
+<h3 id="1-3-常见自动化运维工具"><a href="#1-3-常见自动化运维工具" class="headerlink" title="1.3 常见自动化运维工具"></a>1.3 常见自动化运维工具</h3><ul>
+<li>Ansible<ul>
+<li>基于python开发，无需部署代理，基于SSH实现客户端管理，适用于中小型环境</li>
+</ul>
+</li>
+<li>SaltStack<ul>
+<li>基于python开发，需要在客户端部署代理，因此执行效率较高</li>
+</ul>
+</li>
+<li>一般情况上，Ansible在少于1000台服务器的场景中使用，超过1000台的服务器场景建议使用SaltStack</li>
+</ul>
+<h2 id="0x02-Ansible"><a href="#0x02-Ansible" class="headerlink" title="0x02. Ansible"></a>0x02. Ansible</h2><p>Ansible权威中文站 <a target="_blank" rel="noopener" href="http://www.ansible.com.cn/docs/modules_core.html">http://www.ansible.com.cn/docs/modules_core.html</a></p>
+<h3 id="2-1-Ansible简介及基本操作"><a href="#2-1-Ansible简介及基本操作" class="headerlink" title="2.1 Ansible简介及基本操作"></a>2.1 Ansible简介及基本操作</h3><h4 id="2-1-1-概要"><a href="#2-1-1-概要" class="headerlink" title="2.1.1 概要"></a>2.1.1 概要</h4><ul>
+<li>Ansible自动化平台可提供一个企业框架，用于从混合云到边缘大规模构建和运维IT自动化。Ansible自动化平台使整个企业的用户（从开发、运维到安全和网络团队）能够创建、共享和管理自动化</li>
+<li>Ansible由Michael DeHaan开发，与2012年发布，并于2015年被红帽收购</li>
+<li>Paramike、PyYAML、Jinja2是Ansible实现自动化运维的三个关键模块</li>
+</ul>
+<h4 id="2-1-2-Ansible的功能和优势"><a href="#2-1-2-Ansible的功能和优势" class="headerlink" title="2.1.2 Ansible的功能和优势"></a>2.1.2 Ansible的功能和优势</h4><ul>
+<li>自动化执行环境<ul>
+<li>自动化执行环境是用于执行Ansible Playbook和角色的容器镜像。自动化执行环境提供了一种确定、一致和可移植的方式，在开发和生产之间构建和分发您的自动化环境</li>
+</ul>
+</li>
+<li>实现自动化的标准化和规模化<ul>
+<li>标准化部署、启动、授权和审核的自动化方式。自动化控制器允许用户在企业中定义、操作和扩展自动化。用户可通过集中式用户界面和REST API来完成管理清单、启动和调度工作流、跟踪更改，以及整合成报告等一系列工作。现在，自动化控制器带有自动化拓扑查看器功能，可以跨多个站点以图形方式可视化最复杂的自动化拓扑，包括跳跃、执行、混合和控制节点</li>
+</ul>
+</li>
+<li>自动化网格<ul>
+<li>自动化网格提供了一种简单、灵活且可靠的方法，以跨越多种网络拓扑、平台和区域扩展大型库存的自动化。自动化网格提供灵活的设计选项，以构建弹性和容错架构，同时增强安全性，从而从核心数据中心到边缘标准化和规范化整个 IT 资产的自动化</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-1-3-Ansible功能组件和架构"><a href="#2-1-3-Ansible功能组件和架构" class="headerlink" title="2.1.3 Ansible功能组件和架构"></a>2.1.3 Ansible功能组件和架构</h4><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/file-20250510192342529.png"></p>
+<ul>
+<li>Ansible的管理对象是可以是linux的主机，也可以是windows的主机，或者是各种网络设备</li>
+<li>Inventory是Ansible管理对象的清单，加入Inventory的对象才能被Ansible管理到</li>
+<li>Ansible内置了很多功能模块供管理员使用，也可以自定义新的功能模块</li>
+<li>管理员可直接通过Ansible命令行对被管理对象进行操作</li>
+<li>Playbook是Ansible的核心功能之一，管理员可以将Ansible的任务写成yaml格式的文件，然后由其自动执行</li>
+</ul>
+<h4 id="2-1-4-Ansible的安装方式"><a href="#2-1-4-Ansible的安装方式" class="headerlink" title="2.1.4 Ansible的安装方式"></a>2.1.4 Ansible的安装方式</h4><ul>
+<li>yum安装<ul>
+<li><code>yum install -y ansible</code></li>
+</ul>
+</li>
+<li>源码编译安装<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">yum install -y phthon-jinja2 PyYAML python-paramiko python-babel python-crypto</span><br><span class="line">tar –xzvf ansible-xxxxx.tar.gz</span><br><span class="line">cd ansibel-xxxx</span><br><span class="line">python setup.py build</span><br><span class="line">python setup.py install</span><br></pre></td></tr></table></figure></li>
+<li>git方式安装<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone git://github.com/ansible/ansible/git --recusive</span><br><span class="line">cd ./ansible</span><br><span class="line">source ./hacking/env-setup</span><br></pre></td></tr></table></figure></li>
+<li>pip安装<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install ansible --upgrade</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="2-1-5-Ansible配置文件重要配置项说明"><a href="#2-1-5-Ansible配置文件重要配置项说明" class="headerlink" title="2.1.5 Ansible配置文件重要配置项说明"></a>2.1.5 Ansible配置文件重要配置项说明</h4><p>Ansible的配置文件默认位于&#x2F;etc&#x2F;ansible&#x2F;ansible.cfg</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">[</span>defaults<span class="punctuation">]</span></span><br><span class="line"># some basic default values...</span><br><span class="line">#inventory = /etc/ansible/hosts             ##主机列表配置文件，用于添加被管理对象</span><br><span class="line">#library = /usr/share/my_modules/           ##ansible库文件存放目录</span><br><span class="line">#module_utils = /usr/share/my_module_utils/ ##ansible模块文件存放目录</span><br><span class="line">#remote_tmp = ~/.ansible/tmp                ##指定临时命令在远程主机存放的路径</span><br><span class="line">#local_tmp = ~/.ansible/tmp                 ##指定临时命令在本地存放的路径</span><br><span class="line">#plugin_filters_cfg = /etc/ansible/plugin_filters.yml ##插件相关配置</span><br><span class="line">#forks = <span class="number">5</span>                                  ##并发数，默认为<span class="number">5</span>，可根据控制器性能修改</span><br><span class="line">#poll_interval = <span class="number">15</span>                         ##时间间隔，默认问<span class="number">15</span>秒</span><br><span class="line">#sudo_user = root                           ##默认提权用户</span><br><span class="line">#ask_sudo_pass = True                       ##执行ansible命令时是否询问提权密码，                                                建议修改为False</span><br><span class="line">#ask_pass = True                            ##执行ansible命令时是否询问ssh密码                                                   建议修改为False</span><br><span class="line">#transport = smart                          ##命令传输方式</span><br><span class="line">#remote_port = <span class="number">22</span>                           ##连接被控制对象的端口号</span><br><span class="line">host_key_checking = False                   ##是否校验SSH key，建议设置为False</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-1-5-1-Ansible主机清单配置文件"><a href="#2-1-5-1-Ansible主机清单配置文件" class="headerlink" title="2.1.5.1 Ansible主机清单配置文件"></a>2.1.5.1 Ansible主机清单配置文件</h5><ul>
+<li>Ansible主机清单有多种书写方式，官方提供了三种案例</li>
+<li>未分组的主机，可直接放置到hosts文件中<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Ex 1: Ungrouped hosts, specify before any group headers.</span></span><br><span class="line">green.example.com</span><br><span class="line">blue.example.com</span><br><span class="line">192.168.100.1</span><br><span class="line">192.168.100.10</span><br></pre></td></tr></table></figure></li>
+<li>分组的主机以组名作为标签，后面跟随主机信息<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Ex 2: A collection of hosts belonging to the &#x27;webservers&#x27; group</span></span><br><span class="line">[webservers]</span><br><span class="line">alpha.example.org</span><br><span class="line">beta.example.org</span><br><span class="line">192.168.1.100</span><br><span class="line">192.168.1.110</span><br></pre></td></tr></table></figure></li>
+<li>如果同组下的主机遵循某个规律，也可以直接合并成一条<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Ex 3: A collection of database servers in the &#x27;dbservers&#x27; group</span></span><br><span class="line">[dbserver]</span><br><span class="line">db-[99:101]-node.example.com</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="2-1-6-Ansible常用命令"><a href="#2-1-6-Ansible常用命令" class="headerlink" title="2.1.6 Ansible常用命令"></a>2.1.6 Ansible常用命令</h4><ul>
+<li><code>ansible</code><ul>
+<li>主命令，是管理员临时命令的执行工具</li>
+</ul>
+</li>
+<li><code>ansible-doc</code><ul>
+<li>用于查看配置文档</li>
+</ul>
+</li>
+<li><code>ansible-playbook</code><ul>
+<li>用于编排playbook的工具，可定制自动化任务</li>
+</ul>
+</li>
+<li><code>ansible-pull</code><ul>
+<li>用于远程执行命令</li>
+</ul>
+</li>
+<li><code>ansible-vault</code><ul>
+<li>用于文件加密</li>
+</ul>
+</li>
+<li><code>ansible-console</code><ul>
+<li>基于Console界面的交互式命令执行工具</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-1-7-Ansible的基本用法"><a href="#2-1-7-Ansible的基本用法" class="headerlink" title="2.1.7 Ansible的基本用法"></a>2.1.7 Ansible的基本用法</h4><ul>
+<li><p>Ansible的基本语法格式：<br><code>ansible &lt;host-pattern&gt; [-m module_name] [-a args]</code></p>
+</li>
+<li><p>Ansible的常用参数：</p>
+<ul>
+<li>-v 显示执行过程，-vv和-vvv显示更详细的执行过程</li>
+<li>–list-hosts 显示主机列表，可简写为–list</li>
+<li>-k 交互方式输入ssh密码</li>
+<li>-C 仅检查，不执行</li>
+<li>-T 设置命令的超时时间</li>
+<li>-u 设置执行远程命令的用户</li>
+<li>-K 交互方式输入sudo密码</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-1-8-Ansible的逻辑关系"><a href="#2-1-8-Ansible的逻辑关系" class="headerlink" title="2.1.8 Ansible的逻辑关系"></a>2.1.8 Ansible的逻辑关系</h4><ul>
+<li>逻辑或<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">#主机192.168.1.10或者192.168.1.11</span></span></span><br><span class="line">ansible &quot;192.168.1.10:192.168.1.11&quot; -m ping</span><br></pre></td></tr></table></figure></li>
+<li>逻辑与<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">#主机组Zabix和Nginx共同的主机</span></span></span><br><span class="line">ansible &quot;Zabbix:&amp;Nginx&quot; -m ping</span><br></pre></td></tr></table></figure></li>
+<li>逻辑非<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">#不属于主机组Nginx的主机</span></span></span><br><span class="line">ansible &#x27;:!Nginx&#x27; -m ping</span><br></pre></td></tr></table></figure></li>
+<li>正则表达式<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">#192.168.1.0网段的主机</span></span></span><br><span class="line">ansible &#x27;192.168.1.*&#x27; -m ping</span><br></pre></td></tr></table></figure>
+逻辑关系可以多次使用，例如查看主机组A和主机组B共有的，但不属于主机组C的主机可以使用<code>&quot;A:&amp;B:!C&quot;</code></li>
+</ul>
+<h3 id="2-2-Ansible常用模块"><a href="#2-2-Ansible常用模块" class="headerlink" title="2.2 Ansible常用模块"></a>2.2 Ansible常用模块</h3><p>有一些常用的模块比如yum，service在实验中多次出现，但教程里没有说明，请参考官方github <a target="_blank" rel="noopener" href="https://github.com/ansible/ansible-modules-core">https://github.com/ansible/ansible-modules-core</a><br>然后直接搜索模块名，如yum即可<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/04%20%E8%87%AA%E5%8A%A8%E5%8C%96%E7%AE%A1%E7%90%86/file-20250518152246766.png"><br>阅读原生注释吧！<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/04%20%E8%87%AA%E5%8A%A8%E5%8C%96%E7%AE%A1%E7%90%86/file-20250518152326380.png"></p>
+<h4 id="2-2-1-Ansible常用功能模块-Command"><a href="#2-2-1-Ansible常用功能模块-Command" class="headerlink" title="2.2.1 Ansible常用功能模块 - Command"></a>2.2.1 Ansible常用功能模块 - Command</h4><h5 id="2-2-1-1-Command介绍"><a href="#2-2-1-1-Command介绍" class="headerlink" title="2.2.1.1 Command介绍"></a>2.2.1.1 Command介绍</h5><ul>
+<li>Command模块是ansible的默认模块，用于在被控制对象进行远程执行命令</li>
+<li>使用Command模块执行命令时，不可以使用“&lt;”、“&gt;”或者“|”等特殊符号</li>
+<li>该模块的常见选项有：<ul>
+<li>chdir：在执行命令前，进入指定目录</li>
+<li>cmd：要执行的命令</li>
+<li>creates：根据某个文件状态来检查是否执行对应命令，如果存在则不执行对应命令</li>
+<li>removes：和creates相反，也是根据文件是否存在来判断是否执行命令，如果存在，则执行对应命令</li>
+<li>warn：开启告警</li>
+</ul>
+</li>
+</ul>
+<h5 id="2-2-1-2-Command实践"><a href="#2-2-1-2-Command实践" class="headerlink" title="2.2.1.2 Command实践"></a>2.2.1.2 Command实践</h5><p>需求：检查主机192.168.1.4是否存在目录&#x2F;data，如果不存在则创建，并将&#x2F;etc&#x2F;resolv.conf复制到&#x2F;data中，然后检查复制是否成功</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="meta">@Ansible</span> ~]# ansible <span class="number">192.168</span><span class="number">.1</span><span class="number">.4</span> -m command -a <span class="string">&quot;chdir=/ ls&quot;</span></span><br><span class="line"><span class="number">192.168</span><span class="number">.1</span><span class="number">.4</span> | CHANGED | rc=<span class="number">0</span> &gt;&gt;</span><br><span class="line">afs</span><br><span class="line">bin</span><br><span class="line">Boot</span><br><span class="line">……</span><br><span class="line">[root<span class="meta">@Ansible</span> ~]# ansible <span class="number">192.168</span><span class="number">.1</span><span class="number">.4</span> -m command -a <span class="string">&quot;chdir=/ mkdir data&quot;</span></span><br><span class="line">[WARNING]: Consider using the file <span class="keyword">module</span> with state=directory rather than running <span class="string">&#x27;mkdir&#x27;</span>. If you need to use command because file is insufficient you can</span><br><span class="line">add <span class="string">&#x27;warn: false&#x27;</span> to <span class="built_in">this</span> command task or set <span class="string">&#x27;command_warnings=False&#x27;</span> in ansible.cfg to get rid of <span class="built_in">this</span> message.</span><br><span class="line"><span class="number">192.168</span><span class="number">.1</span><span class="number">.4</span> | CHANGED | rc=<span class="number">0</span> &gt;&gt;</span><br><span class="line">[root<span class="meta">@Ansible</span> ~]# ansible <span class="number">192.168</span><span class="number">.1</span><span class="number">.4</span> -m command -a <span class="string">&quot;cp /etc/resolv.conf /data&quot;</span></span><br><span class="line"><span class="number">192.168</span><span class="number">.1</span><span class="number">.4</span> | CHANGED | rc=<span class="number">0</span> &gt;&gt;</span><br><span class="line">[root<span class="meta">@Ansible</span> ~]# ansible <span class="number">192.168</span><span class="number">.1</span><span class="number">.4</span> -m command -a <span class="string">&quot;creates=/data/resolv.conf cat /data/resolv.conf&quot;</span></span><br><span class="line"><span class="number">192.168</span><span class="number">.1</span><span class="number">.4</span> | SUCCESS | rc=<span class="number">0</span> &gt;&gt;</span><br><span class="line">skipped, since /data/resolv.conf exists</span><br><span class="line">[root<span class="meta">@Ansible</span> ~]# ansible <span class="number">192.168</span><span class="number">.1</span><span class="number">.4</span> -m command -a <span class="string">&quot;removes=/data/resolv.conf cat /data/resolv.conf&quot;</span></span><br><span class="line"><span class="number">192.168</span><span class="number">.1</span><span class="number">.4</span> | CHANGED | rc=<span class="number">0</span> &gt;&gt;</span><br><span class="line"># Generated by NetworkManager</span><br><span class="line">nameserver <span class="number">192.168</span><span class="number">.1</span><span class="number">.1</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>胶片中的执行过程是为了体现各个参数的用途，实际工作中不需要如此操作</li>
+<li>在执行过程中，使用了mkdir命令来创建一个目录，系统会有告警，原因是Ansible有专门的模块来创建目录</li>
+</ul>
+<h4 id="2-2-2-Ansible常用功能模块-Shell及相关案例"><a href="#2-2-2-Ansible常用功能模块-Shell及相关案例" class="headerlink" title="2.2.2 Ansible常用功能模块 - Shell及相关案例"></a>2.2.2 Ansible常用功能模块 - Shell及相关案例</h4><p>Shell模块和Command使用方式基本一致，但支持“&lt;”、“&gt;”或者“|”等特殊符号<br>Shell模块无法处理类似<code>cat /etc/passwd | awk ‘&#123;print $1&#125;’ &gt; /dev/null</code>的复杂命令<br>需求：在主机192.168.1.4创建用户test，并将密码设置为“openEuler@123”</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="meta">@Ansible</span> ~]# ansible <span class="number">192.168</span><span class="number">.1</span><span class="number">.4</span> -a <span class="string">&quot;adduser test&quot;</span></span><br><span class="line"><span class="number">192.168</span><span class="number">.1</span><span class="number">.4</span> | CHANGED | rc=<span class="number">0</span> &gt;&gt;</span><br><span class="line">[root<span class="meta">@Ansible</span> ~]# ansible <span class="number">192.168</span><span class="number">.1</span><span class="number">.4</span> -m shell -a <span class="string">&quot;echo openEuler@123 | passwd --stdin test&quot;</span></span><br><span class="line"><span class="number">192.168</span><span class="number">.1</span><span class="number">.4</span> | CHANGED | rc=<span class="number">0</span> &gt;&gt;</span><br><span class="line">Changing password <span class="keyword">for</span> user test.</span><br><span class="line">passwd: all authentication tokens updated successfully.</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="2-2-3-Ansible常用功能模块-Script及相关案例"><a href="#2-2-3-Ansible常用功能模块-Script及相关案例" class="headerlink" title="2.2.3 Ansible常用功能模块 - Script及相关案例"></a>2.2.3 Ansible常用功能模块 - Script及相关案例</h4><p>Script用于将控制器上的脚本发送到被控制主机上执行<br>需求：查找出主机名为Zabbix的虚拟机对应的IP地址</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#####在控制上创建以下内容的shell脚本</span><br><span class="line">[root<span class="meta">@Ansible</span> ~]# cat host-ip.sh</span><br><span class="line">#!/bin/bash</span><br><span class="line"><span class="keyword">if</span> [ $HOSTNAME = <span class="string">&quot;Zabbix&quot;</span> ]; then</span><br><span class="line">hostname -i</span><br><span class="line">fi</span><br><span class="line">[root<span class="meta">@Ansible</span> ~]# ansible all -m script -a <span class="string">&quot;~/host-ip.sh&quot;</span> | grep <span class="string">&quot;stdout&quot;</span></span><br><span class="line"><span class="string">&quot;stdout&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line"><span class="string">&quot;stdout_lines&quot;</span>: []</span><br><span class="line"><span class="string">&quot;stdout&quot;</span>: <span class="string">&quot;192.168.1.4\r\n&quot;</span>,</span><br><span class="line"><span class="string">&quot;stdout_lines&quot;</span>: [</span><br><span class="line"><span class="string">&quot;stdout&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line"><span class="string">&quot;stdout_lines&quot;</span>: []</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-2-4-Ansible常用功能模块-Copy和Fetch"><a href="#2-2-4-Ansible常用功能模块-Copy和Fetch" class="headerlink" title="2.2.4 Ansible常用功能模块 - Copy和Fetch"></a>2.2.4 Ansible常用功能模块 - Copy和Fetch</h4><h5 id="2-2-4-1-Copy和Fetch介绍"><a href="#2-2-4-1-Copy和Fetch介绍" class="headerlink" title="2.2.4.1 Copy和Fetch介绍"></a>2.2.4.1 Copy和Fetch介绍</h5><ul>
+<li>Copy和Fetch用于控制器和被控制主机之间传输数据</li>
+<li><strong>Copy用于将控制器数据复制到被控制主机，Fetch用于将被控制主机文件复制到控制器</strong>，<strong>Copy可用于传输目录，而Fetch仅支持传输文件</strong></li>
+<li>Copy和Fetch常用选项有：<ul>
+<li>src：用于指定源文件，如果目录为空，则不进行复制</li>
+<li>dest：用于指定目的目录</li>
+<li>content：copy模块参数，和“src”不能同时使用。用于将具体内容复制到被控制主机文件中</li>
+<li>owner、group和mode：copy模块参数。用于指定目的文件的所属用户、所属组和权限</li>
+<li>force：copy模块参数，如果在拷贝时，源文件内容和目的文件不一致，将force设为yes则覆盖目的文件，如果设为no则不覆盖。不使用force选项时，目的文件也会被覆盖</li>
+</ul>
+</li>
+<li>Copy模块的dest选项需注意：需使用绝对路径；如果src是目录，dest也必须是目录；如果dest指定的路径不存在，并且路径是以“&#x2F;”结尾或者源是目录时，该路径会被自动创建；如果dest使用的是相对路径，那么其该路径的起点取决于被控制主机；如果src和dest是一个文件，且dest指定的目的路径不存在，该路径中的所有父路径不会被创建，此操作会失败</li>
+<li>Fetch模块的dest选项需注意：ansible会将文件存放在指定目录中，并重新创建一个被控制主机IP地址或主机名开头与src路径拼接成的路径，如src为&#x2F;test，被控制节点IP为192.168.1.4，目的路径为&#x2F;tmp，最终文件会被保存在控制器的&#x2F;tmp&#x2F;192.168.1.4&#x2F;test中</li>
+</ul>
+<h5 id="2-2-4-2-Copy和Fetch实践"><a href="#2-2-4-2-Copy和Fetch实践" class="headerlink" title="2.2.4.2 Copy和Fetch实践"></a>2.2.4.2 Copy和Fetch实践</h5><p>需求一：将控制器中的文件 root&#x2F;data&#x2F;test复制到192.168.1.4&#x2F;tmp中，在复制的过程中将其所属指定为“root:root”，将权限设置为755，然后为test输入“hello，openEuler1”</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="meta">@Ansible</span> ~]# mkdir data</span><br><span class="line">[root<span class="meta">@Ansible</span> ~]# touch data/test</span><br><span class="line">[root<span class="meta">@Ansible</span> ~]# ansible <span class="number">192.168</span><span class="number">.1</span><span class="number">.4</span> -m copy -a <span class="string">&quot;src=/root/data/ dest=/tmp/data/ owner=root group=root mode=755&quot;</span></span><br><span class="line"><span class="number">192.168</span><span class="number">.1</span><span class="number">.4</span> | CHANGED =&gt; &#123;</span><br><span class="line">…….</span><br><span class="line">[root<span class="meta">@Ansible</span> ~]# ansible <span class="number">192.168</span><span class="number">.1</span><span class="number">.4</span> -m copy -a <span class="string">&quot;content=&#x27;hello,openEuler1&#x27; dest=/tmp/data/test&quot;</span></span><br><span class="line"><span class="number">192.168</span><span class="number">.1</span><span class="number">.4</span> | CHANGED =&gt; &#123;</span><br><span class="line">……</span><br><span class="line">[root<span class="meta">@Ansible</span> ~]# ansible <span class="number">192.168</span><span class="number">.1</span><span class="number">.4</span> -a <span class="string">&quot;cat /tmp/data/test&quot;</span></span><br><span class="line"><span class="number">192.168</span><span class="number">.1</span><span class="number">.4</span> | CHANGED | rc=<span class="number">0</span> &gt;&gt;</span><br><span class="line">hello,openEuler1</span><br></pre></td></tr></table></figure>
+<p>需求二：将被控制主机192.168.1.4上的&#x2F;tmp&#x2F;data&#x2F;test拷贝到控制器中&#x2F;tmp目录下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="meta">@Ansible</span> ~]# ansible <span class="number">192.168</span><span class="number">.1</span><span class="number">.4</span> -m fetch -a <span class="string">&quot;src=/tmp/data/test dest=/tmp“</span></span><br><span class="line"><span class="string">[root@Ansible ~]# ls /tmp/192.168.1.4/tmp/data/</span></span><br><span class="line"><span class="string">test</span></span><br><span class="line"><span class="string">[root@Ansible ~]# cat /tmp/192.168.1.4/tmp/data/test</span></span><br><span class="line"><span class="string">hello,openEuler1</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-2-5-Ansible常用功能模块-File"><a href="#2-2-5-Ansible常用功能模块-File" class="headerlink" title="2.2.5 Ansible常用功能模块 - File"></a>2.2.5 Ansible常用功能模块 - File</h4><h5 id="2-2-5-1-File介绍"><a href="#2-2-5-1-File介绍" class="headerlink" title="2.2.5.1 File介绍"></a>2.2.5.1 File介绍</h5><ul>
+<li>File模块用于文件及文件属性管理</li>
+<li>File模块常用选项有：<ul>
+<li>force：在两种情况下强制创建软链接，一种是源文件不存在，但随后会创建；另外一种是目标软链接已存在，会强制取消，创建新的</li>
+<li>owner、group和mode：设置所属用户、所属组和权限</li>
+<li><strong>path：必选，指定被管理文件的路径</strong></li>
+<li>recurse：递归设置目录属性</li>
+<li>src、dest：当state&#x3D;link时，用来指定被链接的源文件和目的文件路径</li>
+<li>state：重要选项，有多种配置，具体为：<ul>
+<li>touch：创建文件，如果文件或目录已存在，则更新其最后修改时间</li>
+<li>directory：创建目录，同时具备mkdir -p的递归创建功能</li>
+<li>link和hard：创建软链接和硬链接</li>
+<li>absent：删除指定目录，或解除链接</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="2-2-5-2-FIle实践"><a href="#2-2-5-2-FIle实践" class="headerlink" title="2.2.5.2  FIle实践"></a>2.2.5.2  FIle实践</h5><ul>
+<li>需求：在被控制主机192.168.1.4中创建目录&#x2F;tmp&#x2F;file&#x2F;data，归属用户和组指定为test:test，权限设置为755，然后在该目录下创建文件test，并为test创建软链接指向&#x2F;tmp&#x2F;link，最后删除目录&#x2F;tmp&#x2F;file<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="meta">@Ansible</span> ~]# ansible <span class="number">192.168</span><span class="number">.1</span><span class="number">.4</span> -m file -a <span class="string">&quot;path=/tmp/file/data owner=test group=test mode=755 state=directory&quot;</span></span><br><span class="line"><span class="number">192.168</span><span class="number">.1</span><span class="number">.4</span> | CHANGED =&gt; &#123;</span><br><span class="line">….</span><br><span class="line">[root<span class="meta">@Ansible</span> ~]# ansible <span class="number">192.168</span><span class="number">.1</span><span class="number">.4</span> -m file -a <span class="string">&quot;path=/tmp/file/data/test state=touch&quot;</span></span><br><span class="line"><span class="number">192.168</span><span class="number">.1</span><span class="number">.4</span> | CHANGED =&gt; &#123;</span><br><span class="line">…..</span><br><span class="line">[root<span class="meta">@Ansible</span> ~]# ansible <span class="number">192.168</span><span class="number">.1</span><span class="number">.4</span> -m file -a <span class="string">&quot;src=/tmp/file/data/test dest=/tmp/link state=link&quot;</span></span><br><span class="line"><span class="number">192.168</span><span class="number">.1</span><span class="number">.4</span> | CHANGED =&gt; &#123;</span><br><span class="line">……</span><br><span class="line">[root<span class="meta">@Ansible</span> ~]# ansible <span class="number">192.168</span><span class="number">.1</span><span class="number">.4</span> -m file -a <span class="string">&quot;path=/tmp/file state=absent&quot;</span></span><br><span class="line"><span class="number">192.168</span><span class="number">.1</span><span class="number">.4</span> | CHANGED =&gt; &#123;</span><br><span class="line"><span class="string">&quot;ansible_facts&quot;</span>: &#123;</span><br><span class="line"><span class="string">&quot;discovered_interpreter_python&quot;</span>: <span class="string">&quot;/usr/bin/python3&quot;</span></span><br><span class="line">&#125;,</span><br><span class="line"><span class="string">&quot;changed&quot;</span>: <span class="literal">true</span>,</span><br><span class="line"><span class="string">&quot;path&quot;</span>: <span class="string">&quot;/tmp/file&quot;</span>,</span><br><span class="line"><span class="string">&quot;state&quot;</span>: <span class="string">&quot;absent&quot;</span></span><br><span class="line">&#125;</span><br><span class="line">[root<span class="meta">@Ansible</span> ~]# ansible <span class="number">192.168</span><span class="number">.1</span><span class="number">.4</span> -m shell -a <span class="string">&quot;ls /tmp | grep file&quot;</span></span><br><span class="line"><span class="number">192.168</span><span class="number">.1</span><span class="number">.4</span> | FAILED | rc=<span class="number">1</span> &gt;&gt;</span><br><span class="line">non-zero <span class="keyword">return</span> code</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="2-2-6-Ansible常用功能模块-Archive和Unarchive"><a href="#2-2-6-Ansible常用功能模块-Archive和Unarchive" class="headerlink" title="2.2.6 Ansible常用功能模块 - Archive和Unarchive"></a>2.2.6 Ansible常用功能模块 - Archive和Unarchive</h4><h5 id="2-2-6-1-Archive和Unarchive介绍"><a href="#2-2-6-1-Archive和Unarchive介绍" class="headerlink" title="2.2.6.1 Archive和Unarchive介绍"></a>2.2.6.1 Archive和Unarchive介绍</h5><ul>
+<li>Archive模块用于文件的打包压缩，Unarchive模块用于压缩包的解压</li>
+<li>Archive模块常用选项有：<ul>
+<li>owner、group和mode：设置所属用户、所属组和权限</li>
+<li>format：设置打包格式，支持bz2、gz、tar、xz、zip，默认为gz</li>
+<li>path：指定需打包文件的绝对路径，可指定一个或多个文件</li>
+<li>exclude_path：排除不需要打包的文件</li>
+<li>remove：打包完成后，删除源文件</li>
+</ul>
+</li>
+<li>Unarchive模块常用选项：<ul>
+<li>copy：默认参数为copy&#x3D;yes，表示解压的压缩包来自于控制器，如果设置为copy&#x3D;no时，表示被解压的文件在被控制节点上</li>
+<li>src、dest：设置压缩包的源路径和解压后存放的路径，src指定的可以是控制器上的路径，在copy&#x3D;no时，也可以是被控制主机上的路径</li>
+<li>mode：解压后文件的权限</li>
+<li>remote_src：和copy不能使用，设置为yes时表示压缩包来自被控制节点，设置为no时表示压缩包来自控制器</li>
+</ul>
+</li>
+</ul>
+<h5 id="2-2-6-2-Archive和Unarchive实践"><a href="#2-2-6-2-Archive和Unarchive实践" class="headerlink" title="2.2.6.2 Archive和Unarchive实践"></a>2.2.6.2 Archive和Unarchive实践</h5><ul>
+<li>需求：在主机192.168.1.4中&#x2F;tmp中创建文件test、test1，将它们打包为test.zip，同时删除test和test1，再将其解压至&#x2F;tmp&#x2F;file目录中<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="meta">@Ansible</span> ~]# ansible <span class="number">192.168</span><span class="number">.1</span><span class="number">.4</span> -m file -a <span class="string">&quot;path=/tmp/test state=touch“</span></span><br><span class="line"><span class="string">….</span></span><br><span class="line"><span class="string">[root@Ansible ~]# ansible 192.168.1.4 -m file -a &quot;</span>path=/tmp/test1 state=touch“</span><br><span class="line">…..</span><br><span class="line">[root<span class="meta">@Ansible</span> ~]# ansible <span class="number">192.168</span><span class="number">.1</span><span class="number">.4</span> -m archive -a <span class="string">&quot;path=/tmp/test,/tmp/test1 format=zip remove=yes dest=/tmp/test.zip&quot;</span></span><br><span class="line"><span class="number">192.168</span><span class="number">.1</span><span class="number">.4</span> | CHANGED =&gt; &#123;</span><br><span class="line"><span class="string">&quot;ansible_facts&quot;</span>: &#123;</span><br><span class="line"><span class="string">&quot;discovered_interpreter_python&quot;</span>: <span class="string">&quot;/usr/bin/python3&quot;</span></span><br><span class="line">&#125;,</span><br><span class="line"><span class="string">&quot;archived&quot;</span>: [</span><br><span class="line"><span class="string">&quot;/tmp/test&quot;</span>,</span><br><span class="line"><span class="string">&quot;/tmp/test1&quot;</span></span><br><span class="line">],</span><br><span class="line">……</span><br><span class="line">[root<span class="meta">@Ansible</span> ~]# ansible <span class="number">192.168</span><span class="number">.1</span><span class="number">.4</span> -m unarchive -a <span class="string">&quot;copy=no src=/tmp/test.zip dest=/tmp/file/&quot;</span></span><br><span class="line"><span class="number">192.168</span><span class="number">.1</span><span class="number">.4</span> | CHANGED =&gt; &#123;</span><br><span class="line"><span class="string">&quot;ansible_facts&quot;</span>: &#123;</span><br><span class="line"><span class="string">&quot;discovered_interpreter_python&quot;</span>: <span class="string">&quot;/usr/bin/python3&quot;</span></span><br><span class="line">&#125;,</span><br><span class="line"><span class="string">&quot;changed&quot;</span>: <span class="literal">true</span>,</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="2-2-7-Ansible常用功能模块-Setup及使用案例"><a href="#2-2-7-Ansible常用功能模块-Setup及使用案例" class="headerlink" title="2.2.7 Ansible常用功能模块 - Setup及使用案例"></a>2.2.7 Ansible常用功能模块 - Setup及使用案例</h4><ul>
+<li>Setup用于收集被控制节点的信息</li>
+<li>需求：收集主机192.168.1.4的信息<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="meta">@Ansible</span> ~]# ansible <span class="number">192.168</span><span class="number">.1</span><span class="number">.4</span> -m setup</span><br><span class="line"><span class="number">192.168</span><span class="number">.1</span><span class="number">.4</span> | SUCCESS =&gt; &#123;</span><br><span class="line"><span class="string">&quot;ansible_facts&quot;</span>: &#123;</span><br><span class="line"><span class="string">&quot;ansible_all_ipv4_addresses&quot;</span>: [</span><br><span class="line"><span class="string">&quot;192.168.1.4&quot;</span></span><br><span class="line">],</span><br><span class="line"><span class="string">&quot;ansible_all_ipv6_addresses&quot;</span>: [],</span><br><span class="line"><span class="string">&quot;ansible_apparmor&quot;</span>: &#123;</span><br><span class="line"><span class="string">&quot;status&quot;</span>: <span class="string">&quot;disabled&quot;</span></span><br><span class="line">&#125;,</span><br><span class="line"><span class="string">&quot;ansible_architecture&quot;</span>: <span class="string">&quot;x86_64&quot;</span>,</span><br><span class="line"><span class="string">&quot;ansible_bios_date&quot;</span>: <span class="string">&quot;12/12/2018&quot;</span>,</span><br><span class="line"><span class="string">&quot;ansible_bios_version&quot;</span>: <span class="string">&quot;6.00&quot;</span>,</span><br><span class="line"><span class="string">&quot;ansible_cmdline&quot;</span>: &#123;</span><br><span class="line"><span class="string">&quot;BOOT_IMAGE&quot;</span>: <span class="string">&quot;/vmlinuz-5.10.0-60.18</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="2-2-8-Ansible常用功能模块-Lineinfile和Replace"><a href="#2-2-8-Ansible常用功能模块-Lineinfile和Replace" class="headerlink" title="2.2.8 Ansible常用功能模块 - Lineinfile和Replace"></a>2.2.8 Ansible常用功能模块 - Lineinfile和Replace</h4><ul>
+<li>Lineinfile和Replace用于修改文件内容，功能和sed类似</li>
+<li>Lineinfile常用选项有：<ul>
+<li>path：指定被修改文件的绝对路径</li>
+<li>line：替换或插入的内容</li>
+<li>regexp：使用正则表达式匹配内容</li>
+<li>insertbefore和insertafter：在匹配行前面和后面插入</li>
+</ul>
+</li>
+<li>Replace常用选项有：<ul>
+<li>path：指定被修改文件的绝对路径</li>
+<li>regexp：使用正则表达式匹配内容</li>
+<li>replace：替换正则表达式匹配到的内容</li>
+<li>before和after：修改正则表达式匹配到的内容之前或之后的内容</li>
+<li>owner、group和mode：修改文件所属用户、所属组和权限</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-2-9-Ansible常用功能模块-User和Group"><a href="#2-2-9-Ansible常用功能模块-User和Group" class="headerlink" title="2.2.9 Ansible常用功能模块 - User和Group"></a>2.2.9 Ansible常用功能模块 - User和Group</h4><ul>
+<li>User模块用于用户管理，其常用选项有：<ul>
+<li>name：指定用户名</li>
+<li>group和groups：group用于设置用户的主组，group用于将用户添加至其他组</li>
+<li>password：用于设置用户密码</li>
+<li>shell：设置用户shell</li>
+<li>home：设置用户家目录</li>
+<li>comment：设置用户描述信息</li>
+<li>uid：设置用户ID</li>
+</ul>
+</li>
+<li>Group模块用于组管理，其常用选项有：<ul>
+<li>gid：用户设置组ID</li>
+<li>name：指定组名称</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-2-10-Ansible常用功能模块-Hostname、Cron、yum和Service"><a href="#2-2-10-Ansible常用功能模块-Hostname、Cron、yum和Service" class="headerlink" title="2.2.10 Ansible常用功能模块 - Hostname、Cron、yum和Service"></a>2.2.10 Ansible常用功能模块 - Hostname、Cron、yum和Service</h4><ul>
+<li>Hostname模块用于修改被控制主机的主机名，使用选项“name”可指定需设置的主机名</li>
+<li>Cron模块用于设置计划任务，其常用选项有：<ul>
+<li>minute、hour、day、month和weekday：分别对应crontab文件中的分钟、小时、日期、月份和星期</li>
+<li>job：指定执行的任务，可以是shell命令，也可以是脚本</li>
+<li>name：用于设置任务名称</li>
+<li>state：设置任务的状态，absent可用于删除任务</li>
+<li>disable：启用或禁用任务，yes表示禁用，no表示启用</li>
+</ul>
+</li>
+<li>Yum模块用于管理软件包，其常用选项有：<ul>
+<li>name：需要安装的软件包名称</li>
+<li>state：设置为absent表示卸载软件，设置为present表示安装软件，设置为lates表示安装最新版本</li>
+</ul>
+</li>
+<li>Service模块用于服务管理，其常用选项有：<ul>
+<li>name：指定服务名称</li>
+<li>enabled：将服务设置为开机启动</li>
+<li>state：设置服务状态，started表示开启，stopped表示关闭，reload表示重启</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-3-Playbook简介"><a href="#2-3-Playbook简介" class="headerlink" title="2.3 Playbook简介"></a>2.3 Playbook简介</h3><ul>
+<li>Playbook是由多个”play“组成，每一个”play“都对应一个任务，任务通过调用ansible的功能模块，按照事先设置好的机制执行预定义的动作</li>
+<li>Playbook由YAML编写<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/file-20250511160428698.png"></li>
+</ul>
+<h4 id="2-3-1-YAML的特点"><a href="#2-3-1-YAML的特点" class="headerlink" title="2.3.1 YAML的特点"></a>2.3.1 YAML的特点</h4><ul>
+<li>YAML具有很高的可读性</li>
+<li>YAML和脚本语言之间有较好的交互性</li>
+<li>YAML具有较强的易用行</li>
+<li>YAML可以基于流来处理</li>
+<li>YAML具有极强的扩展性</li>
+<li>YAML对语法有较严格的要求</li>
+</ul>
+<h4 id="2-3-2-YAML文件的基本语法"><a href="#2-3-2-YAML文件的基本语法" class="headerlink" title="2.3.2 YAML文件的基本语法"></a>2.3.2 YAML文件的基本语法</h4><ul>
+<li>使用缩进表示层级关系，左侧对齐的数据表示同一层级</li>
+<li>缩进<strong>必须使用空格</strong>，不可使用tab</li>
+<li>以”-“开头，代表是一个列表，需执行顺序</li>
+<li>不以‘”-“开头，代表是一个字典，无执行顺序</li>
+<li>YAML对大小敏感</li>
+</ul>
+<h4 id="2-3-3-Playbook的核心元素"><a href="#2-3-3-Playbook的核心元素" class="headerlink" title="2.3.3 Playbook的核心元素"></a>2.3.3 Playbook的核心元素</h4><ul>
+<li>Hosts：用于指定被控制主机的列表</li>
+<li>Tasks：用于指定被执行的任务</li>
+<li>Variables：在playbook中调用的变量，可以是内置变量，也可以是自定义变量</li>
+<li>Templates：模板，内部嵌套</li>
+<li>Handlers和Notify：一般配合使用，用于为任务配置触发条件</li>
+<li>Tags：标签，用于选择性的运行任务的部分代码</li>
+</ul>
+<h4 id="2-3-4-Playbook相关命令"><a href="#2-3-4-Playbook相关命令" class="headerlink" title="2.3.4 Playbook相关命令"></a>2.3.4 Playbook相关命令</h4><ul>
+<li>命令”ansible-playbook“用于运行playbook，常用选项有：<ul>
+<li>–list-hosts：列出相关主机</li>
+<li>–list-tags：列出所有标签</li>
+<li>–list-tasks：列出所有任务</li>
+<li>–syntax-check：不执行playbook</li>
+<li>-C，–check：不执行playbook，只对可能发生的变更进行检测，常用于检测playbook能否正常运行</li>
+<li>–start-at-task START_AT_TASK：从指定的任务开始</li>
+<li>-t：指定执行特定tags对应任务</li>
+<li>–limit：排除不需要运行playbook的主机</li>
+<li>-v，-vv，-vvv：查看详情</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-3-5-Playbook的基本用法-Hosts和Tasks"><a href="#2-3-5-Playbook的基本用法-Hosts和Tasks" class="headerlink" title="2.3.5 Playbook的基本用法 -  Hosts和Tasks"></a>2.3.5 Playbook的基本用法 -  Hosts和Tasks</h4><ul>
+<li>需求：在Nginx主机组中安装zabbix-agent2，并将zabbix-server地址设置为192.168.1.4，同时保证开机自启<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="attr">hosts:</span> <span class="string">Nginx</span></span><br><span class="line"><span class="attr">remote_user:</span> <span class="string">root</span></span><br><span class="line"><span class="attr">gather_facts:</span> <span class="literal">no</span></span><br><span class="line"><span class="attr">tasks:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">下载并安装Zabbix</span> <span class="string">yum源</span></span><br><span class="line"><span class="attr">shell:</span> <span class="string">rpm</span> <span class="string">-Uvh</span> <span class="string">https://repo.zabbix.com/zabbix/6.2/rhel/8/x86_64/zabbix-release-6.2-3.el8.noarch.rpm</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">安装zabbix-agent</span></span><br><span class="line"><span class="attr">yum:</span></span><br><span class="line"><span class="string">name=zabbix-agent2</span></span><br><span class="line"><span class="string">state=present</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">修改zabbix-agent2配置文件，将server地址设置为192.168.1.4</span></span><br><span class="line"><span class="attr">replace:</span></span><br><span class="line"><span class="attr">path:</span> <span class="string">/etc/zabbix/zabbix_agent2.conf</span></span><br><span class="line"><span class="attr">regexp:</span> <span class="string">&#x27;^Server=127.0.0.1$&#x27;</span></span><br><span class="line"><span class="attr">replace:</span> <span class="string">&#x27;Server=192.168.1.4&#x27;</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">设置zabbix-agent2开机启动</span></span><br><span class="line"><span class="attr">service:</span></span><br><span class="line"><span class="attr">name:</span> <span class="string">zabbix-agent2</span></span><br><span class="line"><span class="attr">state:</span> <span class="string">started</span></span><br><span class="line"><span class="attr">enabled:</span> <span class="literal">yes</span></span><br></pre></td></tr></table></figure></li>
+<li>Yaml文件一般命名为“.yaml”或者“.yml”，开头第一行一般是“—”，hosts和tasks之间建议空一行，使playbook可读性更强</li>
+<li>Hosts可以使用逻辑关系表示，例如“test1:test2”、“test1::&amp;test2”等</li>
+<li>Remote_user可以在hosts中使用，也可以在tasks中使用，表示执行操作的用户</li>
+<li>Gather_facts表示是否收集主机信息，和setup模块功能一致，如果不需要根据主机信息进行判断，建议设置为no，可提升playbook效率</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/file-20250512151012155.png"><br>来看下正确的格式</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="attr">hosts:</span> <span class="string">Zabbix</span></span><br><span class="line">  <span class="attr">remote_user:</span> <span class="string">root</span></span><br><span class="line">  <span class="attr">gather_facts:</span> <span class="literal">no</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">tasks:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Set</span> <span class="string">hostname</span> <span class="string">for</span> <span class="number">192.168</span><span class="number">.1</span><span class="number">.4</span></span><br><span class="line">      <span class="attr">hostname:</span></span><br><span class="line">        <span class="attr">name:</span> <span class="string">&quot;<span class="template-variable">&#123;&#123; new_hostname &#125;&#125;</span>&quot;</span>  <span class="comment"># 替换为实际变量名，如 inventory_hostname_short</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="attr">hosts:</span> <span class="string">Nginx</span></span><br><span class="line">  <span class="attr">remote_user:</span> <span class="string">root</span></span><br><span class="line">  <span class="attr">gather_facts:</span> <span class="literal">no</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">tasks:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Set</span> <span class="string">hostname</span> <span class="string">for</span> <span class="number">192.168</span><span class="number">.1</span><span class="number">.14</span> <span class="string">and</span> <span class="number">192.168</span><span class="number">.1</span><span class="number">.15</span></span><br><span class="line">      <span class="attr">hostname:</span></span><br><span class="line">        <span class="attr">name:</span> <span class="string">&quot;<span class="template-variable">&#123;&#123; ansible_hostname &#125;&#125;</span>-<span class="template-variable">&#123;&#123; inventory_hostname_short &#125;&#125;</span>&quot;</span>  <span class="comment"># 示例：使用内置变量组合</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-3-6-Playbook的基本用法-Handlers和Notify"><a href="#2-3-6-Playbook的基本用法-Handlers和Notify" class="headerlink" title="2.3.6 Playbook的基本用法 - Handlers和Notify"></a>2.3.6 Playbook的基本用法 - Handlers和Notify</h4><ul>
+<li><p>需求：在Nginx主机组中安装zabbix-agent2，每次修改zabbix-server地址后，自动重启zabbix-agent2</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="attr">hosts:</span> <span class="string">Nginx</span></span><br><span class="line"><span class="attr">remote_user:</span> <span class="string">root</span></span><br><span class="line"><span class="attr">gather_facts:</span> <span class="literal">no</span></span><br><span class="line"></span><br><span class="line"><span class="attr">tasks:</span></span><br><span class="line"><span class="string">…….</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">修改zabbix-agent2配置文件，将server地址设置为192.168.1.4</span></span><br><span class="line"><span class="attr">replace:</span></span><br><span class="line"><span class="attr">path:</span> <span class="string">/etc/zabbix/zabbix_agent2.conf</span></span><br><span class="line"><span class="attr">regexp:</span> <span class="string">&#x27;^Server=127.0.0.1$&#x27;</span></span><br><span class="line"><span class="attr">replace:</span> <span class="string">&#x27;Server=192.168.1.4&#x27;</span></span><br><span class="line"><span class="attr">notity:</span> <span class="string">restart</span> <span class="string">agent2</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">设置zabbix-agent2开机启动</span></span><br><span class="line"><span class="attr">service:</span></span><br><span class="line"><span class="attr">name:</span> <span class="string">zabbix-agent2</span></span><br><span class="line"><span class="attr">state:</span> <span class="string">started</span></span><br><span class="line"><span class="attr">enabled:</span> <span class="literal">yes</span></span><br><span class="line"></span><br><span class="line"><span class="attr">handlers:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">restart</span> <span class="string">agent2</span></span><br><span class="line"><span class="attr">service:</span></span><br><span class="line"><span class="attr">name:</span> <span class="string">zabbix-agent2</span></span><br><span class="line"><span class="attr">state:</span> <span class="string">restarted</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在一个任务中可以设置多个notify，以触发多个handler</p>
+</li>
+</ul>
+<h4 id="2-3-7-Playbook的基本用法-Tags"><a href="#2-3-7-Playbook的基本用法-Tags" class="headerlink" title="2.3.7 Playbook的基本用法 - Tags"></a>2.3.7 Playbook的基本用法 - Tags</h4><p>需求：在Nginx主机组中安装zabbix-agent2 ，为修改zabbix-server地址的动作定义标签，后续zabbix-server地址发生变化，仅需执行该操作即可</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="attr">hosts:</span> <span class="string">Nginx</span></span><br><span class="line"><span class="attr">remote_user:</span> <span class="string">root</span></span><br><span class="line"><span class="attr">gather_facts:</span> <span class="literal">no</span></span><br><span class="line"></span><br><span class="line"><span class="attr">tasks:</span></span><br><span class="line"><span class="string">……</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">修改zabbix-agent2配置文件，将server地址设置为192.168.1.4</span></span><br><span class="line"><span class="attr">tags:</span> <span class="string">modify-server-IP</span></span><br><span class="line"><span class="attr">replace:</span></span><br><span class="line"><span class="attr">path:</span> <span class="string">/etc/zabbix/zabbix_agent2.conf</span></span><br><span class="line"><span class="attr">regexp:</span> <span class="string">&#x27;^Server=127.0.0.1$&#x27;</span></span><br><span class="line"><span class="attr">replace:</span> <span class="string">&#x27;Server=192.168.1.4&#x27;</span></span><br><span class="line"><span class="attr">notity:</span> <span class="string">restart</span> <span class="string">agent2</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">设置zabbix-agent2开机启动</span></span><br><span class="line"><span class="attr">service:</span></span><br><span class="line"><span class="attr">name:</span> <span class="string">zabbix-agent2</span></span><br><span class="line"><span class="attr">state:</span> <span class="string">started</span></span><br><span class="line"><span class="attr">enabled:</span> <span class="literal">yes</span></span><br></pre></td></tr></table></figure>
+<p>如果仅需执行修改地址的操作，可使用命令<code>ansible-playbook -t modify-server-IP zabbix-agent2.yml</code></p>
+<h4 id="2-3-8-Playbook的基本用法-Variables"><a href="#2-3-8-Playbook的基本用法-Variables" class="headerlink" title="2.3.8 Playbook的基本用法 - Variables"></a>2.3.8 Playbook的基本用法 - Variables</h4><ul>
+<li><strong>需求：在主机组Nginx中创建用户和组Nginx</strong><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="comment">#####现实方式一：playbook定义变量，执行命令时设置值</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">hosts:</span> <span class="string">Nginx</span></span><br><span class="line"><span class="attr">remote_user:</span> <span class="string">root</span></span><br><span class="line"><span class="attr">gather_facts:</span> <span class="literal">no</span></span><br><span class="line"><span class="attr">tasks:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">创建组</span></span><br><span class="line"><span class="attr">group:</span></span><br><span class="line"><span class="string">name=&#123;&#123;</span> <span class="string">group_name</span> <span class="string">&#125;&#125;</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">创建用户</span></span><br><span class="line"><span class="attr">user:</span></span><br><span class="line"><span class="string">name=&#123;&#123;</span> <span class="string">user_name</span> <span class="string">&#125;&#125;</span></span><br><span class="line"><span class="string">然后执行命令：</span></span><br><span class="line"><span class="string">ansible-playbook</span> <span class="string">-e</span> <span class="string">group_name=nginx</span> <span class="string">-e</span> <span class="string">user_name=nginx</span> <span class="string">var.yaml</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">###实现方式二：playbook定义</span></span><br><span class="line"><span class="string">变量并赋值</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">hosts:</span> <span class="string">Nginx</span></span><br><span class="line"><span class="attr">remote_user:</span> <span class="string">root</span></span><br><span class="line"><span class="attr">gather_facts:</span> <span class="literal">no</span></span><br><span class="line"><span class="attr">vars:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">group_name:</span> <span class="string">nginx</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">user_name:</span> <span class="string">nginx</span></span><br><span class="line"><span class="attr">tasks:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">创建组</span></span><br><span class="line"><span class="attr">group:</span></span><br><span class="line"><span class="string">name=&#123;&#123;</span> <span class="string">group_name</span> <span class="string">&#125;&#125;</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">创建用户</span></span><br><span class="line"><span class="attr">user:</span></span><br><span class="line"><span class="string">name=&#123;&#123;</span> <span class="string">user_name</span> <span class="string">&#125;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">###实现方式三：单独创建变量文件，然后在</span></span><br><span class="line"><span class="string">playbook中调用</span></span><br><span class="line"><span class="comment">###变量文件vars.yml内容如下：</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">group_name:</span> <span class="string">nginx</span></span><br><span class="line"><span class="attr">user_name:</span> <span class="string">Nginx</span></span><br><span class="line"><span class="comment">###playbook内容如下：</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">hosts:</span> <span class="string">Nginx</span></span><br><span class="line"><span class="attr">remote_user:</span> <span class="string">root</span></span><br><span class="line"><span class="attr">gather_facts:</span> <span class="literal">no</span></span><br><span class="line"><span class="attr">vars_files:</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">vars.yml</span></span><br><span class="line"><span class="attr">tasks:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">创建组</span></span><br><span class="line"><span class="attr">group:</span></span><br><span class="line"><span class="string">name=&#123;&#123;</span> <span class="string">group_name</span> <span class="string">&#125;&#125;</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">创建用户</span></span><br><span class="line"><span class="attr">user:</span></span><br><span class="line"><span class="string">name=&#123;&#123;</span> <span class="string">user_name</span> <span class="string">&#125;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>Variables是ansible中的变量，使用来自定义变量，或者通过setup中定义好的定了，然后在命令中或者playbook中或者特定的文件中指定变量的值</p>
+<ul>
+<li><strong>需求：将Nginx主机组中主机的主机名统一修改为格式为Nginx-num</strong><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">###将主机组配置文件修改为以下内容：</span></span><br><span class="line">[<span class="string">Nginx</span>]</span><br><span class="line"><span class="number">192.168</span><span class="number">.1</span><span class="number">.14</span> <span class="string">host=01</span></span><br><span class="line"><span class="number">192.168</span><span class="number">.1</span><span class="number">.15</span> <span class="string">host=02</span></span><br><span class="line">[<span class="string">Nginx:vars</span>]</span><br><span class="line"><span class="string">group=Nginx</span></span><br><span class="line"><span class="comment">###使用hostname模块进行主机名统一修改</span></span><br><span class="line"><span class="string">ansible</span> <span class="string">Nginx</span> <span class="string">-m</span> <span class="string">hostname</span> <span class="string">-a</span> <span class="string">&quot;name=<span class="template-variable">&#123;&#123; group &#125;&#125;</span>-<span class="template-variable">&#123;&#123; host &#125;&#125;</span>&quot;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="2-3-9-Playbook的基本用法-Templates"><a href="#2-3-9-Playbook的基本用法-Templates" class="headerlink" title="2.3.9 Playbook的基本用法 - Templates"></a>2.3.9 Playbook的基本用法 - Templates</h4><ul>
+<li>Templates可以参考ansible的模块文件，动态的生成配置文件，供playbook调用。Templates文件需放在固定的目录中，且以“.j2”结尾</li>
+<li>需求：在Nginx主机组的主机上安装zabbix-agent2，并将配置文件统一使用zabbix_agent2.conf.j2<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="attr">hosts:</span> <span class="string">Nginx</span></span><br><span class="line"><span class="attr">remote_user:</span> <span class="string">root</span></span><br><span class="line"><span class="attr">gather_facts:</span> <span class="literal">no</span></span><br><span class="line"><span class="attr">tasks:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">下载并安装Zabbix</span> <span class="string">yum源</span></span><br><span class="line"><span class="string">……</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">修改zabbix-agent2配置文件，使用同一模板</span></span><br><span class="line"><span class="attr">template:</span> <span class="string">src=/root/template/zabbix_agent2.conf.j2</span> <span class="string">dest=/etc/zabbix/zabbix_agent2.conf</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">设置zabbix-agent2开机启动</span></span><br><span class="line"><span class="attr">service:</span></span><br><span class="line"><span class="attr">name:</span> <span class="string">zabbix-agent2</span></span><br><span class="line"><span class="attr">state:</span> <span class="string">started</span></span><br><span class="line"><span class="attr">enabled:</span> <span class="literal">yes</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="2-3-10-Playbook的基本用法-Role"><a href="#2-3-10-Playbook的基本用法-Role" class="headerlink" title="2.3.10 Playbook的基本用法 - Role"></a>2.3.10 Playbook的基本用法 - Role</h4><ul>
+<li><p>Role用 于层 次性 、结 构性 较强 的playbook， 可以 根据 已定 义好 的、 层次 性较 高的 目录 ，自 动装 载变 量文 件、 任务及handler等，批量的完成较复杂的运维任务</p>
+</li>
+<li><p>Role的目录常见目录结构如下：<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/file-20250511163659429.png"></p>
+</li>
+<li><p>需求：集群部署WordPress，数据库基于MySQL，http服务器使用apache实现</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">WordPress</span></span><br><span class="line">  <span class="attr">remote_user:</span> <span class="string">root</span></span><br><span class="line">  <span class="attr">hosts:</span> <span class="string">all</span></span><br><span class="line">  <span class="attr">roles:</span></span><br><span class="line">	<span class="bullet">-</span> <span class="string">apache</span></span><br><span class="line">	<span class="bullet">-</span> <span class="string">mysql</span></span><br><span class="line">	<span class="bullet">-</span> <span class="string">php</span></span><br><span class="line">	<span class="bullet">-</span> <span class="string">wordpress</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="0x03-SaltStack"><a href="#0x03-SaltStack" class="headerlink" title="0x03 SaltStack"></a>0x03 SaltStack</h2><ul>
+<li>SaltStack以Salt项目为核心，主要包含两大功能模块：<ul>
+<li>配置管理系统</li>
+<li>分布式远程命令执行系统</li>
+</ul>
+</li>
+<li>SaltStack具备六大特性：<ul>
+<li>易用性</li>
+<li>并行执行</li>
+<li>成熟稳定</li>
+<li>易集成</li>
+<li>高性能</li>
+<li>开源</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-1-SaltStack逻辑架构"><a href="#3-1-SaltStack逻辑架构" class="headerlink" title="3.1 SaltStack逻辑架构"></a>3.1 SaltStack逻辑架构</h3><ul>
+<li>Salt master和salt minion<ul>
+<li>SaltStack采用的是C&#x2F;S架构，服务器是运行了salt-master服务的salt master，客户端是运行了salt-minion服务的salt minion。Master向minion发送命令，minion向特定的master注册</li>
+<li>SaltStack还采用了发布&#x2F;订阅的模式，master是任务的发布者，minion则通过订阅的方式获取master发布的任务</li>
+</ul>
+</li>
+<li>Targets<ul>
+<li>Master将应当执行任务的一组minion定义为target</li>
+</ul>
+</li>
+<li>开放的事件系统<ul>
+<li>Eve</li>
+<li>nt bus用于事件管理系统中master和minion之间的内部通信</li>
+<li>zeroMQ和Tornado用于minion从事件管理系统订阅job及执行结果的可插拔组件</li>
+</ul>
+</li>
+<li>Grains和pillar<ul>
+<li>Grains运行在minion中，用来收集该minion的信息，如OS、域名、IP地址等。Grains是静态数据，仅系统信息发生变化或用户自定义了某个参数后才会刷新</li>
+<li>Pillar存放着由master定义的动态数据，当需要时，再推送到minion</li>
+</ul>
+</li>
+<li>Beacons和reactors<ul>
+<li>Beacons和reactors用于监控。Beacons运行在minion中，当故障出现时，它会触发reactors来提供故障处理的帮助信息</li>
+</ul>
+</li>
+<li><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/file-20250511164416286.png"></li>
+<li>架构图来源：<ul>
+<li><a target="_blank" rel="noopener" href="https://docs.saltproject.io/en/latest/topics/salt_system_architecture.html#salt-masters-and-salt-minions">https://docs.saltproject.io/en/latest/topics/salt_system_architecture.html#salt-masters-and-salt-minions</a></li>
+</ul>
+</li>
+<li>Pillar和grains都是用来存放数据的，其中pillar用来存放一些私密数据，如用户名密码等，pillar中的数据仅有特定的minion才能查看到</li>
+<li>除了运行salt-minion服务，master还可以通过proxy和ssh来对客户端进行命令下发，其中proxy中不允许运行salt-minon</li>
+<li>使用命令“salt * grains.ls”可查看所有主机的grains项，查看详细值使用命令“salt grains.items”</li>
+</ul>
+<h3 id="3-2-Master与Minion的认证和通信"><a href="#3-2-Master与Minion的认证和通信" class="headerlink" title="3.2 Master与Minion的认证和通信"></a>3.2 Master与Minion的认证和通信</h3><ul>
+<li>Master与Minion之间通过公钥私钥进行认证<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/file-20250511164541231.png"></li>
+<li>Master与Minion之间通过4505和4506进行通信<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/file-20250511164554899.png"></li>
+<li>Minion在第一次启动时，会在&#x2F;etc&#x2F;salt&#x2F;pki&#x2F;minion下自动生成私钥minion.key和公钥minion.pub，并将公钥发送给master</li>
+<li>Master收到minion发送的公钥后，并不会自动接收，需要管理员使用“salt-key”进行手动接收，并将其保存到&#x2F;etc&#x2F;salt&#x2F;pki&#x2F;masker&#x2F;minions中</li>
+</ul>
+<h3 id="3-3-SaltStack的安装部署"><a href="#3-3-SaltStack的安装部署" class="headerlink" title="3.3 SaltStack的安装部署"></a>3.3 SaltStack的安装部署</h3><ul>
+<li>安装前检查</li>
+<li>安装salt-master和salt-minion<ul>
+<li>Bootstrap安装：使用SaltStack提供的脚本进行安装</li>
+<li>手动安装：使用yum源进行安装</li>
+</ul>
+</li>
+<li>安装后配置<ul>
+<li>在minion中配置要注册的master</li>
+</ul>
+</li>
+<li>启动服务</li>
+<li>配置master和minion之间的认证</li>
+<li>配置后检查</li>
+</ul>
+<h3 id="3-4-Master和Minion重要配置"><a href="#3-4-Master和Minion重要配置" class="headerlink" title="3.4 Master和Minion重要配置"></a>3.4 Master和Minion重要配置</h3><ul>
+<li><p>Master配置文件默认为&#x2F;etc&#x2F;salt&#x2F;master，同时包含了&#x2F;etc&#x2F;salt&#x2F;master.d下所有.conf文件</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># The address of the interface to bind to:</span></span><br><span class="line"><span class="attr">interface:</span> <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span></span><br><span class="line"><span class="comment"># The tcp port used by the publisher:</span></span><br><span class="line"><span class="attr">publish_port:</span> <span class="number">4505</span></span><br><span class="line"><span class="comment"># The port used by the communication interface. The ret (return) port is the</span></span><br><span class="line"><span class="comment"># interface used for the file server, authentication, job returns, etc.</span></span><br><span class="line"><span class="attr">ret_port:</span> <span class="number">4506</span></span><br><span class="line"><span class="comment"># Directory used to store public key data:</span></span><br><span class="line"><span class="attr">pki_dir:</span> <span class="string">/etc/salt/pki/master</span></span><br><span class="line"><span class="attr">file_roots:</span></span><br><span class="line"><span class="attr">base:</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">/srv/salt/</span></span><br><span class="line"><span class="attr">pillar_roots:</span></span><br><span class="line"><span class="attr">base:</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">/srv/pillar</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Minion中关于master的配置文件默认为&#x2F;etc&#x2F;salt&#x2F;master，同时包含了&#x2F;etc&#x2F;salt&#x2F;master.d下所有.conf文件</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Set the location of the salt master server. If the master server cannot be</span></span><br><span class="line"><span class="comment"># resolved, then the minion will fail to start.</span></span><br><span class="line"><span class="attr">master:</span> <span class="string">salt</span></span><br><span class="line"><span class="string">id</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>file_roots设置的目录用于存放任务执行脚本</p>
+</li>
+<li><p>pillar_roots用于设置pillar数据存放目录</p>
+</li>
+</ul>
+<h3 id="3-5-Master和Minion的互信认证配置"><a href="#3-5-Master和Minion的互信认证配置" class="headerlink" title="3.5 Master和Minion的互信认证配置"></a>3.5 Master和Minion的互信认证配置</h3><ul>
+<li>在master上使用命令salt-key接收minion发来的密钥，以下为常用选项：<ul>
+<li>-A：接受全部密钥</li>
+<li>-D：删除全部密钥</li>
+<li>-L ：列出全部密钥</li>
+<li>-a ：接受指定密钥</li>
+<li>-j  ：拒绝指定密钥</li>
+<li>-d： 删除指定密钥</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-6-SaltStack的基本操作-Grains"><a href="#3-6-SaltStack的基本操作-Grains" class="headerlink" title="3.6 SaltStack的基本操作 - Grains"></a>3.6 SaltStack的基本操作 - Grains</h3><ul>
+<li><p>Grains用于存放minion的静态数据，管理员可以通过grains自带item或自定义item定义targets</p>
+<ul>
+<li>使用命令<code>salt &#39;*&#39; grains.items</code>查看系统自带的所有item<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="meta">@SaltStack</span> ~]# salt <span class="string">&#x27;*&#x27;</span> grains.items</span><br><span class="line">Nginx1:</span><br><span class="line">----------</span><br><span class="line">biosreleasedate:</span><br><span class="line"><span class="number">12</span>/<span class="number">12</span>/<span class="number">2018</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>使用命令<code>salt &#39;*&#39; grains.item item_name</code>可查看指定的item对应的具体值</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="meta">@SaltStack</span> ~]# salt <span class="string">&#x27;*&#x27;</span> grains.item os</span><br><span class="line">Nginx2:</span><br><span class="line">----------</span><br><span class="line">os:</span><br><span class="line">openEuler</span><br><span class="line">Nginx1:</span><br><span class="line">----------</span><br><span class="line">os:</span><br><span class="line">openEuler</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用命令“<code>salt -G &#39;item_name:item_value&#39; test.ping </code>”可根据item的值来指定主机进行命令执行</p>
+</li>
+<li><p>命令中的<code>*</code>表示所有主机，可以指定主机进行查看</p>
+</li>
+<li><p>修改minion配置文件中关于grains部分可进行item的自定义</p>
+<ul>
+<li>在minion节点上&#x2F;etc&#x2F;salt&#x2F;minion.d目录中创建关于grains的配置文件，并输入以下内容<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">rains:</span></span><br><span class="line"><span class="attr">role:</span> <span class="string">Nginx</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>重启salt-minion服务后，在master节点即可查看到自定义的item</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">root@SaltStack</span> <span class="string">~</span>]<span class="comment"># salt &#x27;*&#x27; grains.item role</span></span><br><span class="line"><span class="attr">Nginx2:</span></span><br><span class="line"><span class="string">----------</span></span><br><span class="line"><span class="attr">role:</span></span><br><span class="line"><span class="attr">Nginx1:</span></span><br><span class="line"><span class="string">----------</span></span><br><span class="line"><span class="attr">role:</span></span><br><span class="line"><span class="string">Nginx</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>除了目录&#x2F;etc&#x2F;salt&#x2F;minion.d中可自定义grains的item，在&#x2F;etc&#x2F;salt目录中创建文件grains，也可以自定义item。在grains中直接以“item: value”的格式定义item，SaltStack可自定识别到相关内容</p>
+</li>
+<li><p>修改grains后，master需要同步变更，有两方式：</p>
+<ul>
+<li>重启salt-minion服务</li>
+<li>在master上执行命令<code>salt &#39;*&#39; saltutil.sync_grains</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="3-7-SaltStack的基本操作-Pillar"><a href="#3-7-SaltStack的基本操作-Pillar" class="headerlink" title="3.7 SaltStack的基本操作 - Pillar"></a>3.7 SaltStack的基本操作 - Pillar</h3><ul>
+<li>Pillar用于存放动态数据，仅对指定minion有效</li>
+<li>Pillar通过在指定目录中创建配置文件来自定义，如在&#x2F;srv&#x2F;pillar目录中创建pillar的配置文件，并输入以下内容：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="meta">@SaltStack</span> pillar]#cat test.sls</span><br><span class="line">test: Nginx1</span><br><span class="line">[root<span class="meta">@SaltStack</span> pillar]# cat top.sls</span><br><span class="line">base:</span><br><span class="line"><span class="string">&#x27;Nginx1&#x27;</span>:</span><br><span class="line">- test</span><br></pre></td></tr></table></figure></li>
+<li>完成配置后，使用以下命令查看自定义的pillar是否生效<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="meta">@SaltStack</span> pillar]# salt <span class="string">&#x27;*&#x27;</span> saltutil.refresh_pillar</span><br><span class="line">….</span><br><span class="line">[root<span class="meta">@SaltStack</span> pillar]# salt <span class="string">&#x27;*&#x27;</span> pillar.items test</span><br><span class="line">Nginx2:</span><br><span class="line">----------</span><br><span class="line">test:</span><br><span class="line">Nginx1:</span><br><span class="line">----------</span><br><span class="line">test:</span><br><span class="line">Nginx1</span><br></pre></td></tr></table></figure></li>
+<li>Pillar的配置文件存放目录在master的配置文件中指定，本课程指定在&#x2F;srv&#x2F;pillar目录中</li>
+</ul>
+<h3 id="3-8-SaltStack的远程执行功能"><a href="#3-8-SaltStack的远程执行功能" class="headerlink" title="3.8 SaltStack的远程执行功能"></a>3.8 SaltStack的远程执行功能</h3><ul>
+<li>SaltStack远程执行的命令格式为：&#96;salt [options] ‘<target>‘ <function> [arguments<ul>
+<li>options：表示设置target的方式</li>
+<li>target：表示需执行远程命令的客户端</li>
+<li>function：表示功能模块</li>
+<li>arguments：表示具体执行的命令<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="meta">@SaltStack</span> ~]# salt -L <span class="string">&#x27;Nginx1,Nginx2&#x27;</span> cmd.run <span class="string">&#x27;ip addr&#x27;</span></span><br><span class="line">Nginx1:</span><br><span class="line">………</span><br><span class="line"><span class="number">2</span>: ens192: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu <span class="number">1500</span> qdisc mq state UP group <span class="keyword">default</span> qlen <span class="number">1000</span></span><br><span class="line">link/ether <span class="number">00</span>:0c:<span class="number">29</span>:<span class="number">88</span>:a6:a9 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">altname enp11s0</span><br><span class="line">inet <span class="number">192.168</span><span class="number">.1</span><span class="number">.14</span>/<span class="number">24</span> brd <span class="number">192.168</span><span class="number">.1</span><span class="number">.255</span> scope global noprefixroute ens192</span><br><span class="line">valid_lft forever preferred_lft forever</span><br><span class="line">……..</span><br><span class="line">Nginx2:</span><br><span class="line">……..</span><br><span class="line"><span class="number">2</span>: ens192: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu <span class="number">1500</span> qdisc mq state UP group <span class="keyword">default</span> qlen <span class="number">1000</span></span><br><span class="line">link/ether <span class="number">00</span>:0c:<span class="number">29</span>:a8:db:<span class="number">82</span> brd ff:ff:ff:ff:ff:ff</span><br><span class="line">altname enp11s0</span><br><span class="line">inet <span class="number">192.168</span><span class="number">.1</span><span class="number">.15</span>/<span class="number">24</span> brd <span class="number">192.168</span><span class="number">.1</span><span class="number">.255</span> scope global noprefixroute ens192</span><br><span class="line">valid_lft forever preferred_lft forever</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h4 id="3-8-1-SaltStack的远程执行功能-Target指定"><a href="#3-8-1-SaltStack的远程执行功能-Target指定" class="headerlink" title="3.8.1 SaltStack的远程执行功能 - Target指定"></a>3.8.1 SaltStack的远程执行功能 - Target指定</h4><ul>
+<li>SaltStack支持多种方式进行target指定，常见方式有：<ul>
+<li>通配符方式，如：<code>salt &#39;*&#39; test.ping、salt ‘Nginx*&#39; test.ping、salt &#39;Nginx[1|2]&#39; test.ping、salt &#39;Nginx[!1]&#39; test.ping</code>等</li>
+<li><code>-L</code>：列表方式，如：<code>salt -L &#39;Nginx1,Nginx2&#39; test.ping</code></li>
+<li><code>-E</code>：正则表达方式，如：<code>salt -E &#39;^N&#39; test.ping</code></li>
+<li><code>-I</code>：通过<code>pillar</code>指定主机，如：<code>salt -I &#39;test:Nginx1&#39; test.ping</code></li>
+<li><code>-G</code>：通过grains指定主机，如： <code>salt -G &#39;ipv4:192.168.1.14&#39; test.ping</code></li>
+<li><code>-C</code>：混合方式指定主机，如：<code>salt -C &#39;I@test:Nginx1 or G@ipv4:192.168.1.15&#39; test.ping</code></li>
+<li><code>-S</code>：通过网络信息指定主机，如：<code>salt -S &#39;192.168.1.0/24&#39; test.ping，salt -S &#39;192.168.1.15&#39; test.ping</code></li>
+<li><code>-H</code>：通过主机组方式指定主机，需先在配置文件中设置主机组，如：<code>salt -N test test.ping</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="3-8-2-SaltStack的远程执行功能-功能模块"><a href="#3-8-2-SaltStack的远程执行功能-功能模块" class="headerlink" title="3.8.2 SaltStack的远程执行功能 - 功能模块"></a>3.8.2 SaltStack的远程执行功能 - 功能模块</h4><ul>
+<li>SaltStack的功能模块有python开发，用于批量任务执行</li>
+<li>SaltStack支持的功能模块列表可查看官方文档：<ul>
+<li><a target="_blank" rel="noopener" href="https://docs.saltproject.io/en/latest/ref/modules/all/index.html#all-salt-modules">https://docs.saltproject.io/en/latest/ref/modules/all/index.html#all-salt-modules</a></li>
+</ul>
+</li>
+<li>使用命令<code>salt &#39;minion_name&#39; sys.list_modules</code>可列出minion所安装的模块</li>
+<li>使用命令<code>salt &#39;minion_name&#39; sys.doc &#39;module_name&#39;</code>可查看模块使用文档</li>
+<li>使用命令<code>salt &#39;minion_name&#39; sys.list_functions &#39;module_name&#39;</code>可查看模块支持功能</li>
+<li>SaltStack常用模块有:<ul>
+<li>pkg</li>
+<li>network</li>
+<li>service</li>
+<li>status</li>
+<li>file</li>
+<li>user和group</li>
+</ul>
+</li>
+</ul>
+<h5 id="3-8-2-1-SaltStack常用模块简介-Pkg"><a href="#3-8-2-1-SaltStack常用模块简介-Pkg" class="headerlink" title="3.8.2.1 SaltStack常用模块简介 - Pkg"></a>3.8.2.1 SaltStack常用模块简介 - Pkg</h5><ul>
+<li>Pkg模块用于包管理，常用功能有：<ul>
+<li>pkg.avaliable_version：查看软件包最新版本</li>
+<li>pkg.download：仅下载安装包，但不安装，下载完成后会返回安装包存放目录</li>
+<li>pkg.list_repos：列出yum源相关信息</li>
+<li>pkg.install：安装指定软件包，pkg.group_install安装指定软件组</li>
+<li>pkg.remove：卸载指定软件包</li>
+<li>pkg.owner：查看某个文件输入哪个软件包</li>
+<li>pkg.list_pkgs：列出全部已安装软件包</li>
+<li>pkg.mod_repo：修改yum源某些参数</li>
+</ul>
+</li>
+</ul>
+<h5 id="3-8-2-2-SaltStack常用功能模块简介-Network"><a href="#3-8-2-2-SaltStack常用功能模块简介-Network" class="headerlink" title="3.8.2.2 SaltStack常用功能模块简介 - Network"></a>3.8.2.2 SaltStack常用功能模块简介 - Network</h5><ul>
+<li>Network模块用于收集和管理网络信息，常用功能有：<ul>
+<li>network.active_tcp：返回字典形式的活动的TCP连接</li>
+<li>network.connect：通过minion的指定端口测试与某个host之间的连通性</li>
+<li>network.default_route：查看minion的指定网段路由明细</li>
+<li>network.dig：使用dig对minion进行DNS测试</li>
+<li>network.interface：查看minion指定端口的地址</li>
+<li>network.ping：指定minion对某个地址进行ping测试</li>
+<li>network.routes：查看指定minion的路由表</li>
+<li>network.traceout：指定minion对某个地址进行路由追踪</li>
+</ul>
+</li>
+</ul>
+<h5 id="3-8-2-3-SaltStack常用功能模块简介-Service"><a href="#3-8-2-3-SaltStack常用功能模块简介-Service" class="headerlink" title="3.8.2.3 SaltStack常用功能模块简介 - Service"></a>3.8.2.3 SaltStack常用功能模块简介 - Service</h5><ul>
+<li>Service模块用于服务管理，常用功能有：<ul>
+<li>service.available：查看某个服务是否可用，如果可用返回值为“True”，反之则为”False”</li>
+<li>service.disable：将服务设置为开机不自启</li>
+<li>service.disabled：查看服务是否在开机不自启清单中，如果在返回值为“False”，反之则为“True”</li>
+<li>service.enable：将服务设置为开机自启</li>
+<li>service.enabled：查看服务是否在开机自启清单中，如果在返回值为“True”，反之则为“False”</li>
+<li>service.get_all：列出全部已安装可用的服务</li>
+<li>service.start：启动某个服务</li>
+<li>service.stop：关闭某个服务</li>
+<li>service.restart：重启某个服务</li>
+<li>service.reload：重新加载某个服务配置</li>
+</ul>
+</li>
+</ul>
+<h5 id="3-8-2-4-SaltStack常用功能模块简介-File"><a href="#3-8-2-4-SaltStack常用功能模块简介-File" class="headerlink" title="3.8.2.4 SaltStack常用功能模块简介 - File"></a>3.8.2.4 SaltStack常用功能模块简介 - File</h5><ul>
+<li>File模块用于常规与非常规文件及目录的管理，如设置文件的用户、组、权限等，常用功能有：<ul>
+<li>file. access：测试SaltStack对文件或目录是否具备某项权限，“f”查看所查询对象是否存在，“r”、“w”和“x”本别用于查看是否具备读写和执行权限</li>
+<li>file.append：用于在文件里追加内容，如果文件不存在，则系统会报错</li>
+<li>file.basename和file.dirname：通过路径指定某个文件，SaltStack分别返回最后一部分和目录部分</li>
+<li>file.touch：创建文件，如果文件已存在则更新该文件的访问时间或修改时间</li>
+<li>file.chgrp和file.chown：分别用于修改文件或目录的所属组或者所属用户和所属组</li>
+<li>file.find：搜索文件</li>
+<li>file.diskusage：计算目录所占空间，返回值的单位为字节</li>
+<li>file.get_gid、file.get_group、file.get_uid和file.get_user：用于获取文件的所属组ID、所属组、所属用户ID和所属用户</li>
+<li>file.grep：在某个文件中查找指定内容</li>
+<li>file.makdirs和file.mkdir：创建目录。二者有一定的区别，例如，如果创建目录&#x2F;tmp&#x2F;test，使用file.makdirs后面需输入&#x2F;tmp&#x2F;test&#x2F;，如果使用file.mkdir后面输入&#x2F;tmp&#x2F;test即可。同时filemakdirs不支持同时创建多个目录，file.mkdir则支持</li>
+<li>file.move：移动文件或目录</li>
+<li>file.remove和file.rename：删除文件及重命名文件</li>
+<li>file.rmdir：删除空目录</li>
+</ul>
+</li>
+</ul>
+<h5 id="3-8-2-5-SaltStack常用功能模块简介-Status"><a href="#3-8-2-5-SaltStack常用功能模块简介-Status" class="headerlink" title="3.8.2.5 SaltStack常用功能模块简介 - Status"></a>3.8.2.5 SaltStack常用功能模块简介 - Status</h5><ul>
+<li>Status模块用于查看minion的状态，常用功能有：<ul>
+<li>status.cpuinfo：查看minion的cpu信息</li>
+<li>status.cpustats：查看minion的cpu状态</li>
+<li>status.diskstats：查看minion的磁盘状态</li>
+<li>status.diskusage：查看minion某块磁盘的使用率</li>
+<li>status.meminfo：查看minion的内存信息</li>
+<li>status.netstats：查看minion的网络状态</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-9-SaltStack的配置管理功能"><a href="#3-9-SaltStack的配置管理功能" class="headerlink" title="3.9 SaltStack的配置管理功能"></a>3.9 SaltStack的配置管理功能</h3><ul>
+<li>SaltStack的配置管理依赖<strong>state功能模块</strong>实现</li>
+<li>SaltStack的配置文件使用<strong>yaml语法</strong>，文件后缀需以<code>.sls</code>结尾</li>
+<li>SaltStack的配置文件需存放在master指定目录中，该目录由参数“file_roots”指定</li>
+<li>当定制了多个配置文件后，可使用top.sls作为所有配置和文件的入口，自动运行所有的sls文件</li>
+<li>Top文件的名称默认为top.sls，可以在master配置文件中修改</li>
+<li>Top文件的存放位置由file_roots参数中的Base配置</li>
+<li>为了使目录结构清晰，在Base的目录中，top.sls放在一级目录下，其他sls文件建议存放在二级目录下</li>
+</ul>
+<h4 id="3-9-1-配置文件编写"><a href="#3-9-1-配置文件编写" class="headerlink" title="3.9.1 配置文件编写"></a>3.9.1 配置文件编写</h4><p>需求：通过SaltStack配置管理功能为Nginx1安装nginx服务，并设置为开机自启</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">root@SaltStack</span> <span class="string">nginx</span>]<span class="comment"># pwd</span></span><br><span class="line"><span class="string">/srv/salt/nginx</span></span><br><span class="line">[<span class="string">root@SaltStack</span> <span class="string">nginx</span>]<span class="comment"># cat nginx.sls</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">nginx_install:</span></span><br><span class="line"> <span class="attr">pkg.installed:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nginx</span></span><br><span class="line"><span class="attr">enable_nginx:</span></span><br><span class="line"> <span class="attr">service.running:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nginx</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">enable:</span> <span class="literal">True</span></span><br><span class="line">[<span class="string">root@SaltStack</span> <span class="string">nginx</span>]<span class="comment"># salt &#x27;Nginx1&#x27; state.sls nginx</span></span><br></pre></td></tr></table></figure>
+
+
+<h4 id="3-9-2-Top文件编写"><a href="#3-9-2-Top文件编写" class="headerlink" title="3.9.2 Top文件编写"></a>3.9.2 Top文件编写</h4><p>需求：在上页胶片的基础上，另外给Nginx2安装httpd服务，并设置为开机启动，并使用top文件通过执行两个sls配置文件</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">root@SaltStack</span> <span class="string">salt</span>]<span class="comment"># pwd</span></span><br><span class="line"><span class="string">/srv/salt</span></span><br><span class="line">[<span class="string">root@SaltStack</span> <span class="string">salt</span>]<span class="comment"># ls</span></span><br><span class="line"><span class="string">httpd.sls</span> <span class="string">Nginx.sls</span> <span class="string">top.sls</span></span><br><span class="line">[<span class="string">root@SaltStack</span> <span class="string">salt</span>]<span class="comment"># cat top.sls</span></span><br><span class="line"><span class="attr">base:</span></span><br><span class="line"><span class="attr">&#x27;Nginx1&#x27;:</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">nginx</span></span><br><span class="line"><span class="attr">&#x27;Nginx2&#x27;:</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">httpd</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">root@SaltStack</span> <span class="string">httpd</span>]<span class="comment"># pwd</span></span><br><span class="line"><span class="string">/srv/salt/httpd</span></span><br><span class="line">[<span class="string">root@SaltStack</span> <span class="string">httpd</span>]<span class="comment"># cat httpd.sls</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">httpd_install:</span></span><br><span class="line"><span class="attr">pkg.installed:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">httpd</span></span><br><span class="line"><span class="attr">enable_httpd:</span></span><br><span class="line"><span class="attr">service.running:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">httpd</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">enable:</span> <span class="literal">True</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>使用top文件前，在配置文件中，取消关于top文件配置的注释</li>
+<li>编写完成top文件后，使用命令“<code>salt &#39;*&#39; state.highstate</code>对所有minion执行top文件中的任务</li>
+<li>建议在正式执行top文件前，使用命令<code>salt &#39;*&#39; state.highstate test=True</code>测试top文件是否能够正确执行</li>
+</ul>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">XBCID</div><div class="post-copyright__author_desc"></div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="http://example.com/2025/02/14/openEuler/%E7%AC%94%E8%AE%B0/IP/04%20%E8%87%AA%E5%8A%A8%E5%8C%96%E7%AE%A1%E7%90%86/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('http://example.com/2025/02/14/openEuler/%E7%AC%94%E8%AE%B0/IP/04%20%E8%87%AA%E5%8A%A8%E5%8C%96%E7%AE%A1%E7%90%86/')">04 自动化管理</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"></div><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="http://example.com/2025/02/14/openEuler/%E7%AC%94%E8%AE%B0/IP/04%20%E8%87%AA%E5%8A%A8%E5%8C%96%E7%AE%A1%E7%90%86/"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" target="_blank" href="https://service.weibo.com/share/share.php?title=04 自动化管理&amp;url=http://example.com/2025/02/14/openEuler/%E7%AC%94%E8%AE%B0/IP/04%20%E8%87%AA%E5%8A%A8%E5%8C%96%E7%AE%A1%E7%90%86/&amp;pic=" rel="external nofollow noreferrer noopener"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><script>function copyCurrentPageUrl() {
+  var currentPageUrl = window.location.href;
+  var input = document.createElement("input");
+  input.setAttribute("value", currentPageUrl);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">XBCID's BLOG</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"><a class="post-meta__box__tags" href="/tags/Linux/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>Linux<span class="tagsPageCount">18</span></a><a class="post-meta__box__tags" href="/tags/openEuler/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>openEuler<span class="tagsPageCount">18</span></a><a class="post-meta__box__tags" href="/tags/Huawei/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>Huawei<span class="tagsPageCount">15</span></a><a class="post-meta__box__tags" href="/tags/HCIP/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>HCIP<span class="tagsPageCount">6</span></a></div></div></div><div class="post_share"><div class="social-share" data-image="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2025/02/14/openEuler/%E7%AC%94%E8%AE%B0/IP/01%20openEuler%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86/"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">01 openEuler操作系统入门</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="anzhiyufont anzhiyu-icon-thumbs-up fa-fw" style="font-size: 1.5rem; margin-right: 4px"></i><span>喜欢这篇文章的人也看了</span></div><div class="relatedPosts-list"><div><a href="/2025/02/14/openEuler/%E7%AC%94%E8%AE%B0/IP/01%20openEuler%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86/" title="01 openEuler操作系统入门"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-02-14</div><div class="title">01 openEuler操作系统入门</div></div></a></div><div><a href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IP/03%20openEuler%E5%AD%98%E5%82%A8%E7%AE%A1%E7%90%86/" title="03 openEuler存储管理"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-05-19</div><div class="title">03 openEuler存储管理</div></div></a></div><div><a href="/2025/03/06/openEuler/%E7%AC%94%E8%AE%B0/IP/05%20shell%E8%84%9A%E6%9C%AC%E8%BF%9B%E9%98%B6/" title="05 shell脚本进阶"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-03-06</div><div class="title">05 shell脚本进阶</div></div></a></div><div><a href="/2025/03/08/openEuler/%E7%AC%94%E8%AE%B0/IP/06%20openEuler%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA/" title="06 openEuler操作系统安全加固"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-03-08</div><div class="title">06 openEuler操作系统安全加固</div></div></a></div><div><a href="/2025/02/14/openEuler/%E7%AC%94%E8%AE%B0/IA/01%20openEuler%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%85%A5%E9%97%A8/" title="01 openEuler操作系统入门"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-02-14</div><div class="title">01 openEuler操作系统入门</div></div></a></div><div><a href="/2025/02/14/openEuler/%E7%AC%94%E8%AE%B0/IA/02%20%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%93%8D%E4%BD%9C%E5%9F%BA%E7%A1%80/" title="02 命令行操作基础"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-02-14</div><div class="title">02 命令行操作基础</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__description"></div></div></div><div class="card-widget anzhiyu-right-widget" id="card-wechat" onclick="null"><div id="flip-wrapper"><div id="flip-content"><div class="face" style="background: url(https://bu.dusays.com/2023/01/13/63c02edf44033.png) center center / 100% no-repeat"></div><div class="back face" style="background: url(https://bu.dusays.com/2023/05/13/645fa415e8694.png) center center / 100% no-repeat"></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">0x01 自动化运维简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4%E7%9A%84%E4%BC%98%E5%8A%BF"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 自动化运维的优势</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4%E5%9C%BA%E6%99%AF"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 自动化运维场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-%E5%B8%B8%E8%A7%81%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4%E5%B7%A5%E5%85%B7"><span class="toc-number">1.3.</span> <span class="toc-text">1.3 常见自动化运维工具</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-Ansible"><span class="toc-number">2.</span> <span class="toc-text">0x02. Ansible</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-Ansible%E7%AE%80%E4%BB%8B%E5%8F%8A%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 Ansible简介及基本操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-1-%E6%A6%82%E8%A6%81"><span class="toc-number">2.1.1.</span> <span class="toc-text">2.1.1 概要</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-2-Ansible%E7%9A%84%E5%8A%9F%E8%83%BD%E5%92%8C%E4%BC%98%E5%8A%BF"><span class="toc-number">2.1.2.</span> <span class="toc-text">2.1.2 Ansible的功能和优势</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-3-Ansible%E5%8A%9F%E8%83%BD%E7%BB%84%E4%BB%B6%E5%92%8C%E6%9E%B6%E6%9E%84"><span class="toc-number">2.1.3.</span> <span class="toc-text">2.1.3 Ansible功能组件和架构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-4-Ansible%E7%9A%84%E5%AE%89%E8%A3%85%E6%96%B9%E5%BC%8F"><span class="toc-number">2.1.4.</span> <span class="toc-text">2.1.4 Ansible的安装方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-5-Ansible%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E9%87%8D%E8%A6%81%E9%85%8D%E7%BD%AE%E9%A1%B9%E8%AF%B4%E6%98%8E"><span class="toc-number">2.1.5.</span> <span class="toc-text">2.1.5 Ansible配置文件重要配置项说明</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-1-5-1-Ansible%E4%B8%BB%E6%9C%BA%E6%B8%85%E5%8D%95%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">2.1.5.1.</span> <span class="toc-text">2.1.5.1 Ansible主机清单配置文件</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-6-Ansible%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-number">2.1.6.</span> <span class="toc-text">2.1.6 Ansible常用命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-7-Ansible%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95"><span class="toc-number">2.1.7.</span> <span class="toc-text">2.1.7 Ansible的基本用法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-8-Ansible%E7%9A%84%E9%80%BB%E8%BE%91%E5%85%B3%E7%B3%BB"><span class="toc-number">2.1.8.</span> <span class="toc-text">2.1.8 Ansible的逻辑关系</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-Ansible%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%9D%97"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 Ansible常用模块</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-1-Ansible%E5%B8%B8%E7%94%A8%E5%8A%9F%E8%83%BD%E6%A8%A1%E5%9D%97-Command"><span class="toc-number">2.2.1.</span> <span class="toc-text">2.2.1 Ansible常用功能模块 - Command</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-1-1-Command%E4%BB%8B%E7%BB%8D"><span class="toc-number">2.2.1.1.</span> <span class="toc-text">2.2.1.1 Command介绍</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-1-2-Command%E5%AE%9E%E8%B7%B5"><span class="toc-number">2.2.1.2.</span> <span class="toc-text">2.2.1.2 Command实践</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-2-Ansible%E5%B8%B8%E7%94%A8%E5%8A%9F%E8%83%BD%E6%A8%A1%E5%9D%97-Shell%E5%8F%8A%E7%9B%B8%E5%85%B3%E6%A1%88%E4%BE%8B"><span class="toc-number">2.2.2.</span> <span class="toc-text">2.2.2 Ansible常用功能模块 - Shell及相关案例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-3-Ansible%E5%B8%B8%E7%94%A8%E5%8A%9F%E8%83%BD%E6%A8%A1%E5%9D%97-Script%E5%8F%8A%E7%9B%B8%E5%85%B3%E6%A1%88%E4%BE%8B"><span class="toc-number">2.2.3.</span> <span class="toc-text">2.2.3 Ansible常用功能模块 - Script及相关案例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-4-Ansible%E5%B8%B8%E7%94%A8%E5%8A%9F%E8%83%BD%E6%A8%A1%E5%9D%97-Copy%E5%92%8CFetch"><span class="toc-number">2.2.4.</span> <span class="toc-text">2.2.4 Ansible常用功能模块 - Copy和Fetch</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-4-1-Copy%E5%92%8CFetch%E4%BB%8B%E7%BB%8D"><span class="toc-number">2.2.4.1.</span> <span class="toc-text">2.2.4.1 Copy和Fetch介绍</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-4-2-Copy%E5%92%8CFetch%E5%AE%9E%E8%B7%B5"><span class="toc-number">2.2.4.2.</span> <span class="toc-text">2.2.4.2 Copy和Fetch实践</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-5-Ansible%E5%B8%B8%E7%94%A8%E5%8A%9F%E8%83%BD%E6%A8%A1%E5%9D%97-File"><span class="toc-number">2.2.5.</span> <span class="toc-text">2.2.5 Ansible常用功能模块 - File</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-5-1-File%E4%BB%8B%E7%BB%8D"><span class="toc-number">2.2.5.1.</span> <span class="toc-text">2.2.5.1 File介绍</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-5-2-FIle%E5%AE%9E%E8%B7%B5"><span class="toc-number">2.2.5.2.</span> <span class="toc-text">2.2.5.2  FIle实践</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-6-Ansible%E5%B8%B8%E7%94%A8%E5%8A%9F%E8%83%BD%E6%A8%A1%E5%9D%97-Archive%E5%92%8CUnarchive"><span class="toc-number">2.2.6.</span> <span class="toc-text">2.2.6 Ansible常用功能模块 - Archive和Unarchive</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-6-1-Archive%E5%92%8CUnarchive%E4%BB%8B%E7%BB%8D"><span class="toc-number">2.2.6.1.</span> <span class="toc-text">2.2.6.1 Archive和Unarchive介绍</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-6-2-Archive%E5%92%8CUnarchive%E5%AE%9E%E8%B7%B5"><span class="toc-number">2.2.6.2.</span> <span class="toc-text">2.2.6.2 Archive和Unarchive实践</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-7-Ansible%E5%B8%B8%E7%94%A8%E5%8A%9F%E8%83%BD%E6%A8%A1%E5%9D%97-Setup%E5%8F%8A%E4%BD%BF%E7%94%A8%E6%A1%88%E4%BE%8B"><span class="toc-number">2.2.7.</span> <span class="toc-text">2.2.7 Ansible常用功能模块 - Setup及使用案例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-8-Ansible%E5%B8%B8%E7%94%A8%E5%8A%9F%E8%83%BD%E6%A8%A1%E5%9D%97-Lineinfile%E5%92%8CReplace"><span class="toc-number">2.2.8.</span> <span class="toc-text">2.2.8 Ansible常用功能模块 - Lineinfile和Replace</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-9-Ansible%E5%B8%B8%E7%94%A8%E5%8A%9F%E8%83%BD%E6%A8%A1%E5%9D%97-User%E5%92%8CGroup"><span class="toc-number">2.2.9.</span> <span class="toc-text">2.2.9 Ansible常用功能模块 - User和Group</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-10-Ansible%E5%B8%B8%E7%94%A8%E5%8A%9F%E8%83%BD%E6%A8%A1%E5%9D%97-Hostname%E3%80%81Cron%E3%80%81yum%E5%92%8CService"><span class="toc-number">2.2.10.</span> <span class="toc-text">2.2.10 Ansible常用功能模块 - Hostname、Cron、yum和Service</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-Playbook%E7%AE%80%E4%BB%8B"><span class="toc-number">2.3.</span> <span class="toc-text">2.3 Playbook简介</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-1-YAML%E7%9A%84%E7%89%B9%E7%82%B9"><span class="toc-number">2.3.1.</span> <span class="toc-text">2.3.1 YAML的特点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-2-YAML%E6%96%87%E4%BB%B6%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95"><span class="toc-number">2.3.2.</span> <span class="toc-text">2.3.2 YAML文件的基本语法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-3-Playbook%E7%9A%84%E6%A0%B8%E5%BF%83%E5%85%83%E7%B4%A0"><span class="toc-number">2.3.3.</span> <span class="toc-text">2.3.3 Playbook的核心元素</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-4-Playbook%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4"><span class="toc-number">2.3.4.</span> <span class="toc-text">2.3.4 Playbook相关命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-5-Playbook%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95-Hosts%E5%92%8CTasks"><span class="toc-number">2.3.5.</span> <span class="toc-text">2.3.5 Playbook的基本用法 -  Hosts和Tasks</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-6-Playbook%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95-Handlers%E5%92%8CNotify"><span class="toc-number">2.3.6.</span> <span class="toc-text">2.3.6 Playbook的基本用法 - Handlers和Notify</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-7-Playbook%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95-Tags"><span class="toc-number">2.3.7.</span> <span class="toc-text">2.3.7 Playbook的基本用法 - Tags</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-8-Playbook%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95-Variables"><span class="toc-number">2.3.8.</span> <span class="toc-text">2.3.8 Playbook的基本用法 - Variables</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-9-Playbook%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95-Templates"><span class="toc-number">2.3.9.</span> <span class="toc-text">2.3.9 Playbook的基本用法 - Templates</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-10-Playbook%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95-Role"><span class="toc-number">2.3.10.</span> <span class="toc-text">2.3.10 Playbook的基本用法 - Role</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x03-SaltStack"><span class="toc-number">3.</span> <span class="toc-text">0x03 SaltStack</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-SaltStack%E9%80%BB%E8%BE%91%E6%9E%B6%E6%9E%84"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 SaltStack逻辑架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-Master%E4%B8%8EMinion%E7%9A%84%E8%AE%A4%E8%AF%81%E5%92%8C%E9%80%9A%E4%BF%A1"><span class="toc-number">3.2.</span> <span class="toc-text">3.2 Master与Minion的认证和通信</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-SaltStack%E7%9A%84%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2"><span class="toc-number">3.3.</span> <span class="toc-text">3.3 SaltStack的安装部署</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-Master%E5%92%8CMinion%E9%87%8D%E8%A6%81%E9%85%8D%E7%BD%AE"><span class="toc-number">3.4.</span> <span class="toc-text">3.4 Master和Minion重要配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-Master%E5%92%8CMinion%E7%9A%84%E4%BA%92%E4%BF%A1%E8%AE%A4%E8%AF%81%E9%85%8D%E7%BD%AE"><span class="toc-number">3.5.</span> <span class="toc-text">3.5 Master和Minion的互信认证配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-6-SaltStack%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C-Grains"><span class="toc-number">3.6.</span> <span class="toc-text">3.6 SaltStack的基本操作 - Grains</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-7-SaltStack%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C-Pillar"><span class="toc-number">3.7.</span> <span class="toc-text">3.7 SaltStack的基本操作 - Pillar</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-8-SaltStack%E7%9A%84%E8%BF%9C%E7%A8%8B%E6%89%A7%E8%A1%8C%E5%8A%9F%E8%83%BD"><span class="toc-number">3.8.</span> <span class="toc-text">3.8 SaltStack的远程执行功能</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-8-1-SaltStack%E7%9A%84%E8%BF%9C%E7%A8%8B%E6%89%A7%E8%A1%8C%E5%8A%9F%E8%83%BD-Target%E6%8C%87%E5%AE%9A"><span class="toc-number">3.8.1.</span> <span class="toc-text">3.8.1 SaltStack的远程执行功能 - Target指定</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-8-2-SaltStack%E7%9A%84%E8%BF%9C%E7%A8%8B%E6%89%A7%E8%A1%8C%E5%8A%9F%E8%83%BD-%E5%8A%9F%E8%83%BD%E6%A8%A1%E5%9D%97"><span class="toc-number">3.8.2.</span> <span class="toc-text">3.8.2 SaltStack的远程执行功能 - 功能模块</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#3-8-2-1-SaltStack%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%9D%97%E7%AE%80%E4%BB%8B-Pkg"><span class="toc-number">3.8.2.1.</span> <span class="toc-text">3.8.2.1 SaltStack常用模块简介 - Pkg</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-8-2-2-SaltStack%E5%B8%B8%E7%94%A8%E5%8A%9F%E8%83%BD%E6%A8%A1%E5%9D%97%E7%AE%80%E4%BB%8B-Network"><span class="toc-number">3.8.2.2.</span> <span class="toc-text">3.8.2.2 SaltStack常用功能模块简介 - Network</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-8-2-3-SaltStack%E5%B8%B8%E7%94%A8%E5%8A%9F%E8%83%BD%E6%A8%A1%E5%9D%97%E7%AE%80%E4%BB%8B-Service"><span class="toc-number">3.8.2.3.</span> <span class="toc-text">3.8.2.3 SaltStack常用功能模块简介 - Service</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-8-2-4-SaltStack%E5%B8%B8%E7%94%A8%E5%8A%9F%E8%83%BD%E6%A8%A1%E5%9D%97%E7%AE%80%E4%BB%8B-File"><span class="toc-number">3.8.2.4.</span> <span class="toc-text">3.8.2.4 SaltStack常用功能模块简介 - File</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-8-2-5-SaltStack%E5%B8%B8%E7%94%A8%E5%8A%9F%E8%83%BD%E6%A8%A1%E5%9D%97%E7%AE%80%E4%BB%8B-Status"><span class="toc-number">3.8.2.5.</span> <span class="toc-text">3.8.2.5 SaltStack常用功能模块简介 - Status</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-9-SaltStack%E7%9A%84%E9%85%8D%E7%BD%AE%E7%AE%A1%E7%90%86%E5%8A%9F%E8%83%BD"><span class="toc-number">3.9.</span> <span class="toc-text">3.9 SaltStack的配置管理功能</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-9-1-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E7%BC%96%E5%86%99"><span class="toc-number">3.9.1.</span> <span class="toc-text">3.9.1 配置文件编写</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-9-2-Top%E6%96%87%E4%BB%B6%E7%BC%96%E5%86%99"><span class="toc-number">3.9.2.</span> <span class="toc-text">3.9.2 Top文件编写</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IP/07%20openEuler%E7%B3%BB%E7%BB%9F%E7%9B%91%E6%8E%A7%E5%85%A5%E9%97%A8/" title="无题">无题</a><time datetime="2025-05-18T19:46:45.900Z" title="发表于 2025-05-19 03:46:45">2025-05-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/%E6%B3%A8%E9%87%8A/shebang/" title="无题">无题</a><time datetime="2025-05-18T19:46:45.880Z" title="发表于 2025-05-19 03:46:45">2025-05-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/10%20%E5%B8%B8%E7%94%A8%E5%B0%8F%E6%8C%87%E4%BB%A4/" title="无题">无题</a><time datetime="2025-05-18T19:46:45.685Z" title="发表于 2025-05-19 03:46:45">2025-05-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/09%20Samba%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86/" title="09 Samba文件共享服务器管理">09 Samba文件共享服务器管理</a><time datetime="2025-05-18T19:46:45.684Z" title="发表于 2025-05-19 03:46:45">2025-05-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/08%20%E4%BD%BF%E7%94%A8shell%E8%84%9A%E6%9C%AC/" title="08 使用shell脚本">08 使用shell脚本</a><time datetime="2025-05-18T19:46:45.683Z" title="发表于 2025-05-19 03:46:45">2025-05-19</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2025 By <a class="footer-bar-link" href="/" title="XBCID" target="_blank">XBCID</a></div></div><div id="footer-type-tips"></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/anzhiyu-c/hexo-theme-anzhiyu" title="主题">主题</a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">37</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">5</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">0</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://blog.anheyu.com/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://image.anheyu.com/" title="安知鱼图床"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.anheyu.com/favicon.ico" alt="安知鱼图床"/><span class="back-menu-item-text">安知鱼图床</span></a></div></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/HCIA/" style="font-size: 0.88rem;">HCIA<sup>9</sup></a><a href="/tags/HCIP/" style="font-size: 0.88rem;">HCIP<sup>6</sup></a><a href="/tags/Huawei/" style="font-size: 0.88rem;">Huawei<sup>15</sup></a><a href="/tags/Linux/" style="font-size: 0.88rem;">Linux<sup>18</sup></a><a href="/tags/openEuler/" style="font-size: 0.88rem;">openEuler<sup>18</sup></a></div></div><hr/></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8152976493" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random" volume="0.7"></meting-js></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.5/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("01/12/2021 14:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
+        
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2020 By 安知鱼 V1.6.14",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
+  );
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 XBCID 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><div class="js-pjax"><input type="hidden" name="page-type" id="page-type" value="post"></div><script>var visitorMail = "";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/qrcodejs/1.0.0/qrcode.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>
