@@ -1,209 +1,304 @@
-<!DOCTYPE html><html lang="zh" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>08 使用shell脚本 | XBCID's BLOG</title><meta name="keywords" content="Linux,openEuler,Huawei,HCIA"><meta name="author" content="XBCID"><meta name="copyright" content="XBCID"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="08 使用shell脚本"><meta name="application-name" content="08 使用shell脚本"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="08 使用shell脚本"><meta property="og:url" content="http://example.com/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/08%20%E4%BD%BF%E7%94%A8shell%E8%84%9A%E6%9C%AC/index.html"><meta property="og:site_name" content="XBCID's BLOG"><meta property="og:description" content="本课程基于 openEuler 介绍关于 Shell 的基础知识 结合实际案例展示 Shell 脚本编写的最佳实践  学完本课程后，您应该能：  熟悉 Shell 基础知识 掌握 Shell 编程基础 能够编写常用的 Shell 脚本    0x01 Shell基础介绍1.1 openEuler构"><meta property="og:locale" content="zh"><meta property="og:image" content="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg"><meta property="article:author" content="XBCID"><meta property="article:tag"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg"><meta name="description" content="本课程基于 openEuler 介绍关于 Shell 的基础知识 结合实际案例展示 Shell 脚本编写的最佳实践  学完本课程后，您应该能：  熟悉 Shell 基础知识 掌握 Shell 编程基础 能够编写常用的 Shell 脚本    0x01 Shell基础介绍1.1 openEuler构"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="http://example.com/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/08%20%E4%BD%BF%E7%94%A8shell%E8%84%9A%E6%9C%AC/"><link rel="preconnect" href="//cdn.cbd.int"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
-  linkPageTop: undefined,
-  peoplecanvas: {"enable":true,"img":"https://upload-bbs.miyoushe.com/upload/2024/07/27/125766904/ba62475f396df9de3316a08ed9e65d86_5680958632268053399..png"},
-  postHeadAiDescription: {"enable":true,"gptName":"AnZhiYu","mode":"local","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"xxxx","Referer":"https://xx.xx/"},
-  diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
-  LA51: undefined,
-  greetingBox: undefined,
-  twikooEnvId: '',
-  commentBarrageConfig:undefined,
-  music_page_default: "nav_music",
-  root: '/',
-  preloader: {"source":3},
-  friends_vue_info: undefined,
-  navMusic: true,
-  mainTone: undefined,
-  authorStatus: undefined,
-  algolia: undefined,
-  localSearch: undefined,
-  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
-  noticeOutdate: undefined,
-  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
-  copy: {
-    success: '复制成功',
-    error: '复制错误',
-    noSupport: '浏览器不支持'
-  },
-  relativeDate: {
-    homepage: false,
-    simplehomepage: true,
-    post: false
-  },
-  runtime: '天',
-  date_suffix: {
-    just: '刚刚',
-    min: '分钟前',
-    hour: '小时前',
-    day: '天前',
-    month: '个月前'
-  },
-  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: XBCID","link":"链接: ","source":"来源: XBCID's BLOG","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
-  lightbox: 'fancybox',
-  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
-  source: {
-    justifiedGallery: {
-      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
-      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+<!--
+	作者：Sariay
+	时间：2018-08-26
+	描述：There may be a bug, but don't worry, Qiling(器灵) says that it can work normally! aha!
+-->
+<!DOCTYPE html>
+<html class="html-loading">
+		
+
+<head>
+	<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <title>
+    
+      08 使用shell脚本 | XBCID&#39;s BLOG
+    
+  </title>
+  <meta name="author" content="XBCID">
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+	<!-- favicon -->
+  <link rel="shortcut icon" href="/img/favicon.ico">
+
+  <!-- css -->
+  
+<link rel="stylesheet" href="/css/Annie.css">
+
+  
+  <!-- jquery -->
+	
+<script src="/plugin/jquery/jquery.min.js"></script>
+
+
+<script>
+    const CONFIG_BGIMAGE = {
+      mode: 'normal',
+      normalSrc: '/img/header-bg.jpg',
+      randomYouMax: 110,
+      randomYouSrc: 'https://sariay.github.io/Random-img/',
+	  randomOtherSrc: 'https://api.berryapi.net/?service=App.Bing.Images&day=-0',
+	  preloaderEnable: true
     }
-  },
-  isPhotoFigcaption: false,
-  islazyload: true,
-  isAnchor: false,
-  shortcutKey: undefined,
-  autoDarkmode: true
-}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
-  configTitle: 'XBCID's BLOG',
-  title: '08 使用shell脚本',
-  postAI: '',
-  pageFillDescription: '0x01 Shell基础介绍, 1.1 openEuler构成Shell简介, 1.1.1 Shell 概述, 1.1.2 Shell发展史, 1.1.4 查看Shell, 1.2 Shell脚本（定义、作用、格式、权限及执行）, 1.2.1 Shell脚本基础知识, 1.2.2 Shell脚本的约束, 1.2.3 Shell脚本开发环境, 1.2.4 Shell脚本指定解释器, 1.2.5 执行Shell脚本, 1.2.6 后台执行Shell脚本, 0x02 Shell编程基础, 2.1 输入输出、管道, 2.1.1 Linux中的文本流, 2.1.2 输出重定向, 2.1.3 输入重定向, 2.1.4 管道, 2.2 字符、变量、运算, 2.2.1 Shell中的字符, 2.2.2 变量, 2.2.2.1 变量的类型, 2.2.2.2 使用变量(单、双引号), 2.2.2.3 扩展变量, 2.2.2.4 变量的赋值与输出, 2.2.3 Shell的算术扩展, 2.2.3.1 在Shell中计算时间, 2.2.3.2 算术运算常用表达式, 2.2.3.2.1 算术运算的优先级, 2.2.3.2.2 变量递增的前置后置区别, 2.3 语句（条件循环）, 2.3.1 Shell 中的结构化命令, 2.3.2 条件语句, 2.3.2.1 多分支判断语句, 2.3.3 循环语句, 2.3.3.1 for循环, 2.3.3.2 for循环中的列表, 2.3.3.3 for循环奇数累加器, 2.3.3.4 for循环文件展示, 2.3.3.5 while循环, 2.3.3.6 until循环, 2.3.3.7 使用循环打印乘法表, 0x03 Shell编程最佳实践, 3.1 调试, 3.1.1 Shell 脚本错误故障排除, 3.1.2 调试模式, 3.1.3 评估退出代码, 3.2 语法风格, 3.2.1 良好风格, 3.3 最佳实践范例, 3.3.1 监测日志告警信息并邮件通知, 0x04 本章总结, 0x05 Shell脚本的一些注意点, 为什么需要使用 $()？, 另一种命令替换的方式：反引号（````）, 方括号的使用本课程基于介绍关于的基础知识结合实际案例展示脚本编写的最佳实践学完本课程后您应该能熟悉基础知识掌握编程基础能够编写常用的脚本基础介绍构成简介了解在中的位置掌握脚本的基本操作概述是系统的用户界面提供了用户与内核进行交互操作的一种接口将用户输入的命令并且把它们送到内核去执行然后返回执行结果是可编程的它允许用户编写由命令组成的程序发展史的为开发了第一个是一个在内核之外执行的独立的用户程序在为创建在伯克利分校攻读研究生期间为系统开发的在卡内基梅隆大学开发了将引入了系统中的一些功能如命令行编辑功能和文件名和命令自动补全功能在创建它功能更强大提供关联数组表达式运算或是一个开源项目旨在取代由开发已成为世上最流行的它兼容是系统的默认在中有多种程序可供选择比如等默认的可以在查看在中修改查看登陆查看系统默认安装的查看当前登陆用户默认查看当前的脚本定义作用格式权限及执行脚本基础知识在里一个程序命令只做好一件事复杂的问题可以通过多个命令的组合来解决形式最简单的脚本就是一系列命令构成的可执行文件并可以被其他脚本复用编写风格良好易读的脚本可以提高日常任务的自动化程度和准确性脚本的约束没有银弹脚本可以完成很多任务但不适用于所有情况对于可以通过调用其他命令行实用工具来完成的任务脚本是一种不错的选择脚本可以作为一种胶水语言整合其他编程语言银弹没有一个工具可以解决所有问题当解决某个问题时脚本实现起来复杂度高效率低此时就可以考虑使用其他编程语言脚本开发环境可以在任意文本编辑器中打开新文件来创建脚本高级编辑器如和在识别文件的后缀为后可以提供语法高亮检查补全等功能新建一个脚本文件并写入如下内容脚本指定解释器脚本只是静态的代码若要输出结果还需要解释器的参与一般在脚本的第一行指定执行此脚本的解释器如果不指定解释器脚本也能在默认的解释器中正常运行但出于规范和安全的考虑建议指定如下执行脚本对于脚本文件我们有两种执行方式中一切皆文件脚本命令程序都是一个文件文件作为一个对象具有权限的属性在执行别人发送或从网上下载的脚本时可能会遇到权限问题赋予执行权限可解决如果某个脚本可执行则可以通过在命令行中输入其名称调用如果某个脚本可执行则可以通过在命令行中输入其名称调用查看变量修改变量查找某个命令脚本的路径永久修改需要在或中添加关于变量的细节后续章节还会提到后台执行脚本有时候一些脚本执行时间较长命令行界面会被占用因此可以采取后台运行脚本这种方法在退出后脚本进程会随之终止为了保证脚本一直运行可以采用脚本的标准输出和标准错误会重定向到文件里使用命令可以查看后台中运行着的进程编程基础理解中文本流的输入输出以及重定向掌握中管道的用法掌握中的变量运算符掌握中的逻辑判断选择结构循环结构输入输出管道中的文本流文本流存在于的每一个进程中的每个进程启动时会打开三个文本流的端口标准输入标准输出标准错误这三个端口对应着一个程序的输入输出和异常的抛出例如在中输入一串字符后进程中的标准输入端口捕获命令行中的输入进行处理后从标准输出端口中传出回显在屏幕上如果处理过程中发生异常则会通过标准错误端口将异常回显在屏幕上输出重定向某些情况下我们需要保存程序的输出此时就可以通过重定向将程序的输出保存到文件中将标准输出定向到文件中使用这种方式会将程序的标准输出覆盖文件内容将标准输出追加到文件中使用这种方式会将标准输出追加至文件的末尾执行完命令后可以通过查看保存的文件内容输入重定向与输出重定向类似输入重定向是把程序的标准输入进行重新定向输入重定向格式将右边的文件作为标准输入然后传入左边的命令例内联输入重定向格式输出重定向需要文件而内联输入重定向可以使用即时输入的文本作为标准输入传入左边的命令右边的字符作为标志表示标准输入的开始和结束自身不包含在标准输入里右图例中以作为标志管道有时需要将一个命令的输出连到另一个命令的输入如果用重定向实现会较复杂管道就像现实中的水管一样可以连接两个命令的输入和输出甚至是串联多个命令格式管道实际上是进程间通信的一种方式字符变量运算中的字符和其他编程语言一样也有一些保留字特殊字符在编写脚本时需要注意注释符号在文件的行首作为标记其他地方作为注释作用在一行中后面的内容并不会被执行除非但是用单双引号包围时作为号字符本身不具有注释作用单引号单引号括住的内容被视为单一字符串引号内的禁止变量扩展所有字符均作为字符本身处理除单引号本身之外单引号必须成对出现反斜线反斜杆放在特殊符号之前转义特殊符号的作用仅表示特殊符号本身这在字符串中常用放在一行指令的最末端表示紧接着的回车无效其实也就是转义了后继新行的输入仍然作为当前指令的一部分斜线斜杆作为路径的分隔符路径中仅有一个斜杆表示根目录以斜杆开头的路径表示从根目录开始的路径在作为运算符的时候表示除法符号如感叹号取反一个测试结果或退出状态表示反逻辑比如后面的这个是表示不等于表示取反如表示后面不是紧接一个数字的文件变量任何语言都有变量这个要素与其他强类型的编程语言如和等有很大不同中的变量是无类型的通过一个变量我们可以引用一块内存区域的值变量名就是这块内存区域上贴的一个标签变量赋值变量的类型在中变量主要有两大类环境变量用户定义变量每种类型的变量依据作用域不同又分为全局变量和局部变量全局变量作用在整个会话及其子局部变量作用在定义她们的进程及其子进程内查看变量使用查看全局变量使用查看某个特定进程中的所有变量包括局部变量全局变量以及用户定义变量修改变量在或中添加语句永久修改变量对比与的区别命令是中的一个内建命令它能够显示当前中的变量以及用户自定义的变量不管该变量有没有命令允许你更改选项的值并设置位置参数或者显示变量的名称和值如果未提供任何选项或参数则会设置显示所有变量和函数的名称和值按照当前语言环境排序并且输出的格式可以重新用作设置或重置当前设置变量的输入和在环境变量打印方面是类似的但是在功能上主要用于设置环境变量并运行指定的命令命令而是为了打印环境变量则是一个的内建命令与有关用于设置的属性使用变量单双引号变量命名规则变量名由数字字母下划线组成必须以字母或者下划线开头不能使用里的关键字定义变量的格式赋值号的周围不能有空格如果有必要也可以使用关键字显式定义变量的类型查询关键字如果包含了空白符则需要用引号包裹起来单引号包裹的内容不展开命令变量即原样输出双引号反之会展开其中包裹的命令和变量扩展变量在以下示例中如果不使用花括号会将解释为变量后跟变量而不是由字符分隔的变量和因此在此情况下必须使用花括号引用的形式才能使变量扩展正确运行变量的赋值与输出定义并赋值如下变量个人姓名日期输出姓名及日期变量读取输入并输出命令等待用户输入随后将输入的内容赋给变量的算术扩展算术扩展可用于执行简单的整数算术运算语法表达式例在中计算时间定义小时分钟秒变量定义每天秒数变量并赋值输出变量算术运算常用表达式算术运算的优先级优先级由高到低如下变量递增的前置后置区别和输出是否一样在触发边界条件时有哪些场景需要注意要开辟一个变量来保存的值并返回然后让这个变量的值而直接把加到这个变量的空间中去并返回这个空间中的值没有开辟任何临时空间性能更高图中返回的变量是所以有这样的差异语句条件循环中的结构化命令在脚本里除了顺序执行还需要一些额外的逻辑控制流程和其他编程语言类似中的结构化命令主要包括条件循环两类条件语句语句语法会先执行后面的语句如果其退出状态码为则会继续执行部分的命令否则会执行脚本中的下一个命令中的和其他判断的条件不太一样需注意多分支判断语句在涉及多条件判断时可能会使用较为繁琐的语句通过语句频繁检测同一个变量的值此时更适合使用语句语法语句会将指定的变量与不同的模式比较若匹配则执行对应的命令用可以分割出多个模式用代表所有与已知模式不匹配的值循环语句脚本中常会遇到一些重复任务相当于循环执行一组命令直到满足了某个特定条件常见的循环语句有种循环控制符有两种用于控制循环流程的转向循环语法风格语法语言风格和之间的命令称为循环体执行次数和列表中常数或字符串的个数相同循环首先将后列表的第一个常数或字符串赋值给循环变量然后执行循环体以此执行最后执行命令后的命令序列循环中的列表循环奇数累加器循环文件展示展示目录下所有文件参考脚本循环也称为前测试循环语句重复次数是利用一个条件来控制是否继续重复执行这个语句为避免死循环必须保证循环体中包含循环出口条件此处示例等同于此前奇数累加器思考与循环实现方式相比有何不同循环与循环类似但是跳出循环的条件判断有所区别奇数累加器此处示例脚本等同于此前奇数累加器思考与循环循环实现方式相比有何不同使用循环打印乘法表参考脚本编程最佳实践掌握的调试模式掌握脚本的基本调试方法了解脚本编写过程中应遵循的良好风格掌握常见脚本的编写方法调试脚本错误故障排除编写使用或维护脚本的管理员不可避免地会遇到脚本的错误错误通常是由于输入错误语法错误或脚本逻辑不佳导致在编写脚本时将文本编辑器与语法高亮显示结合使用可以帮助使错误更明显找到并排除脚本中错误的最直接方法是调试避免在脚本中引入错误的另一种简单方法是在创建脚本期间遵循良好风格调试模式脚本上激活调试模式请向脚本第一行中的命令解释器中添加选项如此前乘法表进行如下修改的调试模式将打印出脚本执行前由脚本执行的命令已执行的所有扩展的结果都将显示在打印输出中所有变量数据状态会实时打印以供跟踪评估退出代码每个命令返回一个退出状态也通常称为返回状态或退出代码退出代码可以用于脚本的调试以下示例说明了几个常用命令的执行和退出状态检索在脚本中使用退出代码一旦执行脚本将在其处理所有内容之后退出但是有时候可能需要中途退出脚本比如在遇到错误条件时可以通过在脚本中使用命令来实现这一目的当脚本遇到命令时脚本将立即退出并跳过对脚本其余内容的处理语法风格良好风格以下是要遵循的一些具体做法将长命令分解为多行更小的代码块代码段越短就越便于读者领悟和理解将多个语句的开头和结尾排好以便于查看控制结构的开始和结束位置以及它们是否正确关闭对包含多行语句的行进行缩进以表示代码逻辑的层次结构和控制结构的流程使用行间距分隔命令块以阐明一个代码段何时结束以及另一个代码段何时开始在整个脚本中通篇使用一致的格式添加注释和空格如何能够极大改善脚本可读利用这些简单做法极大方便了用户在编写期间发现错误还提高了脚本对于将来读者的可读性脚本示例修改后的脚本此脚本是读取关于相关的软件包信息并从数据库中查询软件包的安装时间循环处理信息查询每个软件包的安装时间把时间转换为普通的日期时间打印信息最佳实践范例监测日志告警信息并邮件通知场景描述某运营商要求对当前环境日志文件进行长期监测如发现关键词则发送告警邮件要求日志文件可自己新建用脚本模拟写入发送邮件可通过指令但受限实验环境可通过向日志文件写入字符串来替代实现效果后台运行监测脚本模拟报错查看文件检查结果日志检测脚本模拟报错脚本本章总结本章系统介绍了脚本中的各个要素包括执行编写调试在执行部分介绍了工作中常用的前台后台运行方式及对应操作在编写部分介绍了编写脚本所需的变量语句结构等知识在调试部分介绍了常见的调试方法和编写过程中良好风格本章提供了大量的实际案例和示例代码有助于实际工作中的使用脚本的一些注意点在中变量赋值时等号两边不能有空格在中是用于命令替换的语法它允许你将命令的输出结果作为表达式的一部分并将其赋值给一个变量或者在其他命令中使用为什么需要使用获取命令输出用于获取命令的输出并将其替换到变量或其他表达式中换句话说是一种将命令的标准输出嵌入到其他命令或赋值中的方式防止语法错误如果没有或者反引号会将整个命令当作普通的字符串处理而不是执行它假设你想将当前的日期赋给变量你可以使用以下代码这行代码会执行命令并将命令的输出结果当前的日期和时间赋值给变量如果不使用会发生什么如果你省略就会把作为一个普通的字符串处理而不会执行它复制代码这时变量会被赋值为字符串而不是命令的输出结果另一种命令替换的方式反引号除了你还可以使用反引号来进行命令替换复制代码但是反引号有一些局限性嵌套命令时会变得非常难以读取例如里面包含反引号时就会变得很难维护使用更加现代和可读特别是对于复杂命令总结用于在脚本中执行命令并捕获其输出没有它就无法知道你要执行的命令并且会把它当作普通字符串处理方括号的使用方括号中使用表达式表达式需要与方括号之间有空格否则会错误',
-  isPost: true,
-  isHome: false,
-  isHighlightShrink: false,
-  isToc: true,
-  postUpdate: '2025-05-19 03:45:57',
-  postMainColor: '',
-}</script><noscript><style type="text/css">
-  #nav {
-    opacity: 1
-  }
-  .justified-gallery img {
-    opacity: 1
-  }
+	
+    const CONFIG_LEACLOUD_COUNT = {
+      enable: false,
+	  appId: 'AU8...',
+	  appKey: '4cU...',
+	  serverURLs: 'http' || ' '
+    }
+  </script>
+<meta name="generator" content="Hexo 7.3.0"></head>
+	<body>
+		<!-- Preloader -->
 
-  #recent-posts time,
-  #post-meta time {
-    display: inline !important
-  }
-</style></noscript><script>(win=>{
-      win.saveToLocal = {
-        set: (key, value, ttl) => {
-          if (ttl === 0) return
-          const now = Date.now()
-          const expiry = now + ttl * 86400000
-          const item = {
-            value,
-            expiry
-          }
-          localStorage.setItem(key, JSON.stringify(item))
-        },
-      
-        get: key => {
-          const itemStr = localStorage.getItem(key)
-      
-          if (!itemStr) {
-            return undefined
-          }
-          const item = JSON.parse(itemStr)
-          const now = Date.now()
-      
-          if (now > item.expiry) {
-            localStorage.removeItem(key)
-            return undefined
-          }
-          return item.value
-        }
-      }
-    
-      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
-        const script = document.createElement('script')
-        script.src = url
-        script.async = true
-        script.onerror = reject
-        script.onload = script.onreadystatechange = function() {
-          const loadState = this.readyState
-          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-          script.onload = script.onreadystatechange = null
-          resolve()
-        }
+	<div id="preloader">
+		<div class="pre-container">
+			
+				<div class="spinner">
+					<div class="double-bounce1"></div>
+					<div class="double-bounce2"></div>
+				</div>
+						
+		</div>
+	</div>
 
-        Object.keys(attr).forEach(key => {
-          script.setAttribute(key, attr[key])
-        })
 
-        document.head.appendChild(script)
-      })
-    
-      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
-        const link = document.createElement('link')
-        link.rel = 'stylesheet'
-        link.href = url
-        if (id) link.id = id
-        link.onerror = reject
-        link.onload = link.onreadystatechange = function() {
-          const loadState = this.readyState
-          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-          link.onload = link.onreadystatechange = null
-          resolve()
-        }
-        document.head.appendChild(link)
-      })
-    
-      win.activateDarkMode = () => {
-        document.documentElement.setAttribute('data-theme', 'dark')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
-        }
-      }
-      win.activateLightMode = () => {
-        document.documentElement.setAttribute('data-theme', 'light')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
-        }
-      }
-      const t = saveToLocal.get('theme')
-    
-          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
-          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
-          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
-          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+<!-- header -->
+<header class="fixbackground bg-pan-br">
+	<div class="mask">
+		<!-- motto -->
+		<div class="h-body">	
+			
+				<div class="motto text-shadow-pop-left">
+					<p class="content" id="motto-content">获取中...</p>
+					<p>-<p>
+					<p class="author" id="motto-author">Just a minute...</p>
+				</div>
+			
+		</div>
+		
+		<!-- others: such as time... -->			
+		<div class="h-footer">
+			<a href="javascript:;" id="read-more" class="scroll-down">
+				<span class="icon-anchor1 animation-scroll-down"></span>
+			</a>
+		</div>
+	</div>
+</header>
 
-          if (t === undefined) {
-            if (isLightMode) activateLightMode()
-            else if (isDarkMode) activateDarkMode()
-            else if (isNotSpecified || hasNoSupport) {
-              const now = new Date()
-              const hour = now.getHours()
-              const isNight = hour <= 6 || hour >= 18
-              isNight ? activateDarkMode() : activateLightMode()
-            }
-            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
-              if (saveToLocal.get('theme') === undefined) {
-                e.matches ? activateDarkMode() : activateLightMode()
-              }
-            })
-          } else if (t === 'light') activateLightMode()
-          else activateDarkMode()
-        
-      const asideStatus = saveToLocal.get('aside-status')
-      if (asideStatus !== undefined) {
-        if (asideStatus === 'hide') {
-          document.documentElement.classList.add('hide-aside')
-        } else {
-          document.documentElement.classList.remove('hide-aside')
-        }
-      }
-    
-      const detectApple = () => {
-        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
-          document.documentElement.classList.add('apple')
-        }
-      }
-      detectApple()
-    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://npm.elemecdn.com/anzhiyu-blog-static@1.0.4/img/avatar.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
-  endLoading: () => {
-    document.getElementById('loading-box').classList.add("loaded");
-  },
-  initLoading: () => {
-    document.getElementById('loading-box').classList.remove("loaded")
-  }
-}
-window.addEventListener('load',()=> { preloader.endLoading() })
-setTimeout(function(){preloader.endLoading();},10000)
+<div id="navigation-hide">
+	<!-- Progress bar -->
+	<div id="progress-bar"></div>
 
-if (true) {
-  document.addEventListener('pjax:send', () => { preloader.initLoading() })
-  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
-}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><a id="site-name" href="/" accesskey="h"><div class="title">XBCID's BLOG</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" target="_blank"><img class="post-qr-code-img" alt="微信" src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" target="_blank"><img class="post-qr-code-img" alt="支付宝" src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/HCIA/" style="font-size: 1.05rem;">HCIA<sup>9</sup></a><a href="/tags/HCIP/" style="font-size: 1.05rem;">HCIP<sup>6</sup></a><a href="/tags/Huawei/" style="font-size: 1.05rem;">Huawei<sup>15</sup></a><a href="/tags/Linux/" style="font-size: 1.05rem;">Linux<sup>18</sup></a><a href="/tags/openEuler/" style="font-size: 1.05rem;">openEuler<sup>18</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/05/"><span class="card-archive-list-date">May 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">23</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/03/"><span class="card-archive-list-date">March 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">6</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/02/"><span class="card-archive-list-date">February 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">8</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="article-meta tags"><a class="article-meta__tags" href="/tags/Linux/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>Linux</span></a><a class="article-meta__tags" href="/tags/openEuler/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>openEuler</span></a><a class="article-meta__tags" href="/tags/Huawei/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>Huawei</span></a><a class="article-meta__tags" href="/tags/HCIA/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>HCIA</span></a></span></div></div><h1 class="post-title" itemprop="name headline">08 使用shell脚本</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2025-05-18T19:46:45.683Z" title="发表于 2025-05-19 03:46:45">2025-05-19</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2025-05-18T19:45:57.835Z" title="更新于 2025-05-19 03:45:57">2025-05-19</time></span></div><div class="meta-secondline"><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为重庆"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>重庆</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src=""></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="http://example.com/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/08%20%E4%BD%BF%E7%94%A8shell%E8%84%9A%E6%9C%AC/"><header><a href="/tags/Linux/" tabindex="-1" itemprop="url">Linux</a><a href="/tags/openEuler/" tabindex="-1" itemprop="url">openEuler</a><a href="/tags/Huawei/" tabindex="-1" itemprop="url">Huawei</a><a href="/tags/HCIA/" tabindex="-1" itemprop="url">HCIA</a><h1 id="CrawlerTitle" itemprop="name headline">08 使用shell脚本</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">XBCID</span><time itemprop="dateCreated datePublished" datetime="2025-05-18T19:46:45.683Z" title="发表于 2025-05-19 03:46:45">2025-05-19</time><time itemprop="dateCreated datePublished" datetime="2025-05-18T19:45:57.835Z" title="更新于 2025-05-19 03:45:57">2025-05-19</time></header><ul>
+	<!-- Progress percent -->
+	<div id="progress-percentage"><span>0.0%</span></div>
+
+	<div class="toc-switch"><span class="switch-button">目录</span></div>
+
+	<!-- Page title -->
+	<p>
+		
+			「08 使用shell脚本」
+		
+	</p>
+
+	
+	
+
+	<!-- Nav trigger for navigation-H-->
+	<a class="nav-trigger"><span></span></a>
+</div>
+
+<!-- Navigation in div(id="navigation-H") -->
+<nav class="nav-container" id="cd-nav">
+	<div class="nav-header">
+		<span class="logo"> 
+			<img src="/img/logo.png">
+		</span>
+		<a href="javascript:;" class="nav-close"></a>
+	</div>
+	
+	<div class="nav-body">
+		<ul id="global-nav">
+	
+		<li class="menu-home">
+			<a href="/" class="menu-item-home" target="_blank">主页</a>
+		</li>
+		
+	
+		<li class="menu-archive">
+			<a href="/archives" class="menu-item-archive" target="_blank">归档</a>
+		</li>
+		
+	
+		<li class="menu-categories">
+			<a href="/categories" class="menu-item-categories" target="_blank">分类</a>
+		</li>
+		
+	
+		<li class="menu-tags">
+			<a href="/tags" class="menu-item-tags" target="_blank">标签</a>
+		</li>
+		
+	
+		<li class="menu-about">
+			<a href="/about" class="menu-item-about" target="_blank">关于</a>
+		</li>
+		
+	
+		<li class="menu-gallery">
+			<a href="/gallery" class="menu-item-gallery" target="_blank">相册</a>
+		</li>
+		
+	
+
+	
+</ul>
+	</div>
+	
+	<div class="nav-footer">
+		<ul id="global-social">
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<span class="icon-one"><span class="path1"></span><span class="path2"></span></span>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<span class="icon-zhihu"></span>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<span class="icon-github"></span>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<span class="icon-sina-weibo "></span>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<span class="icon-pinterest2"></span>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<span class="icon-instagram"></span>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<span class="icon-twitter"></span>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<span class="icon-rss"></span>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+</nav>
+			
+		<!--main-->
+		<main>
+			<!--
+	时间：2018-11-17
+	描述：
+		插件名称：katelog.min.js
+		插件作者：KELEN
+		插件来源: https://github.com/KELEN/katelog
+-->
+
+	
+		<div class="layout-toc">
+			<div id="layout-toc">
+				<div class="k-catelog-list" id="catelog-list" data-title="文章目录"></div>
+			</div>
+		</div>
+
+		
+<script src="/plugin/toc/katelog.min.js"></script>
+
+
+		
+	 
+
+<div class="layout-post">
+	<div id="layout-post">
+		<div class="article-title">
+			
+	<a href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/08%20%E4%BD%BF%E7%94%A8shell%E8%84%9A%E6%9C%AC/" itemprop="url">
+		08 使用shell脚本
+	</a>
+
+		</div>
+
+		<div class="article-meta">
+			<span>
+				<i class="icon-calendar1"></i>
+				
+				
+
+
+
+
+	更新于
+
+	<a href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/08%20%E4%BD%BF%E7%94%A8shell%E8%84%9A%E6%9C%AC/" itemprop="url">
+		<time datetime="2025-05-18T19:46:45.683Z" itemprop="dateUpdated">
+	  		2025-05-19
+	  </time>
+	</a> 
+
+
+
+			</span>
+			<span>
+				
+	<i class="icon-price-tags"></i>
+	
+		<a href="/tags/Linux/" class=" ">
+			Linux
+		</a>
+	
+		<a href="/tags/openEuler/" class=" ">
+			openEuler
+		</a>
+	
+		<a href="/tags/Huawei/" class=" ">
+			Huawei
+		</a>
+	
+		<a href="/tags/HCIA/" class=" ">
+			HCIA
+		</a>
+	
+		
+			</span>
+			
+			
+
+
+
+		</div>
+
+		<div class="article-content" id="article-content">
+			<ul>
 <li>本课程基于 openEuler</li>
 <li>介绍关于 Shell 的基础知识</li>
 <li>结合实际案例展示 Shell 脚本编写的最佳实践</li>
@@ -214,7 +309,7 @@ if (true) {
 <li>掌握 Shell 编程基础</li>
 <li>能够编写常用的 Shell 脚本</li>
 </ul>
-<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/08%20%E4%BD%BF%E7%94%A8shell%E8%84%9A%E6%9C%AC/2025020719-4609642.png"></p>
+<p><img src="/assets/08%20%E4%BD%BF%E7%94%A8shell%E8%84%9A%E6%9C%AC/2025020719-4609642.png"></p>
 <hr>
 <h2 id="0x01-Shell基础介绍"><a href="#0x01-Shell基础介绍" class="headerlink" title="0x01 Shell基础介绍"></a>0x01 Shell基础介绍</h2><h3 id="1-1-openEuler构成Shell简介"><a href="#1-1-openEuler构成Shell简介" class="headerlink" title="1.1 openEuler构成Shell简介"></a>1.1 openEuler构成Shell简介</h3><ul>
 <li>了解 Shell 在 openEuler 中的位置</li>
@@ -225,10 +320,10 @@ if (true) {
 <li>Shell 是系统的用户界面，提供了用户与内核进行交互操作的一种接口</li>
 <li>Shell 将用户输入的命令并且把它们送到内核去执行，然后返回执行结果</li>
 <li>Shell 是可编程的，它允许用户编写由 Shell 命令组成的程序</li>
-<li><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/08%20%E4%BD%BF%E7%94%A8shell%E8%84%9A%E6%9C%AC/2025020713-0211287.png"></li>
+<li><img src="/assets/08%20%E4%BD%BF%E7%94%A8shell%E8%84%9A%E6%9C%AC/2025020713-0211287.png"></li>
 </ul>
 <h4 id="1-1-2-Shell发展史"><a href="#1-1-2-Shell发展史" class="headerlink" title="1.1.2 Shell发展史"></a>1.1.2 Shell发展史</h4><p>1971 : Bell Labs 的 Ken Thompson 为 UNIX 开发了第一个 Shell: V6 Shell 是一个在内核之外执行的独立的用户程序<br>1977 ：Steven Bourne 在 AT&amp;T Bell Labs 为 V7 UNIX 创建 Bourne shell<br>1978 ：Bill Joy 在伯克利分校攻读研究生期间为 BSD UNIX 系统开发的 csh<br>1983 ： Ken Greer 在卡内基-梅隆大学开发了 tcsh，将 C Shell 引入了 Tenex 系统中的一些功能，如命令行编辑功能和文件名和命令自动补全功能<br>1983 ：David Korn 在 AT&amp;T Bell Labs 创建 korn shell，它功能更强大，提供关联数组表达式运算<br>1989 ：Bourne-Again Shell（或 Bash）是一个开源 GNU 项目，旨在取代 Bourne shell；Bash 由 Brian Fox 开发，已成为世上最流行的 Shell，它兼容 sh、csh、ksh，是 Linux 系统的默认 Shell</p>
-<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/08%20%E4%BD%BF%E7%94%A8shell%E8%84%9A%E6%9C%AC/2025020713-0643357.png"></p>
+<p><img src="/assets/08%20%E4%BD%BF%E7%94%A8shell%E8%84%9A%E6%9C%AC/2025020713-0643357.png"></p>
 <p>在 Linux 中，有多种 Shell 程序可供选择，比如 dash、csh、zsh 等，默认的 Shell 可以在 &#x2F;bin&#x2F;sh 查看，在&#x2F;etc&#x2F;passwd 中修改。</p>
 <h4 id="1-1-4-查看Shell"><a href="#1-1-4-查看Shell" class="headerlink" title="1.1.4 查看Shell"></a>1.1.4 查看Shell</h4><p>登陆 openEuler，查看系统默认安装的 Shell</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/shells</span><br></pre></td></tr></table></figure>
@@ -355,7 +450,7 @@ if (true) {
 <li>格式：<code>command1 | command2 | command3</code><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@openEuler ~] ls /bin/ | grep python | less</span><br></pre></td></tr></table></figure></li>
 <li>管道实际上是进程间通信（IPC）的一种方式</li>
 </ul>
-<h3 id="2-2-字符、变量、运算"><a href="#2-2-字符、变量、运算" class="headerlink" title="2.2 字符、变量、运算"></a>2.2 字符、变量、运算</h3><h4 id="2-2-1-Shell中的字符"><a href="#2-2-1-Shell中的字符" class="headerlink" title="2.2.1 Shell中的字符"></a>2.2.1 Shell中的字符</h4><p>和其他编程语言一样，Shell 也有一些保留字（特殊字符），在编写脚本时需要注意<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/08%20%E4%BD%BF%E7%94%A8shell%E8%84%9A%E6%9C%AC/2025020719-5649485.png"></p>
+<h3 id="2-2-字符、变量、运算"><a href="#2-2-字符、变量、运算" class="headerlink" title="2.2 字符、变量、运算"></a>2.2 字符、变量、运算</h3><h4 id="2-2-1-Shell中的字符"><a href="#2-2-1-Shell中的字符" class="headerlink" title="2.2.1 Shell中的字符"></a>2.2.1 Shell中的字符</h4><p>和其他编程语言一样，Shell 也有一些保留字（特殊字符），在编写脚本时需要注意<br><img src="/assets/08%20%E4%BD%BF%E7%94%A8shell%E8%84%9A%E6%9C%AC/2025020719-5649485.png"></p>
 <ul>
 <li>注释符号(Hashmark<code>[Comments]</code>)<ul>
 <li>在shell文件的行首，作为<a href="%E6%B3%A8%E9%87%8A/shebang.md">shebang</a>标记，<code>#!/bin/bash</code>;</li>
@@ -468,8 +563,8 @@ if (true) {
 </ul>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@openEuler ~]# SEC_PER_MIN=60</span><br><span class="line">[root@openEuler ~]# MIN_PER_HR=60</span><br><span class="line">[root@openEuler ~]# HR_PER_DAY=24</span><br><span class="line">[root@openEuler ~]# SEC_PER_DAY=$[ $SEC_PER_MIN * $MIN_PER_HR * $HR_PER_DAY ]</span><br><span class="line">[root@openEuler ~]# echo &quot;There are $SEC_PER_DAY seconds in a day&quot;</span><br><span class="line">There are 86400 seconds in a day</span><br></pre></td></tr></table></figure>
 
-<h5 id="2-2-3-2-算术运算常用表达式"><a href="#2-2-3-2-算术运算常用表达式" class="headerlink" title="2.2.3.2 算术运算常用表达式"></a>2.2.3.2 算术运算常用表达式</h5><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/08%20%E4%BD%BF%E7%94%A8shell%E8%84%9A%E6%9C%AC/2025020813-0716787.png"></p>
-<h6 id="2-2-3-2-1-算术运算的优先级"><a href="#2-2-3-2-1-算术运算的优先级" class="headerlink" title="2.2.3.2.1 算术运算的优先级"></a>2.2.3.2.1 算术运算的优先级</h6><p>优先级由高到低如下：<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/08%20%E4%BD%BF%E7%94%A8shell%E8%84%9A%E6%9C%AC/2025020814-1712460.png"></p>
+<h5 id="2-2-3-2-算术运算常用表达式"><a href="#2-2-3-2-算术运算常用表达式" class="headerlink" title="2.2.3.2 算术运算常用表达式"></a>2.2.3.2 算术运算常用表达式</h5><p><img src="/assets/08%20%E4%BD%BF%E7%94%A8shell%E8%84%9A%E6%9C%AC/2025020813-0716787.png"></p>
+<h6 id="2-2-3-2-1-算术运算的优先级"><a href="#2-2-3-2-1-算术运算的优先级" class="headerlink" title="2.2.3.2.1 算术运算的优先级"></a>2.2.3.2.1 算术运算的优先级</h6><p>优先级由高到低如下：<br><img src="/assets/08%20%E4%BD%BF%E7%94%A8shell%E8%84%9A%E6%9C%AC/2025020814-1712460.png"></p>
 <h6 id="2-2-3-2-2-变量递增的前置后置区别"><a href="#2-2-3-2-2-变量递增的前置后置区别" class="headerlink" title="2.2.3.2.2 变量递增的前置后置区别"></a>2.2.3.2.2 变量递增的前置后置区别</h6><p><code>echo $[++i]</code>和<code>echo $[i++]</code>输出是否一样？<br>在触发边界条件时有哪些场景需要注意？</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@openEuler ~]# i=3</span><br><span class="line">[root@openEuler ~]# echo $[i]</span><br><span class="line">3</span><br><span class="line">[root@openEuler ~]# echo $[++i]</span><br><span class="line">4</span><br><span class="line">[root@openEuler ~]# echo $[i++]</span><br><span class="line">4</span><br><span class="line">[root@openEuler ~]# echo $i</span><br><span class="line">5</span><br></pre></td></tr></table></figure>
 <ul>
@@ -553,7 +648,7 @@ if (true) {
 <li><p>已执行的所有 shell 扩展的结果都将显示在打印输出中，所有变量数据状态会实时打印，以供跟踪：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@openEuler tmp]# bash -x adder.sh</span><br></pre></td></tr></table></figure></li>
 </ul>
-<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/08%20%E4%BD%BF%E7%94%A8shell%E8%84%9A%E6%9C%AC/2025020817-3530742.png"></p>
+<p><img src="/assets/08%20%E4%BD%BF%E7%94%A8shell%E8%84%9A%E6%9C%AC/2025020817-3530742.png"></p>
 <h4 id="3-1-3-评估退出代码"><a href="#3-1-3-评估退出代码" class="headerlink" title="3.1.3 评估退出代码"></a>3.1.3 评估退出代码</h4><ul>
 <li><p>每个命令返回一个退出状态，也通常称为返回状态或退出代码</p>
 </li>
@@ -595,7 +690,7 @@ if (true) {
 <ul>
 <li>日志文件可自己新建，用脚本模拟写入</li>
 <li>发送邮件可通过mail指令，但受限实验环境，可通过向日志文件写入”mail”字符串来替代</li>
-<li>实现效果：<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/08%20%E4%BD%BF%E7%94%A8shell%E8%84%9A%E6%9C%AC/2025020822-1035999.png"></li>
+<li>实现效果：<br><img src="/assets/08%20%E4%BD%BF%E7%94%A8shell%E8%84%9A%E6%9C%AC/2025020822-1035999.png"></li>
 </ul>
 </li>
 <li><p>后台运行监测脚本：</p>
@@ -645,148 +740,541 @@ if (true) {
 <p>总结：</p>
 <p><code>$()</code> 用于在 Bash 脚本中执行命令并<strong>捕获其输出</strong>。没有它，Bash 就无法知道你要执行的命令，并且会把它当作普通字符串处理。</p>
 <h3 id="方括号的使用"><a href="#方括号的使用" class="headerlink" title="方括号的使用"></a>方括号的使用</h3><p>方括号中使用表达式 表达式需要与方括号之间有空格 否则会错误</p>
-</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">XBCID</div><div class="post-copyright__author_desc"></div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="http://example.com/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/08%20%E4%BD%BF%E7%94%A8shell%E8%84%9A%E6%9C%AC/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('http://example.com/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/08%20%E4%BD%BF%E7%94%A8shell%E8%84%9A%E6%9C%AC/')">08 使用shell脚本</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"></div><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="http://example.com/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/08%20%E4%BD%BF%E7%94%A8shell%E8%84%9A%E6%9C%AC/"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" target="_blank" href="https://service.weibo.com/share/share.php?title=08 使用shell脚本&amp;url=http://example.com/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/08%20%E4%BD%BF%E7%94%A8shell%E8%84%9A%E6%9C%AC/&amp;pic=" rel="external nofollow noreferrer noopener"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><script>function copyCurrentPageUrl() {
-  var currentPageUrl = window.location.href;
-  var input = document.createElement("input");
-  input.setAttribute("value", currentPageUrl);
-  document.body.appendChild(input);
-  input.select();
-  input.setSelectionRange(0, 99999);
-  document.execCommand("copy");
-  document.body.removeChild(input);
-}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">XBCID's BLOG</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"><a class="post-meta__box__tags" href="/tags/Linux/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>Linux<span class="tagsPageCount">18</span></a><a class="post-meta__box__tags" href="/tags/openEuler/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>openEuler<span class="tagsPageCount">18</span></a><a class="post-meta__box__tags" href="/tags/Huawei/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>Huawei<span class="tagsPageCount">15</span></a><a class="post-meta__box__tags" href="/tags/HCIA/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>HCIA<span class="tagsPageCount">9</span></a></div></div></div><div class="post_share"><div class="social-share" data-image="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">06 管理文件系统及存储</div></div></a></div><div class="next-post pull-right"><a href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/09%20Samba%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86/"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">09 Samba文件共享服务器管理</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="anzhiyufont anzhiyu-icon-thumbs-up fa-fw" style="font-size: 1.5rem; margin-right: 4px"></i><span>喜欢这篇文章的人也看了</span></div><div class="relatedPosts-list"><div><a href="/2025/02/14/openEuler/%E7%AC%94%E8%AE%B0/IA/01%20openEuler%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%85%A5%E9%97%A8/" title="01 openEuler操作系统入门"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-02-14</div><div class="title">01 openEuler操作系统入门</div></div></a></div><div><a href="/2025/02/14/openEuler/%E7%AC%94%E8%AE%B0/IA/02%20%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%93%8D%E4%BD%9C%E5%9F%BA%E7%A1%80/" title="02 命令行操作基础"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-02-14</div><div class="title">02 命令行操作基础</div></div></a></div><div><a href="/2025/02/14/openEuler/%E7%AC%94%E8%AE%B0/IA/03%20%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8%E4%BB%A5%E5%8F%8A%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86/" title="03 文本编辑器以及文本处理"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-02-14</div><div class="title">03 文本编辑器以及文本处理</div></div></a></div><div><a href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/" title="06 管理文件系统及存储"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-05-19</div><div class="title">06 管理文件系统及存储</div></div></a></div><div><a href="/2025/02/14/openEuler/%E7%AC%94%E8%AE%B0/IA/04%20%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" title="04 用户和权限管理"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-02-14</div><div class="title">04 用户和权限管理</div></div></a></div><div><a href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/05%20%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E5%B9%B6%E7%AE%A1%E7%90%86%E6%9C%8D%E5%8A%A1/" title="05 安装软件并管理服务"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-05-19</div><div class="title">05 安装软件并管理服务</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__description"></div></div></div><div class="card-widget anzhiyu-right-widget" id="card-wechat" onclick="null"><div id="flip-wrapper"><div id="flip-content"><div class="face" style="background: url(https://bu.dusays.com/2023/01/13/63c02edf44033.png) center center / 100% no-repeat"></div><div class="back face" style="background: url(https://bu.dusays.com/2023/05/13/645fa415e8694.png) center center / 100% no-repeat"></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-Shell%E5%9F%BA%E7%A1%80%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">0x01 Shell基础介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-openEuler%E6%9E%84%E6%88%90Shell%E7%AE%80%E4%BB%8B"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 openEuler构成Shell简介</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-1-Shell-%E6%A6%82%E8%BF%B0"><span class="toc-number">1.1.1.</span> <span class="toc-text">1.1.1 Shell 概述</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-2-Shell%E5%8F%91%E5%B1%95%E5%8F%B2"><span class="toc-number">1.1.2.</span> <span class="toc-text">1.1.2 Shell发展史</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-4-%E6%9F%A5%E7%9C%8BShell"><span class="toc-number">1.1.3.</span> <span class="toc-text">1.1.4 查看Shell</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-Shell%E8%84%9A%E6%9C%AC%EF%BC%88%E5%AE%9A%E4%B9%89%E3%80%81%E4%BD%9C%E7%94%A8%E3%80%81%E6%A0%BC%E5%BC%8F%E3%80%81%E6%9D%83%E9%99%90%E5%8F%8A%E6%89%A7%E8%A1%8C%EF%BC%89"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 Shell脚本（定义、作用、格式、权限及执行）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-1-Shell%E8%84%9A%E6%9C%AC%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="toc-number">1.2.1.</span> <span class="toc-text">1.2.1 Shell脚本基础知识</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-2-Shell%E8%84%9A%E6%9C%AC%E7%9A%84%E7%BA%A6%E6%9D%9F"><span class="toc-number">1.2.2.</span> <span class="toc-text">1.2.2 Shell脚本的约束</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-3-Shell%E8%84%9A%E6%9C%AC%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83"><span class="toc-number">1.2.3.</span> <span class="toc-text">1.2.3 Shell脚本开发环境</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-4-Shell%E8%84%9A%E6%9C%AC%E6%8C%87%E5%AE%9A%E8%A7%A3%E9%87%8A%E5%99%A8"><span class="toc-number">1.2.4.</span> <span class="toc-text">1.2.4 Shell脚本指定解释器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-5-%E6%89%A7%E8%A1%8CShell%E8%84%9A%E6%9C%AC"><span class="toc-number">1.2.5.</span> <span class="toc-text">1.2.5 执行Shell脚本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-6-%E5%90%8E%E5%8F%B0%E6%89%A7%E8%A1%8CShell%E8%84%9A%E6%9C%AC"><span class="toc-number">1.2.6.</span> <span class="toc-text">1.2.6 后台执行Shell脚本</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-Shell%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80"><span class="toc-number">2.</span> <span class="toc-text">0x02 Shell编程基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E3%80%81%E7%AE%A1%E9%81%93"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 输入输出、管道</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-1-Linux%E4%B8%AD%E7%9A%84%E6%96%87%E6%9C%AC%E6%B5%81"><span class="toc-number">2.1.1.</span> <span class="toc-text">2.1.1 Linux中的文本流</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-2-%E8%BE%93%E5%87%BA%E9%87%8D%E5%AE%9A%E5%90%91"><span class="toc-number">2.1.2.</span> <span class="toc-text">2.1.2 输出重定向</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-3-%E8%BE%93%E5%85%A5%E9%87%8D%E5%AE%9A%E5%90%91"><span class="toc-number">2.1.3.</span> <span class="toc-text">2.1.3 输入重定向</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-4-%E7%AE%A1%E9%81%93"><span class="toc-number">2.1.4.</span> <span class="toc-text">2.1.4 管道</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E5%AD%97%E7%AC%A6%E3%80%81%E5%8F%98%E9%87%8F%E3%80%81%E8%BF%90%E7%AE%97"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 字符、变量、运算</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-1-Shell%E4%B8%AD%E7%9A%84%E5%AD%97%E7%AC%A6"><span class="toc-number">2.2.1.</span> <span class="toc-text">2.2.1 Shell中的字符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-2-%E5%8F%98%E9%87%8F"><span class="toc-number">2.2.2.</span> <span class="toc-text">2.2.2 变量</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-2-1-%E5%8F%98%E9%87%8F%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="toc-number">2.2.2.1.</span> <span class="toc-text">2.2.2.1 变量的类型</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-2-2-%E4%BD%BF%E7%94%A8%E5%8F%98%E9%87%8F-%E5%8D%95%E3%80%81%E5%8F%8C%E5%BC%95%E5%8F%B7"><span class="toc-number">2.2.2.2.</span> <span class="toc-text">2.2.2.2 使用变量(单、双引号)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-2-3-%E6%89%A9%E5%B1%95%E5%8F%98%E9%87%8F"><span class="toc-number">2.2.2.3.</span> <span class="toc-text">2.2.2.3 扩展变量</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-2-4-%E5%8F%98%E9%87%8F%E7%9A%84%E8%B5%8B%E5%80%BC%E4%B8%8E%E8%BE%93%E5%87%BA"><span class="toc-number">2.2.2.4.</span> <span class="toc-text">2.2.2.4 变量的赋值与输出</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-3-Shell%E7%9A%84%E7%AE%97%E6%9C%AF%E6%89%A9%E5%B1%95"><span class="toc-number">2.2.3.</span> <span class="toc-text">2.2.3 Shell的算术扩展</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-3-1-%E5%9C%A8Shell%E4%B8%AD%E8%AE%A1%E7%AE%97%E6%97%B6%E9%97%B4"><span class="toc-number">2.2.3.1.</span> <span class="toc-text">2.2.3.1 在Shell中计算时间</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-3-2-%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97%E5%B8%B8%E7%94%A8%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-number">2.2.3.2.</span> <span class="toc-text">2.2.3.2 算术运算常用表达式</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#2-2-3-2-1-%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97%E7%9A%84%E4%BC%98%E5%85%88%E7%BA%A7"><span class="toc-number">2.2.3.2.1.</span> <span class="toc-text">2.2.3.2.1 算术运算的优先级</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#2-2-3-2-2-%E5%8F%98%E9%87%8F%E9%80%92%E5%A2%9E%E7%9A%84%E5%89%8D%E7%BD%AE%E5%90%8E%E7%BD%AE%E5%8C%BA%E5%88%AB"><span class="toc-number">2.2.3.2.2.</span> <span class="toc-text">2.2.3.2.2 变量递增的前置后置区别</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E8%AF%AD%E5%8F%A5%EF%BC%88%E6%9D%A1%E4%BB%B6%EF%BC%8C%E5%BE%AA%E7%8E%AF%EF%BC%89"><span class="toc-number">2.3.</span> <span class="toc-text">2.3 语句（条件，循环）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-1-Shell-%E4%B8%AD%E7%9A%84%E7%BB%93%E6%9E%84%E5%8C%96%E5%91%BD%E4%BB%A4"><span class="toc-number">2.3.1.</span> <span class="toc-text">2.3.1 Shell 中的结构化命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-2-%E6%9D%A1%E4%BB%B6%E8%AF%AD%E5%8F%A5"><span class="toc-number">2.3.2.</span> <span class="toc-text">2.3.2 条件语句</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-3-2-1-%E5%A4%9A%E5%88%86%E6%94%AF%E5%88%A4%E6%96%AD%E8%AF%AD%E5%8F%A5"><span class="toc-number">2.3.2.1.</span> <span class="toc-text">2.3.2.1 多分支判断语句</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-3-%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5"><span class="toc-number">2.3.3.</span> <span class="toc-text">2.3.3 循环语句</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-3-3-1-for%E5%BE%AA%E7%8E%AF"><span class="toc-number">2.3.3.1.</span> <span class="toc-text">2.3.3.1 for循环</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-3-3-2-for%E5%BE%AA%E7%8E%AF%E4%B8%AD%E7%9A%84%E5%88%97%E8%A1%A8"><span class="toc-number">2.3.3.2.</span> <span class="toc-text">2.3.3.2 for循环中的列表</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-3-3-3-for%E5%BE%AA%E7%8E%AF%E5%A5%87%E6%95%B0%E7%B4%AF%E5%8A%A0%E5%99%A8"><span class="toc-number">2.3.3.3.</span> <span class="toc-text">2.3.3.3 for循环奇数累加器</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-3-3-4-for%E5%BE%AA%E7%8E%AF%E6%96%87%E4%BB%B6%E5%B1%95%E7%A4%BA"><span class="toc-number">2.3.3.4.</span> <span class="toc-text">2.3.3.4 for循环文件展示</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-3-3-5-while%E5%BE%AA%E7%8E%AF"><span class="toc-number">2.3.3.5.</span> <span class="toc-text">2.3.3.5 while循环</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-3-3-6-until%E5%BE%AA%E7%8E%AF"><span class="toc-number">2.3.3.6.</span> <span class="toc-text">2.3.3.6 until循环</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-3-3-7-%E4%BD%BF%E7%94%A8%E5%BE%AA%E7%8E%AF%E6%89%93%E5%8D%B0%E4%B9%98%E6%B3%95%E8%A1%A8"><span class="toc-number">2.3.3.7.</span> <span class="toc-text">2.3.3.7 使用循环打印乘法表</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x03-Shell%E7%BC%96%E7%A8%8B%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="toc-number">3.</span> <span class="toc-text">0x03 Shell编程最佳实践</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E8%B0%83%E8%AF%95"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 调试</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-1-Shell-%E8%84%9A%E6%9C%AC%E9%94%99%E8%AF%AF%E6%95%85%E9%9A%9C%E6%8E%92%E9%99%A4"><span class="toc-number">3.1.1.</span> <span class="toc-text">3.1.1 Shell 脚本错误故障排除</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-2-%E8%B0%83%E8%AF%95%E6%A8%A1%E5%BC%8F"><span class="toc-number">3.1.2.</span> <span class="toc-text">3.1.2 调试模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-3-%E8%AF%84%E4%BC%B0%E9%80%80%E5%87%BA%E4%BB%A3%E7%A0%81"><span class="toc-number">3.1.3.</span> <span class="toc-text">3.1.3 评估退出代码</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E8%AF%AD%E6%B3%95%E9%A3%8E%E6%A0%BC"><span class="toc-number">3.2.</span> <span class="toc-text">3.2 语法风格</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-1-%E8%89%AF%E5%A5%BD%E9%A3%8E%E6%A0%BC"><span class="toc-number">3.2.1.</span> <span class="toc-text">3.2.1 良好风格</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%E8%8C%83%E4%BE%8B"><span class="toc-number">3.3.</span> <span class="toc-text">3.3 最佳实践范例</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-1-%E7%9B%91%E6%B5%8B%E6%97%A5%E5%BF%97%E5%91%8A%E8%AD%A6%E4%BF%A1%E6%81%AF%E5%B9%B6%E9%82%AE%E4%BB%B6%E9%80%9A%E7%9F%A5"><span class="toc-number">3.3.1.</span> <span class="toc-text">3.3.1 监测日志告警信息并邮件通知</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x04-%E6%9C%AC%E7%AB%A0%E6%80%BB%E7%BB%93"><span class="toc-number">4.</span> <span class="toc-text">0x04 本章总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x05-Shell%E8%84%9A%E6%9C%AC%E7%9A%84%E4%B8%80%E4%BA%9B%E6%B3%A8%E6%84%8F%E7%82%B9"><span class="toc-number">5.</span> <span class="toc-text">0x05 Shell脚本的一些注意点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E4%BD%BF%E7%94%A8-%EF%BC%9F"><span class="toc-number">5.1.</span> <span class="toc-text">为什么需要使用 $()？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%A6%E4%B8%80%E7%A7%8D%E5%91%BD%E4%BB%A4%E6%9B%BF%E6%8D%A2%E7%9A%84%E6%96%B9%E5%BC%8F%EF%BC%9A%E5%8F%8D%E5%BC%95%E5%8F%B7%EF%BC%88-%EF%BC%89"><span class="toc-number">5.2.</span> <span class="toc-text">另一种命令替换的方式：反引号（&#96;&#96;&#96;&#96;）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%8B%AC%E5%8F%B7%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">5.3.</span> <span class="toc-text">方括号的使用</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IP/07%20openEuler%E7%B3%BB%E7%BB%9F%E7%9B%91%E6%8E%A7%E5%85%A5%E9%97%A8/" title="无题">无题</a><time datetime="2025-05-18T19:46:45.900Z" title="发表于 2025-05-19 03:46:45">2025-05-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/%E6%B3%A8%E9%87%8A/shebang/" title="无题">无题</a><time datetime="2025-05-18T19:46:45.880Z" title="发表于 2025-05-19 03:46:45">2025-05-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/10%20%E5%B8%B8%E7%94%A8%E5%B0%8F%E6%8C%87%E4%BB%A4/" title="无题">无题</a><time datetime="2025-05-18T19:46:45.685Z" title="发表于 2025-05-19 03:46:45">2025-05-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/09%20Samba%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86/" title="09 Samba文件共享服务器管理">09 Samba文件共享服务器管理</a><time datetime="2025-05-18T19:46:45.684Z" title="发表于 2025-05-19 03:46:45">2025-05-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/08%20%E4%BD%BF%E7%94%A8shell%E8%84%9A%E6%9C%AC/" title="08 使用shell脚本">08 使用shell脚本</a><time datetime="2025-05-18T19:46:45.683Z" title="发表于 2025-05-19 03:46:45">2025-05-19</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2025 By <a class="footer-bar-link" href="/" title="XBCID" target="_blank">XBCID</a></div></div><div id="footer-type-tips"></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/anzhiyu-c/hexo-theme-anzhiyu" title="主题">主题</a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">37</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">5</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">0</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://blog.anheyu.com/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://image.anheyu.com/" title="安知鱼图床"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.anheyu.com/favicon.ico" alt="安知鱼图床"/><span class="back-menu-item-text">安知鱼图床</span></a></div></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/HCIA/" style="font-size: 0.88rem;">HCIA<sup>9</sup></a><a href="/tags/HCIP/" style="font-size: 0.88rem;">HCIP<sup>6</sup></a><a href="/tags/Huawei/" style="font-size: 0.88rem;">Huawei<sup>15</sup></a><a href="/tags/Linux/" style="font-size: 0.88rem;">Linux<sup>18</sup></a><a href="/tags/openEuler/" style="font-size: 0.88rem;">openEuler<sup>18</sup></a></div></div><hr/></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8152976493" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random" volume="0.7"></meting-js></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.5/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
-var HoldLog = console.log;
-console.log = function () {};
-let now1 = new Date();
-queueMicrotask(() => {
-  const Log = function () {
-    HoldLog.apply(console, arguments);
-  }; //在恢复前输出日志
-  const grt = new Date("01/12/2021 14:00:00"); //此处修改你的建站时间或者网站上线时间
-  now1.setTime(now1.getTime() + 250);
-  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
-  const dnum = Math.floor(days);
-  const ascll = [
-    `欢迎使用安知鱼!`,
-    `生活明朗, 万物可爱`,
-    `
-        
-       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
-      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
-      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
-      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
-      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
-      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
-        
-        `,
-    "已上线",
-    dnum,
-    "天",
-    "©2020 By 安知鱼 V1.6.14",
-  ];
-  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+	
+		</div>
+		
+		<div id="current-post-cover" data-scr="/img/cart_cover.jpg"></div>
 
-  setTimeout(
-    Log.bind(
-      console,
-      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
-      "color:#425AEF",
-      "",
-      "color:#425AEF",
-      "color:#425AEF",
-      "",
-      "color:#425AEF",
-      ""
-    )
-  );
-  setTimeout(
-    Log.bind(
-      console,
-      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
-      "color:white; background-color:#4fd953",
-      "",
-      "",
-      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
-    )
-  );
+		<!-- relate post, comment...-->
+		<div class="investment-container">
+			<div class="investment-header">
+				<div class="investment-title-1">
+					<div class="on">相关文章</div>
+					<div>评论</div>
+					<div>分享</div>
+				</div>
+				<div class="investment-title-2">	            
+					
+	<span>
+		<a id="totop-post-page">返回顶部</a>
+		
+			<a href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/09%20Samba%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86/" title="09 Samba文件共享服务器管理" rel="prev">
+				&laquo;上一篇
+			</a>
+		
+		
+			<a href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/" title="06 管理文件系统及存储" rel="next">
+				下一篇&raquo;
+			</a>
+			
+	</span>
 
-  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
 
-  setTimeout(
-    console.warn.bind(
-      console,
-      "%c ⚡ Powered by 安知鱼 %c 你正在访问 XBCID 的博客.",
-      "color:white; background-color:#f0ad4e",
-      ""
-    )
-  );
+      		
+				</div>	
+			</div>
+			
+			<div class="investment-content">
+				<div class="investment-content-list">
+					
 
-  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+<div class="relate-post">
+	
+		<ul>
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/09%20Samba%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86/" title="09 Samba文件共享服务器管理">
+								09 Samba文件共享服务器管理			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								五月 19日, 2025				
+							</p>
+							<p class="relate-post-content">
+								完成openEuler系统基础命令操作后，可以基于openEuler及软件搭建各类服务，应用到各个IT系统中，基于openEuler及Samba可以完成文件共享服务器的搭建。
+学完本课程后，你将能够:
 
-  setTimeout(
-    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
-  );
-});</script><script async src="/anzhiyu/random.js"></script><div class="js-pjax"><input type="hidden" name="page-type" id="page-type" value="post"></div><script>var visitorMail = "";
-</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/qrcodejs/1.0.0/qrcode.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
-var pjax = new Pjax({
-  elements: 'a:not([target="_blank"])',
-  selectors: pjaxSelectors,
-  cacheBust: false,
-  analytics: false,
-  scrollRestoration: false
-})
+基于openEuler系统文件...
+							</p>
+						</div>
 
-document.addEventListener('pjax:send', function () {
-  // removeEventListener scroll 
-  anzhiyu.removeGlobalFnEvent('pjax')
-  anzhiyu.removeGlobalFnEvent('themeChange')
+						<div class="relate-post-cover">
+							<a href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/09%20Samba%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86/" title="09 Samba文件共享服务器管理">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="09 Samba文件共享服务器管理"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/" title="06 管理文件系统及存储">
+								06 管理文件系统及存储			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								五月 19日, 2025				
+							</p>
+							<p class="relate-post-content">
+								本章主要讲述文件系统、磁盘存储、逻辑卷存储的基础概念以及如何管理、使用文件系统和存储，以及对一些常用操作命令的介绍。
+学完本课程后，您将能够：
 
-  document.getElementById('rightside').classList.remove('rightside-show')
+了解文件系统及存储的基本概念
+掌握磁盘存储的挂载和使用方法
+掌握逻辑卷的管理方法
+
+
+0...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/" title="06 管理文件系统及存储">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="06 管理文件系统及存储"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/05%20%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E5%B9%B6%E7%AE%A1%E7%90%86%E6%9C%8D%E5%8A%A1/" title="05 安装软件并管理服务">
+								05 安装软件并管理服务			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								五月 19日, 2025				
+							</p>
+							<p class="relate-post-content">
+								本章节主要讲述openEuler中安装软件包三种方式：rpm安装、源码安装以及yum安装的相关概念以及具体的操作命令，并且介绍了systemd管理服务的概念以及操作方式。
+0x01 RPM管理软件包1.1 RPM软件包Linux软件包...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/05%20%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E5%B9%B6%E7%AE%A1%E7%90%86%E6%9C%8D%E5%8A%A1/" title="05 安装软件并管理服务">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="05 安装软件并管理服务"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IP/03%20openEuler%E5%AD%98%E5%82%A8%E7%AE%A1%E7%90%86/" title="03 openEuler存储管理">
+								03 openEuler存储管理			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								五月 19日, 2025				
+							</p>
+							<p class="relate-post-content">
+								存储是计算机系统中非常重要的概念，它负责存储和管理数据。随着IT技术的不断发展和企业对存储需求的不断变化，存储技术和架构也在不断革新。本章我们将从存储的基本概念开始了解不同存储类型的区别及使用方法。
+学完本课程后，您将能够:
+
+了解存...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IP/03%20openEuler%E5%AD%98%E5%82%A8%E7%AE%A1%E7%90%86/" title="03 openEuler存储管理">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="03 openEuler存储管理"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2025/03/08/openEuler/%E7%AC%94%E8%AE%B0/IP/06%20openEuler%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA/" title="06 openEuler操作系统安全加固">
+								06 openEuler操作系统安全加固			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								三月 8日, 2025				
+							</p>
+							<p class="relate-post-content">
+								操作系统是互联网不可或缺的基础设施之一，也是生产、处理和存储价值数据的实体。同时openEuler作为Linux发行版系统，具有开源、免费的特点，拥有丰富健康的生态环境和社区支持。正因如此，保障其安全的重要性不言而喻。本章节以操作系统...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2025/03/08/openEuler/%E7%AC%94%E8%AE%B0/IP/06%20openEuler%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA/" title="06 openEuler操作系统安全加固">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="06 openEuler操作系统安全加固"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2025/03/06/openEuler/%E7%AC%94%E8%AE%B0/IP/05%20shell%E8%84%9A%E6%9C%AC%E8%BF%9B%E9%98%B6/" title="05 shell脚本进阶">
+								05 shell脚本进阶			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								三月 6日, 2025				
+							</p>
+							<p class="relate-post-content">
+								前言本章主要讲述Shell脚本的进阶功能，包括条件判断、函数、正则表达式、grep、sed、awk命令。
+
+掌握条件判断的使用
+掌握函数的常见操作
+掌握grep语法与常见操作
+掌握正则表达式的基本用法
+掌握sed语法与常见操作
+掌握a...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2025/03/06/openEuler/%E7%AC%94%E8%AE%B0/IP/05%20shell%E8%84%9A%E6%9C%AC%E8%BF%9B%E9%98%B6/" title="05 shell脚本进阶">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="05 shell脚本进阶"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2025/03/04/openEuler/%E7%AC%94%E8%AE%B0/IP/02%20openEuler%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84%E4%BB%8B%E7%BB%8D/" title="02 openEuler集群架构介绍">
+								02 openEuler集群架构介绍			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								三月 4日, 2025				
+							</p>
+							<p class="relate-post-content">
+								前言随着互联网的发展，单机应用已经无法满足用户的需求，因此集群应用而生本章将主要介绍高可用集群与负载均衡集群的实现工具的配置，包括LVS、HAProxy、Nginx和Keepalived 。目标
+
+熟悉LVS的搭建和配置
+熟悉Ngin...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2025/03/04/openEuler/%E7%AC%94%E8%AE%B0/IP/02%20openEuler%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84%E4%BB%8B%E7%BB%8D/" title="02 openEuler集群架构介绍">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="02 openEuler集群架构介绍"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2025/03/04/openEuler/%E5%AE%9E%E9%AA%8C/IP/02%20openEuler%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84/01%20LVS%E9%85%8D%E7%BD%AE%E5%AE%9E%E8%B7%B5/" title="01 LVS配置实践">
+								01 LVS配置实践			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								三月 4日, 2025				
+							</p>
+							<p class="relate-post-content">
+								1.1 LVS&#x2F;NAT 模式配置1.1.1 实验介绍本实验将通过 LVS 负载均衡的方式访问一个 Nginx 集群。在实际工作场景中，集群向外提供服务时显示的内容是一致的，但在本实验中为了将 LVS 的算法体现的比较明显，N...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2025/03/04/openEuler/%E5%AE%9E%E9%AA%8C/IP/02%20openEuler%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84/01%20LVS%E9%85%8D%E7%BD%AE%E5%AE%9E%E8%B7%B5/" title="01 LVS配置实践">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="01 LVS配置实践"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2025/03/02/openEuler/%E5%AE%9E%E9%AA%8C/IP/01%20openEuler%E5%9F%BA%E7%A1%80%E6%9C%8D%E5%8A%A1/03%20DNS%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE/" title="03 DNS相关配置">
+								03 DNS相关配置			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								三月 2日, 2025				
+							</p>
+							<p class="relate-post-content">
+								3.1 实验介绍3.1.1 关于本实验本实验基于《3.3.2 Nginx 负载均衡配置》进行，将使用 DNS 服务器代替原先的静态 DNS 为用户端提供对应服务。
+3.2 安装 DNS 软件3.2.1 资源准备按照实验组网介绍和实验设...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2025/03/02/openEuler/%E5%AE%9E%E9%AA%8C/IP/01%20openEuler%E5%9F%BA%E7%A1%80%E6%9C%8D%E5%8A%A1/03%20DNS%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE/" title="03 DNS相关配置">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="03 DNS相关配置"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2025/02/28/openEuler/%E5%AE%9E%E9%AA%8C/IA/08%20shell%E8%84%9A%E6%9C%AC%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/" title="08 shell脚本语言基础">
+								08 shell脚本语言基础			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 28日, 2025				
+							</p>
+							<p class="relate-post-content">
+								8.1 实验介绍8.1.1 实验介绍在对系统进行运维时，shell 脚本给了我们很大帮助。通过 shell 脚本，可以大大减少工作量。本实验主要介绍 shell 脚本的概念及使用。
+8.1.2 实验目标
+掌握全局变量及局部变量；
+掌握...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2025/02/28/openEuler/%E5%AE%9E%E9%AA%8C/IA/08%20shell%E8%84%9A%E6%9C%AC%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/" title="08 shell脚本语言基础">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="08 shell脚本语言基础"/>
+							</a>
+						</div>
+					</li>												
+			
+		</ul>
+	
+</div>	
+				</div>
+				<div class="investment-content-list">
+					<div class="layout-comment">
+
+	
+		<div class="config-info">
+			Please check the parameter of <b>comment</b> in config.yml of hexo-theme-Annie!
+		</div>	
+	
+
+</div>
+				</div>
+				<div class="investment-content-list">
+					<div class="layout-share">
+	
+	
+
+		
+			
+			<!-- socialShare share -->
+			<div class="social-share"></div>
+
+<!--  css & js -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+			
+		
+		
+	
+</div>
+
+
+				</div>
+			</div>	
+		</div>
+	</div>
+</div>
+
+<!-- show math formula -->
+
+
+
+	
+
+
+
+
+
+<link rel="stylesheet" href="/plugin/fancybox/jquery.fancybox.css">
+
+
+<script src="/plugin/fancybox/jquery.fancybox.js"></script>
+
+
+<script type="text/javascript">
+	(function gallerySet(){
+		let titleID = $('.article-title a'),
+			imageID = $('.article-content img'),
+			videoID = $('.article-content video');
+		
+		let postTitle = titleID.text() ? titleID.text() : "No post title!";
+		
+		imageID.each(function() {
+			let imgPath = $(this).attr('src'),
+				imgTitle = $(this).attr('alt') ? $(this).attr('alt') : "No image description!";
+		
+			//给每个匹配的<img>元素打包, 即添加父元素<a>
+			$(this).wrap('<a data-fancybox="gallery" data-caption="《 ' + postTitle + ' 》' + imgTitle + '"href="' + imgPath + '"> </a>');
+		});
+		
+		videoID.each(function() {
+			let videoPath = $(this).attr('src');
+		
+			//给每个匹配的<img>元素打包, 即添加父元素<a>
+			$(this).wrap('<a data-fancybox href=" ' + videoPath + ' "> </a>');
+		});
+		
+		//TODO：支持html5 video
+
+		if($('#layout-post').length) {
+			$('[data-fancybox="gallery"]').fancybox({
+				loop: true,
+				buttons: [
+					"zoom",
+					"share",
+					"slideShow",
+					"fullScreen",
+					//"download",
+					"thumbs",
+					"close"
+				],
+				protect: true
+			});
+		}
+	})();
+</script>
+		</main>
+
+		<!--footer-->
+		<footer>
+	<div id="navigation-show">
+		<ul id="global-nav">
+	
+		<li class="menu-home">
+			<a href="/" class="menu-item-home" target="_blank">主页</a>
+		</li>
+		
+	
+		<li class="menu-archive">
+			<a href="/archives" class="menu-item-archive" target="_blank">归档</a>
+		</li>
+		
+	
+		<li class="menu-categories">
+			<a href="/categories" class="menu-item-categories" target="_blank">分类</a>
+		</li>
+		
+	
+		<li class="menu-tags">
+			<a href="/tags" class="menu-item-tags" target="_blank">标签</a>
+		</li>
+		
+	
+		<li class="menu-about">
+			<a href="/about" class="menu-item-about" target="_blank">关于</a>
+		</li>
+		
+	
+		<li class="menu-gallery">
+			<a href="/gallery" class="menu-item-gallery" target="_blank">相册</a>
+		</li>
+		
+	
+
+	
+</ul>
+	</div>
+
+	<div class="copyright">
+		<p>
+			 
+				&copy;2017 - 2025, content by Sariay. All Rights Reserved.
+			
+			
+				<a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> Theme <a href="https://github.com/Sariay/hexo-theme-Annie" title="Annie" target="_blank" rel="noopener">Annie</a> by Sariay.
+			
+		</p>
+		<p>
+			
+
+	<!-- busuanzi -->
+	<!-- busuanzi -->
+
+
+
+			<a href="javascript:zh_tran('s');" class="zh_click" id="zh_click_s">简体</a> 
+			<a href="javascript:zh_tran('t');" class="zh_click" id="zh_click_t">繁體</a>				
+		</p>
+	</div>		
+</footer>
+		
+	<!-- Local or hitokoto! -->
+
+	
+<script src="/plugin/motto/motto.js"></script>
+
+	
+	<script type="text/javascript">
+		(function motto(){
+			let mottoText = getMingYanContent().split('</br> - </br>'),
+			
+			mottoTextContent = mottoText[0]?mottoText[0]:'请刷新...',
+			
+			mottoTextFrom = mottoText[1]?mottoText[1]:'one/一个';
+			
+			mottoTextContent = mottoTextContent.trim().substring(0, 100);
+		
+			$("#motto-content").html( mottoTextContent);
+			$("#motto-author").html( mottoTextFrom  );
+		})();	
+	</script>	
+
+
+
+<!-- love effect -->
+
+
+<!-- back to top -->
+
+	<div id="totop">
+	<span class="icon-circle-up"></span>
+</div>
+
+
+
+<!-- site analysis -->
+
+
+	<!-- site-analysis -->
+	
+	
+	
+	
+	
+ 
+
+<!-- leancloud -->
+
+
+	<!-- leancloud -->
+	<!--
+	时间：2018-11-27
+	描述：
+		文章访问量：visitors
+		文章喜欢量：likes	
+		文章排行榜：topNPost
+		其他得说明：
+			01-Cookie相关的函数 
+				https://blog.csdn.net/somehow1002/article/details/78511541（Author：somehow1002）
+			02-visitors相关的函数 
+				https://blog.csdn.net/u013553529/article/details/63357382（Author：爱博客大伯）
+				https://notes.doublemine.me/2015-10-21-为NexT主题添加文章阅读量统计功能.html（Author：夏末）
+			03-topNPost相关的函数
+				https://hoxis.github.io/hexo-next-read-rank.html（Author：hoxis）
+			04-likes相关的函数，
+				参考了01 & 02进行简单的设计与实现
+-->
+
+
+	
+
   
-  if (window.aplayers) {
-    for (let i = 0; i < window.aplayers.length; i++) {
-      if (!window.aplayers[i].options.fixed) {
-        window.aplayers[i].destroy()
-      }
-    }
-  }
 
-  typeof typed === 'object' && typed.destroy()
 
-  //reset readmode
-  const $bodyClassList = document.body.classList
-  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
-})
 
-document.addEventListener('pjax:complete', function () {
-  window.refreshFn()
+<script src="/plugin/chinese/chinese.js"></script>
+<script src="/plugin/imagelazyloader/yall.min.js"></script>
+<script src="/plugin/imageloaded/imagesloaded.pkgd.min.js"></script>
+<script src="/plugin/nicescroll/jquery.nicescroll.js"></script>
+<script src="/plugin/resizediv/resizediv.js"></script>
+<script src="/js/main.js"></script>
 
-  document.querySelectorAll('script[data-pjax]').forEach(item => {
-    const newScript = document.createElement('script')
-    const content = item.text || item.textContent || item.innerHTML || ""
-    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
-    newScript.appendChild(document.createTextNode(content))
-    item.parentNode.replaceChild(newScript, item)
-  })
-
-  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
-
-  typeof panguInit === 'function' && panguInit()
-
-  // google analytics
-  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
-
-  // baidu analytics
-  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
-
-  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
-
-  // prismjs
-  typeof Prism === 'object' && Prism.highlightAll()
-})
-
-document.addEventListener('pjax:error', e => {
-  if (e.request.status === 404) {
-    pjax.loadUrl('/404.html')
-  }
-})</script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>
+	</body>	
+</html>

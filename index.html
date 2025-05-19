@@ -1,478 +1,719 @@
-<!DOCTYPE html><html lang="zh" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>XBCID's BLOG</title><meta name="author" content="XBCID"><meta name="copyright" content="XBCID"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="XBCID's BLOG"><meta name="application-name" content="XBCID's BLOG"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="website"><meta property="og:title" content="XBCID's BLOG"><meta property="og:url" content="http://example.com/index.html"><meta property="og:site_name" content="XBCID's BLOG"><meta property="og:description"><meta property="og:locale" content="zh"><meta property="og:image" content="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg"><meta property="article:author" content="XBCID"><meta property="article:tag"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg"><meta name="description"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="http://example.com/"><link rel="preconnect" href="//cdn.cbd.int"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
-  linkPageTop: undefined,
-  peoplecanvas: {"enable":true,"img":"https://upload-bbs.miyoushe.com/upload/2024/07/27/125766904/ba62475f396df9de3316a08ed9e65d86_5680958632268053399..png"},
-  postHeadAiDescription: {"enable":true,"gptName":"AnZhiYu","mode":"local","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"xxxx","Referer":"https://xx.xx/"},
-  diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
-  LA51: undefined,
-  greetingBox: undefined,
-  twikooEnvId: '',
-  commentBarrageConfig:undefined,
-  music_page_default: "nav_music",
-  root: '/',
-  preloader: {"source":3},
-  friends_vue_info: undefined,
-  navMusic: true,
-  mainTone: undefined,
-  authorStatus: undefined,
-  algolia: undefined,
-  localSearch: undefined,
-  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
-  noticeOutdate: undefined,
-  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
-  copy: {
-    success: '复制成功',
-    error: '复制错误',
-    noSupport: '浏览器不支持'
-  },
-  relativeDate: {
-    homepage: false,
-    simplehomepage: true,
-    post: false
-  },
-  runtime: '天',
-  date_suffix: {
-    just: '刚刚',
-    min: '分钟前',
-    hour: '小时前',
-    day: '天前',
-    month: '个月前'
-  },
-  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: XBCID","link":"链接: ","source":"来源: XBCID's BLOG","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
-  lightbox: 'fancybox',
-  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
-  source: {
-    justifiedGallery: {
-      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
-      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+<!--
+	作者：Sariay
+	时间：2018-08-26
+	描述：There may be a bug, but don't worry, Qiling(器灵) says that it can work normally! aha!
+-->
+<!DOCTYPE html>
+<html class="html-loading">
+		
+
+<head>
+	<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <title>
+    
+      XBCID&#39;s BLOG
+    
+  </title>
+  <meta name="author" content="XBCID">
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+	<!-- favicon -->
+  <link rel="shortcut icon" href="/img/favicon.ico">
+
+  <!-- css -->
+  
+<link rel="stylesheet" href="/css/Annie.css">
+
+  
+  <!-- jquery -->
+	
+<script src="/plugin/jquery/jquery.min.js"></script>
+
+
+<script>
+    const CONFIG_BGIMAGE = {
+      mode: 'normal',
+      normalSrc: '/img/header-bg.jpg',
+      randomYouMax: 110,
+      randomYouSrc: 'https://sariay.github.io/Random-img/',
+	  randomOtherSrc: 'https://api.berryapi.net/?service=App.Bing.Images&day=-0',
+	  preloaderEnable: true
     }
-  },
-  isPhotoFigcaption: false,
-  islazyload: true,
-  isAnchor: false,
-  shortcutKey: undefined,
-  autoDarkmode: true
-}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
-  configTitle: 'XBCID's BLOG',
-  title: 'XBCID\'s BLOG',
-  postAI: '',
-  pageFillDescription: '',
-  isPost: false,
-  isHome: true,
-  isHighlightShrink: false,
-  isToc: false,
-  postUpdate: '2025-05-19 04:00:55',
-  postMainColor: '',
-}</script><noscript><style type="text/css">
-  #nav {
-    opacity: 1
-  }
-  .justified-gallery img {
-    opacity: 1
-  }
+	
+    const CONFIG_LEACLOUD_COUNT = {
+      enable: false,
+	  appId: 'AU8...',
+	  appKey: '4cU...',
+	  serverURLs: 'http' || ' '
+    }
+  </script>
+<meta name="generator" content="Hexo 7.3.0"></head>
+	<body>
+		<!-- Preloader -->
 
-  #recent-posts time,
-  #post-meta time {
-    display: inline !important
-  }
-</style></noscript><script>(win=>{
-      win.saveToLocal = {
-        set: (key, value, ttl) => {
-          if (ttl === 0) return
-          const now = Date.now()
-          const expiry = now + ttl * 86400000
-          const item = {
-            value,
-            expiry
-          }
-          localStorage.setItem(key, JSON.stringify(item))
-        },
-      
-        get: key => {
-          const itemStr = localStorage.getItem(key)
-      
-          if (!itemStr) {
-            return undefined
-          }
-          const item = JSON.parse(itemStr)
-          const now = Date.now()
-      
-          if (now > item.expiry) {
-            localStorage.removeItem(key)
-            return undefined
-          }
-          return item.value
-        }
-      }
-    
-      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
-        const script = document.createElement('script')
-        script.src = url
-        script.async = true
-        script.onerror = reject
-        script.onload = script.onreadystatechange = function() {
-          const loadState = this.readyState
-          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-          script.onload = script.onreadystatechange = null
-          resolve()
-        }
-
-        Object.keys(attr).forEach(key => {
-          script.setAttribute(key, attr[key])
-        })
-
-        document.head.appendChild(script)
-      })
-    
-      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
-        const link = document.createElement('link')
-        link.rel = 'stylesheet'
-        link.href = url
-        if (id) link.id = id
-        link.onerror = reject
-        link.onload = link.onreadystatechange = function() {
-          const loadState = this.readyState
-          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-          link.onload = link.onreadystatechange = null
-          resolve()
-        }
-        document.head.appendChild(link)
-      })
-    
-      win.activateDarkMode = () => {
-        document.documentElement.setAttribute('data-theme', 'dark')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
-        }
-      }
-      win.activateLightMode = () => {
-        document.documentElement.setAttribute('data-theme', 'light')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
-        }
-      }
-      const t = saveToLocal.get('theme')
-    
-          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
-          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
-          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
-          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
-
-          if (t === undefined) {
-            if (isLightMode) activateLightMode()
-            else if (isDarkMode) activateDarkMode()
-            else if (isNotSpecified || hasNoSupport) {
-              const now = new Date()
-              const hour = now.getHours()
-              const isNight = hour <= 6 || hour >= 18
-              isNight ? activateDarkMode() : activateLightMode()
-            }
-            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
-              if (saveToLocal.get('theme') === undefined) {
-                e.matches ? activateDarkMode() : activateLightMode()
-              }
-            })
-          } else if (t === 'light') activateLightMode()
-          else activateDarkMode()
-        
-      const asideStatus = saveToLocal.get('aside-status')
-      if (asideStatus !== undefined) {
-        if (asideStatus === 'hide') {
-          document.documentElement.classList.add('hide-aside')
-        } else {
-          document.documentElement.classList.remove('hide-aside')
-        }
-      }
-    
-      const detectApple = () => {
-        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
-          document.documentElement.classList.add('apple')
-        }
-      }
-      detectApple()
-    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://npm.elemecdn.com/anzhiyu-blog-static@1.0.4/img/avatar.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
-  endLoading: () => {
-    document.getElementById('loading-box').classList.add("loaded");
-  },
-  initLoading: () => {
-    document.getElementById('loading-box').classList.remove("loaded")
-  }
-}
-window.addEventListener('load',()=> { preloader.endLoading() })
-setTimeout(function(){preloader.endLoading();},10000)
-
-if (true) {
-  document.addEventListener('pjax:send', () => { preloader.initLoading() })
-  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
-}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="page" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><a id="site-name" href="/" accesskey="h"><div class="title">XBCID's BLOG</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" target="_blank"><img class="post-qr-code-img" alt="微信" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" target="_blank"><img class="post-qr-code-img" alt="支付宝" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/HCIA/" style="font-size: 1.05rem;">HCIA<sup>9</sup></a><a href="/tags/HCIP/" style="font-size: 1.05rem;">HCIP<sup>6</sup></a><a href="/tags/Huawei/" style="font-size: 1.05rem;">Huawei<sup>15</sup></a><a href="/tags/Linux/" style="font-size: 1.05rem;">Linux<sup>18</sup></a><a href="/tags/openEuler/" style="font-size: 1.05rem;">openEuler<sup>18</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/05/"><span class="card-archive-list-date">May 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">23</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/03/"><span class="card-archive-list-date">March 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">6</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/02/"><span class="card-archive-list-date">February 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">8</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav></header><main id="blog-container"><div id="home_top"><div class="swiper_container_card" style="height: auto;width: 100%"><div id="bannerGroup"><div id="random-banner"><canvas id="peoplecanvas"></canvas><a id="random-hover" href="javascript:toRandomPost()"><i class="anzhiyufont anzhiyu-icon-paper-plane"></i><div class="bannerText">随便逛逛<i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div></a></div><div class="categoryGroup"><div class="categoryItem" style="box-shadow:var(--anzhiyu-shadow-blue)"><a class="categoryButton blue" href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/"><span class="categoryButtonText">前端</span><i class="anzhiyufont anzhiyu-icon-dove"></i></a></div><div class="categoryItem" style="box-shadow:var(--anzhiyu-shadow-red)"><a class="categoryButton red" href="/categories/%E5%A4%A7%E5%AD%A6%E7%94%9F%E6%B6%AF/"><span class="categoryButtonText">大学</span><i class="anzhiyufont anzhiyu-icon-fire"></i></a></div><div class="categoryItem" style="box-shadow:var(--anzhiyu-shadow-green)"><a class="categoryButton green" href="/categories/%E7%94%9F%E6%B4%BB%E6%97%A5%E5%B8%B8/"><span class="categoryButtonText">生活</span><i class="anzhiyufont anzhiyu-icon-book"></i></a></div></div></div><div class="topGroup"><div class="recent-post-item" onclick="pjax.loadUrl(&quot;/2025/05/19/openEuler/%E5%AE%9E%E9%AA%8C/IA/01%20openEuler%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%85%A5%E9%97%A8/&quot;)"><div class="post_cover left_radius"><a href="2025/05/19/openEuler/实验/IA/01 openEuler操作系统入门/" title=""><span class="recent-post-top-text">荐</span><img class="post_bg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="cover"></a></div><div class="recent-post-info"><a class="article-title" href="2025/05/19/openEuler/实验/IA/01 openEuler操作系统入门/" title=""></a></div></div><div class="recent-post-item" onclick="pjax.loadUrl(&quot;/2025/05/19/openEuler/%E5%AE%9E%E9%AA%8C/IA/02%20%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%93%8D%E4%BD%9C%E5%9F%BA%E7%A1%80/&quot;)"><div class="post_cover left_radius"><a href="2025/05/19/openEuler/实验/IA/02 命令行操作基础/" title=""><span class="recent-post-top-text">荐</span><img class="post_bg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="cover"></a></div><div class="recent-post-info"><a class="article-title" href="2025/05/19/openEuler/实验/IA/02 命令行操作基础/" title=""></a></div></div><div class="recent-post-item" onclick="pjax.loadUrl(&quot;/2025/05/19/openEuler/%E5%AE%9E%E9%AA%8C/IA/04%20%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/&quot;)"><div class="post_cover left_radius"><a href="2025/05/19/openEuler/实验/IA/04 用户和权限管理/" title=""><span class="recent-post-top-text">荐</span><img class="post_bg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="cover"></a></div><div class="recent-post-info"><a class="article-title" href="2025/05/19/openEuler/实验/IA/04 用户和权限管理/" title=""></a></div></div><div class="recent-post-item" onclick="pjax.loadUrl(&quot;/2025/05/19/openEuler/%E5%AE%9E%E9%AA%8C/IA/05%20%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E5%B9%B6%E7%AE%A1%E7%90%86%E6%9C%8D%E5%8A%A1/&quot;)"><div class="post_cover left_radius"><a href="2025/05/19/openEuler/实验/IA/05 安装软件并管理服务/" title=""><span class="recent-post-top-text">荐</span><img class="post_bg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="cover"></a></div><div class="recent-post-info"><a class="article-title" href="2025/05/19/openEuler/实验/IA/05 安装软件并管理服务/" title=""></a></div></div><div class="recent-post-item" onclick="pjax.loadUrl(&quot;/2025/05/19/openEuler/%E5%AE%9E%E9%AA%8C/IA/03%20%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8%E4%BB%A5%E5%8F%8A%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86/&quot;)"><div class="post_cover left_radius"><a href="2025/05/19/openEuler/实验/IA/03 文本编辑器以及文本处理/" title=""><span class="recent-post-top-text">荐</span><img class="post_bg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="cover"></a></div><div class="recent-post-info"><a class="article-title" href="2025/05/19/openEuler/实验/IA/03 文本编辑器以及文本处理/" title=""></a></div></div><div class="recent-post-item" onclick="pjax.loadUrl(&quot;/2025/02/28/openEuler/%E5%AE%9E%E9%AA%8C/IA/08%20shell%E8%84%9A%E6%9C%AC%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/&quot;)"><div class="post_cover left_radius"><a href="2025/02/28/openEuler/实验/IA/08 shell脚本语言基础/" title="08 shell脚本语言基础"><span class="recent-post-top-text">荐</span><img class="post_bg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="cover"></a></div><div class="recent-post-info"><a class="article-title" href="2025/02/28/openEuler/实验/IA/08 shell脚本语言基础/" title="08 shell脚本语言基础">08 shell脚本语言基础</a></div></div><a class="todayCard" id="todayCard" target="_blank" rel="noopener" href="https://docs.anheyu.com/" style="z-index: 1;"><div class="todayCard-info"><div class="todayCard-tips">新品主题</div><div class="todayCard-title">Theme-AnZhiYu</div></div><img class="todayCard-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/05/13/645fa3cf90d70.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="封面"><div class="banner-button-group"><div class="banner-button" onclick="event.stopPropagation();event.preventDefault();anzhiyu.hideTodayCard();"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i><span class="banner-button-text">更多推荐</span></div></div></a></div><link rel="stylesheet"></div></div><div class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div id="categoryBar"><div class="category-bar" id="category-bar"><div id="catalog-bar"><div id="catalog-list"><div class="catalog-list-item" id="首页"><a href="/">首页</a></div></div><div class="category-bar-next" id="category-bar-next" onclick="anzhiyu.scrollCategoryBarToRight()"><i class="anzhiyufont anzhiyu-icon-angle-double-right"></i></div><a class="catalog-more" href="/categories/">更多</a></div></div></div><div class="recent-post-item lastestpost-item" onclick="pjax.loadUrl('/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IP/07%20openEuler%E7%B3%BB%E7%BB%9F%E7%9B%91%E6%8E%A7%E5%85%A5%E9%97%A8/')"><div class="recent-post-info no-cover"><div class="recent-post-info-top"><div class="recent-post-info-top-tips"><span class="newPost">最新</span><a class="unvisited-post" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IP/07%20openEuler%E7%B3%BB%E7%BB%9F%E7%9B%91%E6%8E%A7%E5%85%A5%E9%97%A8/" title="无题">未读</a></div><a class="article-title" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IP/07%20openEuler%E7%B3%BB%E7%BB%9F%E7%9B%91%E6%8E%A7%E5%85%A5%E9%97%A8/" title="无题">无题</a></div><div class="article-meta-wrap"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days" style="font-size: 15px; display:none"></i><span class="article-meta-label">发表于</span><time datetime="2025-05-18T19:46:45.900Z" title="发表于 2025-05-19 03:46:45" time="2025-05-19 03:46:45">2025-05-19</time><time class="time_hidden" datetime="2025-02-23T12:57:04.035Z" title="更新于 2025-02-23 20:57:04" time="2025-02-23 20:57:04">2025-02-23</time></span></div><div class="content"></div></div></div><div class="recent-post-item" onclick="pjax.loadUrl('/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/%E6%B3%A8%E9%87%8A/shebang/')"><div class="recent-post-info no-cover"><div class="recent-post-info-top"><div class="recent-post-info-top-tips"><a class="unvisited-post" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/%E6%B3%A8%E9%87%8A/shebang/" title="无题">未读</a></div><a class="article-title" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/%E6%B3%A8%E9%87%8A/shebang/" title="无题">无题</a></div><div class="article-meta-wrap"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days" style="font-size: 15px; display:none"></i><span class="article-meta-label">发表于</span><time datetime="2025-05-18T19:46:45.880Z" title="发表于 2025-05-19 03:46:45" time="2025-05-19 03:46:45">2025-05-19</time><time class="time_hidden" datetime="2025-02-08T14:34:50.813Z" title="更新于 2025-02-08 22:34:50" time="2025-02-08 22:34:50">2025-02-08</time></span></div><div class="content">#!（称为 shebang 或 hashbang）后面的内容是 解释器 的路径。它用于指定执行脚本解释器。这个标记告诉操作系统在执行脚本时应该使用哪个程序来解释脚本文件中的内容。
-详细解释
-shebang 的作用:
-#! 是一个特殊的字符序列，在脚本文件的第一行出现。它用来指定脚本文件的解释器。
-解释器是一个程序，它将脚本文件中的代码解释并执行。
+	<div id="preloader">
+		<div class="pre-container">
+			
+				<div class="spinner">
+					<div class="double-bounce1"></div>
+					<div class="double-bounce2"></div>
+				</div>
+						
+		</div>
+	</div>
 
 
-解释器路径：
-#! 后面跟随的是解释器的路径。例如，#!/usr/bin/env python3 指定使用 python3 解释器来执行脚本。
-路径可以是解释器的绝对路径（如 /usr/bin/python3），也可以是通过 env 查找的解释器（如 /usr/bin/env python3）。
+<!-- header -->
+<header class="fixbackground bg-pan-br">
+	<div class="mask">
+		<!-- motto -->
+		<div class="h-body">	
+			
+				<div class="motto text-shadow-pop-left">
+					<p class="content" id="motto-content">获取中...</p>
+					<p>-<p>
+					<p class="author" id="motto-author">Just a minute...</p>
+				</div>
+			
+		</div>
+		
+		<!-- others: such as time... -->			
+		<div class="h-footer">
+			<a href="javascript:;" id="read-more" class="scroll-down">
+				<span class="icon-anchor1 animation-scroll-down"></span>
+			</a>
+		</div>
+	</div>
+</header>
+
+<div id="navigation-hide">
+	<!-- Progress bar -->
+	<div id="progress-bar"></div>
+
+	<!-- Progress percent -->
+	<div id="progress-percentage"><span>0.0%</span></div>
+
+	<div class="toc-switch"><span class="switch-button">目录</span></div>
+
+	<!-- Page title -->
+	<p>
+		
+			主页
+		
+	</p>
+
+	
+	
+
+	<!-- Nav trigger for navigation-H-->
+	<a class="nav-trigger"><span></span></a>
+</div>
+
+<!-- Navigation in div(id="navigation-H") -->
+<nav class="nav-container" id="cd-nav">
+	<div class="nav-header">
+		<span class="logo"> 
+			<img src="/img/logo.png">
+		</span>
+		<a href="javascript:;" class="nav-close"></a>
+	</div>
+	
+	<div class="nav-body">
+		<ul id="global-nav">
+	
+		<li class="menu-home">
+			<a href="/" class="menu-item-home" target="_blank">主页</a>
+		</li>
+		
+	
+		<li class="menu-archive">
+			<a href="/archives" class="menu-item-archive" target="_blank">归档</a>
+		</li>
+		
+	
+		<li class="menu-categories">
+			<a href="/categories" class="menu-item-categories" target="_blank">分类</a>
+		</li>
+		
+	
+		<li class="menu-tags">
+			<a href="/tags" class="menu-item-tags" target="_blank">标签</a>
+		</li>
+		
+	
+		<li class="menu-about">
+			<a href="/about" class="menu-item-about" target="_blank">关于</a>
+		</li>
+		
+	
+		<li class="menu-gallery">
+			<a href="/gallery" class="menu-item-gallery" target="_blank">相册</a>
+		</li>
+		
+	
+
+	
+</ul>
+	</div>
+	
+	<div class="nav-footer">
+		<ul id="global-social">
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<span class="icon-one"><span class="path1"></span><span class="path2"></span></span>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<span class="icon-zhihu"></span>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<span class="icon-github"></span>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<span class="icon-sina-weibo "></span>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<span class="icon-pinterest2"></span>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<span class="icon-instagram"></span>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<span class="icon-twitter"></span>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<span class="icon-rss"></span>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+</nav>
+			
+		<!--main-->
+		<main>
+			
 
 
-示例：
-Python 脚本:
-12#!/usr/bin/env python3print(&quot;Hello, World!&quot;)
-这个 shebang 指定了 python3 解释器，脚本将在 Python 3 环境中运行
 
-Bash脚本
+	<!--cart style-->
+	<div class="layout-cart">
+	<div id="layout-cart">
+		
+			<div class="post" id="post">
+				<a class="post-cover" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IP/07%20openEuler%E7%B3%BB%E7%BB%9F%E7%9B%91%E6%8E%A7%E5%85%A5%E9%97%A8/" title="  " target="_blank">
+					
+					<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg"/>
+				</a>
+
+				<div class="post-text">
+					<p class="post-time">
+						五月 19日, 2025
+					</p>	
+					<h3 class="post-title" id="post-title-index">
+						<a href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IP/07%20openEuler%E7%B3%BB%E7%BB%9F%E7%9B%91%E6%8E%A7%E5%85%A5%E9%97%A8/" title="">							
+							
+						</a>
+					</h3>
+					<p class="post-content">
+						
+							<!--没有文章内容-->
+							没有文章内容...
+						
+					</p>
+					<p class="post-meta">
+						
 
 
 
+					</p>
+				</div>
+			</div>
+		
+			<div class="post" id="post">
+				<a class="post-cover" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/%E6%B3%A8%E9%87%8A/shebang/" title="  " target="_blank">
+					
+					<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg"/>
+				</a>
 
-12#!/bin/bashecho &quot;Hello, World!&quo ...</div></div></div><div class="recent-post-item" onclick="pjax.loadUrl('/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/10%20%E5%B8%B8%E7%94%A8%E5%B0%8F%E6%8C%87%E4%BB%A4/')"><div class="recent-post-info no-cover"><div class="recent-post-info-top"><div class="recent-post-info-top-tips"><a class="unvisited-post" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/10%20%E5%B8%B8%E7%94%A8%E5%B0%8F%E6%8C%87%E4%BB%A4/" title="无题">未读</a></div><a class="article-title" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/10%20%E5%B8%B8%E7%94%A8%E5%B0%8F%E6%8C%87%E4%BB%A4/" title="无题">无题</a></div><div class="article-meta-wrap"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days" style="font-size: 15px; display:none"></i><span class="article-meta-label">发表于</span><time datetime="2025-05-18T19:46:45.685Z" title="发表于 2025-05-19 03:46:45" time="2025-05-19 03:46:45">2025-05-19</time><time class="time_hidden" datetime="2025-05-12T07:39:15.529Z" title="更新于 2025-05-12 15:39:15" time="2025-05-12 15:39:15">2025-05-12</time></span></div><div class="content">namei工具可以用于递归检查文件
+				<div class="post-text">
+					<p class="post-time">
+						五月 19日, 2025
+					</p>	
+					<h3 class="post-title" id="post-title-index">
+						<a href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/%E6%B3%A8%E9%87%8A/shebang/" title="">							
+							
+						</a>
+					</h3>
+					<p class="post-content">
+						
+							#!（称为 shebang 或 hashbang）后面的内容是 解释器 的路径。它用于指定执行脚本解释器。这个标记告诉操作系统在执行脚本时应该使用哪个程序...
+						
+					</p>
+					<p class="post-meta">
+						
+
+
+
+					</p>
+				</div>
+			</div>
+		
+			<div class="post" id="post">
+				<a class="post-cover" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/10%20%E5%B8%B8%E7%94%A8%E5%B0%8F%E6%8C%87%E4%BB%A4/" title="  " target="_blank">
+					
+					<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg"/>
+				</a>
+
+				<div class="post-text">
+					<p class="post-time">
+						五月 19日, 2025
+					</p>	
+					<h3 class="post-title" id="post-title-index">
+						<a href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/10%20%E5%B8%B8%E7%94%A8%E5%B0%8F%E6%8C%87%E4%BB%A4/" title="">							
+							
+						</a>
+					</h3>
+					<p class="post-content">
+						
+							namei工具可以用于递归检查文件
 1namei -l /home/source/test
 
 
-netstat-tuln |grep 91netstat 命令用于显示网络连接、路由表、接口统计等信息。你可以通过以下命令查看所有监听端口及其对应的进程：
-bash
-1sudo netstat -tuln
+netstat-tuln |grep 91netstat ...
+						
+					</p>
+					<p class="post-meta">
+						
 
 
--t：显示 TCP 连接。
--u：显示 UDP 连接。
--l：显示处于监听状态的端口。
--n：以数字形式显示端口和地址，而不是解析主机名。
 
-此命令会列出所有监听的端口和相关信息。如果你想查看某个特定端口，可以用 grep 过滤。例如，查看端口 91 的监听情况：
-bash
-1sudo netstat -tuln | grep :91
+					</p>
+				</div>
+			</div>
+		
+			<div class="post" id="post">
+				<a class="post-cover" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/09%20Samba%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86/" title=" 09 Samba文件共享服务器管理 " target="_blank">
+					
+					<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg"/>
+				</a>
 
-使用 ss 命令ss 是一个比 netstat 更快和更现代的工具，用于显示套接字信息。可以使用以下命令查看监听的端口：
-bash
-1sudo ss -tuln
+				<div class="post-text">
+					<p class="post-time">
+						五月 19日, 2025
+					</p>	
+					<h3 class="post-title" id="post-title-index">
+						<a href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/09%20Samba%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86/" title="09 Samba文件共享服务器管理">							
+							
+	<a href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/09%20Samba%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86/" itemprop="url">
+		09 Samba文件共享服务器管理
+	</a>
 
-同样，使用 grep 可以筛选特定的端口：
-bash
-1sudo ss -tuln | grep :91
-
-使用 lsof 命令lsof（List Open Files）用于列出系统打开的文 ...</div></div></div><div class="recent-post-item" onclick="pjax.loadUrl('/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/09%20Samba%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86/')"><div class="recent-post-info no-cover"><div class="recent-post-info-top"><div class="recent-post-info-top-tips"><a class="unvisited-post" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/09%20Samba%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86/" title="09 Samba文件共享服务器管理">未读</a></div><a class="article-title" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/09%20Samba%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86/" title="09 Samba文件共享服务器管理">09 Samba文件共享服务器管理</a></div><div class="article-meta-wrap"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days" style="font-size: 15px; display:none"></i><span class="article-meta-label">发表于</span><time datetime="2025-05-18T19:46:45.684Z" title="发表于 2025-05-19 03:46:45" time="2025-05-19 03:46:45">2025-05-19</time><time class="time_hidden" datetime="2025-05-18T19:45:53.133Z" title="更新于 2025-05-19 03:45:53" time="2025-05-19 03:45:53">2025-05-19</time></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/Linux/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>Linux</span></a><a class="article-meta__tags" href="/tags/openEuler/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>openEuler</span></a><a class="article-meta__tags" href="/tags/Huawei/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>Huawei</span></a><a class="article-meta__tags" href="/tags/HCIA/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>HCIA</span></a></span></div><div class="content">完成openEuler系统基础命令操作后，可以基于openEuler及软件搭建各类服务，应用到各个IT系统中，基于openEuler及Samba可以完成文件共享服务器的搭建。
-学完本课程后，你将能够:
-
-基于openEuler系统文件共享服务器配置
-设置文件共享服务器用户与权限
-文件服务器基本运维与排障
-
-
-0x01 Samba文件共享服务器搭建1.1 Samba文件共享服务介绍
-Samba是一个能让Linux系统应用Microsoft网络通讯协议的软件，SMB（Server Message Block）服务器消息块
-Samba最大的功能是可以用于Linux与windows系统之间的文件共享和打印共享，既可以用于Windows与Linux之间的文件共享,也可以用于linux与linux之间的文件共享。
-基于客户机&#x2F;服务器(C&#x2F;S)的协议，因而一台Samba服务器既可以充当
-文件共享服务器
-Samba客户端
+						</a>
+					</h3>
+					<p class="post-content">
+						
+							完成openEuler系统基础命令操作后，可以基于openEuler及软件搭建各类服务，应用到各个IT系统中，基于openEuler及Samba可以完成文...
+						
+					</p>
+					<p class="post-meta">
+						
 
 
-Samba在 windows 下使 用的 是NetBIOS 协议 ，要 使用 linux 下 共 享出 来的 文件 ，要 确 认windows系统安装了Net ...</div></div></div><div class="recent-post-item" onclick="pjax.loadUrl('/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/08%20%E4%BD%BF%E7%94%A8shell%E8%84%9A%E6%9C%AC/')"><div class="recent-post-info no-cover"><div class="recent-post-info-top"><div class="recent-post-info-top-tips"><a class="unvisited-post" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/08%20%E4%BD%BF%E7%94%A8shell%E8%84%9A%E6%9C%AC/" title="08 使用shell脚本">未读</a></div><a class="article-title" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/08%20%E4%BD%BF%E7%94%A8shell%E8%84%9A%E6%9C%AC/" title="08 使用shell脚本">08 使用shell脚本</a></div><div class="article-meta-wrap"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days" style="font-size: 15px; display:none"></i><span class="article-meta-label">发表于</span><time datetime="2025-05-18T19:46:45.683Z" title="发表于 2025-05-19 03:46:45" time="2025-05-19 03:46:45">2025-05-19</time><time class="time_hidden" datetime="2025-05-18T19:45:57.835Z" title="更新于 2025-05-19 03:45:57" time="2025-05-19 03:45:57">2025-05-19</time></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/Linux/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>Linux</span></a><a class="article-meta__tags" href="/tags/openEuler/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>openEuler</span></a><a class="article-meta__tags" href="/tags/Huawei/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>Huawei</span></a><a class="article-meta__tags" href="/tags/HCIA/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>HCIA</span></a></span></div><div class="content">
+
+					</p>
+				</div>
+			</div>
+		
+			<div class="post" id="post">
+				<a class="post-cover" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/08%20%E4%BD%BF%E7%94%A8shell%E8%84%9A%E6%9C%AC/" title=" 08 使用shell脚本 " target="_blank">
+					
+					<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg"/>
+				</a>
+
+				<div class="post-text">
+					<p class="post-time">
+						五月 19日, 2025
+					</p>	
+					<h3 class="post-title" id="post-title-index">
+						<a href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/08%20%E4%BD%BF%E7%94%A8shell%E8%84%9A%E6%9C%AC/" title="08 使用shell脚本">							
+							
+	<a href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/08%20%E4%BD%BF%E7%94%A8shell%E8%84%9A%E6%9C%AC/" itemprop="url">
+		08 使用shell脚本
+	</a>
+
+						</a>
+					</h3>
+					<p class="post-content">
+						
+							
 本课程基于 openEuler
 介绍关于 Shell 的基础知识
 结合实际案例展示 Shell 脚本编写的最佳实践
 
 学完本课程后，您应该能：
 
-熟悉 Shell 基础知识
-掌握 Shell 编程基础
-能够编写常用的 Shell 脚本
+熟悉 ...
+						
+					</p>
+					<p class="post-meta">
+						
 
 
 
-0x01 Shell基础介绍1.1 openEuler构成Shell简介
-了解 Shell 在 openEuler 中的位置
-掌握 Shell 脚本的基本操作
+					</p>
+				</div>
+			</div>
+		
+			<div class="post" id="post">
+				<a class="post-cover" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/" title=" 06 管理文件系统及存储 " target="_blank">
+					
+					<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg"/>
+				</a>
 
+				<div class="post-text">
+					<p class="post-time">
+						五月 19日, 2025
+					</p>	
+					<h3 class="post-title" id="post-title-index">
+						<a href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/" title="06 管理文件系统及存储">							
+							
+	<a href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/" itemprop="url">
+		06 管理文件系统及存储
+	</a>
 
-1.1.1 Shell 概述
-Shell 是系统的用户界面，提供了用户与内核进行交互操作的一种接口
-Shell 将用户输入的命令并且把它们送到内核去执行，然后返回执行结果
-Shell 是可编程的，它允许用户编写由 Shell 命令组成的程序
-
-
-1.1.2 Shell发展史1971 : Bell Labs 的 Ken Thompson 为 UNIX 开发了第一个 Shell: V6 Shell 是一个在内核之外执行的独立的用户程序1977 ：Steven Bourne 在 AT&amp;T Bell Labs 为 V7 UNIX 创建 Bourne shell1978 ：Bill Jo ...</div></div></div><div class="recent-post-item" onclick="pjax.loadUrl('/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/')"><div class="recent-post-info no-cover"><div class="recent-post-info-top"><div class="recent-post-info-top-tips"><a class="unvisited-post" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/" title="06 管理文件系统及存储">未读</a></div><a class="article-title" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/" title="06 管理文件系统及存储">06 管理文件系统及存储</a></div><div class="article-meta-wrap"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days" style="font-size: 15px; display:none"></i><span class="article-meta-label">发表于</span><time datetime="2025-05-18T19:46:45.681Z" title="发表于 2025-05-19 03:46:45" time="2025-05-19 03:46:45">2025-05-19</time><time class="time_hidden" datetime="2025-05-18T19:45:16.427Z" title="更新于 2025-05-19 03:45:16" time="2025-05-19 03:45:16">2025-05-19</time></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/Linux/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>Linux</span></a><a class="article-meta__tags" href="/tags/openEuler/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>openEuler</span></a><a class="article-meta__tags" href="/tags/Huawei/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>Huawei</span></a><a class="article-meta__tags" href="/tags/HCIA/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>HCIA</span></a></span></div><div class="content">本章主要讲述文件系统、磁盘存储、逻辑卷存储的基础概念以及如何管理、使用文件系统和存储，以及对一些常用操作命令的介绍。
+						</a>
+					</h3>
+					<p class="post-content">
+						
+							本章主要讲述文件系统、磁盘存储、逻辑卷存储的基础概念以及如何管理、使用文件系统和存储，以及对一些常用操作命令的介绍。
 学完本课程后，您将能够：
 
-了解文件系统及存储的基本概念
-掌握磁盘存储的挂载和使用方法
-掌握逻辑卷的管理方法
+了解文件...
+						
+					</p>
+					<p class="post-meta">
+						
 
 
-0x01 文件系统基础概念1.1 文件系统概述文件系统是操作系统用于明确存储设备或分区上的文件的方法和数据结构；即在存储设备上组织文件的方法。操作系统中负责管理和存储文件信息的软件机构称为文件管理系统，简称文件系统。
-作用：文件系统是对文件存储设备的空间进行组织和分配，负责文件存储并对存入的文件进行保护和检索的系统。具体地说，它负责为用户建立文件，存入、读出、修改、转储文件，控制文件的存取，当用户不再使用时撤销文件等。文件系统的功能包括：管理和调度文件的存储空间，提供文件的逻辑结构、物理结构和存储方法;实现文件从标识到实际地址的映射，实现文件的控制操作和存取操作，实现文件信息的共享并提供可靠的文件保密和保护措施，提供文件的安全措施。
-概括：
-1文件系统是用户和硬件如磁盘或分区之间的交互接口
+
+					</p>
+				</div>
+			</div>
+		
+			<div class="post" id="post">
+				<a class="post-cover" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/05%20%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E5%B9%B6%E7%AE%A1%E7%90%86%E6%9C%8D%E5%8A%A1/" title=" 05 安装软件并管理服务 " target="_blank">
+					
+					<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg"/>
+				</a>
+
+				<div class="post-text">
+					<p class="post-time">
+						五月 19日, 2025
+					</p>	
+					<h3 class="post-title" id="post-title-index">
+						<a href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/05%20%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E5%B9%B6%E7%AE%A1%E7%90%86%E6%9C%8D%E5%8A%A1/" title="05 安装软件并管理服务">							
+							
+	<a href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/05%20%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E5%B9%B6%E7%AE%A1%E7%90%86%E6%9C%8D%E5%8A%A1/" itemprop="url">
+		05 安装软件并管理服务
+	</a>
+
+						</a>
+					</h3>
+					<p class="post-content">
+						
+							本章节主要讲述openEuler中安装软件包三种方式：rpm安装、源码安装以及yum安装的相关概念以及具体的操作命令，并且介绍了systemd管理服务的概...
+						
+					</p>
+					<p class="post-meta">
+						
 
 
-1.1.1 文件系统类型及使用场景
 
+					</p>
+				</div>
+			</div>
+		
+			<div class="post" id="post">
+				<a class="post-cover" href="/2025/05/19/openEuler/%E5%AE%9E%E9%AA%8C/%E5%8D%8E%E4%B8%BA%E6%AF%94%E8%B5%9B%E5%AE%9E%E9%AA%8C/%E6%9C%AA%E8%A7%A3%E5%86%B3%E7%9A%84%E9%97%AE%E9%A2%98AND%E6%83%B3%E6%B3%95/" title="  " target="_blank">
+					
+					<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg"/>
+				</a>
 
-常见文件类型
-使用场景
- ...</div></div></div><div class="recent-post-item" onclick="pjax.loadUrl('/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/05%20%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E5%B9%B6%E7%AE%A1%E7%90%86%E6%9C%8D%E5%8A%A1/')"><div class="recent-post-info no-cover"><div class="recent-post-info-top"><div class="recent-post-info-top-tips"><a class="unvisited-post" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/05%20%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E5%B9%B6%E7%AE%A1%E7%90%86%E6%9C%8D%E5%8A%A1/" title="05 安装软件并管理服务">未读</a></div><a class="article-title" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/05%20%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E5%B9%B6%E7%AE%A1%E7%90%86%E6%9C%8D%E5%8A%A1/" title="05 安装软件并管理服务">05 安装软件并管理服务</a></div><div class="article-meta-wrap"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days" style="font-size: 15px; display:none"></i><span class="article-meta-label">发表于</span><time datetime="2025-05-18T19:46:45.680Z" title="发表于 2025-05-19 03:46:45" time="2025-05-19 03:46:45">2025-05-19</time><time class="time_hidden" datetime="2025-05-18T19:45:05.700Z" title="更新于 2025-05-19 03:45:05" time="2025-05-19 03:45:05">2025-05-19</time></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/Linux/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>Linux</span></a><a class="article-meta__tags" href="/tags/openEuler/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>openEuler</span></a><a class="article-meta__tags" href="/tags/Huawei/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>Huawei</span></a><a class="article-meta__tags" href="/tags/HCIA/" event.cancelbubble onclick="window.event.cancelBubble=true;"><span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>HCIA</span></a></span></div><div class="content">本章节主要讲述openEuler中安装软件包三种方式：rpm安装、源码安装以及yum安装的相关概念以及具体的操作命令，并且介绍了systemd管理服务的概念以及操作方式。
-0x01 RPM管理软件包1.1 RPM软件包Linux软件包管理概述
-
-Linux软件包可分为两类：源码包、二进制包，不同的软件包有不同的提供方式，常用的方式有rpm包和tgz包两种。为此，常用应用软件的安装方式也有两种，一种为使用rpm工具安装，一种为编译安装。
-rpm作为标准的软件包管理工具，具有便捷的安装方式，是安装软件的首选方式。
-openLinux、SUSE、CentOS等不同的分发版本同样使用rpm来对软件包进行管理。
-不同的平台使得软件包的打包格式及工具不尽相同，其中Debin和Ubuntu采用的是Deb包安装以及apt-get源安装的方式来对软件包进行管理， FreeBSD则采用的是Ports，.txz的打包格式以及make, pkg工具。
-DEB是Debian软件包格式的文件扩展名，Debian包是Unixar的标准归档，将包文件信息以及包内容，经过gzip和tar打包而成。处理这些包的经典程序是 ...</div></div></div><div class="recent-post-item" onclick="pjax.loadUrl('/2025/05/19/openEuler/%E5%AE%9E%E9%AA%8C/%E5%8D%8E%E4%B8%BA%E6%AF%94%E8%B5%9B%E5%AE%9E%E9%AA%8C/%E6%9C%AA%E8%A7%A3%E5%86%B3%E7%9A%84%E9%97%AE%E9%A2%98AND%E6%83%B3%E6%B3%95/')"><div class="recent-post-info no-cover"><div class="recent-post-info-top"><div class="recent-post-info-top-tips"><a class="unvisited-post" href="/2025/05/19/openEuler/%E5%AE%9E%E9%AA%8C/%E5%8D%8E%E4%B8%BA%E6%AF%94%E8%B5%9B%E5%AE%9E%E9%AA%8C/%E6%9C%AA%E8%A7%A3%E5%86%B3%E7%9A%84%E9%97%AE%E9%A2%98AND%E6%83%B3%E6%B3%95/" title="无题">未读</a></div><a class="article-title" href="/2025/05/19/openEuler/%E5%AE%9E%E9%AA%8C/%E5%8D%8E%E4%B8%BA%E6%AF%94%E8%B5%9B%E5%AE%9E%E9%AA%8C/%E6%9C%AA%E8%A7%A3%E5%86%B3%E7%9A%84%E9%97%AE%E9%A2%98AND%E6%83%B3%E6%B3%95/" title="无题">无题</a></div><div class="article-meta-wrap"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days" style="font-size: 15px; display:none"></i><span class="article-meta-label">发表于</span><time datetime="2025-05-18T19:46:45.671Z" title="发表于 2025-05-19 03:46:45" time="2025-05-19 03:46:45">2025-05-19</time><time class="time_hidden" datetime="2025-05-18T10:48:00.911Z" title="更新于 2025-05-18 18:48:00" time="2025-05-18 18:48:00">2025-05-18</time></span></div><div class="content">
+				<div class="post-text">
+					<p class="post-time">
+						五月 19日, 2025
+					</p>	
+					<h3 class="post-title" id="post-title-index">
+						<a href="/2025/05/19/openEuler/%E5%AE%9E%E9%AA%8C/%E5%8D%8E%E4%B8%BA%E6%AF%94%E8%B5%9B%E5%AE%9E%E9%AA%8C/%E6%9C%AA%E8%A7%A3%E5%86%B3%E7%9A%84%E9%97%AE%E9%A2%98AND%E6%83%B3%E6%B3%95/" title="">							
+							
+						</a>
+					</h3>
+					<p class="post-content">
+						
+							
 hexo部署，线上浏览笔记
 links访问不了公网IP，但可以ping通，推测是防火墙拦了，尝试添加防火墙允许http服务包
 
-</div></div></div><div class="recent-post-item" onclick="pjax.loadUrl('/2025/05/19/openEuler/%E5%AE%9E%E9%AA%8C/%E5%8D%8E%E4%B8%BA%E6%AF%94%E8%B5%9B%E5%AE%9E%E9%AA%8C/%E5%AE%9E%E9%AA%8C%E7%9F%A5%E8%AF%86%E7%82%B9/')"><div class="recent-post-info no-cover"><div class="recent-post-info-top"><div class="recent-post-info-top-tips"><a class="unvisited-post" href="/2025/05/19/openEuler/%E5%AE%9E%E9%AA%8C/%E5%8D%8E%E4%B8%BA%E6%AF%94%E8%B5%9B%E5%AE%9E%E9%AA%8C/%E5%AE%9E%E9%AA%8C%E7%9F%A5%E8%AF%86%E7%82%B9/" title="无题">未读</a></div><a class="article-title" href="/2025/05/19/openEuler/%E5%AE%9E%E9%AA%8C/%E5%8D%8E%E4%B8%BA%E6%AF%94%E8%B5%9B%E5%AE%9E%E9%AA%8C/%E5%AE%9E%E9%AA%8C%E7%9F%A5%E8%AF%86%E7%82%B9/" title="无题">无题</a></div><div class="article-meta-wrap"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days" style="font-size: 15px; display:none"></i><span class="article-meta-label">发表于</span><time datetime="2025-05-18T19:46:45.669Z" title="发表于 2025-05-19 03:46:45" time="2025-05-19 03:46:45">2025-05-19</time><time class="time_hidden" datetime="2025-05-18T10:48:26.296Z" title="更新于 2025-05-18 18:48:26" time="2025-05-18 18:48:26">2025-05-18</time></span></div><div class="content">
+
+						
+					</p>
+					<p class="post-meta">
+						
+
+
+
+					</p>
+				</div>
+			</div>
+		
+			<div class="post" id="post">
+				<a class="post-cover" href="/2025/05/19/openEuler/%E5%AE%9E%E9%AA%8C/%E5%8D%8E%E4%B8%BA%E6%AF%94%E8%B5%9B%E5%AE%9E%E9%AA%8C/%E5%AE%9E%E9%AA%8C%E7%9F%A5%E8%AF%86%E7%82%B9/" title="  " target="_blank">
+					
+					<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg"/>
+				</a>
+
+				<div class="post-text">
+					<p class="post-time">
+						五月 19日, 2025
+					</p>	
+					<h3 class="post-title" id="post-title-index">
+						<a href="/2025/05/19/openEuler/%E5%AE%9E%E9%AA%8C/%E5%8D%8E%E4%B8%BA%E6%AF%94%E8%B5%9B%E5%AE%9E%E9%AA%8C/%E5%AE%9E%E9%AA%8C%E7%9F%A5%E8%AF%86%E7%82%B9/" title="">							
+							
+						</a>
+					</h3>
+					<p class="post-content">
+						
+							
 解压命令 
 Ansible，今年会不会用SaltStack？应该不会，Ansible是重点内容
 
-</div></div></div><div class="recent-post-item" onclick="pjax.loadUrl('/2025/05/19/openEuler/%E5%AE%9E%E9%AA%8C/IP/05%20Shell%E8%84%9A%E6%9C%AC%E8%BF%9B%E9%98%B6%E5%AE%9E%E8%B7%B5/%E5%86%85%E5%AE%B9%E6%8F%8F%E8%BF%B0/')"><div class="recent-post-info no-cover"><div class="recent-post-info-top"><div class="recent-post-info-top-tips"><a class="unvisited-post" href="/2025/05/19/openEuler/%E5%AE%9E%E9%AA%8C/IP/05%20Shell%E8%84%9A%E6%9C%AC%E8%BF%9B%E9%98%B6%E5%AE%9E%E8%B7%B5/%E5%86%85%E5%AE%B9%E6%8F%8F%E8%BF%B0/" title="无题">未读</a></div><a class="article-title" href="/2025/05/19/openEuler/%E5%AE%9E%E9%AA%8C/IP/05%20Shell%E8%84%9A%E6%9C%AC%E8%BF%9B%E9%98%B6%E5%AE%9E%E8%B7%B5/%E5%86%85%E5%AE%B9%E6%8F%8F%E8%BF%B0/" title="无题">无题</a></div><div class="article-meta-wrap"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days" style="font-size: 15px; display:none"></i><span class="article-meta-label">发表于</span><time datetime="2025-05-18T19:46:45.666Z" title="发表于 2025-05-19 03:46:45" time="2025-05-19 03:46:45">2025-05-19</time><time class="time_hidden" datetime="2025-03-06T11:31:26.776Z" title="更新于 2025-03-06 19:31:26" time="2025-03-06 19:31:26">2025-03-06</time></span></div><div class="content">本实验指导书共包含 6 个实验，逐一介绍了 Shell 脚本中流程控制语句进阶、函数、正则表达式、GREP 命令、SED 流编辑器、AWK 语句。
 
-实验一为流程控制语句进阶，通过用户密码校验，帮助读者掌握流程控制语句以及条件测试的使用。
-实验二为函数，通过创建用户添加函数，帮助读者掌握函数的创建以及使用方法。
-实验三为正则表达式，通过网卡和进程信息过滤查询，帮助读者掌握正则表达式普通字符、普通元字符、扩展元字符的使用。
-实验四为 GREP 命令，通过网卡和进程信息的过滤查询，帮助读者掌握 GREP 命令的输出控制、上下文控制选项、模式选择选项的使用。
-实验五为 SED 流编辑器，通过网卡和进程信息的过滤查询，帮助读者掌握 SED 流编辑器的行号定位、正则定位、增删改查、搜索替换、文件操作、参数选项的使用。
-实验六为 AWK 语句，通过网卡和进程信息的过滤查询，帮助读者掌握 AWK 语句的内置变量、字段分隔符、记录分隔符、格式化输出、正则表达式、控制语句和脚本模式的使用。
+						
+					</p>
+					<p class="post-meta">
+						
 
-</div></div></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span><a class="page-number" href="/page/2/#content-inner">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/#content-inner">4</a><a class="extend next" rel="next" href="/page/2/#content-inner"><div class="pagination_tips_next">下页</div><i style="font-weight: inherit; font-size: 1rem;" class="anzhiyufont anzhiyu-icon-chevron-right fa-fw"></i></a><div class="toPageGroup"><input id="toPageText" oninput="value=value.replace(/[^0-9]/g,'')" maxlength="3" onkeyup="this.value=this.value.replace(/[^u4e00-u9fa5w]/g,'')" aria-label="toPage"><a id="toPageButton" onclick="anzhiyu.toPage()"><i class="anzhiyufont anzhiyu-icon-angles-right" style="font-weight: inherit; font-size: 1rem;"></i></a></div></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__description"></div></div></div><div class="card-widget anzhiyu-right-widget" id="card-wechat" onclick="null"><div id="flip-wrapper"><div id="flip-content"><div class="face" style="background: url(https://bu.dusays.com/2023/01/13/63c02edf44033.png) center center / 100% no-repeat"></div><div class="back face" style="background: url(https://bu.dusays.com/2023/05/13/645fa415e8694.png) center center / 100% no-repeat"></div></div></div></div><div class="sticky_layout"><div class="card-widget"><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/HCIA/" style="font-size: 1.05rem;">HCIA<sup>9</sup></a><a href="/tags/HCIP/" style="font-size: 1.05rem;">HCIP<sup>6</sup></a><a href="/tags/Huawei/" style="font-size: 1.05rem;">Huawei<sup>15</sup></a><a href="/tags/Linux/" style="font-size: 1.05rem;">Linux<sup>18</sup></a><a href="/tags/openEuler/" style="font-size: 1.05rem;">openEuler<sup>18</sup></a></div></div><hr/><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/05/"><span class="card-archive-list-date">May 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">23</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/03/"><span class="card-archive-list-date">March 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">6</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/02/"><span class="card-archive-list-date">February 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">8</span><span>篇</span></div></a></li></ul></div><hr/><div class="card-webinfo"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="webinfo-item-title"><i class="anzhiyufont anzhiyu-icon-file-lines"></i><div class="item-name">文章总数 :</div></div><div class="item-count">37</div></div><div class="webinfo-item"><div class="webinfo-item-title"><i class="anzhiyufont anzhiyu-icon-stopwatch"></i><div class="item-name">建站天数 :</div></div><div class="item-count" id="runtimeshow" data-publishDate="2021-03-31T16:00:00.000Z"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-spin"></i></div></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2025 By <a class="footer-bar-link" href="/" title="XBCID" target="_blank">XBCID</a></div></div><div id="footer-type-tips"></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/anzhiyu-c/hexo-theme-anzhiyu" title="主题">主题</a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">37</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">5</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">0</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://blog.anheyu.com/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://image.anheyu.com/" title="安知鱼图床"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.anheyu.com/favicon.ico" alt="安知鱼图床"/><span class="back-menu-item-text">安知鱼图床</span></a></div></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/HCIA/" style="font-size: 0.88rem;">HCIA<sup>9</sup></a><a href="/tags/HCIP/" style="font-size: 0.88rem;">HCIP<sup>6</sup></a><a href="/tags/Huawei/" style="font-size: 0.88rem;">Huawei<sup>15</sup></a><a href="/tags/Linux/" style="font-size: 0.88rem;">Linux<sup>18</sup></a><a href="/tags/openEuler/" style="font-size: 0.88rem;">openEuler<sup>18</sup></a></div></div><hr/></div></div><div id="rightside"><div id="rightside-config-hide"><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8152976493" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random" volume="0.7"></meting-js></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.5/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
-var HoldLog = console.log;
-console.log = function () {};
-let now1 = new Date();
-queueMicrotask(() => {
-  const Log = function () {
-    HoldLog.apply(console, arguments);
-  }; //在恢复前输出日志
-  const grt = new Date("01/12/2021 14:00:00"); //此处修改你的建站时间或者网站上线时间
-  now1.setTime(now1.getTime() + 250);
-  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
-  const dnum = Math.floor(days);
-  const ascll = [
-    `欢迎使用安知鱼!`,
-    `生活明朗, 万物可爱`,
-    `
-        
-       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
-      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
-      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
-      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
-      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
-      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
-        
-        `,
-    "已上线",
-    dnum,
-    "天",
-    "©2020 By 安知鱼 V1.6.14",
-  ];
-  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
 
-  setTimeout(
-    Log.bind(
-      console,
-      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
-      "color:#425AEF",
-      "",
-      "color:#425AEF",
-      "color:#425AEF",
-      "",
-      "color:#425AEF",
-      ""
-    )
-  );
-  setTimeout(
-    Log.bind(
-      console,
-      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
-      "color:white; background-color:#4fd953",
-      "",
-      "",
-      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
-    )
-  );
 
-  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
+					</p>
+				</div>
+			</div>
+		
+			<div class="post" id="post">
+				<a class="post-cover" href="/2025/05/19/openEuler/%E5%AE%9E%E9%AA%8C/IP/05%20Shell%E8%84%9A%E6%9C%AC%E8%BF%9B%E9%98%B6%E5%AE%9E%E8%B7%B5/%E5%86%85%E5%AE%B9%E6%8F%8F%E8%BF%B0/" title="  " target="_blank">
+					
+					<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg"/>
+				</a>
 
-  setTimeout(
-    console.warn.bind(
-      console,
-      "%c ⚡ Powered by 安知鱼 %c 你正在访问 XBCID 的博客.",
-      "color:white; background-color:#f0ad4e",
-      ""
-    )
-  );
+				<div class="post-text">
+					<p class="post-time">
+						五月 19日, 2025
+					</p>	
+					<h3 class="post-title" id="post-title-index">
+						<a href="/2025/05/19/openEuler/%E5%AE%9E%E9%AA%8C/IP/05%20Shell%E8%84%9A%E6%9C%AC%E8%BF%9B%E9%98%B6%E5%AE%9E%E8%B7%B5/%E5%86%85%E5%AE%B9%E6%8F%8F%E8%BF%B0/" title="">							
+							
+						</a>
+					</h3>
+					<p class="post-content">
+						
+							本实验指导书共包含 6 个实验，逐一介绍了 Shell 脚本中流程控制语句进阶、函数、正则表达式、GREP 命令、SED 流编辑器、AWK 语句。
 
-  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+实验...
+						
+					</p>
+					<p class="post-meta">
+						
 
-  setTimeout(
-    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
-  );
-});</script><script async src="/anzhiyu/random.js"></script><div class="js-pjax"><script>if (typeof gsap === "object") {
-  getScript("/js/anzhiyu/people.js", {defer:true})
-} else {
-  getScript("https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/gsap/gsap.min.js").then(()=>{
-    getScript("/js/anzhiyu/people.js", {defer:true})
-  });
-}</script><input type="hidden" name="page-type" id="page-type" value="anzhiyu"></div><script>var visitorMail = "";
-</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/qrcodejs/1.0.0/qrcode.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
-var pjax = new Pjax({
-  elements: 'a:not([target="_blank"])',
-  selectors: pjaxSelectors,
-  cacheBust: false,
-  analytics: false,
-  scrollRestoration: false
-})
 
-document.addEventListener('pjax:send', function () {
-  // removeEventListener scroll 
-  anzhiyu.removeGlobalFnEvent('pjax')
-  anzhiyu.removeGlobalFnEvent('themeChange')
 
-  document.getElementById('rightside').classList.remove('rightside-show')
+					</p>
+				</div>
+			</div>
+		
+	</div>
+	
+	
+	<div id="pagination">
+		
+			<a href="/page/2/" data-title="加载更多" data-status="没有了">加载更多</a>
+		
+	</div>
+
+	
+
+</div>
+	
+
+		</main>
+
+		<!--footer-->
+		<footer>
+	<div id="navigation-show">
+		<ul id="global-nav">
+	
+		<li class="menu-home">
+			<a href="/" class="menu-item-home" target="_blank">主页</a>
+		</li>
+		
+	
+		<li class="menu-archive">
+			<a href="/archives" class="menu-item-archive" target="_blank">归档</a>
+		</li>
+		
+	
+		<li class="menu-categories">
+			<a href="/categories" class="menu-item-categories" target="_blank">分类</a>
+		</li>
+		
+	
+		<li class="menu-tags">
+			<a href="/tags" class="menu-item-tags" target="_blank">标签</a>
+		</li>
+		
+	
+		<li class="menu-about">
+			<a href="/about" class="menu-item-about" target="_blank">关于</a>
+		</li>
+		
+	
+		<li class="menu-gallery">
+			<a href="/gallery" class="menu-item-gallery" target="_blank">相册</a>
+		</li>
+		
+	
+
+	
+</ul>
+	</div>
+
+	<div class="copyright">
+		<p>
+			 
+				&copy;2017 - 2025, content by Sariay. All Rights Reserved.
+			
+			
+				<a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> Theme <a href="https://github.com/Sariay/hexo-theme-Annie" title="Annie" target="_blank" rel="noopener">Annie</a> by Sariay.
+			
+		</p>
+		<p>
+			
+
+	<!-- busuanzi -->
+	<!-- busuanzi -->
+
+
+
+			<a href="javascript:zh_tran('s');" class="zh_click" id="zh_click_s">简体</a> 
+			<a href="javascript:zh_tran('t');" class="zh_click" id="zh_click_t">繁體</a>				
+		</p>
+	</div>		
+</footer>
+		
+	<!-- Local or hitokoto! -->
+
+	
+<script src="/plugin/motto/motto.js"></script>
+
+	
+	<script type="text/javascript">
+		(function motto(){
+			let mottoText = getMingYanContent().split('</br> - </br>'),
+			
+			mottoTextContent = mottoText[0]?mottoText[0]:'请刷新...',
+			
+			mottoTextFrom = mottoText[1]?mottoText[1]:'one/一个';
+			
+			mottoTextContent = mottoTextContent.trim().substring(0, 100);
+		
+			$("#motto-content").html( mottoTextContent);
+			$("#motto-author").html( mottoTextFrom  );
+		})();	
+	</script>	
+
+
+
+<!-- love effect -->
+
+
+<!-- back to top -->
+
+	<div id="totop">
+	<span class="icon-circle-up"></span>
+</div>
+
+
+
+<!-- site analysis -->
+
+
+	<!-- site-analysis -->
+	
+	
+	
+	
+	
+ 
+
+<!-- leancloud -->
+
+
+	<!-- leancloud -->
+	<!--
+	时间：2018-11-27
+	描述：
+		文章访问量：visitors
+		文章喜欢量：likes	
+		文章排行榜：topNPost
+		其他得说明：
+			01-Cookie相关的函数 
+				https://blog.csdn.net/somehow1002/article/details/78511541（Author：somehow1002）
+			02-visitors相关的函数 
+				https://blog.csdn.net/u013553529/article/details/63357382（Author：爱博客大伯）
+				https://notes.doublemine.me/2015-10-21-为NexT主题添加文章阅读量统计功能.html（Author：夏末）
+			03-topNPost相关的函数
+				https://hoxis.github.io/hexo-next-read-rank.html（Author：hoxis）
+			04-likes相关的函数，
+				参考了01 & 02进行简单的设计与实现
+-->
+
+
+	
+
   
-  if (window.aplayers) {
-    for (let i = 0; i < window.aplayers.length; i++) {
-      if (!window.aplayers[i].options.fixed) {
-        window.aplayers[i].destroy()
-      }
-    }
-  }
 
-  typeof typed === 'object' && typed.destroy()
 
-  //reset readmode
-  const $bodyClassList = document.body.classList
-  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
-})
 
-document.addEventListener('pjax:complete', function () {
-  window.refreshFn()
+<script src="/plugin/chinese/chinese.js"></script>
+<script src="/plugin/imagelazyloader/yall.min.js"></script>
+<script src="/plugin/imageloaded/imagesloaded.pkgd.min.js"></script>
+<script src="/plugin/nicescroll/jquery.nicescroll.js"></script>
+<script src="/plugin/resizediv/resizediv.js"></script>
+<script src="/js/main.js"></script>
 
-  document.querySelectorAll('script[data-pjax]').forEach(item => {
-    const newScript = document.createElement('script')
-    const content = item.text || item.textContent || item.innerHTML || ""
-    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
-    newScript.appendChild(document.createTextNode(content))
-    item.parentNode.replaceChild(newScript, item)
-  })
-
-  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
-
-  typeof panguInit === 'function' && panguInit()
-
-  // google analytics
-  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
-
-  // baidu analytics
-  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
-
-  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
-
-  // prismjs
-  typeof Prism === 'object' && Prism.highlightAll()
-})
-
-document.addEventListener('pjax:error', e => {
-  if (e.request.status === 404) {
-    pjax.loadUrl('/404.html')
-  }
-})</script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>
+	</body>	
+</html>

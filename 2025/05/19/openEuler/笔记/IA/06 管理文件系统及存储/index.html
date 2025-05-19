@@ -1,209 +1,304 @@
-<!DOCTYPE html><html lang="zh" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>06 管理文件系统及存储 | XBCID's BLOG</title><meta name="keywords" content="Linux,openEuler,Huawei,HCIA"><meta name="author" content="XBCID"><meta name="copyright" content="XBCID"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="06 管理文件系统及存储"><meta name="application-name" content="06 管理文件系统及存储"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="06 管理文件系统及存储"><meta property="og:url" content="http://example.com/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/index.html"><meta property="og:site_name" content="XBCID's BLOG"><meta property="og:description" content="本章主要讲述文件系统、磁盘存储、逻辑卷存储的基础概念以及如何管理、使用文件系统和存储，以及对一些常用操作命令的介绍。 学完本课程后，您将能够：  了解文件系统及存储的基本概念 掌握磁盘存储的挂载和使用方法 掌握逻辑卷的管理方法   0x01 文件系统基础概念1.1 文件系统概述文件系统是操作系统用于"><meta property="og:locale" content="zh"><meta property="og:image" content="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg"><meta property="article:author" content="XBCID"><meta property="article:tag"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg"><meta name="description" content="本章主要讲述文件系统、磁盘存储、逻辑卷存储的基础概念以及如何管理、使用文件系统和存储，以及对一些常用操作命令的介绍。 学完本课程后，您将能够：  了解文件系统及存储的基本概念 掌握磁盘存储的挂载和使用方法 掌握逻辑卷的管理方法   0x01 文件系统基础概念1.1 文件系统概述文件系统是操作系统用于"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="http://example.com/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/"><link rel="preconnect" href="//cdn.cbd.int"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
-  linkPageTop: undefined,
-  peoplecanvas: {"enable":true,"img":"https://upload-bbs.miyoushe.com/upload/2024/07/27/125766904/ba62475f396df9de3316a08ed9e65d86_5680958632268053399..png"},
-  postHeadAiDescription: {"enable":true,"gptName":"AnZhiYu","mode":"local","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"xxxx","Referer":"https://xx.xx/"},
-  diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
-  LA51: undefined,
-  greetingBox: undefined,
-  twikooEnvId: '',
-  commentBarrageConfig:undefined,
-  music_page_default: "nav_music",
-  root: '/',
-  preloader: {"source":3},
-  friends_vue_info: undefined,
-  navMusic: true,
-  mainTone: undefined,
-  authorStatus: undefined,
-  algolia: undefined,
-  localSearch: undefined,
-  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
-  noticeOutdate: undefined,
-  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
-  copy: {
-    success: '复制成功',
-    error: '复制错误',
-    noSupport: '浏览器不支持'
-  },
-  relativeDate: {
-    homepage: false,
-    simplehomepage: true,
-    post: false
-  },
-  runtime: '天',
-  date_suffix: {
-    just: '刚刚',
-    min: '分钟前',
-    hour: '小时前',
-    day: '天前',
-    month: '个月前'
-  },
-  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: XBCID","link":"链接: ","source":"来源: XBCID's BLOG","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
-  lightbox: 'fancybox',
-  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
-  source: {
-    justifiedGallery: {
-      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
-      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+<!--
+	作者：Sariay
+	时间：2018-08-26
+	描述：There may be a bug, but don't worry, Qiling(器灵) says that it can work normally! aha!
+-->
+<!DOCTYPE html>
+<html class="html-loading">
+		
+
+<head>
+	<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <title>
+    
+      06 管理文件系统及存储 | XBCID&#39;s BLOG
+    
+  </title>
+  <meta name="author" content="XBCID">
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+	<!-- favicon -->
+  <link rel="shortcut icon" href="/img/favicon.ico">
+
+  <!-- css -->
+  
+<link rel="stylesheet" href="/css/Annie.css">
+
+  
+  <!-- jquery -->
+	
+<script src="/plugin/jquery/jquery.min.js"></script>
+
+
+<script>
+    const CONFIG_BGIMAGE = {
+      mode: 'normal',
+      normalSrc: '/img/header-bg.jpg',
+      randomYouMax: 110,
+      randomYouSrc: 'https://sariay.github.io/Random-img/',
+	  randomOtherSrc: 'https://api.berryapi.net/?service=App.Bing.Images&day=-0',
+	  preloaderEnable: true
     }
-  },
-  isPhotoFigcaption: false,
-  islazyload: true,
-  isAnchor: false,
-  shortcutKey: undefined,
-  autoDarkmode: true
-}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
-  configTitle: 'XBCID's BLOG',
-  title: '06 管理文件系统及存储',
-  postAI: '',
-  pageFillDescription: '0x01 文件系统基础概念, 1.1 文件系统概述, 1.1.1 文件系统类型及使用场景, 1.2 openEuler 文件系统, 1.3 系统交换分区, 1.3.1 swap分区配置, 0x02 磁盘存储挂载与使用, 2.1 磁盘基础, 磁盘类型, 磁盘接口说明, 2.1.1 Linux如何查看磁盘信息, 2.2 磁盘分区, 2.2.1 磁盘分区类型, 2.2.2 磁盘分区命名规则, 2.2.3 磁盘分区方案 - MBR, 2.2.3.2 MBR大白话解释, MBR分区方案 x3D 老式户口本, 为什么现在都用GPT分区？, 总结对比, 2.2.3.3 fdisk分区工具使用, 2.2.3.3.1 fdisk命令, 2.2.3.3.2 fdisk硬盘分区操作, 分区操作大白话解释, 2.2.5 磁盘分区方案–GPT, 2.2.5.1 parted分区工具使用, 2.2.5.2 parted硬盘分区操作 - 交互式, 2.2.5.3parted硬盘分区操作 - 非交互式, 2.3 磁盘格式化, 2.3.1 磁盘格式化命令–mkfs, 2.4 磁盘挂载, 2.4.1 fstab介绍, 0x03 逻辑卷管理, 3.1 逻辑卷基础, 3.1.1 逻辑卷概念, 3.1.2 逻辑卷原理, 3.1.3 逻辑卷优点, 3.2 管理逻辑卷, 3.2.1 逻辑卷创建流程, 3.2.2 逻辑卷管理 - pv的使用, 3.2.3 逻辑卷管理 - vg的使用, 3.2.4 逻辑卷管理 - lv的使用, 3.3 动态调整逻辑卷, 3.3.1 逻辑卷扩容, 3.3.2 逻辑卷缩容, 3.3.3 逻辑卷容量变更本章主要讲述文件系统磁盘存储逻辑卷存储的基础概念以及如何管理使用文件系统和存储以及对一些常用操作命令的介绍学完本课程后您将能够了解文件系统及存储的基本概念掌握磁盘存储的挂载和使用方法掌握逻辑卷的管理方法文件系统基础概念文件系统概述文件系统是操作系统用于明确存储设备或分区上的文件的方法和数据结构即在存储设备上组织文件的方法操作系统中负责管理和存储文件信息的软件机构称为文件管理系统简称文件系统作用文件系统是对文件存储设备的空间进行组织和分配负责文件存储并对存入的文件进行保护和检索的系统具体地说它负责为用户建立文件存入读出修改转储文件控制文件的存取当用户不再使用时撤销文件等文件系统的功能包括管理和调度文件的存储空间提供文件的逻辑结构物理结构和存储方法实现文件从标识到实际地址的映射实现文件的控制操作和存取操作实现文件信息的共享并提供可靠的文件保密和保护措施提供文件的安全措施概括文件系统是用户和硬件如磁盘或分区之间的交互接口文件系统类型及使用场景常见文件类型使用场景系统使用的文件系统包括文件系统是一个基于安全性的文件系统是所采用的独特的文件系统结构采用了更新版本的文件系统网络文件系统用于在系统间通过网络进行文件共享文件系统是一种磁盘未经处理或者格式化产生的文件系统系统中标准的文件系统其特点为存取文件的性能极好对于中小型的文件更显示出优势包括一种高性能的日志文件系统最早于年由为他们的操作系统而开发之后被移植到内核上特别擅长处理大文件同时提供平滑的数据传输是对系统下的包括和文件系统的一个统称网络文件系统用于在系统间通过网络进行文件共享该文件系统中光盘所使用的标准文件系统对该文件系统也有很好的支持不仅能读取光盘和光盘映像文件而且还支持在环境中刻录光盘文件系统内核源于内核支持十多种不同类型的文件系统比如等表格中列举常用几种并作说明默认文件系统为系统交换分区系统交换空间系统交换空间就是磁盘上的一块区域可以是一个分区也可以是一个文件简单的说就是当物理内存资源紧张时将内存中不常访问的资源保存到预先设定的硬盘上的交换空间来释放该资源占用的内存这样系统就有更多的物理内存为各个进程服务而当系统需要访问上存储的内容时再将上的数据加载到内存中物理内存和交换空间的和就是系统可提供的虚拟内存的总量为什么需要分区增加系统可用内存空间当物理内存不够用时增加分区比增加物理内存更经济提高系统整体性能将不常用数据移动到后系统会有更多内存用于缓存加快系统许多发行版如的休眠功能依赖于分区当系统休眠时会将内存数据保存到分区下次启动时再加载到内存分区配置有两种形式的交换空间交换分区和交换文件交换分区就是一个独立的硬盘没有文件或内容即分区交换文件是文件系统的一个特殊文件独立于系统和数据文件之外创建分区创建分区创建分区启用分区创建文件创建文件格式化文件启用文件推荐的大小配置大小推荐的交换空间磁盘存储挂载与使用磁盘基础磁盘类型磁盘接口说明磁盘接口类型说明电子集成驱动器最初硬盘的通用标准任何电子集成驱动器都属于甚至包括串行的出现将和区分开来而则属于并行所以一般来说称为并口称为串口小型计算机系统专用接口硬盘就是采用这种接口的硬盘就是串口的接口一般服务器硬盘采用这两类接口其性能比上述两种硬盘要高稳定性更强支持热插拔但是价格高容量小噪音大使光纤通道能够直接作为硬盘连接接口为高吞度吐量性能密集型系统的设计者开辟了一条提高性能水平的途径如何查看磁盘信息用于查看系统所有磁盘的信息包括已挂载和未挂载磁盘命令查看系统挂载磁盘空间大小和利用率磁盘分区磁盘分区可以将硬盘驱动器划分为多个逻辑存储单元这些单元称为分区通过将磁盘划分为多个分区系统管理员可以使用不同的分区执行不同功能磁盘分区的好处限制应用或用户的可用空间允许从同一磁盘进行不同操作系统的多重启动将操作系统和程序文件与用户文件分隔创建用于操作系统虚拟内存交换的单独区域限制磁盘空间使用情况以提高诊断工具和备份映像的性能磁盘分区类型通常所说的硬盘分区就是修改磁盘分区表注意以下情况考虑到磁盘的连续性一般建议将扩展分区放在最后面的柱面内一个硬盘只有一个扩展分区除去主分区其它空间都分配给扩展分区硬盘容量主分区扩展分区扩展分区容量各个逻辑分区容量之和磁盘分区命名规则在中没有盘符这个概念通过设备名来访问设备设备名存放在目录中命名规则如下注中类型的硬盘都用来标识硬盘属于接口类型的硬盘用来标识前面讲的硬盘都属于接口类型的硬盘在中用来标识而硬盘是属于接口类型的硬盘在中用来标识在中不同硬盘的命名规则如下第一块接口类型硬盘第二块接口类型硬盘第一块接口类型硬盘第二块接口类型硬盘是虚拟化平台下虚拟磁盘的一种实现方式也是存储虚拟化所研究的主要对象之一这里的在或其他发行版中目录下的设备是与虚拟控制台相关的字符设备用于直接访问虚拟控制台的屏幕内容设备名称规则表示第个虚拟控制台的屏幕内容例如对应类似但包含额外的控制信息如屏幕尺寸光标位置等数据以二进制格式存储功能通过读取可以直接获取当前虚拟控制台如的文本内容未经修改的原始内存映射这些设备通常用于需要截取控制台屏幕内容的工具或脚本但直接操作它们需要谨慎需权限典型用途调试或监控虚拟控制台的输出实现屏幕截图工具例如注意事项权限问题普通用户默认无法直接读取通常需要权限兼容性直接操作可能因内核版本不同而存在差异推荐优先使用更高层次的如库风险直接写入可能破坏当前控制台显示需谨慎操作磁盘分区方案分区方案主启动记录分区方案指定了在运行固件的系统上应如何对磁盘进行分区她是存在于驱动器开始部分的一个特殊的启动扇区如果是接口硬盘则最多只能有其中扩展分区不能直接使用所以不计算个分区其中主分区最多个逻辑分区最多个接口硬盘最多只能有其中扩展分区不能直接使用所以不计算个分区其中主分区最多个逻辑分区最多个由于分区大小数据以位值存储使用方案分区时最大磁盘和分区大小限制为自年以来主启动记录分区方案指定了在运行固件的系统上应如何对磁盘进行分区此方案支持最多四个主分区在系统上管理员可以使用扩展分区和逻辑分区来创建最多个分区由于分区大小数据以位值存储使用方案分区时最大磁盘和分区大小限制为随着硬盘驱动器容量的不断增长老旧的分区方案的磁盘和分区大小限制已不再是理论上的限制而是在生产环境中越来越经常遇到的实际问题因此新的分区表正在取代传统的方案进行磁盘分区别急我给你用大白话解释以下内容已自动过滤专业术语转换为人类语言大白话解释分区方案老式户口本想象你的硬盘是一栋大楼就是一个老式户口本专门记录这栋楼每个房间怎么分配但这个户口本有个致命缺点房间数量限制整栋楼最多只能登记个大套房主分区如果房间太多就得搞一个套娃操作把其中一个套房改造成扩展分区相当于一个大文件夹里面再塞最多个小隔间逻辑分区地址编号太短这个户口本只能用位数字记录房间位置相当于门牌号最多写到结果就是整栋楼不能超过否则门牌号不够用现在随便一个硬盘都起步直接爆表容易损坏户口本只复印了份存在大楼门口硬盘最开头万一门口被泼油漆数据损坏整栋楼就找不到房间了为什么现在都用分区智能电子门禁系统能登记无限个房间实际限制是个起步用位地址编号能管理比地球还大的硬盘最大约等于亿个硬盘每个房间信息都备份两份硬盘头尾各存一份泼油漆也不怕还自带防伪水印校验数据被篡改会自动报警总结对比现在你该怎么做买新硬盘无脑选遇到以上的硬盘必须用转换工具或如果还有人让你用分区建议给他买本世纪计算机入门分区工具使用命令是传统的硬盘分区工具也是系统中最常用的一种硬盘分区工具之一但不支持大于的分区命令格式如下语法选项参数常用选项释义如下分区大小指定每个分区的大小列出指定的外围设备的分区表状况分区编号将指定的分区大小输出到标准输出上单位为区块搭配参数列表会用分区数目取代柱面数目来表示每个分区的起始地址显示版本信息硬盘分区操作选择好具体某块磁盘后进入交互模式进行分区操作如交互式命令参数如表格所示命令说明设置可引导标记编辑磁盘标签设置操作系统兼容标记删除一个分区显示已知的文件系统类型为分区为分区显示帮助菜单新建分区建立空白分区表显示分区列表不保存退出新建空白磁盘标签改变一个分区的系统改变显示记录单位验证分区表保存退出创建主分区流程创建扩展分区流程注扩展分区创建完成后不能直接使用必须要创建逻辑分区分区操作大白话解释我用最直白的语言帮你拆解这个流程并解释每个步骤的意义流程作用在硬盘上切蛋糕想象你买了一块新硬盘大蛋糕分区就是在蛋糕上划定不同区域比如主分区存放操作系统必须有一个其他分区存放数据游戏等分步解释对应你给的流程输入新建分区作用告诉电脑我要切蛋糕了为什么硬盘初始是一整块必须手动划分区域才能使用选择主分区作用选择分区类型为主分区为什么一块硬盘最多只能有个主分区限制主分区像包厢可以直接安装操作系统扩展分区是包厢里的隔间用于创建更多逻辑分区但这里没用到输入主分区编号作用给主分区起个编号为什么系统靠编号识别分区比如后续会看到编号不能重复且不能超过主分区数量限制按回车默认起始柱面作用从硬盘的最开头位置开始划分关键名词柱面老式机械硬盘的物理结构单位类似年轮现代系统已改用扇区但仍保留柱面显示为什么默认选通常从硬盘开头分配空间效率最高除非你有特殊需求定义分区大小输入结束位置作用决定这个分区占多大空间两种方式直接输入柱面值例如需计算不推荐输入例如直接写更直观为什么告诉系统从起点开始切多少空间给这个分区输入打印分区表作用预览当前分区规划为什么避免手滑出错确认分区位置和大小是否符合预期输入保存退出作用将分区方案写入硬盘警告一旦执行分区操作不可逆数据会丢失如果只是想练习可以用不保存退出重点注意事项分区前务必备份数据尤其是已有数据的硬盘主分区逻辑分区主分区直接可用适合装系统逻辑分区必须放在扩展分区内适合存数据现代系统更推荐用分区突破的和主分区限制操作类似举个实际例子假设你有一块硬盘想分一个的主分区装系统操作如下回车完成后你会得到一个名为的主分区假设硬盘是磁盘分区方案随着硬盘驱动器容量的不断增长老旧的分区方案的磁盘和分区大小限制已不再是理论上的限制而是在生产环境中越来越经常遇到的实际问题因此正在取代传统的方案进行磁盘分区意为分区表驱动器上的每个分区都有一个全局唯一的标识符对于运行统一可扩展固件接口固件的系统是在物理硬盘上布置分区表的标准没有主分区和逻辑分区之分每个硬盘最多可以有个分区为逻辑块地址分配位因此最大支持的分区大小对于运行统一可扩展固件接口固件的系统是在物理硬盘上布置分区表的标准是标准的一部分可以解决原有基于的方案所带来的许多限制根据规范默认情况下支持最多个分区使用位来存储逻辑块地址和大小信息与此不同为逻辑块地址分配位这就使得可支持最多泽字节即亿太字节的分区和磁盘的限制是基于字节的块大小随着硬盘驱动器供应商转为使用字节块此限制将增加至除解决分区方案的限制以外还可提供一些其他功能特性和优势正如其名使用位来唯一识别每个磁盘和分区与存在单一故障点不同提供分区表信息的冗余主位于磁盘头部而备份副本次要位于磁盘尾部此外采用校验和来检测头和分区表中的错误与损坏分区工具使用是另一款在下常用的分区软件可支持创建以上磁盘分区相对于它的使用更加方便同时提供了动态调整分区大小的功能命令格式如下语法其中的命令选项说明如下显示帮助信息交互模式交互模式显示的版本信息磁盘设备名称指令如果没有设置指令则将会进入交互模式硬盘分区操作交互式选择好具体某块硬盘后进入交互模式进行分区操作如交互式命令参数如表格所示命令说明检查分区的类型是否对齐创建新的磁盘标签分区表给指定的分区命名打印修复丢失的分区调整分区大小删除分区选择要编辑的设备默认只对指定的设备操作这里可以改变指定的设备更改选定设备上的标志切换选定设备上的标志状态退出更改分区的标记设置或取消分区的标记设置默认的单位显示版本信息输入创建分区表以上只能用其他还有些确认信息确认后通过查看分区表是否为格式输入新建分区如果输入指令不带任何参数会一步步提示用户输入相关信息最终完成创建输入完成后保存退出硬盘分区操作非交互式选择模块硬盘采用非交互式即命令行式配置如磁盘格式变成的格式分区格式化磁盘格式化格式化是指对磁盘或磁盘中的分区进行初始化的一种操作将分区格式化成不同的文件系统这种操作通常会导致现有的磁盘或分区中所有的文件被清除查看支持的文件类型前面已讲过支持的文件类型可通过然后键补全查看可支持的文件类型有哪些选择需要的类型进行格式化磁盘格式化在命令行下输入意思就是格式化根下的分区格式化类型为信息确认格式化完成后通过命令来查看磁盘信息如磁盘格式化命令命令是的缩写用来在特定的分区建立文件系统命令格式如下语法其中的命令选项说明如下预备检查的分区例如详细显示模式给定档案系统的型式的预设值为在制作档案系统前检查该是否有坏轨将有坏轨的资料加到里面给定的大小磁盘挂载格式化完成以后我们还不能使用磁盘必须挂载以后才能使用原因如下的宗旨是一切皆文件要想使用磁盘必须先建立一个联系这个联系就是一个目录建立联系的过程我们叫做挂载当我们访问底下的这个目录的时候实际上我们访问的才是这个设备文件这个目录相当于一个访问的入口可以理解为一个接口有了这个接口才可以访问这个磁盘几个概念挂载点目录根目录下已经有和这两个目录叫做挂载点目录除此之外我们也可以自己创建一个目录作为一个挂载点目录临时挂载使用命令意思就是说将挂载到目录中重启后失效永久挂载使用永久挂载就意味着它开机会自动挂载使用编辑介绍文件的作用用来存放文件系统的静态信息的文件系统启动的时候会自动地从这个文件读取信息并且会自动将此文件中指定的文件系统挂载到指定的目录这样我们只需要将磁盘的挂载信息写入这个文件中就不需要每次开机启动之后手动进行挂载了文件格式参数说明要挂载的分区或存储设备的挂载位置要挂载设备或是分区的文件系统类型支持许多种不同的文件系统挂载时使用的参数注意有些参数是特定文件系统才有的工具通过它决定何时作备份读取的数值来决定需要检查的文件系统的检查顺序重要参数说明字段参数功能在启动或键入了命令时自动挂载以只读模式挂载文件系统以读写模式挂载文件系统允许任意用户挂载此文件系统只能被挂载解析不解析文件系统上的块特殊设备不更新文件系统目录上访问记录可以提升性能使用文件系统的默认挂载参数同步异步进行允许不允许操作和设定位这一参数通常用于一些特殊任务使一般用户运行程序时临时提升权限表示忽略则进行备份大部分的用户是没有安装的对他们而言应设为根目录应当获得最高的优先权其他所有需要被检查的设备设置为表示设备不会被检查逻辑卷管理逻辑卷逻辑卷管理逻辑卷基础逻辑卷概念逻辑卷管理是环境中对磁盘分区进行管理的一种机制是建立在硬盘和分区之上文件系统之下的一个逻辑层可提高磁盘分区管理的灵活性物理单元具有唯一编号的是能被寻址的最小单元的大小可以指定默认为的大小一旦确定将不能改变同一个卷组中的所有的物理卷的的大小是一致的逻辑单元是逻辑卷中可用于分配的最小存储单元逻辑区域的大小取决于逻辑卷组中的物理区域的大小在同一个卷组中的大小是和相同的通常一一对应物理卷底层真正提供容量存放数据的设备它可以是整个硬盘硬盘上的分区等卷组建立在物理卷之上它由一个或多个物理卷组成即把物理卷整合起来提供容量分配一个系统中可以只有一个卷组也可以包含多个卷组逻辑卷逻辑卷建立在卷组之上它是从卷组中切出的一块空间它是最终用户使用的逻辑设备逻辑卷创建之后其大小可以伸缩逻辑卷原理逻辑卷是将几个磁盘分区或者块设备可以位于不同的磁盘分区里大小可以不一组织起来形成一个大的扩展分区卷组一个至少要包含一个该扩展分区不能直接用需要将其划分成逻辑卷才能使用可以格式化成不同的文件系统挂载后直接使用逻辑卷优点灵活的容量当使用逻辑卷时文件系统可以扩展到多个磁盘上你可以聚合多个磁盘或磁盘分区成单一的逻辑卷可伸缩的存储池可以使用简单的命令来扩大或缩小逻辑卷大小不用重新格式化或分区磁盘设备在线的数据再分配可以在线移动数据数据可以在磁盘在线的情况下重新分配比如可以在线更换可热插拔的磁盘方便的设备命名逻辑卷可以按任何方式来起任何名称磁盘条块化可以生成一个逻辑盘它的数据可以被条块化存储在个或更多的磁盘上这样可以明显提升数据吞吐量镜像卷逻辑卷提供方便的方法来镜像数据卷快照使用逻辑卷可以获得设备快照用来一致性备份或者测试数据更新效果而不影响真实数据管理逻辑卷逻辑卷创建流程逻辑卷管理的使用命令用于创建物理卷可以使用物理磁盘或者磁盘分区创建语法选项设备文件名其中的命令选项说明如下强制创建物理卷不需要用户确认指定设备的所有的问题都回答其中的参数说明如下指定要创建的物理卷对应的设备文件名的使用举例将磁盘的分区创建成注意大括号的使用在命令行中输入下面的命令使用查看物理卷信息如使用查看输出信息说明物理卷名称卷组名称物理卷元数据格式物理卷状态物理卷大小物理卷可用空间逻辑卷管理的使用命令用于创建卷组卷组将多个物理卷组织成一个整体屏蔽了底层物理卷细节在卷组上创建逻辑卷时不用考虑具体的物理卷信息语法选项卷组名物理卷列表其中的命令选项说明如下卷组上允许创建的最大逻辑卷数卷组中允许添加的最大物理卷数卷组上的物理卷的大小其中的参数说明如下卷组名要创建的卷组名称物理卷列表要加入到卷组中的物理卷列表使用举例使用命令创建卷组并且将物理卷和添加到卷组中在命令行输入下面的命令使用查看卷组信息如使用注不指定则显示所有卷组信息逻辑卷管理的使用命令用于创建的逻辑卷逻辑卷是创建在卷组之上的语法选项逻辑卷名称其中的命令选项如下指定逻辑卷的大小单位为字节指定逻辑卷的大小数其中的参数如下逻辑卷指定要创建的逻辑卷名称注逻辑卷创建完成后同样需要格式化挂载后才能使用方式同章节介绍的方法一致即用格式化创建文件系统挂载至目录使用举例使用命令在卷组上创建一个的逻辑卷在命令行中输入下面的命令使用查看卷组信息动态调整逻辑卷逻辑卷扩容无需卸载在线扩容扩容前先查看是否有足够空间使用命令扩容调整文件系统的大小逻辑卷缩容缩容有风险操作需谨慎先确定缩减后的目标大小并确定对应的目标逻辑卷大小中有足够的空间可容纳原有所有数据卸载为文件系统并要执行强制检测缩减文件系统缩减逻辑卷重新挂载使用逻辑卷容量变更指令用于调整逻辑卷空间大小可以增大空间和缩小空间实际上包含了和的功能因此扩容及缩容步骤相同语法选项逻辑卷名称其中的命令选项说明如下指定逻辑卷的大小单位为字节指定逻辑卷的大小数其中的参数说明如下逻辑卷指定要创建的逻辑卷名称如使用指令增加容量',
-  isPost: true,
-  isHome: false,
-  isHighlightShrink: false,
-  isToc: true,
-  postUpdate: '2025-05-19 03:45:16',
-  postMainColor: '',
-}</script><noscript><style type="text/css">
-  #nav {
-    opacity: 1
-  }
-  .justified-gallery img {
-    opacity: 1
-  }
+	
+    const CONFIG_LEACLOUD_COUNT = {
+      enable: false,
+	  appId: 'AU8...',
+	  appKey: '4cU...',
+	  serverURLs: 'http' || ' '
+    }
+  </script>
+<meta name="generator" content="Hexo 7.3.0"></head>
+	<body>
+		<!-- Preloader -->
 
-  #recent-posts time,
-  #post-meta time {
-    display: inline !important
-  }
-</style></noscript><script>(win=>{
-      win.saveToLocal = {
-        set: (key, value, ttl) => {
-          if (ttl === 0) return
-          const now = Date.now()
-          const expiry = now + ttl * 86400000
-          const item = {
-            value,
-            expiry
-          }
-          localStorage.setItem(key, JSON.stringify(item))
-        },
-      
-        get: key => {
-          const itemStr = localStorage.getItem(key)
-      
-          if (!itemStr) {
-            return undefined
-          }
-          const item = JSON.parse(itemStr)
-          const now = Date.now()
-      
-          if (now > item.expiry) {
-            localStorage.removeItem(key)
-            return undefined
-          }
-          return item.value
-        }
-      }
-    
-      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
-        const script = document.createElement('script')
-        script.src = url
-        script.async = true
-        script.onerror = reject
-        script.onload = script.onreadystatechange = function() {
-          const loadState = this.readyState
-          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-          script.onload = script.onreadystatechange = null
-          resolve()
-        }
+	<div id="preloader">
+		<div class="pre-container">
+			
+				<div class="spinner">
+					<div class="double-bounce1"></div>
+					<div class="double-bounce2"></div>
+				</div>
+						
+		</div>
+	</div>
 
-        Object.keys(attr).forEach(key => {
-          script.setAttribute(key, attr[key])
-        })
 
-        document.head.appendChild(script)
-      })
-    
-      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
-        const link = document.createElement('link')
-        link.rel = 'stylesheet'
-        link.href = url
-        if (id) link.id = id
-        link.onerror = reject
-        link.onload = link.onreadystatechange = function() {
-          const loadState = this.readyState
-          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-          link.onload = link.onreadystatechange = null
-          resolve()
-        }
-        document.head.appendChild(link)
-      })
-    
-      win.activateDarkMode = () => {
-        document.documentElement.setAttribute('data-theme', 'dark')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
-        }
-      }
-      win.activateLightMode = () => {
-        document.documentElement.setAttribute('data-theme', 'light')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
-        }
-      }
-      const t = saveToLocal.get('theme')
-    
-          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
-          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
-          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
-          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+<!-- header -->
+<header class="fixbackground bg-pan-br">
+	<div class="mask">
+		<!-- motto -->
+		<div class="h-body">	
+			
+				<div class="motto text-shadow-pop-left">
+					<p class="content" id="motto-content">获取中...</p>
+					<p>-<p>
+					<p class="author" id="motto-author">Just a minute...</p>
+				</div>
+			
+		</div>
+		
+		<!-- others: such as time... -->			
+		<div class="h-footer">
+			<a href="javascript:;" id="read-more" class="scroll-down">
+				<span class="icon-anchor1 animation-scroll-down"></span>
+			</a>
+		</div>
+	</div>
+</header>
 
-          if (t === undefined) {
-            if (isLightMode) activateLightMode()
-            else if (isDarkMode) activateDarkMode()
-            else if (isNotSpecified || hasNoSupport) {
-              const now = new Date()
-              const hour = now.getHours()
-              const isNight = hour <= 6 || hour >= 18
-              isNight ? activateDarkMode() : activateLightMode()
-            }
-            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
-              if (saveToLocal.get('theme') === undefined) {
-                e.matches ? activateDarkMode() : activateLightMode()
-              }
-            })
-          } else if (t === 'light') activateLightMode()
-          else activateDarkMode()
-        
-      const asideStatus = saveToLocal.get('aside-status')
-      if (asideStatus !== undefined) {
-        if (asideStatus === 'hide') {
-          document.documentElement.classList.add('hide-aside')
-        } else {
-          document.documentElement.classList.remove('hide-aside')
-        }
-      }
-    
-      const detectApple = () => {
-        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
-          document.documentElement.classList.add('apple')
-        }
-      }
-      detectApple()
-    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://npm.elemecdn.com/anzhiyu-blog-static@1.0.4/img/avatar.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
-  endLoading: () => {
-    document.getElementById('loading-box').classList.add("loaded");
-  },
-  initLoading: () => {
-    document.getElementById('loading-box').classList.remove("loaded")
-  }
-}
-window.addEventListener('load',()=> { preloader.endLoading() })
-setTimeout(function(){preloader.endLoading();},10000)
+<div id="navigation-hide">
+	<!-- Progress bar -->
+	<div id="progress-bar"></div>
 
-if (true) {
-  document.addEventListener('pjax:send', () => { preloader.initLoading() })
-  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
-}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><a id="site-name" href="/" accesskey="h"><div class="title">XBCID's BLOG</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" target="_blank"><img class="post-qr-code-img" alt="微信" src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" target="_blank"><img class="post-qr-code-img" alt="支付宝" src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/HCIA/" style="font-size: 1.05rem;">HCIA<sup>9</sup></a><a href="/tags/HCIP/" style="font-size: 1.05rem;">HCIP<sup>6</sup></a><a href="/tags/Huawei/" style="font-size: 1.05rem;">Huawei<sup>15</sup></a><a href="/tags/Linux/" style="font-size: 1.05rem;">Linux<sup>18</sup></a><a href="/tags/openEuler/" style="font-size: 1.05rem;">openEuler<sup>18</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/05/"><span class="card-archive-list-date">May 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">23</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/03/"><span class="card-archive-list-date">March 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">6</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/02/"><span class="card-archive-list-date">February 2025</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">8</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="article-meta tags"><a class="article-meta__tags" href="/tags/Linux/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>Linux</span></a><a class="article-meta__tags" href="/tags/openEuler/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>openEuler</span></a><a class="article-meta__tags" href="/tags/Huawei/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>Huawei</span></a><a class="article-meta__tags" href="/tags/HCIA/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>HCIA</span></a></span></div></div><h1 class="post-title" itemprop="name headline">06 管理文件系统及存储</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2025-05-18T19:46:45.681Z" title="发表于 2025-05-19 03:46:45">2025-05-19</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2025-05-18T19:45:16.427Z" title="更新于 2025-05-19 03:45:16">2025-05-19</time></span></div><div class="meta-secondline"><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为重庆"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>重庆</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src=""></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="http://example.com/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/"><header><a href="/tags/Linux/" tabindex="-1" itemprop="url">Linux</a><a href="/tags/openEuler/" tabindex="-1" itemprop="url">openEuler</a><a href="/tags/Huawei/" tabindex="-1" itemprop="url">Huawei</a><a href="/tags/HCIA/" tabindex="-1" itemprop="url">HCIA</a><h1 id="CrawlerTitle" itemprop="name headline">06 管理文件系统及存储</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">XBCID</span><time itemprop="dateCreated datePublished" datetime="2025-05-18T19:46:45.681Z" title="发表于 2025-05-19 03:46:45">2025-05-19</time><time itemprop="dateCreated datePublished" datetime="2025-05-18T19:45:16.427Z" title="更新于 2025-05-19 03:45:16">2025-05-19</time></header><p>本章主要讲述<strong>文件系统</strong>、<strong>磁盘存储</strong>、<strong>逻辑卷存储</strong>的基础概念以及如何管理、使用文件系统和存储，以及对一些常用操作命令的介绍。</p>
+	<!-- Progress percent -->
+	<div id="progress-percentage"><span>0.0%</span></div>
+
+	<div class="toc-switch"><span class="switch-button">目录</span></div>
+
+	<!-- Page title -->
+	<p>
+		
+			「06 管理文件系统及存储」
+		
+	</p>
+
+	
+	
+
+	<!-- Nav trigger for navigation-H-->
+	<a class="nav-trigger"><span></span></a>
+</div>
+
+<!-- Navigation in div(id="navigation-H") -->
+<nav class="nav-container" id="cd-nav">
+	<div class="nav-header">
+		<span class="logo"> 
+			<img src="/img/logo.png">
+		</span>
+		<a href="javascript:;" class="nav-close"></a>
+	</div>
+	
+	<div class="nav-body">
+		<ul id="global-nav">
+	
+		<li class="menu-home">
+			<a href="/" class="menu-item-home" target="_blank">主页</a>
+		</li>
+		
+	
+		<li class="menu-archive">
+			<a href="/archives" class="menu-item-archive" target="_blank">归档</a>
+		</li>
+		
+	
+		<li class="menu-categories">
+			<a href="/categories" class="menu-item-categories" target="_blank">分类</a>
+		</li>
+		
+	
+		<li class="menu-tags">
+			<a href="/tags" class="menu-item-tags" target="_blank">标签</a>
+		</li>
+		
+	
+		<li class="menu-about">
+			<a href="/about" class="menu-item-about" target="_blank">关于</a>
+		</li>
+		
+	
+		<li class="menu-gallery">
+			<a href="/gallery" class="menu-item-gallery" target="_blank">相册</a>
+		</li>
+		
+	
+
+	
+</ul>
+	</div>
+	
+	<div class="nav-footer">
+		<ul id="global-social">
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<span class="icon-one"><span class="path1"></span><span class="path2"></span></span>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<span class="icon-zhihu"></span>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<span class="icon-github"></span>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<span class="icon-sina-weibo "></span>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<span class="icon-pinterest2"></span>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<span class="icon-instagram"></span>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<span class="icon-twitter"></span>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<span class="icon-rss"></span>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+</nav>
+			
+		<!--main-->
+		<main>
+			<!--
+	时间：2018-11-17
+	描述：
+		插件名称：katelog.min.js
+		插件作者：KELEN
+		插件来源: https://github.com/KELEN/katelog
+-->
+
+	
+		<div class="layout-toc">
+			<div id="layout-toc">
+				<div class="k-catelog-list" id="catelog-list" data-title="文章目录"></div>
+			</div>
+		</div>
+
+		
+<script src="/plugin/toc/katelog.min.js"></script>
+
+
+		
+	 
+
+<div class="layout-post">
+	<div id="layout-post">
+		<div class="article-title">
+			
+	<a href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/" itemprop="url">
+		06 管理文件系统及存储
+	</a>
+
+		</div>
+
+		<div class="article-meta">
+			<span>
+				<i class="icon-calendar1"></i>
+				
+				
+
+
+
+
+	更新于
+
+	<a href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/" itemprop="url">
+		<time datetime="2025-05-18T19:46:45.681Z" itemprop="dateUpdated">
+	  		2025-05-19
+	  </time>
+	</a> 
+
+
+
+			</span>
+			<span>
+				
+	<i class="icon-price-tags"></i>
+	
+		<a href="/tags/Linux/" class=" ">
+			Linux
+		</a>
+	
+		<a href="/tags/openEuler/" class=" ">
+			openEuler
+		</a>
+	
+		<a href="/tags/Huawei/" class=" ">
+			Huawei
+		</a>
+	
+		<a href="/tags/HCIA/" class=" ">
+			HCIA
+		</a>
+	
+		
+			</span>
+			
+			
+
+
+
+		</div>
+
+		<div class="article-content" id="article-content">
+			<p>本章主要讲述<strong>文件系统</strong>、<strong>磁盘存储</strong>、<strong>逻辑卷存储</strong>的基础概念以及如何管理、使用文件系统和存储，以及对一些常用操作命令的介绍。</p>
 <p>学完本课程后，您将能够：</p>
 <ul>
 <li>了解文件系统及存储的基本概念</li>
@@ -211,7 +306,7 @@ if (true) {
 <li>掌握逻辑卷的管理方法</li>
 </ul>
 <hr>
-<h2 id="0x01-文件系统基础概念"><a href="#0x01-文件系统基础概念" class="headerlink" title="0x01 文件系统基础概念"></a>0x01 文件系统基础概念</h2><h3 id="1-1-文件系统概述"><a href="#1-1-文件系统概述" class="headerlink" title="1.1 文件系统概述"></a>1.1 文件系统概述</h3><p>文件系统是<strong>操作系统用于明确存储设备或分区上的文件的方法和数据结构</strong>；即<strong>在存储设备上组织文件的方法</strong>。操作系统中<strong>负责管理和存储文件信息</strong>的<strong>软件机构</strong>称为<strong>文件管理系统</strong>，简称文件系统。<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/2025020117-3917900.png"></p>
+<h2 id="0x01-文件系统基础概念"><a href="#0x01-文件系统基础概念" class="headerlink" title="0x01 文件系统基础概念"></a>0x01 文件系统基础概念</h2><h3 id="1-1-文件系统概述"><a href="#1-1-文件系统概述" class="headerlink" title="1.1 文件系统概述"></a>1.1 文件系统概述</h3><p>文件系统是<strong>操作系统用于明确存储设备或分区上的文件的方法和数据结构</strong>；即<strong>在存储设备上组织文件的方法</strong>。操作系统中<strong>负责管理和存储文件信息</strong>的<strong>软件机构</strong>称为<strong>文件管理系统</strong>，简称文件系统。<br><img src="/assets/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/2025020117-3917900.png"></p>
 <p>作用：文件系统是<strong>对文件存储设备的空间</strong>进行组织和分配，负责文件存储并对存入的<br>文件进行保护和检索的系统。具体地说，它负责为用户建立文件，存入、读出、修改、<br>转储文件，控制文件的存取，当用户不再使用时撤销文件等。文件系统的功能包括：<br>管理和调度文件的存储空间，提供文件的逻辑结构、物理结构和存储方法;实现文件从<br>标识到实际地址的映射，实现文件的控制操作和存取操作，实现文件信息的共享并提<br>供可靠的文件保密和保护措施，提供文件的安全措施。</p>
 <p>概括：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">文件系统是用户和硬件如磁盘或分区之间的交互接口</span><br></pre></td></tr></table></figure>
@@ -304,7 +399,7 @@ if (true) {
 <td>8GB</td>
 </tr>
 </tbody></table>
-<h2 id="0x02-磁盘存储挂载与使用"><a href="#0x02-磁盘存储挂载与使用" class="headerlink" title="0x02 磁盘存储挂载与使用"></a>0x02 磁盘存储挂载与使用</h2><h3 id="2-1-磁盘基础"><a href="#2-1-磁盘基础" class="headerlink" title="2.1 磁盘基础"></a>2.1 磁盘基础</h3><h4 id="磁盘类型"><a href="#磁盘类型" class="headerlink" title="磁盘类型"></a><strong>磁盘类型</strong></h4><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/2025020120-0047425.png"></p>
+<h2 id="0x02-磁盘存储挂载与使用"><a href="#0x02-磁盘存储挂载与使用" class="headerlink" title="0x02 磁盘存储挂载与使用"></a>0x02 磁盘存储挂载与使用</h2><h3 id="2-1-磁盘基础"><a href="#2-1-磁盘基础" class="headerlink" title="2.1 磁盘基础"></a>2.1 磁盘基础</h3><h4 id="磁盘类型"><a href="#磁盘类型" class="headerlink" title="磁盘类型"></a><strong>磁盘类型</strong></h4><p><img src="/assets/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/2025020120-0047425.png"></p>
 <h4 id="磁盘接口说明"><a href="#磁盘接口说明" class="headerlink" title="磁盘接口说明"></a><strong>磁盘接口说明</strong></h4><table>
 <thead>
 <tr>
@@ -331,9 +426,9 @@ if (true) {
 </tbody></table>
 <h4 id="2-1-1-Linux如何查看磁盘信息"><a href="#2-1-1-Linux如何查看磁盘信息" class="headerlink" title="2.1.1 Linux如何查看磁盘信息"></a>2.1.1 Linux如何查看磁盘信息</h4><ul>
 <li><code>fdisk -l</code>用于查看系统所有磁盘的信息，包括已挂载和未挂载磁盘；</li>
-<li><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/2025020120-0600430.png"></li>
+<li><img src="/assets/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/2025020120-0600430.png"></li>
 </ul>
-<p><code>df -h</code>命令查看系统挂载、磁盘空间大小和利用率<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/2025020120-0701456.png"></p>
+<p><code>df -h</code>命令查看系统挂载、磁盘空间大小和利用率<br><img src="/assets/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/2025020120-0701456.png"></p>
 <h3 id="2-2-磁盘分区"><a href="#2-2-磁盘分区" class="headerlink" title="2.2 磁盘分区"></a>2.2 磁盘分区</h3><p>磁盘分区可以将硬盘驱动器划分为多个逻辑存储单元，这些单元称为分区。通过将磁盘划分为多个分区，系统管理员可以使用不同的分区执行不同功能。<br>磁盘分区的好处：</p>
 <ul>
 <li>限制应用或用户的可用空间。</li>
@@ -347,14 +442,14 @@ if (true) {
 <li>考虑到磁盘的连续性，一般建议将扩展分区放在最后面的柱面内。</li>
 <li>一个硬盘只有一个扩展分区，除去主分区，其它空间都分配给扩展分区。</li>
 <li>硬盘容量&#x3D;主分区+扩展分区；扩展分区容量&#x3D;各个逻辑分区容量之和。</li>
-<li><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/2025020122-1149956.png"></li>
+<li><img src="/assets/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/2025020122-1149956.png"></li>
 </ul>
 <h4 id="2-2-2-磁盘分区命名规则"><a href="#2-2-2-磁盘分区命名规则" class="headerlink" title="2.2.2 磁盘分区命名规则"></a>2.2.2 磁盘分区命名规则</h4><ul>
 <li>在Linux中，没有盘符这个概念，通过设备名来访问设备，设备名存放在&#x2F;dev目录中。</li>
-<li>命名规则如下：<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/2025020122-1616665.png"><br> 注：Linux中，SSD、SAS、SATA类型的硬盘，都用sd来标识，IDE硬盘属于IDE接口类型的硬盘，用hd来标识。<br>前面讲的SSD、SAS、SATA硬盘都属于SCSI接口类型的硬盘，在Linux中用sd来标识，而IDE硬盘是属于IDE接口类型的硬盘，在Linux中用hd来标识。 在Linux中，不同硬盘的命名规则如下：<br>第一块SCSI接口类型硬盘：<code>/dev/sda</code><br>第二块SCSI接口类型硬盘：<code>/dev/sdb</code><br>第一块IDE接口类型硬盘：<code>/dev/hda</code><br>第二块IDE接口类型硬盘：<code>/dev/hdb</code></li>
+<li>命名规则如下：<br><img src="/assets/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/2025020122-1616665.png"><br> 注：Linux中，SSD、SAS、SATA类型的硬盘，都用sd来标识，IDE硬盘属于IDE接口类型的硬盘，用hd来标识。<br>前面讲的SSD、SAS、SATA硬盘都属于SCSI接口类型的硬盘，在Linux中用sd来标识，而IDE硬盘是属于IDE接口类型的硬盘，在Linux中用hd来标识。 在Linux中，不同硬盘的命名规则如下：<br>第一块SCSI接口类型硬盘：<code>/dev/sda</code><br>第二块SCSI接口类型硬盘：<code>/dev/sdb</code><br>第一块IDE接口类型硬盘：<code>/dev/hda</code><br>第二块IDE接口类型硬盘：<code>/dev/hdb</code></li>
 </ul>
 <p>virtio-blk是虚拟化KVM平台下虚拟磁盘的一种实现方式，也是存储虚拟化所研究的主要对象之一</p>
-<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/2025020217-1943491.png"></p>
+<p><img src="/assets/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/2025020217-1943491.png"></p>
 <p>这里的<code>vcs</code>,<code>vcs1</code>,<code>vcsa</code>,<code>vcsu</code>:<br>在 openEuler（或其他 Linux 发行版）中，<code>/dev</code> 目录下的 <code>vcs</code> 设备是与虚拟控制台（Virtual Console）相关的字符设备，用于直接访问虚拟控制台的屏幕内容。</p>
 <ol>
 <li><p><strong>设备名称规则</strong>：</p>
@@ -437,7 +532,7 @@ if (true) {
 </li>
 </ul>
 <hr>
-<h6 id="总结对比"><a href="#总结对比" class="headerlink" title="总结对比"></a>总结对比</h6><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/2025020217-3807827.png"></p>
+<h6 id="总结对比"><a href="#总结对比" class="headerlink" title="总结对比"></a>总结对比</h6><p><img src="/assets/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/2025020217-3807827.png"></p>
 <hr>
 <p><strong>现在你该怎么做？</strong><br>👉 买新硬盘无脑选GPT<br>👉 遇到2TB以上的硬盘必须用GPT<br>👉 转换工具：<code>gdisk</code>（Linux）或DiskGenius（Windows）</p>
 <p>（如果还有人让你用MBR分区，建议给他买本《21世纪计算机入门》）</p>
@@ -533,7 +628,7 @@ if (true) {
 <td></td>
 </tr>
 <tr>
-<td><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/2025020217-5539513.png"></td>
+<td><img src="/assets/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/2025020217-5539513.png"></td>
 <td></td>
 </tr>
 <tr>
@@ -541,7 +636,7 @@ if (true) {
 <td></td>
 </tr>
 <tr>
-<td><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/2025020217-5657806.png"></td>
+<td><img src="/assets/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/2025020217-5657806.png"></td>
 <td></td>
 </tr>
 <tr>
@@ -784,7 +879,7 @@ if (true) {
 <li>格式化是指对磁盘或磁盘中的分区进行初始化的一种操作，将分区格式化成不同的文件系统，这种操作通常会导致现有的磁盘或分区中所有的文件被清除。</li>
 </ul>
 <ol>
-<li><p>查看支持的文件类型<br>前面已讲过linux支持的文件类型，可通过mkfs，然后tab键补全，查看可支持的文件类型有哪些，选择需要的类型进行格式化<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/2025020321-2444942.png"></p>
+<li><p>查看支持的文件类型<br>前面已讲过linux支持的文件类型，可通过mkfs，然后tab键补全，查看可支持的文件类型有哪些，选择需要的类型进行格式化<br><img src="/assets/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/2025020321-2444942.png"></p>
 </li>
 <li><p>磁盘格式化<br>在命令行下输入<code>mkfs.ext4 /dev/sdb2</code><br>意思就是格式化根下的sdb2分区，格式化类型为.ext4</p>
 </li>
@@ -820,10 +915,10 @@ if (true) {
 <h5 id="2-4-1-fstab介绍"><a href="#2-4-1-fstab介绍" class="headerlink" title="2.4.1 fstab介绍"></a>2.4.1 fstab介绍</h5><ul>
 <li><p><code>/etc/fstab</code>文件的作用<br>用来存放文件系统的静态信息的文件，系统启动的时候，会自动地从这个文件读取信息，并且会自动将此文件中指定的文件系统挂载到指定的目录，这样我们只需要将磁盘的挂载信息写入这个文件中就不需要每次开机启动之后手动进行挂载了</p>
 </li>
-<li><p>fstab文件格式<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/2025020400-4240645.png"></p>
+<li><p>fstab文件格式<br><img src="/assets/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/2025020400-4240645.png"></p>
 </li>
 </ul>
-<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/2025020400-3944006.png"><br>参数说明：<br><code>&lt;file systems&gt;</code> - 要挂载的分区或存储设备；<br><code>&lt;dir&gt;</code> - <code>&lt;file systems&gt;</code>的挂载位置；<br><code>&lt;type&gt;</code> - 要挂载设备或是分区的文件系统类型，支持许多种不同的文件系统；<br><code>&lt;options&gt;</code> - 挂载时使用的参数，注意有些mount 参数是特定文件系统才有的；<br><code>&lt;dump&gt;</code> dump 工具通过它决定何时作备份；<br><code>&lt;pass&gt;</code> fsck 读取 <code>&lt;pass&gt;</code> 的数值来决定需要检查的文件系统的检查顺序。</p>
+<p><img src="/assets/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/2025020400-3944006.png"><br>参数说明：<br><code>&lt;file systems&gt;</code> - 要挂载的分区或存储设备；<br><code>&lt;dir&gt;</code> - <code>&lt;file systems&gt;</code>的挂载位置；<br><code>&lt;type&gt;</code> - 要挂载设备或是分区的文件系统类型，支持许多种不同的文件系统；<br><code>&lt;options&gt;</code> - 挂载时使用的参数，注意有些mount 参数是特定文件系统才有的；<br><code>&lt;dump&gt;</code> dump 工具通过它决定何时作备份；<br><code>&lt;pass&gt;</code> fsck 读取 <code>&lt;pass&gt;</code> 的数值来决定需要检查的文件系统的检查顺序。</p>
 <p>fstab重要参数说明</p>
 <table>
 <thead>
@@ -906,8 +1001,8 @@ if (true) {
 </ul>
 </li>
 </ul>
-<h4 id="3-1-2-逻辑卷原理"><a href="#3-1-2-逻辑卷原理" class="headerlink" title="3.1.2 逻辑卷原理"></a>3.1.2 逻辑卷原理</h4><p>逻辑卷（lv）是将几个磁盘分区或者块设备（pv，pv可以位于不同的磁盘分区里，pv大小可以不一）组织起来形成一个大的扩展分区（vg卷组，一个vg至少要包含一个pv），该扩展分区不能直接用，需要将其划分成逻辑卷（lv）才能使用，lv可以格式化成不同的文件系统，挂载后直接使用<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/2025020404-0945895.png"></p>
-<h4 id="3-1-3-逻辑卷优点"><a href="#3-1-3-逻辑卷优点" class="headerlink" title="3.1.3 逻辑卷优点"></a>3.1.3 逻辑卷优点</h4><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/2025020404-1028228.png"></p>
+<h4 id="3-1-2-逻辑卷原理"><a href="#3-1-2-逻辑卷原理" class="headerlink" title="3.1.2 逻辑卷原理"></a>3.1.2 逻辑卷原理</h4><p>逻辑卷（lv）是将几个磁盘分区或者块设备（pv，pv可以位于不同的磁盘分区里，pv大小可以不一）组织起来形成一个大的扩展分区（vg卷组，一个vg至少要包含一个pv），该扩展分区不能直接用，需要将其划分成逻辑卷（lv）才能使用，lv可以格式化成不同的文件系统，挂载后直接使用<br><img src="/assets/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/2025020404-0945895.png"></p>
+<h4 id="3-1-3-逻辑卷优点"><a href="#3-1-3-逻辑卷优点" class="headerlink" title="3.1.3 逻辑卷优点"></a>3.1.3 逻辑卷优点</h4><p><img src="/assets/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/2025020404-1028228.png"></p>
 <ul>
 <li>灵活的容量，当使用逻辑卷时,文件系统可以扩展到多个磁盘上,你可以聚合多个磁盘或磁盘分区成单一的逻辑卷。</li>
 <li>可伸缩的存储池，可以使用简单的命令来扩大或缩小逻辑卷大小,不用重新格式化或分区磁盘设备。</li>
@@ -917,7 +1012,7 @@ if (true) {
 <li>镜像卷，逻辑卷提供方便的方法来镜像数据。</li>
 <li>卷快照，使用逻辑卷，可以获得设备快照用来一致性备份或者测试数据更新效果而不影响真实数据。</li>
 </ul>
-<h3 id="3-2-管理逻辑卷"><a href="#3-2-管理逻辑卷" class="headerlink" title="3.2 管理逻辑卷"></a>3.2 管理逻辑卷</h3><h4 id="3-2-1-逻辑卷创建流程"><a href="#3-2-1-逻辑卷创建流程" class="headerlink" title="3.2.1 逻辑卷创建流程"></a>3.2.1 逻辑卷创建流程</h4><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/2025020404-1305928.png"></p>
+<h3 id="3-2-管理逻辑卷"><a href="#3-2-管理逻辑卷" class="headerlink" title="3.2 管理逻辑卷"></a>3.2 管理逻辑卷</h3><h4 id="3-2-1-逻辑卷创建流程"><a href="#3-2-1-逻辑卷创建流程" class="headerlink" title="3.2.1 逻辑卷创建流程"></a>3.2.1 逻辑卷创建流程</h4><p><img src="/assets/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/2025020404-1305928.png"></p>
 <h4 id="3-2-2-逻辑卷管理-pv的使用"><a href="#3-2-2-逻辑卷管理-pv的使用" class="headerlink" title="3.2.2 逻辑卷管理 - pv的使用"></a>3.2.2 逻辑卷管理 - pv的使用</h4><ul>
 <li><code>pvcreate</code>命令用于创建物理卷，可以使用物理磁盘或者磁盘分区创建。</li>
 <li>语法：<code>pvcreate [选项] 设备文件名</code><ul>
@@ -939,9 +1034,9 @@ if (true) {
 </li>
 <li>使用<code>pvdisplay</code>、<code>pvscan</code>、<code>pvs</code>查看物理卷信息<ul>
 <li>如使用pvs查看：</li>
-<li><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/2025020419-4428782.png"></li>
+<li><img src="/assets/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/2025020419-4428782.png"></li>
 <li>输出信息说明</li>
-<li><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/2025020419-4454647.png"><br><code>PV</code>—物理卷名称；<br><code>VG</code>—卷组名称‘’<br><code>fmt</code>—物理卷元数据格式；<br><code>Attr</code>—物理卷状态；<br><code>Psize</code>—物理卷大小；<br><code>Pfree</code>—物理卷可用空间。</li>
+<li><img src="/assets/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/2025020419-4454647.png"><br><code>PV</code>—物理卷名称；<br><code>VG</code>—卷组名称‘’<br><code>fmt</code>—物理卷元数据格式；<br><code>Attr</code>—物理卷状态；<br><code>Psize</code>—物理卷大小；<br><code>Pfree</code>—物理卷可用空间。</li>
 </ul>
 </li>
 </ul>
@@ -974,7 +1069,7 @@ if (true) {
 </li>
 </ul>
 </li>
-<li><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/assets/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/2025020419-5627082.png"></li>
+<li><img src="/assets/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/2025020419-5627082.png"></li>
 </ul>
 <h4 id="3-2-4-逻辑卷管理-lv的使用"><a href="#3-2-4-逻辑卷管理-lv的使用" class="headerlink" title="3.2.4 逻辑卷管理 - lv的使用"></a>3.2.4 逻辑卷管理 - lv的使用</h4><ul>
 <li><p><code>lvcreate</code>命令用于创建LVM的逻辑卷，逻辑卷是创建在卷组之上的。</p>
@@ -1033,148 +1128,542 @@ if (true) {
 </ul>
 </li>
 </ul>
-</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">XBCID</div><div class="post-copyright__author_desc"></div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="http://example.com/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('http://example.com/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/')">06 管理文件系统及存储</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"></div><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="http://example.com/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" target="_blank" href="https://service.weibo.com/share/share.php?title=06 管理文件系统及存储&amp;url=http://example.com/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/06%20%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/&amp;pic=" rel="external nofollow noreferrer noopener"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><script>function copyCurrentPageUrl() {
-  var currentPageUrl = window.location.href;
-  var input = document.createElement("input");
-  input.setAttribute("value", currentPageUrl);
-  document.body.appendChild(input);
-  input.select();
-  input.setSelectionRange(0, 99999);
-  document.execCommand("copy");
-  document.body.removeChild(input);
-}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">XBCID's BLOG</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"><a class="post-meta__box__tags" href="/tags/Linux/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>Linux<span class="tagsPageCount">18</span></a><a class="post-meta__box__tags" href="/tags/openEuler/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>openEuler<span class="tagsPageCount">18</span></a><a class="post-meta__box__tags" href="/tags/Huawei/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>Huawei<span class="tagsPageCount">15</span></a><a class="post-meta__box__tags" href="/tags/HCIA/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>HCIA<span class="tagsPageCount">9</span></a></div></div></div><div class="post_share"><div class="social-share" data-image="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/05%20%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E5%B9%B6%E7%AE%A1%E7%90%86%E6%9C%8D%E5%8A%A1/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">05 安装软件并管理服务</div></div></a></div><div class="next-post pull-right"><a href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/08%20%E4%BD%BF%E7%94%A8shell%E8%84%9A%E6%9C%AC/"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">08 使用shell脚本</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="anzhiyufont anzhiyu-icon-thumbs-up fa-fw" style="font-size: 1.5rem; margin-right: 4px"></i><span>喜欢这篇文章的人也看了</span></div><div class="relatedPosts-list"><div><a href="/2025/02/14/openEuler/%E7%AC%94%E8%AE%B0/IA/01%20openEuler%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%85%A5%E9%97%A8/" title="01 openEuler操作系统入门"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-02-14</div><div class="title">01 openEuler操作系统入门</div></div></a></div><div><a href="/2025/02/14/openEuler/%E7%AC%94%E8%AE%B0/IA/02%20%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%93%8D%E4%BD%9C%E5%9F%BA%E7%A1%80/" title="02 命令行操作基础"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-02-14</div><div class="title">02 命令行操作基础</div></div></a></div><div><a href="/2025/02/14/openEuler/%E7%AC%94%E8%AE%B0/IA/03%20%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8%E4%BB%A5%E5%8F%8A%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86/" title="03 文本编辑器以及文本处理"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-02-14</div><div class="title">03 文本编辑器以及文本处理</div></div></a></div><div><a href="/2025/02/14/openEuler/%E7%AC%94%E8%AE%B0/IA/04%20%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" title="04 用户和权限管理"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-02-14</div><div class="title">04 用户和权限管理</div></div></a></div><div><a href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/05%20%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E5%B9%B6%E7%AE%A1%E7%90%86%E6%9C%8D%E5%8A%A1/" title="05 安装软件并管理服务"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-05-19</div><div class="title">05 安装软件并管理服务</div></div></a></div><div><a href="/2025/02/14/openEuler/%E7%AC%94%E8%AE%B0/IA/07%20%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/" title="07 系统管理"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2025-02-14</div><div class="title">07 系统管理</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__description"></div></div></div><div class="card-widget anzhiyu-right-widget" id="card-wechat" onclick="null"><div id="flip-wrapper"><div id="flip-content"><div class="face" style="background: url(https://bu.dusays.com/2023/01/13/63c02edf44033.png) center center / 100% no-repeat"></div><div class="back face" style="background: url(https://bu.dusays.com/2023/05/13/645fa415e8694.png) center center / 100% no-repeat"></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text">0x01 文件系统基础概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 文件系统概述</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-1-%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%B1%BB%E5%9E%8B%E5%8F%8A%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">1.1.1.</span> <span class="toc-text">1.1.1 文件系统类型及使用场景</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-openEuler-%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 openEuler 文件系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-%E7%B3%BB%E7%BB%9F%E4%BA%A4%E6%8D%A2%E5%88%86%E5%8C%BA"><span class="toc-number">1.3.</span> <span class="toc-text">1.3 系统交换分区</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-1-swap%E5%88%86%E5%8C%BA%E9%85%8D%E7%BD%AE"><span class="toc-number">1.3.1.</span> <span class="toc-text">1.3.1 swap分区配置</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-%E7%A3%81%E7%9B%98%E5%AD%98%E5%82%A8%E6%8C%82%E8%BD%BD%E4%B8%8E%E4%BD%BF%E7%94%A8"><span class="toc-number">2.</span> <span class="toc-text">0x02 磁盘存储挂载与使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E7%A3%81%E7%9B%98%E5%9F%BA%E7%A1%80"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 磁盘基础</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A3%81%E7%9B%98%E7%B1%BB%E5%9E%8B"><span class="toc-number">2.1.1.</span> <span class="toc-text">磁盘类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A3%81%E7%9B%98%E6%8E%A5%E5%8F%A3%E8%AF%B4%E6%98%8E"><span class="toc-number">2.1.2.</span> <span class="toc-text">磁盘接口说明</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-1-Linux%E5%A6%82%E4%BD%95%E6%9F%A5%E7%9C%8B%E7%A3%81%E7%9B%98%E4%BF%A1%E6%81%AF"><span class="toc-number">2.1.3.</span> <span class="toc-text">2.1.1 Linux如何查看磁盘信息</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 磁盘分区</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-1-%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E7%B1%BB%E5%9E%8B"><span class="toc-number">2.2.1.</span> <span class="toc-text">2.2.1 磁盘分区类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-2-%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E5%91%BD%E5%90%8D%E8%A7%84%E5%88%99"><span class="toc-number">2.2.2.</span> <span class="toc-text">2.2.2 磁盘分区命名规则</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-3-%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E6%96%B9%E6%A1%88-MBR"><span class="toc-number">2.2.3.</span> <span class="toc-text">2.2.3 磁盘分区方案 - MBR</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-3-2-MBR%E5%A4%A7%E7%99%BD%E8%AF%9D%E8%A7%A3%E9%87%8A"><span class="toc-number">2.2.3.1.</span> <span class="toc-text">2.2.3.2 MBR大白话解释</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#MBR%E5%88%86%E5%8C%BA%E6%96%B9%E6%A1%88-%E2%80%9C%E8%80%81%E5%BC%8F%E6%88%B7%E5%8F%A3%E6%9C%AC%E2%80%9D"><span class="toc-number">2.2.3.1.1.</span> <span class="toc-text">MBR分区方案 &#x3D; “老式户口本”</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E7%8E%B0%E5%9C%A8%E9%83%BD%E7%94%A8GPT%E5%88%86%E5%8C%BA%EF%BC%9F"><span class="toc-number">2.2.3.1.2.</span> <span class="toc-text">为什么现在都用GPT分区？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%80%BB%E7%BB%93%E5%AF%B9%E6%AF%94"><span class="toc-number">2.2.3.1.3.</span> <span class="toc-text">总结对比</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-3-3-fdisk%E5%88%86%E5%8C%BA%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8"><span class="toc-number">2.2.3.2.</span> <span class="toc-text">2.2.3.3 fdisk分区工具使用</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#2-2-3-3-1-fdisk%E5%91%BD%E4%BB%A4"><span class="toc-number">2.2.3.2.1.</span> <span class="toc-text">2.2.3.3.1 fdisk命令</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#2-2-3-3-2-fdisk%E7%A1%AC%E7%9B%98%E5%88%86%E5%8C%BA%E6%93%8D%E4%BD%9C"><span class="toc-number">2.2.3.2.2.</span> <span class="toc-text">2.2.3.3.2 fdisk硬盘分区操作</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%88%86%E5%8C%BA%E6%93%8D%E4%BD%9C%E5%A4%A7%E7%99%BD%E8%AF%9D%E8%A7%A3%E9%87%8A"><span class="toc-number">2.2.3.2.3.</span> <span class="toc-text">分区操作大白话解释</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-5-%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E6%96%B9%E6%A1%88%E2%80%93GPT"><span class="toc-number">2.2.4.</span> <span class="toc-text">2.2.5 磁盘分区方案–GPT</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-5-1-parted%E5%88%86%E5%8C%BA%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8"><span class="toc-number">2.2.4.1.</span> <span class="toc-text">2.2.5.1 parted分区工具使用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-5-2-parted%E7%A1%AC%E7%9B%98%E5%88%86%E5%8C%BA%E6%93%8D%E4%BD%9C-%E4%BA%A4%E4%BA%92%E5%BC%8F"><span class="toc-number">2.2.4.2.</span> <span class="toc-text">2.2.5.2 parted硬盘分区操作 - 交互式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-5-3parted%E7%A1%AC%E7%9B%98%E5%88%86%E5%8C%BA%E6%93%8D%E4%BD%9C-%E9%9D%9E%E4%BA%A4%E4%BA%92%E5%BC%8F"><span class="toc-number">2.2.4.3.</span> <span class="toc-text">2.2.5.3parted硬盘分区操作 - 非交互式</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-%E7%A3%81%E7%9B%98%E6%A0%BC%E5%BC%8F%E5%8C%96"><span class="toc-number">2.2.5.</span> <span class="toc-text">2.3 磁盘格式化</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-3-1-%E7%A3%81%E7%9B%98%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%91%BD%E4%BB%A4%E2%80%93mkfs"><span class="toc-number">2.2.5.1.</span> <span class="toc-text">2.3.1 磁盘格式化命令–mkfs</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-%E7%A3%81%E7%9B%98%E6%8C%82%E8%BD%BD"><span class="toc-number">2.2.6.</span> <span class="toc-text">2.4 磁盘挂载</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-4-1-fstab%E4%BB%8B%E7%BB%8D"><span class="toc-number">2.2.6.1.</span> <span class="toc-text">2.4.1 fstab介绍</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x03-%E9%80%BB%E8%BE%91%E5%8D%B7%E7%AE%A1%E7%90%86"><span class="toc-number">3.</span> <span class="toc-text">0x03 逻辑卷管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E9%80%BB%E8%BE%91%E5%8D%B7%E5%9F%BA%E7%A1%80"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 逻辑卷基础</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-1-%E9%80%BB%E8%BE%91%E5%8D%B7%E6%A6%82%E5%BF%B5"><span class="toc-number">3.1.1.</span> <span class="toc-text">3.1.1 逻辑卷概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-2-%E9%80%BB%E8%BE%91%E5%8D%B7%E5%8E%9F%E7%90%86"><span class="toc-number">3.1.2.</span> <span class="toc-text">3.1.2 逻辑卷原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-3-%E9%80%BB%E8%BE%91%E5%8D%B7%E4%BC%98%E7%82%B9"><span class="toc-number">3.1.3.</span> <span class="toc-text">3.1.3 逻辑卷优点</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E7%AE%A1%E7%90%86%E9%80%BB%E8%BE%91%E5%8D%B7"><span class="toc-number">3.2.</span> <span class="toc-text">3.2 管理逻辑卷</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-1-%E9%80%BB%E8%BE%91%E5%8D%B7%E5%88%9B%E5%BB%BA%E6%B5%81%E7%A8%8B"><span class="toc-number">3.2.1.</span> <span class="toc-text">3.2.1 逻辑卷创建流程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-2-%E9%80%BB%E8%BE%91%E5%8D%B7%E7%AE%A1%E7%90%86-pv%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">3.2.2.</span> <span class="toc-text">3.2.2 逻辑卷管理 - pv的使用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-3-%E9%80%BB%E8%BE%91%E5%8D%B7%E7%AE%A1%E7%90%86-vg%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">3.2.3.</span> <span class="toc-text">3.2.3 逻辑卷管理 - vg的使用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-4-%E9%80%BB%E8%BE%91%E5%8D%B7%E7%AE%A1%E7%90%86-lv%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">3.2.4.</span> <span class="toc-text">3.2.4 逻辑卷管理 - lv的使用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E5%8A%A8%E6%80%81%E8%B0%83%E6%95%B4%E9%80%BB%E8%BE%91%E5%8D%B7"><span class="toc-number">3.3.</span> <span class="toc-text">3.3 动态调整逻辑卷</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-1-%E9%80%BB%E8%BE%91%E5%8D%B7%E6%89%A9%E5%AE%B9"><span class="toc-number">3.3.1.</span> <span class="toc-text">3.3.1 逻辑卷扩容</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-2-%E9%80%BB%E8%BE%91%E5%8D%B7%E7%BC%A9%E5%AE%B9"><span class="toc-number">3.3.2.</span> <span class="toc-text">3.3.2 逻辑卷缩容</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-3-%E9%80%BB%E8%BE%91%E5%8D%B7%E5%AE%B9%E9%87%8F%E5%8F%98%E6%9B%B4"><span class="toc-number">3.3.3.</span> <span class="toc-text">3.3.3 逻辑卷容量变更</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IP/07%20openEuler%E7%B3%BB%E7%BB%9F%E7%9B%91%E6%8E%A7%E5%85%A5%E9%97%A8/" title="无题">无题</a><time datetime="2025-05-18T19:46:45.900Z" title="发表于 2025-05-19 03:46:45">2025-05-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/%E6%B3%A8%E9%87%8A/shebang/" title="无题">无题</a><time datetime="2025-05-18T19:46:45.880Z" title="发表于 2025-05-19 03:46:45">2025-05-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/10%20%E5%B8%B8%E7%94%A8%E5%B0%8F%E6%8C%87%E4%BB%A4/" title="无题">无题</a><time datetime="2025-05-18T19:46:45.685Z" title="发表于 2025-05-19 03:46:45">2025-05-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/09%20Samba%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86/" title="09 Samba文件共享服务器管理">09 Samba文件共享服务器管理</a><time datetime="2025-05-18T19:46:45.684Z" title="发表于 2025-05-19 03:46:45">2025-05-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/08%20%E4%BD%BF%E7%94%A8shell%E8%84%9A%E6%9C%AC/" title="08 使用shell脚本">08 使用shell脚本</a><time datetime="2025-05-18T19:46:45.683Z" title="发表于 2025-05-19 03:46:45">2025-05-19</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2025 By <a class="footer-bar-link" href="/" title="XBCID" target="_blank">XBCID</a></div></div><div id="footer-type-tips"></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/anzhiyu-c/hexo-theme-anzhiyu" title="主题">主题</a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">37</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">5</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">0</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://blog.anheyu.com/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://image.anheyu.com/" title="安知鱼图床"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.anheyu.com/favicon.ico" alt="安知鱼图床"/><span class="back-menu-item-text">安知鱼图床</span></a></div></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/HCIA/" style="font-size: 0.88rem;">HCIA<sup>9</sup></a><a href="/tags/HCIP/" style="font-size: 0.88rem;">HCIP<sup>6</sup></a><a href="/tags/Huawei/" style="font-size: 0.88rem;">Huawei<sup>15</sup></a><a href="/tags/Linux/" style="font-size: 0.88rem;">Linux<sup>18</sup></a><a href="/tags/openEuler/" style="font-size: 0.88rem;">openEuler<sup>18</sup></a></div></div><hr/></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8152976493" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random" volume="0.7"></meting-js></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.5/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
-var HoldLog = console.log;
-console.log = function () {};
-let now1 = new Date();
-queueMicrotask(() => {
-  const Log = function () {
-    HoldLog.apply(console, arguments);
-  }; //在恢复前输出日志
-  const grt = new Date("01/12/2021 14:00:00"); //此处修改你的建站时间或者网站上线时间
-  now1.setTime(now1.getTime() + 250);
-  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
-  const dnum = Math.floor(days);
-  const ascll = [
-    `欢迎使用安知鱼!`,
-    `生活明朗, 万物可爱`,
-    `
-        
-       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
-      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
-      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
-      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
-      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
-      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
-        
-        `,
-    "已上线",
-    dnum,
-    "天",
-    "©2020 By 安知鱼 V1.6.14",
-  ];
-  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
+	
+		</div>
+		
+		<div id="current-post-cover" data-scr="/img/cart_cover.jpg"></div>
 
-  setTimeout(
-    Log.bind(
-      console,
-      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
-      "color:#425AEF",
-      "",
-      "color:#425AEF",
-      "color:#425AEF",
-      "",
-      "color:#425AEF",
-      ""
-    )
-  );
-  setTimeout(
-    Log.bind(
-      console,
-      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
-      "color:white; background-color:#4fd953",
-      "",
-      "",
-      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
-    )
-  );
+		<!-- relate post, comment...-->
+		<div class="investment-container">
+			<div class="investment-header">
+				<div class="investment-title-1">
+					<div class="on">相关文章</div>
+					<div>评论</div>
+					<div>分享</div>
+				</div>
+				<div class="investment-title-2">	            
+					
+	<span>
+		<a id="totop-post-page">返回顶部</a>
+		
+			<a href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/08%20%E4%BD%BF%E7%94%A8shell%E8%84%9A%E6%9C%AC/" title="08 使用shell脚本" rel="prev">
+				&laquo;上一篇
+			</a>
+		
+		
+			<a href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/05%20%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E5%B9%B6%E7%AE%A1%E7%90%86%E6%9C%8D%E5%8A%A1/" title="05 安装软件并管理服务" rel="next">
+				下一篇&raquo;
+			</a>
+			
+	</span>
 
-  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
 
-  setTimeout(
-    console.warn.bind(
-      console,
-      "%c ⚡ Powered by 安知鱼 %c 你正在访问 XBCID 的博客.",
-      "color:white; background-color:#f0ad4e",
-      ""
-    )
-  );
+      		
+				</div>	
+			</div>
+			
+			<div class="investment-content">
+				<div class="investment-content-list">
+					
 
-  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+<div class="relate-post">
+	
+		<ul>
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/09%20Samba%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86/" title="09 Samba文件共享服务器管理">
+								09 Samba文件共享服务器管理			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								五月 19日, 2025				
+							</p>
+							<p class="relate-post-content">
+								完成openEuler系统基础命令操作后，可以基于openEuler及软件搭建各类服务，应用到各个IT系统中，基于openEuler及Samba可以完成文件共享服务器的搭建。
+学完本课程后，你将能够:
 
-  setTimeout(
-    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
-  );
-});</script><script async src="/anzhiyu/random.js"></script><div class="js-pjax"><input type="hidden" name="page-type" id="page-type" value="post"></div><script>var visitorMail = "";
-</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/qrcodejs/1.0.0/qrcode.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
-var pjax = new Pjax({
-  elements: 'a:not([target="_blank"])',
-  selectors: pjaxSelectors,
-  cacheBust: false,
-  analytics: false,
-  scrollRestoration: false
-})
+基于openEuler系统文件...
+							</p>
+						</div>
 
-document.addEventListener('pjax:send', function () {
-  // removeEventListener scroll 
-  anzhiyu.removeGlobalFnEvent('pjax')
-  anzhiyu.removeGlobalFnEvent('themeChange')
+						<div class="relate-post-cover">
+							<a href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/09%20Samba%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86/" title="09 Samba文件共享服务器管理">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="09 Samba文件共享服务器管理"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/08%20%E4%BD%BF%E7%94%A8shell%E8%84%9A%E6%9C%AC/" title="08 使用shell脚本">
+								08 使用shell脚本			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								五月 19日, 2025				
+							</p>
+							<p class="relate-post-content">
+								
+本课程基于 openEuler
+介绍关于 Shell 的基础知识
+结合实际案例展示 Shell 脚本编写的最佳实践
 
-  document.getElementById('rightside').classList.remove('rightside-show')
+学完本课程后，您应该能：
+
+熟悉 Shell 基础知识
+掌握 Shell 编程基础
+能够编写常用的 Shell 脚...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/08%20%E4%BD%BF%E7%94%A8shell%E8%84%9A%E6%9C%AC/" title="08 使用shell脚本">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="08 使用shell脚本"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/05%20%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E5%B9%B6%E7%AE%A1%E7%90%86%E6%9C%8D%E5%8A%A1/" title="05 安装软件并管理服务">
+								05 安装软件并管理服务			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								五月 19日, 2025				
+							</p>
+							<p class="relate-post-content">
+								本章节主要讲述openEuler中安装软件包三种方式：rpm安装、源码安装以及yum安装的相关概念以及具体的操作命令，并且介绍了systemd管理服务的概念以及操作方式。
+0x01 RPM管理软件包1.1 RPM软件包Linux软件包...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IA/05%20%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E5%B9%B6%E7%AE%A1%E7%90%86%E6%9C%8D%E5%8A%A1/" title="05 安装软件并管理服务">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="05 安装软件并管理服务"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IP/03%20openEuler%E5%AD%98%E5%82%A8%E7%AE%A1%E7%90%86/" title="03 openEuler存储管理">
+								03 openEuler存储管理			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								五月 19日, 2025				
+							</p>
+							<p class="relate-post-content">
+								存储是计算机系统中非常重要的概念，它负责存储和管理数据。随着IT技术的不断发展和企业对存储需求的不断变化，存储技术和架构也在不断革新。本章我们将从存储的基本概念开始了解不同存储类型的区别及使用方法。
+学完本课程后，您将能够:
+
+了解存...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2025/05/19/openEuler/%E7%AC%94%E8%AE%B0/IP/03%20openEuler%E5%AD%98%E5%82%A8%E7%AE%A1%E7%90%86/" title="03 openEuler存储管理">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="03 openEuler存储管理"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2025/03/08/openEuler/%E7%AC%94%E8%AE%B0/IP/06%20openEuler%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA/" title="06 openEuler操作系统安全加固">
+								06 openEuler操作系统安全加固			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								三月 8日, 2025				
+							</p>
+							<p class="relate-post-content">
+								操作系统是互联网不可或缺的基础设施之一，也是生产、处理和存储价值数据的实体。同时openEuler作为Linux发行版系统，具有开源、免费的特点，拥有丰富健康的生态环境和社区支持。正因如此，保障其安全的重要性不言而喻。本章节以操作系统...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2025/03/08/openEuler/%E7%AC%94%E8%AE%B0/IP/06%20openEuler%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AE%89%E5%85%A8%E5%8A%A0%E5%9B%BA/" title="06 openEuler操作系统安全加固">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="06 openEuler操作系统安全加固"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2025/03/06/openEuler/%E7%AC%94%E8%AE%B0/IP/05%20shell%E8%84%9A%E6%9C%AC%E8%BF%9B%E9%98%B6/" title="05 shell脚本进阶">
+								05 shell脚本进阶			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								三月 6日, 2025				
+							</p>
+							<p class="relate-post-content">
+								前言本章主要讲述Shell脚本的进阶功能，包括条件判断、函数、正则表达式、grep、sed、awk命令。
+
+掌握条件判断的使用
+掌握函数的常见操作
+掌握grep语法与常见操作
+掌握正则表达式的基本用法
+掌握sed语法与常见操作
+掌握a...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2025/03/06/openEuler/%E7%AC%94%E8%AE%B0/IP/05%20shell%E8%84%9A%E6%9C%AC%E8%BF%9B%E9%98%B6/" title="05 shell脚本进阶">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="05 shell脚本进阶"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2025/03/04/openEuler/%E7%AC%94%E8%AE%B0/IP/02%20openEuler%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84%E4%BB%8B%E7%BB%8D/" title="02 openEuler集群架构介绍">
+								02 openEuler集群架构介绍			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								三月 4日, 2025				
+							</p>
+							<p class="relate-post-content">
+								前言随着互联网的发展，单机应用已经无法满足用户的需求，因此集群应用而生本章将主要介绍高可用集群与负载均衡集群的实现工具的配置，包括LVS、HAProxy、Nginx和Keepalived 。目标
+
+熟悉LVS的搭建和配置
+熟悉Ngin...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2025/03/04/openEuler/%E7%AC%94%E8%AE%B0/IP/02%20openEuler%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84%E4%BB%8B%E7%BB%8D/" title="02 openEuler集群架构介绍">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="02 openEuler集群架构介绍"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2025/03/04/openEuler/%E5%AE%9E%E9%AA%8C/IP/02%20openEuler%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84/01%20LVS%E9%85%8D%E7%BD%AE%E5%AE%9E%E8%B7%B5/" title="01 LVS配置实践">
+								01 LVS配置实践			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								三月 4日, 2025				
+							</p>
+							<p class="relate-post-content">
+								1.1 LVS&#x2F;NAT 模式配置1.1.1 实验介绍本实验将通过 LVS 负载均衡的方式访问一个 Nginx 集群。在实际工作场景中，集群向外提供服务时显示的内容是一致的，但在本实验中为了将 LVS 的算法体现的比较明显，N...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2025/03/04/openEuler/%E5%AE%9E%E9%AA%8C/IP/02%20openEuler%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84/01%20LVS%E9%85%8D%E7%BD%AE%E5%AE%9E%E8%B7%B5/" title="01 LVS配置实践">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="01 LVS配置实践"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2025/03/02/openEuler/%E5%AE%9E%E9%AA%8C/IP/01%20openEuler%E5%9F%BA%E7%A1%80%E6%9C%8D%E5%8A%A1/03%20DNS%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE/" title="03 DNS相关配置">
+								03 DNS相关配置			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								三月 2日, 2025				
+							</p>
+							<p class="relate-post-content">
+								3.1 实验介绍3.1.1 关于本实验本实验基于《3.3.2 Nginx 负载均衡配置》进行，将使用 DNS 服务器代替原先的静态 DNS 为用户端提供对应服务。
+3.2 安装 DNS 软件3.2.1 资源准备按照实验组网介绍和实验设...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2025/03/02/openEuler/%E5%AE%9E%E9%AA%8C/IP/01%20openEuler%E5%9F%BA%E7%A1%80%E6%9C%8D%E5%8A%A1/03%20DNS%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE/" title="03 DNS相关配置">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="03 DNS相关配置"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2025/02/28/openEuler/%E5%AE%9E%E9%AA%8C/IA/08%20shell%E8%84%9A%E6%9C%AC%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/" title="08 shell脚本语言基础">
+								08 shell脚本语言基础			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 28日, 2025				
+							</p>
+							<p class="relate-post-content">
+								8.1 实验介绍8.1.1 实验介绍在对系统进行运维时，shell 脚本给了我们很大帮助。通过 shell 脚本，可以大大减少工作量。本实验主要介绍 shell 脚本的概念及使用。
+8.1.2 实验目标
+掌握全局变量及局部变量；
+掌握...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2025/02/28/openEuler/%E5%AE%9E%E9%AA%8C/IA/08%20shell%E8%84%9A%E6%9C%AC%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/" title="08 shell脚本语言基础">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="08 shell脚本语言基础"/>
+							</a>
+						</div>
+					</li>												
+			
+		</ul>
+	
+</div>	
+				</div>
+				<div class="investment-content-list">
+					<div class="layout-comment">
+
+	
+		<div class="config-info">
+			Please check the parameter of <b>comment</b> in config.yml of hexo-theme-Annie!
+		</div>	
+	
+
+</div>
+				</div>
+				<div class="investment-content-list">
+					<div class="layout-share">
+	
+	
+
+		
+			
+			<!-- socialShare share -->
+			<div class="social-share"></div>
+
+<!--  css & js -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+			
+		
+		
+	
+</div>
+
+
+				</div>
+			</div>	
+		</div>
+	</div>
+</div>
+
+<!-- show math formula -->
+
+
+
+	
+
+
+
+
+
+<link rel="stylesheet" href="/plugin/fancybox/jquery.fancybox.css">
+
+
+<script src="/plugin/fancybox/jquery.fancybox.js"></script>
+
+
+<script type="text/javascript">
+	(function gallerySet(){
+		let titleID = $('.article-title a'),
+			imageID = $('.article-content img'),
+			videoID = $('.article-content video');
+		
+		let postTitle = titleID.text() ? titleID.text() : "No post title!";
+		
+		imageID.each(function() {
+			let imgPath = $(this).attr('src'),
+				imgTitle = $(this).attr('alt') ? $(this).attr('alt') : "No image description!";
+		
+			//给每个匹配的<img>元素打包, 即添加父元素<a>
+			$(this).wrap('<a data-fancybox="gallery" data-caption="《 ' + postTitle + ' 》' + imgTitle + '"href="' + imgPath + '"> </a>');
+		});
+		
+		videoID.each(function() {
+			let videoPath = $(this).attr('src');
+		
+			//给每个匹配的<img>元素打包, 即添加父元素<a>
+			$(this).wrap('<a data-fancybox href=" ' + videoPath + ' "> </a>');
+		});
+		
+		//TODO：支持html5 video
+
+		if($('#layout-post').length) {
+			$('[data-fancybox="gallery"]').fancybox({
+				loop: true,
+				buttons: [
+					"zoom",
+					"share",
+					"slideShow",
+					"fullScreen",
+					//"download",
+					"thumbs",
+					"close"
+				],
+				protect: true
+			});
+		}
+	})();
+</script>
+		</main>
+
+		<!--footer-->
+		<footer>
+	<div id="navigation-show">
+		<ul id="global-nav">
+	
+		<li class="menu-home">
+			<a href="/" class="menu-item-home" target="_blank">主页</a>
+		</li>
+		
+	
+		<li class="menu-archive">
+			<a href="/archives" class="menu-item-archive" target="_blank">归档</a>
+		</li>
+		
+	
+		<li class="menu-categories">
+			<a href="/categories" class="menu-item-categories" target="_blank">分类</a>
+		</li>
+		
+	
+		<li class="menu-tags">
+			<a href="/tags" class="menu-item-tags" target="_blank">标签</a>
+		</li>
+		
+	
+		<li class="menu-about">
+			<a href="/about" class="menu-item-about" target="_blank">关于</a>
+		</li>
+		
+	
+		<li class="menu-gallery">
+			<a href="/gallery" class="menu-item-gallery" target="_blank">相册</a>
+		</li>
+		
+	
+
+	
+</ul>
+	</div>
+
+	<div class="copyright">
+		<p>
+			 
+				&copy;2017 - 2025, content by Sariay. All Rights Reserved.
+			
+			
+				<a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> Theme <a href="https://github.com/Sariay/hexo-theme-Annie" title="Annie" target="_blank" rel="noopener">Annie</a> by Sariay.
+			
+		</p>
+		<p>
+			
+
+	<!-- busuanzi -->
+	<!-- busuanzi -->
+
+
+
+			<a href="javascript:zh_tran('s');" class="zh_click" id="zh_click_s">简体</a> 
+			<a href="javascript:zh_tran('t');" class="zh_click" id="zh_click_t">繁體</a>				
+		</p>
+	</div>		
+</footer>
+		
+	<!-- Local or hitokoto! -->
+
+	
+<script src="/plugin/motto/motto.js"></script>
+
+	
+	<script type="text/javascript">
+		(function motto(){
+			let mottoText = getMingYanContent().split('</br> - </br>'),
+			
+			mottoTextContent = mottoText[0]?mottoText[0]:'请刷新...',
+			
+			mottoTextFrom = mottoText[1]?mottoText[1]:'one/一个';
+			
+			mottoTextContent = mottoTextContent.trim().substring(0, 100);
+		
+			$("#motto-content").html( mottoTextContent);
+			$("#motto-author").html( mottoTextFrom  );
+		})();	
+	</script>	
+
+
+
+<!-- love effect -->
+
+
+<!-- back to top -->
+
+	<div id="totop">
+	<span class="icon-circle-up"></span>
+</div>
+
+
+
+<!-- site analysis -->
+
+
+	<!-- site-analysis -->
+	
+	
+	
+	
+	
+ 
+
+<!-- leancloud -->
+
+
+	<!-- leancloud -->
+	<!--
+	时间：2018-11-27
+	描述：
+		文章访问量：visitors
+		文章喜欢量：likes	
+		文章排行榜：topNPost
+		其他得说明：
+			01-Cookie相关的函数 
+				https://blog.csdn.net/somehow1002/article/details/78511541（Author：somehow1002）
+			02-visitors相关的函数 
+				https://blog.csdn.net/u013553529/article/details/63357382（Author：爱博客大伯）
+				https://notes.doublemine.me/2015-10-21-为NexT主题添加文章阅读量统计功能.html（Author：夏末）
+			03-topNPost相关的函数
+				https://hoxis.github.io/hexo-next-read-rank.html（Author：hoxis）
+			04-likes相关的函数，
+				参考了01 & 02进行简单的设计与实现
+-->
+
+
+	
+
   
-  if (window.aplayers) {
-    for (let i = 0; i < window.aplayers.length; i++) {
-      if (!window.aplayers[i].options.fixed) {
-        window.aplayers[i].destroy()
-      }
-    }
-  }
 
-  typeof typed === 'object' && typed.destroy()
 
-  //reset readmode
-  const $bodyClassList = document.body.classList
-  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
-})
 
-document.addEventListener('pjax:complete', function () {
-  window.refreshFn()
+<script src="/plugin/chinese/chinese.js"></script>
+<script src="/plugin/imagelazyloader/yall.min.js"></script>
+<script src="/plugin/imageloaded/imagesloaded.pkgd.min.js"></script>
+<script src="/plugin/nicescroll/jquery.nicescroll.js"></script>
+<script src="/plugin/resizediv/resizediv.js"></script>
+<script src="/js/main.js"></script>
 
-  document.querySelectorAll('script[data-pjax]').forEach(item => {
-    const newScript = document.createElement('script')
-    const content = item.text || item.textContent || item.innerHTML || ""
-    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
-    newScript.appendChild(document.createTextNode(content))
-    item.parentNode.replaceChild(newScript, item)
-  })
-
-  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
-
-  typeof panguInit === 'function' && panguInit()
-
-  // google analytics
-  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
-
-  // baidu analytics
-  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
-
-  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
-
-  // prismjs
-  typeof Prism === 'object' && Prism.highlightAll()
-})
-
-document.addEventListener('pjax:error', e => {
-  if (e.request.status === 404) {
-    pjax.loadUrl('/404.html')
-  }
-})</script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>
+	</body>	
+</html>
